@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { analyzeReadingSession } from '../utils/tarotEngine';
 import {
   Sparkles, User, Heart, Briefcase, DollarSign, Compass,
-  Bookmark, Share2, Check, RefreshCw, X, Download, FileText
+  Bookmark, Share2, Check, RefreshCw, X, Download, FileText, Layers
 } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
@@ -89,7 +89,6 @@ export const ReadingResult = ({
       setIsExportingImage(true);
       cosmicAudio.playSparkleSound();
 
-      // Temporarily reveal poster off-screen container for html2canvas
       posterRef.current.style.display = 'block';
 
       const canvas = await html2canvas(posterRef.current, {
@@ -190,7 +189,43 @@ export const ReadingResult = ({
           </div>
         </div>
 
-        {/* Main Aspect Interpretation Section */}
+        {/* 🔮 1. HOLISTIC INTERCONNECTED NARRATIVE SECTION */}
+        <div className="glass-panel p-6 md:p-8 space-y-4 border-amber-400/40 relative overflow-hidden bg-gradient-to-br from-purple-950/70 via-space to-indigo-950/70">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full bg-amber-400/20 border border-amber-400/50 flex items-center justify-center">
+              <Layers className="w-5 h-5 text-amber-300" />
+            </div>
+            <div>
+              <span className="text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider bg-amber-400/10 text-amber-300 border border-amber-400/30">
+                {t.holisticBadge}
+              </span>
+              <h3 className="text-xl md:text-2xl font-serif text-amber-300 font-bold mt-1">
+                {t.holisticTitle}
+              </h3>
+            </div>
+          </div>
+
+          <div className="text-sm md:text-base text-gray-200 leading-relaxed space-y-4 pt-2 font-light border-t border-purple-500/20">
+            {analysis.holisticNarrative.split('\n\n').map((paragraph, pIdx) => {
+              if (paragraph.startsWith('###')) {
+                return null;
+              }
+              return (
+                <p key={pIdx} className="bg-space/40 p-4 rounded-xl border border-purple-400/20">
+                  {paragraph.split('**').map((chunk, cIdx) => (
+                    cIdx % 2 === 1 ? (
+                      <strong key={cIdx} className="text-amber-300 font-semibold">{chunk}</strong>
+                    ) : (
+                      chunk
+                    )
+                  ))}
+                </p>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* 2. MAIN ASPECT INTERPRETATION SECTION */}
         <div className="glass-panel p-6 md:p-8 space-y-6">
           
           {/* Aspect Navigation Tabs */}
@@ -413,7 +448,7 @@ export const ReadingResult = ({
         </div>
       )}
 
-      {/* 🌟 DEDICATED HIGH-RES PNG POSTER EXPORT TEMPLATE (Clean & html2canvas Compatible) */}
+      {/* 🌟 DEDICATED HIGH-RES PNG POSTER EXPORT TEMPLATE */}
       <div
         ref={posterRef}
         style={{
@@ -449,7 +484,7 @@ export const ReadingResult = ({
           </div>
 
           {/* Drawn Cards Grid Poster */}
-          <div style={{ marginBottom: '28px' }}>
+          <div style={{ marginBottom: '24px' }}>
             <div style={{ fontSize: '13px', color: '#fbbf24', fontWeight: 'bold', marginBottom: '12px', textTransform: 'uppercase' }}>
               🎴 {t.drawnCardsTitle}
             </div>
@@ -472,6 +507,22 @@ export const ReadingResult = ({
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Holistic Narrative Poster Section */}
+          <div style={{
+            backgroundColor: '#0b0818',
+            border: '1px solid #fbbf24',
+            borderRadius: '16px',
+            padding: '20px',
+            marginBottom: '24px'
+          }}>
+            <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#fbbf24', marginBottom: '10px' }}>
+              {t.holisticTitle}
+            </div>
+            <div style={{ fontSize: '12px', color: '#e2e8f0', lineHeight: '1.65' }}>
+              {analysis.holisticNarrative.replace(/###/g, '').replace(/\*\*/g, '')}
             </div>
           </div>
 

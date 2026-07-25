@@ -52,14 +52,16 @@ export const TRANSLATIONS = {
     drawnCardsTitle: '🎴 Các Lá Bài Trong Phiên Trải Bài:',
     clickDetailHint: '(Bấm vào từng lá để xem thông tin chi tiết)',
     
-    // 5 Aspects
+    // Holistic & Aspects
+    holisticTitle: '🔮 Bản Luận Giải Liên Kết Năng Lượng Tổng Thể',
+    holisticBadge: 'Thông Điệp Cốt Lõi Vũ Trụ',
     aspectSituation: 'Tôi trong hoàn cảnh gì',
     aspectLove: 'Tình cảm',
     aspectWork: 'Công việc / Học tập',
     aspectFinance: 'Tài chính',
     aspectAdvice: 'Lời khuyên chung',
     
-    aspectHeading: 'Phân Tích Khía Cạnh:',
+    aspectHeading: 'Phân Tích Chi Tiết Khía Cạnh:',
     affirmationTitle: 'Thông Điệp Khẳng Định Từ Vũ Trụ (Affirmation)',
     journalNoteTitle: 'Ghi Chép Cảm Nhận Cá Nhân & Lưu Lại',
     notePlaceholder: 'Nhập suy nghĩ, cảm nhận hoặc dòng lưu ý của bạn về phiên xem bài này...',
@@ -152,14 +154,16 @@ export const TRANSLATIONS = {
     drawnCardsTitle: '🎴 Drawn Cards in Session:',
     clickDetailHint: '(Click on any card to view full details)',
     
-    // 5 Aspects
+    // Holistic & Aspects
+    holisticTitle: '🔮 Holistic Interconnected Reading Synthesis',
+    holisticBadge: 'Core Cosmic Message',
     aspectSituation: 'My Current Situation',
     aspectLove: 'Love & Relationships',
     aspectWork: 'Career & Education',
     aspectFinance: 'Finance & Wealth',
     aspectAdvice: 'General Advice',
     
-    aspectHeading: 'Aspect Analysis:',
+    aspectHeading: 'Detailed Aspect Analysis:',
     affirmationTitle: 'Cosmic Affirmation Message',
     journalNoteTitle: 'Personal Reflection & Journal Entry',
     notePlaceholder: 'Type your thoughts, feelings, or meditation notes about this reading session...',
@@ -252,7 +256,9 @@ export const TRANSLATIONS = {
     drawnCardsTitle: '🎴 本次抽取的塔罗牌:',
     clickDetailHint: '(点击任意卡牌查看完整牌意与词条)',
     
-    // 5 Aspects
+    // Holistic & Aspects
+    holisticTitle: '🔮 整体牌阵能量连结深度解牌',
+    holisticBadge: '宇宙核心启示',
     aspectSituation: '我的现状与心境',
     aspectLove: '感情与情感羁绊',
     aspectWork: '事业与学业指引',
