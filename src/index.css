@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-space: #0b0818;
+  --bg-card: rgba(22, 17, 54, 0.8);
+  --border-gold: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
+  --color-gold: #fbbf24;
+  --color-purple: #c084fc;
+  --color-cyan: #38bdf8;
+  --color-pink: #f472b6;
+  --font-serif: 'Cinzel', serif;
+  --font-sans: 'Outfit', sans-serif;
+  --glow-gold: 0 0 20px rgba(251, 191, 36, 0.4);
+  --glow-purple: 0 0 25px rgba(192, 132, 252, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-space);
+  color: #f3f4f6;
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Typography Headers */
+h1, h2, h3, .font-serif {
+  font-family: var(--font-serif);
+  letter-spacing: 0.04em;
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-panel-purple {
+  background: rgba(30, 20, 70, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(192, 132, 252, 0.3);
+  border-radius: 1.25rem;
+}
+
+/* Gold Gradient Text */
+.gold-gradient-text {
+  background: linear-gradient(135deg, #fffbeb 0%, #fbbf24 50%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Cosmic Purple Gradient Text */
+.cosmic-gradient-text {
+  background: linear-gradient(135deg, #f472b6 0%, #c084fc 50%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glowing Buttons with Mobile Touch Targets */
+.btn-cosmic {
+  background: linear-gradient(135deg, #7c3aed 0%, #c084fc 50%, #38bdf8 100%);
+  color: #ffffff;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  border: none;
+  border-radius: 9999px;
+  padding: 0.75rem 1.75rem;
+  min-height: 44px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-cosmic:active {
+  transform: scale(0.96);
+}
+
+.btn-cosmic:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 28px rgba(192, 132, 252, 0.6);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+  color: #0b0818;
+  font-weight: 700;
+  font-family: var(--font-serif);
+  border: none;
+  border-radius: 9999px;
+  padding: 0.75rem 1.75rem;
+  min-height: 44px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: var(--glow-gold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-gold:active {
+  transform: scale(0.96);
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(251, 191, 36, 0.7);
+}
+
+/* Floating Keyframe */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+}
+
+.animate-float {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+/* Pulsing Glow Keyframe */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(251, 191, 36, 0.3); }
+  50% { box-shadow: 0 0 35px rgba(251, 191, 36, 0.7); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s infinite;
+}
+
+/* 3D Card Flip Perspective Container */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Mobile responsive card touch scroll */
+.mobile-card-scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 1rem;
+}
+
+.mobile-card-scroll > * {
+  scroll-snap-align: center;
+  flex-shrink: 0;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0818;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b0764;
+  border-radius: 4px;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
