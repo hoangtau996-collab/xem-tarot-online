@@ -67,6 +67,9 @@ export const TRANSLATIONS = {
     savedSuccessBtn: 'Đã Lưu Vào Nhật Ký!',
     shareBtn: 'Chia Sẻ Kết Quả',
     sharedSuccessBtn: 'Đã Sao Chép Tóm Tắt!',
+    exportPdfBtn: '📄 Xuất File PDF',
+    exportImageBtn: '🖼️ Tải Ảnh Kết Quả',
+    exportingHint: 'Đang tạo file ảnh...',
     newReadingBtn: 'Trải Bài Mới',
 
     // Encyclopedia
@@ -164,6 +167,9 @@ export const TRANSLATIONS = {
     savedSuccessBtn: 'Saved to Journal!',
     shareBtn: 'Share Result',
     sharedSuccessBtn: 'Copied Summary!',
+    exportPdfBtn: '📄 Export PDF File',
+    exportImageBtn: '🖼️ Download PNG Image',
+    exportingHint: 'Generating Image...',
     newReadingBtn: 'New Reading',
 
     // Encyclopedia
@@ -261,6 +267,9 @@ export const TRANSLATIONS = {
     savedSuccessBtn: '已保存至日记!',
     shareBtn: '分享占卜结果',
     sharedSuccessBtn: '已复制摘要!',
+    exportPdfBtn: '📄 导出 PDF 文件',
+    exportImageBtn: '🖼️ 下载图片 (PNG)',
+    exportingHint: '正在生成图片...',
     newReadingBtn: '开始新占卜',
 
     // Encyclopedia

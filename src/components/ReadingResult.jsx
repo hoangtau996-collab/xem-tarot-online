@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { analyzeReadingSession } from '../utils/tarotEngine';
 import {
   Sparkles, User, Heart, Briefcase, DollarSign, Compass,
-  Bookmark, Share2, Check, RefreshCw, X
+  Bookmark, Share2, Check, RefreshCw, X, Download, FileText
 } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
+import html2canvas from 'html2canvas';
 
 export const ReadingResult = ({
   drawnCards,
@@ -20,7 +21,9 @@ export const ReadingResult = ({
   const [selectedCardModal, setSelectedCardModal] = useState(null);
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [copiedSuccess, setCopiedSuccess] = useState(false);
+  const [isExportingImage, setIsExportingImage] = useState(false);
   const [userNote, setUserNote] = useState('');
+  const resultRef = useRef(null);
 
   if (!analysis) return null;
 
@@ -72,8 +75,41 @@ export const ReadingResult = ({
     setTimeout(() => setCopiedSuccess(false), 3000);
   };
 
+  // 📄 Export Result to PDF (Print to PDF)
+  const handleExportPDF = () => {
+    cosmicAudio.playSparkleSound();
+    window.print();
+  };
+
+  // 🖼️ Export Result to High-Res PNG Image
+  const handleExportImage = async () => {
+    if (!resultRef.current) return;
+    try {
+      setIsExportingImage(true);
+      cosmicAudio.playSparkleSound();
+
+      const canvas = await html2canvas(resultRef.current, {
+        scale: 2,
+        backgroundColor: '#0b0818',
+        useCORS: true,
+        logging: false
+      });
+
+      const image = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = image;
+      link.download = `celestial_tarot_${Date.now()}.png`;
+      link.click();
+
+      setIsExportingImage(false);
+    } catch (err) {
+      console.error('Failed to capture image', err);
+      setIsExportingImage(false);
+    }
+  };
+
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8 space-y-10">
+    <div ref={resultRef} className="max-w-5xl mx-auto px-4 py-8 space-y-10">
       
       {/* Top Banner & Question Header */}
       <div className="glass-panel p-6 md:p-8 text-center space-y-3 relative overflow-hidden">
@@ -81,7 +117,7 @@ export const ReadingResult = ({
           <Sparkles className="w-4 h-4 animate-spin" style={{ animationDuration: '6s' }} />
           {t.resultBadge}
         </div>
-        <h2 className="text-2xl md:text-4xl font-serif gold-gradient-text">
+        <h2 className="text-2xl md:text-4xl font-serif gold-gradient-text font-bold">
           {t.resultHeading}
         </h2>
         <p className="text-gray-300 text-sm md:text-base italic">
@@ -232,7 +268,8 @@ export const ReadingResult = ({
           className="w-full p-4 rounded-xl bg-space/80 border border-purple-400/30 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 text-sm"
         />
 
-        <div className="flex flex-wrap gap-3 pt-2">
+        {/* Action Buttons Row with Export Options */}
+        <div className="flex flex-wrap gap-3 pt-2 items-center">
           <button
             onClick={handleSaveJournal}
             className="btn-gold text-xs font-serif"
@@ -250,9 +287,28 @@ export const ReadingResult = ({
             )}
           </button>
 
+          {/* Export PDF Button */}
+          <button
+            onClick={handleExportPDF}
+            className="px-4 py-2.5 rounded-full bg-indigo-900/60 border border-indigo-400/40 text-indigo-200 text-xs font-semibold hover:bg-indigo-800/80 transition-all flex items-center gap-1.5"
+          >
+            <FileText className="w-4 h-4 text-amber-300" />
+            {t.exportPdfBtn}
+          </button>
+
+          {/* Export PNG Image Button */}
+          <button
+            onClick={handleExportImage}
+            disabled={isExportingImage}
+            className="px-4 py-2.5 rounded-full bg-purple-900/60 border border-purple-400/40 text-purple-200 text-xs font-semibold hover:bg-purple-800/80 transition-all flex items-center gap-1.5"
+          >
+            <Download className="w-4 h-4 text-cyan-300" />
+            {isExportingImage ? t.exportingHint : t.exportImageBtn}
+          </button>
+
           <button
             onClick={handleCopyShare}
-            className="px-5 py-2.5 rounded-full bg-purple-900/50 border border-purple-400/40 text-purple-200 text-xs font-semibold hover:bg-purple-800/80 transition-all flex items-center gap-2"
+            className="px-4 py-2.5 rounded-full bg-purple-900/40 border border-purple-400/30 text-purple-200 text-xs font-semibold hover:bg-purple-800/80 transition-all flex items-center gap-1.5"
           >
             {copiedSuccess ? (
               <>
@@ -261,7 +317,7 @@ export const ReadingResult = ({
               </>
             ) : (
               <>
-                <Share2 className="w-4 h-4 text-cyan-400" />
+                <Share2 className="w-4 h-4 text-pink-300" />
                 {t.shareBtn}
               </>
             )}

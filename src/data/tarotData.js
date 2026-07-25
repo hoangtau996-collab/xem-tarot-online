@@ -3,6 +3,24 @@
 // 🌟 TAROT DECK THEMES (Multi-Language Support)
 export const getTarotDecksThemes = (lang = 'vi') => [
   {
+    id: 'cosmic_advice',
+    name: lang === 'en' ? 'Cosmic Advice & Oracle Tarot' : lang === 'zh' ? '宇宙启示神谕塔罗' : 'Tarot Lời Khuyên Vũ Trụ',
+    englishName: 'Cosmic Advice & Oracle Tarot',
+    description: lang === 'en'
+      ? 'A sacred oracle deck focused on soul awakening, spiritual advice, and divine cosmic guidance.'
+      : lang === 'zh'
+      ? '专注于灵魂觉醒、灵性指引与宇宙深层神谕启示的神圣塔罗。'
+      : 'Bộ bài chuyên sâu về thông điệp thức tỉnh, lời khuyên khai sáng tâm hồn và năng lượng dẫn lối từ các đấng sáng tạo vũ trụ.',
+    icon: '🌌',
+    color: '#e879f9',
+    bgGradient: 'from-fuchsia-600 via-purple-600 to-cyan-400',
+    cardBackBg: 'bg-[radial-gradient(#e879f9_1px,transparent_1px)]',
+    border: 'border-fuchsia-400/60',
+    glowColor: 'rgba(232, 121, 249, 0.5)',
+    symbol: '☸️',
+    styleTag: lang === 'en' ? 'Cosmic Advice & Oracle' : lang === 'zh' ? '启示与神谕' : 'Lời Khuyên & Khai Sáng'
+  },
+  {
     id: 'cosmic_gold',
     name: lang === 'en' ? 'Cosmic Gold Tarot' : lang === 'zh' ? '黄金宇宙塔罗' : 'Tarot Vũ Trụ Hoàng Kim',
     englishName: 'Cosmic Gold Tarot',
@@ -149,9 +167,6 @@ export const TAROT_DECKS_THEMES = getTarotDecksThemes('vi');
 export const SPREAD_TYPES = getSpreadTypes('vi');
 
 export const TAROT_DECK = [
-  // ==========================================
-  // MAJOR ARCANA (22 Lá Ẩn Chính)
-  // ==========================================
   {
     id: 'major-0',
     number: 0,
@@ -166,7 +181,7 @@ export const TAROT_DECK = [
     color: '#38bdf8',
     upright: {
       summary: 'Khởi đầu một hành trình mới đầy hào hứng, tự do và tự tin dấn thân vào những điều chưa biết.',
-      summaryEn: 'Embaring on an exciting new journey with freedom and trust in the unknown.',
+      summaryEn: 'Embarking on an exciting new journey with freedom and trust in the unknown.',
       summaryZh: '踏上一段充满希望与自由的新旅程，勇敢拥抱未知的可能性。',
       situation: 'Bạn đang đứng ở vạch xuất phát của một chu kỳ sống mới. Hãy mở lòng đón nhận những trải nghiệm mới mà không bị ràng buộc bởi sự sợ hãi hay định kiến cũ.',
       love: 'Một làn gió mới tràn vào đời sống tình cảm. Nếu đang độc thân, bạn sắp gặp đối tượng mang lại cảm xúc mới mẻ; nếu đang trong mối quan hệ, hãy tạo ra những bất ngờ vui vẻ.',
@@ -516,7 +531,7 @@ export const TAROT_DECK = [
     }
   },
 
-  // Minor Arcana Sample (Ace of Wands, Ace of Cups, Ace of Swords, Ace of Pentacles)
+  // Minor Arcana Sample
   {
     id: 'wands-1',
     number: 1,
@@ -534,7 +549,7 @@ export const TAROT_DECK = [
       summary: 'Ngọn lửa đam mê và cảm hứng bùng cháy, mở ra cơ hội khởi đầu hành động tràn đầy nhiệt huyết.',
       summaryEn: 'A spark of passion and inspiration igniting new creative ventures.',
       summaryZh: '激情与灵感的火花迸发，带来全新的行动机会。',
-      situation: 'Cơ hội tuyệt vời đang xuất hiện. Hãy đón nhận nguồn năng lượng sáng tạo này với sự hào hứng nhất.',
+      situation: 'Bạn đang sở hữu nguồn năng lượng dồi dào để khởi tạo các dự án mới.',
       love: 'Sự thu hút mãnh liệt, ngọn lửa tình cảm bùng cháy bất ngờ.',
       work: 'Ý tưởng dự án mới đầy triển vọng, thời điểm vàng để khởi động hành động.',
       finance: 'Cơ hội kiếm tiền mới xuất hiện từ chính đam mê cá nhân.',
@@ -544,9 +559,9 @@ export const TAROT_DECK = [
       summary: 'Thiếu nhiệt huyết, ý tưởng bị trì hoãn hoặc cảm giác tụt năng lượng.',
       summaryEn: 'Lack of motivation, delayed ideas, or low energy.',
       summaryZh: '热情消退、创意受阻或行动力不足。',
-      situation: 'Đam mê tạm thời bị dội gáo nước lạnh hoặc thiếu động lực để bắt đầu.',
-      love: 'Tình cảm có dấu hiệu thiếu lửa hoặc chưa sẵn sàng dấn thân.',
-      work: 'Dự án chậm tiến độ do thiếu kế hoạch thực thi cụ thể.',
+      situation: 'Đam mê tạm thời bị trì hoãn.',
+      love: 'Tình cảm có dấu hiệu thiếu lửa.',
+      work: 'Dự án chậm tiến độ do thiếu kế hoạch thực thi.',
       finance: 'Kế hoạch kinh doanh bị gián đoạn.',
       advice: 'Tìm lại nguồn cảm hứng bên trong trước khi ép bản thân hành động.'
     }
@@ -568,21 +583,21 @@ export const TAROT_DECK = [
       summary: 'Cốc tình yêu và cảm xúc đong đầy tràn trề, khởi đầu cho sự kết nối tâm hồn tuyệt vời.',
       summaryEn: 'An overflowing cup of emotional fulfillment, deep love, and healing.',
       summaryZh: '情感与爱的圣杯盈满，开启心灵疗愈与美妙连结。',
-      situation: 'Trái tim bạn rộng mở để đón nhận tình yêu thương, sự chữa lành và niềm vui sống.',
-      love: 'Khởi đầu một tình yêu ngập tràn hạnh phúc hoặc sự chữa lành sâu sắc cho mối quan hệ.',
-      work: 'Tìm thấy niềm đam mê thuần khiết trong công việc, môi trường làm việc chan hòa tình đồng nghiệp.',
-      finance: 'Tài chính mang lại sự an tâm và thoải mái tinh thần.',
-      advice: 'Hãy để cảm xúc chân thật chảy tràn và sẵn sàng yêu thương không tính toán.'
+      situation: 'Trái tim bạn rộng mở đón nhận yêu thương.',
+      love: 'Khởi đầu một tình yêu ngập tràn hạnh phúc.',
+      work: 'Tìm thấy đam mê thuần khiết trong công việc.',
+      finance: 'Tài chính mang lại sự an tâm tinh thần.',
+      advice: 'Hãy để cảm xúc chân thật chảy tràn.'
     },
     reversed: {
       summary: 'Cảm xúc dồn nén, đứt gãy kết nối hoặc vết thương lòng chưa lành.',
       summaryEn: 'Blocked emotions, heartbreak, or feeling disconnected.',
       summaryZh: '压抑的情感、心碎感或灵魂连结脱节。',
-      situation: 'Bạn đang khó bộc lộ cảm xúc hoặc cảm thấy thiếu hụt sự thấu hiểu từ xung quanh.',
-      love: 'E ngại mở lòng vì sợ hãi bị tổn thương thêm lần nữa.',
-      work: 'Cảm giác thiếu gắn kết tinh thần với môi trường xung quanh.',
-      finance: 'Lo lắng cảm tính về tiền bạc gây mất ngủ.',
-      advice: 'Hãy tha thứ cho bản thân và cho phép trái tim được chữa lành từ từ.'
+      situation: 'Bị tổn thương cảm xúc.',
+      love: 'E ngại mở lòng.',
+      work: 'Thiếu sự gắn kết với môi trường làm việc.',
+      finance: 'Lo lắng cảm tính về tiền bạc.',
+      advice: 'Cho phép trái tim được chữa lành từ từ.'
     }
   },
   {
@@ -602,20 +617,20 @@ export const TAROT_DECK = [
       summary: 'Thanh kiếm sự thật cắt đứt mọi nghi ngờ, mang lại tư duy sắc bén và đột phá ý tưởng.',
       summaryEn: 'The sword of truth cutting through confusion with mental clarity and breakthroughs.',
       summaryZh: '斩断迷思的真理之剑，带来清晰洞察与理性突破。',
-      situation: 'Mọi thứ trở nên rõ ràng mạch lạc. Bạn sẵn sàng đưa ra quyết định lý trí quan trọng.',
-      love: 'Giao tiếp thẳng thắn, làm rõ mọi khúc mắc bằng sự thật.',
-      work: 'Đột phá trong giải pháp công việc, tư duy phân tích sắc bén.',
-      finance: 'Quyết định tài chính quyết đoán dựa trên số liệu thực tế.',
-      advice: 'Hãy tin vào lý trí và dũng cảm nói lên sự thật.'
+      situation: 'Tư duy trở nên minh bạch và sắc bén.',
+      love: 'Giao tiếp thẳng thắn bằng sự thật.',
+      work: 'Đột phá trong giải pháp công việc.',
+      finance: 'Quyết định tài chính quyết đoán.',
+      advice: 'Dũng cảm nói lên sự thật.'
     },
     reversed: {
       summary: 'Tư duy hỗn loạn, hiểu lầm giao tiếp hoặc sử dụng lời nói gây tổn thương.',
       summaryEn: 'Mental confusion, misunderstandings, or harsh words.',
       summaryZh: '思维混乱、沟通误解或言语造成伤害。',
-      situation: 'Suy nghĩ bị rối bời hoặc lời nói thiếu cẩn trọng gây xích mích.',
-      love: 'Cần tránh dùng ngôn từ sắc mỏng làm tổn thương người mình yêu.',
-      work: 'Thiếu sự rõ ràng trong kế hoạch dẫn đến nhầm lẫn.',
-      finance: 'Đánh giá sai lầm thông tin tài chính.',
+      situation: 'Suy nghĩ bị rối bời.',
+      love: 'Lời nói làm tổn thương nhau.',
+      work: 'Thiếu sự rõ ràng trong kế hoạch.',
+      finance: 'Đánh giá sai lầm thông tin.',
       advice: 'Cân nhắc kỹ lời nói trước khi phát ngôn.'
     }
   },
@@ -636,21 +651,21 @@ export const TAROT_DECK = [
       summary: 'Hạt giống thịnh vượng và cơ hội tài chính vật chất thực tế đang nằm trong tay bạn.',
       summaryEn: 'A seed of material prosperity and promising financial opportunities.',
       summaryZh: '物质丰饶的种子，带来坚实的财务与实业机遇。',
-      situation: 'Cơ hội tuyệt vời để đầu tư, kinh doanh hoặc xây dựng nền tảng vững chắc cho tương lai.',
-      love: 'Mối quan hệ mang lại sự an toàn thực tế và sự hỗ trợ vững chắc.',
-      work: 'Dự án mới tiềm năng mang lại lợi nhuận cao, thăng tiến sự nghiệp.',
-      finance: 'Khoản thu nhập mới, cơ hội đầu tư béo bở hoặc quà tặng giá trị.',
-      advice: 'Hãy vun trồng hạt giống này bằng sự chăm chỉ và kế hoạch thực tế.'
+      situation: 'Cơ hội tuyệt vời để đầu tư và xây dựng.',
+      love: 'Mối quan hệ mang lại sự an toàn thực tế.',
+      work: 'Dự án mới sinh lời cao.',
+      finance: 'Khoản thu nhập mới hoặc quà tặng giá trị.',
+      advice: 'Vun trồng hạt giống bằng kế hoạch thực tế.'
     },
     reversed: {
       summary: 'Bỏ lỡ cơ hội tài chính, quản lý ngân sách kém hoặc kế hoạch thiếu tính thực tế.',
       summaryEn: 'Missed financial opportunity or poor budget management.',
       summaryZh: '错失理财良机或缺乏切合实际的规划。',
-      situation: 'Cần xem xét kỹ các chi phí ẩn trước khi xuống tiền đầu tư.',
-      love: 'Thiếu sự ổn định vật chất gây áp lực lên tình cảm.',
-      work: 'Dự án chậm sinh lời do thiếu nguồn lực.',
-      finance: 'Thất thoát nhỏ do quản lý tài chính chưa chặt chẽ.',
-      advice: 'Tập trung xây dựng nền tảng chắc chắn trước khi mở rộng.'
+      situation: 'Quản lý ngân sách chưa chặt chẽ.',
+      love: 'Áp lực vật chất tác động lên tình cảm.',
+      work: 'Dự án chậm sinh lời.',
+      finance: 'Thất thoát nhỏ do thiếu kiểm soát.',
+      advice: 'Xây dựng nền tảng chắc chắn trước khi mở rộng.'
     }
   }
 ];
