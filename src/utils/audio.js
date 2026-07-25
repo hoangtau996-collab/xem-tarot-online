@@ -1,18 +1,18 @@
-// Web Audio API Synthesizer with Zen Meditation & Babbling Brook Water Sound Generator
+// Web Audio API Synthesizer with Tibetan Singing Bowl & Zen Meditation Generator
 
 class CosmicAudioSynthesizer {
   constructor() {
     this.ctx = null;
     this.isMuted = false;
     this.volume = 0.5; // Default volume 50%
-    this.musicMode = 'stream'; // 'stream' (Thiền Suối Chảy) or 'cosmic' (Vũ Trụ)
+    this.musicMode = 'tibetan'; // 'tibetan' (Chuông Xoay Tây Tạng) or 'cosmic' (Vũ Trụ)
     
     // Ambient Music Synth Node references
     this.ambientGain = null;
     this.isPlayingAmbient = false;
     this.ambientNodes = [];
-    this.melodyTimer = null;
-    this.waterTimer = null;
+    this.bowlTimer = null;
+    this.tingshaTimer = null;
   }
 
   initContext() {
@@ -30,7 +30,7 @@ class CosmicAudioSynthesizer {
   setVolume(newVolume) {
     this.volume = Math.max(0, Math.min(1, newVolume));
     if (this.ambientGain && this.ctx) {
-      this.ambientGain.gain.setValueAtTime(this.volume * 0.1, this.ctx.currentTime);
+      this.ambientGain.gain.setValueAtTime(this.volume * 0.12, this.ctx.currentTime);
     }
   }
 
@@ -89,7 +89,7 @@ class CosmicAudioSynthesizer {
     } catch (e) {}
   }
 
-  // Sound 2: Crystal Chime Card Flip
+  // Sound 2: Tibetan Bell Card Flip Chime
   playFlipSound() {
     if (this.isMuted) return;
     this.initContext();
@@ -101,9 +101,9 @@ class CosmicAudioSynthesizer {
       const gain = this.ctx.createGain();
 
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(440, now);
-      osc.frequency.exponentialRampToValueAtTime(880, now + 0.12);
-      osc.frequency.exponentialRampToValueAtTime(1320, now + 0.24);
+      osc.frequency.setValueAtTime(432, now);
+      osc.frequency.exponentialRampToValueAtTime(864, now + 0.12);
+      osc.frequency.exponentialRampToValueAtTime(1296, now + 0.24);
 
       const currentGain = this.volume * 0.2;
       gain.gain.setValueAtTime(0.001, now);
@@ -148,7 +148,7 @@ class CosmicAudioSynthesizer {
     } catch (e) {}
   }
 
-  // Master Ambient Synthesizer (Thiền Suối Chảy Róc Rách & Nhạc Không Lời)
+  // Master Ambient Synthesizer (Chuông Xoay Tây Tạng - Tibetan Singing Bowls)
   startAmbient() {
     if (this.isMuted || this.isPlayingAmbient) return;
     this.initContext();
@@ -158,16 +158,14 @@ class CosmicAudioSynthesizer {
       const now = this.ctx.currentTime;
       this.ambientGain = this.ctx.createGain();
       this.ambientGain.gain.setValueAtTime(0.001, now);
-      this.ambientGain.gain.linearRampToValueAtTime(this.volume * 0.1, now + 2);
+      this.ambientGain.gain.linearRampToValueAtTime(this.volume * 0.12, now + 2);
 
       this.ambientGain.connect(this.ctx.destination);
       this.isPlayingAmbient = true;
 
-      if (this.musicMode === 'stream') {
-        // 🌊 Synthesize Continuous Babbling Brook Water Stream Sound
-        this.setupWaterStream(now);
-        // 🧘 Synthesize Deep Meditation Tibetan Bowl & Zen Flute Chords
-        this.setupZenMeditationChords(now);
+      if (this.musicMode === 'tibetan') {
+        // 🥣 Tibetan Singing Bowl Deep Drone & Rim Vibration
+        this.setupTibetanBowlDrone(now);
       } else {
         // 🌌 Cosmic Space Pad
         this.setupCosmicPad(now);
@@ -177,141 +175,132 @@ class CosmicAudioSynthesizer {
     }
   }
 
-  // 🌊 Babbling Brook Water Stream Generator (Âm thanh suối chảy róc rách)
-  setupWaterStream(now) {
-    // 1. Continuous Soft Water Flow (Rushing Water Noise)
-    const bufferSize = this.ctx.sampleRate * 2;
-    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-    const data = buffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-      data[i] = Math.random() * 2 - 1;
-    }
+  // 🥣 Tibetan Singing Bowl Deep Drone (432Hz Root & Harmonics)
+  setupTibetanBowlDrone(now) {
+    // Frequencies representing brass Tibetan bowl fundamentals & overtones
+    const bowlHarmonics = [
+      { freq: 108.00, gain: 0.05, type: 'sine' },      // Low OM Sub-bass
+      { freq: 216.00, gain: 0.04, type: 'sine' },      // Low Octave
+      { freq: 432.00, gain: 0.06, type: 'sine' },      // Sacred 432Hz Fundamental
+      { freq: 648.00, gain: 0.02, type: 'triangle' },  // Perfect 5th Overtone
+      { freq: 864.00, gain: 0.015, type: 'sine' }      // High Harmonic
+    ];
 
-    const waterNoise = this.ctx.createBufferSource();
-    waterNoise.buffer = buffer;
-    waterNoise.loop = true;
-
-    // Water Stream Bandpass Filter (Dynamic Modulation)
-    const waterFilter = this.ctx.createBiquadFilter();
-    waterFilter.type = 'bandpass';
-    waterFilter.frequency.setValueAtTime(650, now);
-    waterFilter.Q.setValueAtTime(1.8, now);
-
-    // Filter LFO to simulate undulating water currents
-    const filterLfo = this.ctx.createOscillator();
-    filterLfo.type = 'sine';
-    filterLfo.frequency.setValueAtTime(0.2, now);
-    const lfoGain = this.ctx.createGain();
-    lfoGain.gain.setValueAtTime(150, now);
-    filterLfo.connect(lfoGain);
-    lfoGain.connect(waterFilter.frequency);
-    filterLfo.start(now);
-
-    const waterGainNode = this.ctx.createGain();
-    waterGainNode.gain.setValueAtTime(0.04, now);
-
-    waterNoise.connect(waterFilter);
-    waterFilter.connect(waterGainNode);
-    waterGainNode.connect(this.ambientGain);
-
-    waterNoise.start(now);
-    this.ambientNodes.push(waterNoise, filterLfo);
-
-    // 2. Random Babbling Water Trickles & Bubble Pops
-    this.scheduleWaterBubbles();
-  }
-
-  scheduleWaterBubbles() {
-    if (!this.isPlayingAmbient || this.musicMode !== 'stream' || !this.ctx || this.isMuted) return;
-
-    try {
-      const now = this.ctx.currentTime;
-      // Water bubble drop pitch & frequency
-      const pitch = 500 + Math.random() * 700; // 500Hz - 1200Hz
+    bowlHarmonics.forEach((h, idx) => {
       const osc = this.ctx.createOscillator();
-      const bubbleGain = this.ctx.createGain();
+      osc.type = h.type;
+      osc.frequency.setValueAtTime(h.freq, now);
 
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(pitch, now);
-      // Fast pitch drop simulates water droplet hitting stream
-      osc.frequency.exponentialRampToValueAtTime(pitch * 0.4, now + 0.08);
+      // Tremolo LFO to simulate the spinning rim vibration of a Tibetan Singing Bowl
+      const tremoloLfo = this.ctx.createOscillator();
+      tremoloLfo.type = 'sine';
+      tremoloLfo.frequency.setValueAtTime(0.6 + idx * 0.1, now); // 0.6Hz beating rate
 
-      const currentGain = this.volume * (0.02 + Math.random() * 0.03);
-      bubbleGain.gain.setValueAtTime(0.001, now);
-      bubbleGain.gain.linearRampToValueAtTime(currentGain, now + 0.01);
-      bubbleGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
+      const tremoloGain = this.ctx.createGain();
+      tremoloGain.gain.setValueAtTime(h.gain * 0.3, now);
 
-      osc.connect(bubbleGain);
-      bubbleGain.connect(this.ambientGain);
+      tremoloLfo.connect(tremoloGain.gain);
 
-      osc.start(now);
-      osc.stop(now + 0.09);
-    } catch (e) {}
+      const hGain = this.ctx.createGain();
+      hGain.gain.setValueAtTime(h.gain, now);
 
-    // Schedule next water trickle bubble between 80ms - 250ms
-    const nextBubble = 80 + Math.random() * 170;
-    this.waterTimer = setTimeout(() => this.scheduleWaterBubbles(), nextBubble);
-  }
-
-  // 🧘 Deep Zen Meditation Chords (432Hz Solfeggio Harmony)
-  setupZenMeditationChords(now) {
-    // Tibetan Singing Bowl / Zen Meditation Frequencies (432Hz, 528Hz Miracle tone, 648Hz)
-    const zenFreqs = [216.00, 288.00, 432.00, 528.00];
-
-    zenFreqs.forEach((freq, idx) => {
-      const osc = this.ctx.createOscillator();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, now);
-
-      const padGain = this.ctx.createGain();
-      // Soft breathing volume modulation
-      padGain.gain.setValueAtTime(0.01, now);
-      
       const filter = this.ctx.createBiquadFilter();
       filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(450, now);
+      filter.frequency.setValueAtTime(500 + idx * 100, now);
 
       osc.connect(filter);
-      filter.connect(padGain);
-      padGain.connect(this.ambientGain);
+      filter.connect(hGain);
+      hGain.connect(this.ambientGain);
 
       osc.start(now);
-      this.ambientNodes.push(osc);
+      tremoloLfo.start(now);
+
+      this.ambientNodes.push(osc, tremoloLfo);
     });
 
-    // Schedule Zen Bamboo Chime / Bell Melody Notes
-    this.scheduleZenMelody();
+    // Schedule Periodic Tibetan Bowl Strikes & Tingsha Bell Ringing
+    this.scheduleTibetanBowlStrikes();
+    this.scheduleTingshaBell();
   }
 
-  scheduleZenMelody() {
-    if (!this.isPlayingAmbient || this.musicMode !== 'stream' || !this.ctx || this.isMuted) return;
+  // 🥣 Periodic Gentle Tibetan Singing Bowl Strike
+  scheduleTibetanBowlStrikes() {
+    if (!this.isPlayingAmbient || this.musicMode !== 'tibetan' || !this.ctx || this.isMuted) return;
 
-    // Zen Pentatonic Scale (D4, F4, G4, A4, C5, D5)
-    const scale = [293.66, 349.23, 392.00, 440.00, 523.25, 587.33];
-    const note = scale[Math.floor(Math.random() * scale.length)];
+    // Frequencies of brass singing bowls (288Hz, 432Hz, 528Hz, 648Hz)
+    const bowlStrikes = [288.00, 432.00, 528.00, 648.00];
+    const pitch = bowlStrikes[Math.floor(Math.random() * bowlStrikes.length)];
+
+    try {
+      const now = this.ctx.currentTime;
+      
+      // Main strike oscillator
+      const osc1 = this.ctx.createOscillator();
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(pitch, now);
+
+      // Metallic overtone oscillator (slight detune for brass bowl resonance)
+      const osc2 = this.ctx.createOscillator();
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(pitch * 2.01, now);
+
+      const strikeGain = this.ctx.createGain();
+      const currentGain = this.volume * 0.08;
+
+      strikeGain.gain.setValueAtTime(0.0001, now);
+      strikeGain.gain.linearRampToValueAtTime(currentGain, now + 0.02); // Sharp mallet strike
+      strikeGain.gain.exponentialRampToValueAtTime(0.0001, now + 7.5); // Deep 7.5-second ringing decay!
+
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(900, now);
+
+      osc1.connect(filter);
+      osc2.connect(filter);
+      filter.connect(strikeGain);
+      strikeGain.connect(this.ambientGain);
+
+      osc1.start(now);
+      osc2.start(now);
+      osc1.stop(now + 7.5);
+      osc2.stop(now + 7.5);
+    } catch (e) {}
+
+    // Schedule next bowl strike every 5 - 9 seconds
+    const delay = 5000 + Math.random() * 4000;
+    this.bowlTimer = setTimeout(() => this.scheduleTibetanBowlStrikes(), delay);
+  }
+
+  // 🔔 Tibetan Tingsha Cymbal Bell Ringing
+  scheduleTingshaBell() {
+    if (!this.isPlayingAmbient || this.musicMode !== 'tibetan' || !this.ctx || this.isMuted) return;
+
+    // High crystalline Tingsha bell frequencies (1760Hz, 2640Hz)
+    const tingshaFreq = 1760.00;
 
     try {
       const now = this.ctx.currentTime;
       const osc = this.ctx.createOscillator();
-      const bellGain = this.ctx.createGain();
-
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(note, now);
+      osc.frequency.setValueAtTime(tingshaFreq, now);
 
-      const currentGain = this.volume * 0.05;
+      const bellGain = this.ctx.createGain();
+      const currentGain = this.volume * 0.03;
+
       bellGain.gain.setValueAtTime(0.0001, now);
-      bellGain.gain.linearRampToValueAtTime(currentGain, now + 0.8);
-      bellGain.gain.exponentialRampToValueAtTime(0.0001, now + 5.0); // Long decay ringing like Tibetan bowl
+      bellGain.gain.linearRampToValueAtTime(currentGain, now + 0.01);
+      bellGain.gain.exponentialRampToValueAtTime(0.0001, now + 4.0);
 
       osc.connect(bellGain);
       bellGain.connect(this.ambientGain);
 
       osc.start(now);
-      osc.stop(now + 5.0);
+      osc.stop(now + 4.0);
     } catch (e) {}
 
-    const delay = 4000 + Math.random() * 5000;
-    this.melodyTimer = setTimeout(() => this.scheduleZenMelody(), delay);
+    // Schedule next Tingsha chime every 9 - 15 seconds
+    const delay = 9000 + Math.random() * 6000;
+    this.tingshaTimer = setTimeout(() => this.scheduleTingshaBell(), delay);
   }
 
   // 🌌 Cosmic Space Pad Theme
@@ -337,8 +326,8 @@ class CosmicAudioSynthesizer {
   stopAmbient() {
     if (!this.isPlayingAmbient) return;
     try {
-      if (this.melodyTimer) clearTimeout(this.melodyTimer);
-      if (this.waterTimer) clearTimeout(this.waterTimer);
+      if (this.bowlTimer) clearTimeout(this.bowlTimer);
+      if (this.tingshaTimer) clearTimeout(this.tingshaTimer);
 
       if (this.ambientGain && this.ctx) {
         const now = this.ctx.currentTime;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, BookOpen, BookmarkCheck, Volume2, VolumeX, Compass, Waves, Disc, Globe } from 'lucide-react';
+import { Sparkles, BookOpen, BookmarkCheck, Volume2, VolumeX, Compass, Disc, Globe } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
 
@@ -147,16 +147,16 @@ export const Navbar = ({ activeTab, setActiveTab, lang, setLang }) => {
           <div className="relative flex items-center gap-1">
             <button
               onClick={handleToggleSound}
-              title={isMuted ? 'Turn on sound' : 'Mute sound'}
+              title={isMuted ? 'Turn on Tibetan Singing Bowls' : 'Mute sound'}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold transition-all ${
                 isMuted
                   ? 'border-gray-600 text-gray-500 bg-white/5'
-                  : 'border-emerald-400/50 text-emerald-300 bg-emerald-950/40 shadow-md shadow-emerald-500/20'
+                  : 'border-amber-400/50 text-amber-300 bg-amber-950/40 shadow-md shadow-amber-500/20'
               }`}
             >
-              <Waves className={`w-3.5 h-3.5 ${!isMuted ? 'animate-pulse text-cyan-300' : ''}`} />
+              <span className="text-sm">🥣</span>
               <span className="hidden lg:inline">{t.navZenMusic}</span>
-              {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+              {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-amber-400" />}
             </button>
 
             {!isMuted && (
@@ -178,14 +178,14 @@ export const Navbar = ({ activeTab, setActiveTab, lang, setLang }) => {
                 <div className="space-y-1.5">
                   <div className="grid grid-cols-2 gap-1.5">
                     <button
-                      onClick={() => handleModeChange('stream')}
+                      onClick={() => handleModeChange('tibetan')}
                       className={`p-2 rounded-xl text-[11px] font-medium flex flex-col items-center gap-1 border transition-all ${
-                        musicMode === 'stream'
-                          ? 'bg-emerald-950/80 border-emerald-400 text-emerald-300 font-bold'
+                        musicMode === 'tibetan'
+                          ? 'bg-amber-950/80 border-amber-400 text-amber-300 font-bold'
                           : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
                       }`}
                     >
-                      <Waves className="w-4 h-4 text-cyan-400" />
+                      <span className="text-base">🥣</span>
                       <span>{t.modeStream}</span>
                     </button>
 

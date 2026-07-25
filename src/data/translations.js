@@ -7,10 +7,10 @@ export const TRANSLATIONS = {
     navReading: 'Xem Tarot',
     navEncyclopedia: 'Tra Cứu',
     navJournal: 'Nhật Ký',
-    navZenMusic: 'Thiền Suối Chảy',
+    navZenMusic: 'Chuông Xoay Tây Tạng',
     navMusicMode: 'Chế Độ Nhạc Nền:',
     navVolume: 'Âm Lượng Nhạc',
-    modeStream: 'Suối Chảy 🌊',
+    modeStream: 'Chuông Tây Tạng 🥣',
     modeCosmic: 'Vũ Trụ 🌌',
     
     // Spread selector
@@ -107,10 +107,10 @@ export const TRANSLATIONS = {
     navReading: 'Draw Cards',
     navEncyclopedia: 'Encyclopedia',
     navJournal: 'Journal',
-    navZenMusic: 'Zen Stream Music',
+    navZenMusic: 'Tibetan Bowl Meditation',
     navMusicMode: 'Background Music:',
     navVolume: 'Music Volume',
-    modeStream: 'Babbling Stream 🌊',
+    modeStream: 'Tibetan Bowls 🥣',
     modeCosmic: 'Cosmic Pad 🌌',
     
     // Spread selector
@@ -207,10 +207,10 @@ export const TRANSLATIONS = {
     navReading: '塔罗占卜',
     navEncyclopedia: '塔罗牌库',
     navJournal: '塔罗日记',
-    navZenMusic: '溪流禅音',
+    navZenMusic: '西藏颂钵禅音',
     navMusicMode: '背景音乐:',
     navVolume: '音乐音量',
-    modeStream: '潺潺流水 🌊',
+    modeStream: '西藏颂钵 🥣',
     modeCosmic: '宇宙冥想 🌌',
     
     // Spread selector
