@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { StarfieldBackground } from './components/StarfieldBackground';
 import { Navbar } from './components/Navbar';
 import { SpreadSelector } from './components/SpreadSelector';
@@ -106,6 +107,9 @@ export function App() {
           {t.footerSubtext}
         </p>
       </footer>
+
+      {/* Vercel Web Analytics */}
+      <Analytics />
 
     </div>
   );
