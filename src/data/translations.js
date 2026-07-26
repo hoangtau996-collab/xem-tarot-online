@@ -99,12 +99,7 @@ export const TRANSLATIONS = {
     reversedBadge: 'Bài Ngược 🔄',
 
     // Footer & Visitor Analytics
-    visitorStatsTitle: 'Thống Kê Lượt Truy Cập P Healing',
-    totalVisits: 'Tổng lượt truy cập',
-    totalVisitsShort: 'lượt xem',
-    todayVisits: 'Hôm nay',
-    onlineNow: 'Đang trực tuyến',
-    yourVisits: 'Lượt ghé thăm của bạn',
+    totalVisits: 'Lượt truy cập',
     footerText: 'Khám phá tri thức vũ trụ & chữa lành cùng P Healing',
     footerSubtext: 'Kết nối tâm trí • Chữa lành cảm xúc • Soi sáng tương lai'
   },
@@ -207,12 +202,7 @@ export const TRANSLATIONS = {
     reversedBadge: 'Reversed 🔄',
 
     // Footer & Visitor Analytics
-    visitorStatsTitle: 'P Healing Visitor Analytics',
-    totalVisits: 'Total Visits',
-    totalVisitsShort: 'views',
-    todayVisits: 'Today',
-    onlineNow: 'Online Now',
-    yourVisits: 'Your Visits',
+    totalVisits: 'Visits',
     footerText: 'Explore cosmic wisdom and healing with P Healing',
     footerSubtext: 'Connect Mind • Heal Emotions • Illuminate Future'
   },
@@ -315,12 +305,7 @@ export const TRANSLATIONS = {
     reversedBadge: '逆位 🔄',
 
     // Footer & Visitor Analytics
-    visitorStatsTitle: 'P Healing 访问统计',
-    totalVisits: '总访问量',
-    totalVisitsShort: '次',
-    todayVisits: '今日访问',
-    onlineNow: '在线人数',
-    yourVisits: '您的访问次数',
+    totalVisits: '访问量',
     footerText: '与 P Healing 一起探索宇宙智慧与疗愈',
     footerSubtext: '链接心灵 • 疗愈情感 • 照亮未来'
   }
