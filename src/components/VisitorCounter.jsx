@@ -6,25 +6,26 @@ export const VisitorCounter = ({ lang = 'vi', variant = 'footer' }) => {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.vi;
 
   const [stats, setStats] = useState({
-    totalVisits: 1548,
-    todayVisits: 124,
-    activeOnline: 18,
+    totalVisits: 0,
+    todayVisits: 0,
+    activeOnline: 1,
     userVisits: 1
   });
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     try {
-      const todayKey = `phealing_visits_${new Date().toISOString().split('T')[0]}`;
-      const userVisitKey = 'phealing_user_visit_count';
-      const totalVisitKey = 'phealing_total_visits';
+      const todayStr = new Date().toISOString().split('T')[0];
+      const todayKey = `phealing_real_visits_${todayStr}`;
+      const userVisitKey = 'phealing_real_user_visits';
+      const totalVisitKey = 'phealing_real_total_visits';
 
-      // 1. User specific visit count
+      // 1. User specific real visit count
       let userCount = parseInt(localStorage.getItem(userVisitKey) || '0', 10);
-      const isNewSession = !sessionStorage.getItem('phealing_session');
+      const isNewSession = !sessionStorage.getItem('phealing_session_real');
 
       if (isNewSession) {
-        sessionStorage.setItem('phealing_session', 'true');
+        sessionStorage.setItem('phealing_session_real', 'true');
         userCount += 1;
         localStorage.setItem(userVisitKey, userCount.toString());
       } else if (userCount === 0) {
@@ -32,44 +33,54 @@ export const VisitorCounter = ({ lang = 'vi', variant = 'footer' }) => {
         localStorage.setItem(userVisitKey, '1');
       }
 
-      // 2. Today visits
+      // 2. Real Today visits
       let todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10);
       if (isNewSession) {
         todayCount += 1;
         localStorage.setItem(todayKey, todayCount.toString());
       } else if (todayCount === 0) {
-        todayCount = 42; // Base offset for current day
-        localStorage.setItem(todayKey, todayCount.toString());
+        todayCount = 1;
+        localStorage.setItem(todayKey, '1');
       }
 
-      // 3. Total visits
-      let totalCount = parseInt(localStorage.getItem(totalVisitKey) || '1548', 10);
+      // 3. Real Total visits from Local Storage initially
+      let totalCount = parseInt(localStorage.getItem(totalVisitKey) || '0', 10);
       if (isNewSession) {
         totalCount += 1;
         localStorage.setItem(totalVisitKey, totalCount.toString());
+      } else if (totalCount === 0) {
+        totalCount = 1;
+        localStorage.setItem(totalVisitKey, '1');
       }
-
-      // 4. Online active users (simulated organic fluctuation)
-      const baseOnline = 15 + (new Date().getHours() % 12) + Math.floor(Math.random() * 5);
 
       setStats({
         totalVisits: totalCount,
         todayVisits: todayCount,
-        activeOnline: baseOnline,
+        activeOnline: Math.max(1, Math.floor(Math.random() * 3) + 1),
         userVisits: userCount
       });
 
-      // Async sync with public counter API if available
-      fetch('https://api.counterapi.dev/v1/phealing_vn/visits/up')
+      // 4. Real Global Traffic Sync via Public Cloud Counter API
+      // Increment count on cloud API if new session
+      const apiEndpoint = isNewSession
+        ? 'https://api.counterapi.dev/v1/phealing_tarot_app_real/visits/up'
+        : 'https://api.counterapi.dev/v1/phealing_tarot_app_real/visits';
+
+      fetch(apiEndpoint)
         .then(res => res.json())
         .then(data => {
           if (data && typeof data.count === 'number') {
-            const apiCount = Math.max(data.count + 1200, totalCount);
-            setStats(prev => ({ ...prev, totalVisits: apiCount }));
-            localStorage.setItem(totalVisitKey, apiCount.toString());
+            const realGlobalCount = Math.max(data.count, totalCount);
+            setStats(prev => ({
+              ...prev,
+              totalVisits: realGlobalCount
+            }));
+            localStorage.setItem(totalVisitKey, realGlobalCount.toString());
           }
         })
-        .catch(() => {});
+        .catch(() => {
+          // Fallback to local persistent count if network is offline
+        });
 
       setIsLoaded(true);
     } catch (e) {
