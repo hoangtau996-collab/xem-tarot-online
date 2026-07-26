@@ -103,7 +103,7 @@ export const ReadingResult = ({
       const image = canvas.toDataURL('image/png');
       const link = document.createElement('a');
       link.href = image;
-      link.download = `celestial_tarot_reading_${Date.now()}.png`;
+      link.download = `p_healing_tarot_reading_${Date.now()}.png`;
       link.click();
 
       setIsExportingImage(false);
@@ -468,9 +468,10 @@ export const ReadingResult = ({
           boxShadow: '0 0 40px rgba(0,0,0,0.8)'
         }}>
           {/* Poster Header */}
-          <div style={{ textAlign: 'center', borderBottom: '1px solid rgba(251,191,36,0.3)', paddingBottom: '20px', marginBottom: '24px' }}>
+          <div style={{ textAlign: 'center', borderBottom: '1px solid rgba(251,191,36,0.3)', paddingBottom: '20px', marginBottom: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <img src="/logo.jpg" alt="P Healing Logo" style={{ width: '48px', height: '48px', borderRadius: '50%', border: '2px solid rgba(251,191,36,0.6)', marginBottom: '8px', objectFit: 'cover' }} />
             <div style={{ fontSize: '13px', color: '#fbbf24', letterSpacing: '2px', fontWeight: 'bold', textTransform: 'uppercase' }}>
-              ✦ CELESTIAL TAROT ONLINE ✦
+              ✦ P HEALING ONLINE ✦
             </div>
             <div style={{ fontSize: '28px', color: '#fbbf24', fontFamily: "'Philosopher', serif", fontWeight: 'bold', margin: '8px 0' }}>
               {t.resultHeading}
@@ -571,7 +572,7 @@ export const ReadingResult = ({
 
           {/* Footer Signature */}
           <div style={{ textAlign: 'center', fontSize: '11px', color: '#9ca3af', paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-            Celestial Tarot Online • Connect Mind • Heal Emotions • Illuminate Future
+            P Healing Online • Kết Nối Tâm Trí • Chữa Lành Cảm Xúc • Soi Sáng Tương Lai
           </div>
 
         </div>

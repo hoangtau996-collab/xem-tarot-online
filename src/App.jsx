@@ -6,6 +6,7 @@ import { CardDeck } from './components/CardDeck';
 import { ReadingResult } from './components/ReadingResult';
 import { Encyclopedia } from './components/Encyclopedia';
 import { Journal } from './components/Journal';
+import { VisitorCounter } from './components/VisitorCounter';
 import { SPREAD_TYPES, TAROT_DECKS_THEMES } from './data/tarotData';
 import { TRANSLATIONS } from './data/translations';
 import { Sparkles } from 'lucide-react';
@@ -92,7 +93,10 @@ export function App() {
       </main>
 
       {/* Footer */}
-      <footer className="py-6 border-t border-purple-500/20 text-center text-xs text-gray-400 backdrop-blur-md bg-space/40 space-y-1">
+      <footer className="py-6 border-t border-purple-500/20 text-center text-xs text-gray-400 backdrop-blur-md bg-space/40 space-y-3">
+        {/* Visitor Analytics Widget */}
+        <VisitorCounter lang={lang} variant="footer" />
+
         <p className="flex items-center justify-center gap-1">
           <span>{t.footerText}</span>
           <span className="font-serif gold-gradient-text font-bold">{t.appTitle}</span>

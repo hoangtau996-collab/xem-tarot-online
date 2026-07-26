@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Sparkles, BookOpen, BookmarkCheck, Volume2, VolumeX, Compass, Disc, Globe } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
+import { VisitorCounter } from './VisitorCounter';
 
 export const Navbar = ({ activeTab, setActiveTab, lang, setLang }) => {
   const [isMuted, setIsMuted] = useState(cosmicAudio.isMuted);
@@ -51,18 +52,20 @@ export const Navbar = ({ activeTab, setActiveTab, lang, setLang }) => {
         {/* Brand Logo */}
         <div 
           onClick={() => setActiveTab('reading')}
-          className="flex items-center gap-2.5 cursor-pointer group"
+          className="flex items-center gap-3 cursor-pointer group"
         >
-          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-600 via-amber-400 to-cyan-400 p-0.5 shadow-lg group-hover:scale-105 transition-transform">
-            <div className="w-full h-full bg-space rounded-full flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-amber-300 animate-pulse" />
-            </div>
+          <div className="w-10 h-10 rounded-full p-0.5 bg-gradient-to-tr from-amber-500 via-amber-300 to-yellow-600 shadow-md shadow-amber-500/30 group-hover:scale-105 transition-transform overflow-hidden flex items-center justify-center">
+            <img 
+              src="/logo.jpg" 
+              alt="P Healing Logo" 
+              className="w-full h-full object-cover rounded-full"
+            />
           </div>
           <div>
-            <h1 className="text-xl font-bold font-serif gold-gradient-text">
+            <h1 className="text-xl font-bold font-serif gold-gradient-text tracking-wide">
               {t.appTitle}
             </h1>
-            <p className="text-[10px] text-purple-300/80 tracking-widest uppercase">{t.appSubtitle}</p>
+            <p className="text-[10px] text-amber-300/80 tracking-widest uppercase font-medium">{t.appSubtitle}</p>
           </div>
         </div>
 
@@ -112,6 +115,9 @@ export const Navbar = ({ activeTab, setActiveTab, lang, setLang }) => {
             <BookmarkCheck className="w-4 h-4 text-pink-400" />
             <span>{t.navJournal}</span>
           </button>
+
+          {/* Visitor Counter Pill */}
+          <VisitorCounter lang={lang} variant="navbar" />
 
           {/* Language Switcher */}
           <div className="relative">

@@ -2,8 +2,8 @@
 
 export const TRANSLATIONS = {
   vi: {
-    appTitle: 'CELESTIAL TAROT',
-    appSubtitle: 'Vũ Trụ Huyền Ảo',
+    appTitle: 'P HEALING',
+    appSubtitle: 'Xem Tarot & Chữa Lành Tâm Hồn',
     navReading: 'Xem Tarot',
     navEncyclopedia: 'Tra Cứu',
     navJournal: 'Nhật Ký',
@@ -98,14 +98,20 @@ export const TRANSLATIONS = {
     uprightBadge: 'Bài Xuôi ✨',
     reversedBadge: 'Bài Ngược 🔄',
 
-    // Footer
-    footerText: 'Khám phá tri thức vũ trụ cùng',
+    // Footer & Visitor Analytics
+    visitorStatsTitle: 'Thống Kê Lượt Truy Cập P Healing',
+    totalVisits: 'Tổng lượt truy cập',
+    totalVisitsShort: 'lượt xem',
+    todayVisits: 'Hôm nay',
+    onlineNow: 'Đang trực tuyến',
+    yourVisits: 'Lượt ghé thăm của bạn',
+    footerText: 'Khám phá tri thức vũ trụ & chữa lành cùng P Healing',
     footerSubtext: 'Kết nối tâm trí • Chữa lành cảm xúc • Soi sáng tương lai'
   },
 
   en: {
-    appTitle: 'CELESTIAL TAROT',
-    appSubtitle: 'Cosmic Mystical Oracle',
+    appTitle: 'P HEALING',
+    appSubtitle: 'Tarot & Soul Healing',
     navReading: 'Draw Cards',
     navEncyclopedia: 'Encyclopedia',
     navJournal: 'Journal',
@@ -200,14 +206,20 @@ export const TRANSLATIONS = {
     uprightBadge: 'Upright ✨',
     reversedBadge: 'Reversed 🔄',
 
-    // Footer
-    footerText: 'Explore cosmic wisdom with',
+    // Footer & Visitor Analytics
+    visitorStatsTitle: 'P Healing Visitor Analytics',
+    totalVisits: 'Total Visits',
+    totalVisitsShort: 'views',
+    todayVisits: 'Today',
+    onlineNow: 'Online Now',
+    yourVisits: 'Your Visits',
+    footerText: 'Explore cosmic wisdom and healing with P Healing',
     footerSubtext: 'Connect Mind • Heal Emotions • Illuminate Future'
   },
 
   zh: {
-    appTitle: 'CELESTIAL TAROT',
-    appSubtitle: '宇宙神祕塔罗',
+    appTitle: 'P HEALING',
+    appSubtitle: '塔罗与心灵疗愈',
     navReading: '塔罗占卜',
     navEncyclopedia: '塔罗牌库',
     navJournal: '塔罗日记',
@@ -302,8 +314,14 @@ export const TRANSLATIONS = {
     uprightBadge: '正位 ✨',
     reversedBadge: '逆位 🔄',
 
-    // Footer
-    footerText: '与宇宙智慧同行',
+    // Footer & Visitor Analytics
+    visitorStatsTitle: 'P Healing 访问统计',
+    totalVisits: '总访问量',
+    totalVisitsShort: '次',
+    todayVisits: '今日访问',
+    onlineNow: '在线人数',
+    yourVisits: '您的访问次数',
+    footerText: '与 P Healing 一起探索宇宙智慧与疗愈',
     footerSubtext: '链接心灵 • 疗愈情感 • 照亮未来'
   }
 };
