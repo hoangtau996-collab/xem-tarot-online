@@ -41,7 +41,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col relative text-gray-100 selection:bg-purple-500 selection:text-white">
+    <div className="min-h-screen flex flex-col relative text-gray-100 selection:bg-purple-500 selection:text-white has-bottom-nav">
       
       {/* Dynamic Starfield Canvas Background */}
       <StarfieldBackground />
@@ -97,12 +97,13 @@ export function App() {
         {/* Visitor Analytics Widget */}
         <VisitorCounter lang={lang} variant="footer" />
 
-        <p className="flex items-center justify-center gap-1">
+        {/* footerText đã chứa sẵn tên thương hiệu ở cả 3 ngôn ngữ,
+            nên không lặp lại appTitle ở đây nữa. */}
+        <p className="px-4 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-0.5">
           <span>{t.footerText}</span>
-          <span className="font-serif gold-gradient-text font-bold">{t.appTitle}</span>
-          <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+          <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
         </p>
-        <p className="text-[11px] text-purple-300/60 font-light">
+        <p className="px-4 text-xs text-purple-300/60 font-light">
           {t.footerSubtext}
         </p>
       </footer>

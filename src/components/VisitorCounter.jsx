@@ -112,7 +112,7 @@ export const VisitorCounter = ({ lang = 'vi', variant = 'footer' }) => {
   if (variant === 'navbar') {
     return (
       <div
-        className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full bg-purple-950/40 border border-amber-400/30 text-[11px] text-amber-200/90 shadow-sm backdrop-blur-md hover:border-amber-400/60 transition-all cursor-default"
+        className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full bg-purple-950/40 border border-amber-400/30 text-xs text-amber-200/90 shadow-sm backdrop-blur-md hover:border-amber-400/60 transition-all cursor-default"
         title={`${label}: ${value}`}
       >
         <Eye className="w-3.5 h-3.5 text-amber-400" />

@@ -95,13 +95,13 @@ export const Encyclopedia = ({ lang = 'vi' }) => {
               {card.icon}
             </span>
             <div className="space-y-1 w-full">
-              <span className="text-[10px] text-amber-300 font-serif font-semibold block">
+              <span className="text-2xs text-amber-300 font-serif font-semibold block">
                 Nº {card.number}
               </span>
               <h4 className="font-serif font-bold text-xs text-gray-100 line-clamp-1">
                 {lang === 'en' ? card.name : card.nameVi}
               </h4>
-              <span className="text-[10px] text-cyan-300 font-medium block">
+              <span className="text-2xs text-cyan-300 font-medium block">
                 {card.element}
               </span>
             </div>

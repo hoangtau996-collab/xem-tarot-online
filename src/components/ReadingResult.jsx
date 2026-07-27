@@ -177,7 +177,7 @@ export const ReadingResult = ({
                   </h4>
                   <div className="flex items-center gap-2 text-xs">
                     <span className="text-purple-300">{card.arcana}</span>
-                    <span className={`px-1.5 py-0.2 rounded text-[10px] ${
+                    <span className={`px-1.5 py-0.2 rounded text-2xs ${
                       card.isReversed ? 'bg-rose-950 text-rose-300' : 'bg-emerald-950 text-emerald-300'
                     }`}>
                       {card.isReversed ? t.reversedBadge : t.uprightBadge}
@@ -196,7 +196,7 @@ export const ReadingResult = ({
               <Layers className="w-5 h-5 text-amber-300" />
             </div>
             <div>
-              <span className="text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider bg-amber-400/10 text-amber-300 border border-amber-400/30">
+              <span className="text-2xs px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider bg-amber-400/10 text-amber-300 border border-amber-400/30">
                 {t.holisticBadge}
               </span>
               <h3 className="text-xl md:text-2xl font-serif text-amber-300 font-bold mt-1">

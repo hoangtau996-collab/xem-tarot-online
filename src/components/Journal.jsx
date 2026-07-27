@@ -82,7 +82,7 @@ export const Journal = ({ lang = 'vi' }) => {
               {/* Header Info */}
               <div className="flex flex-wrap items-start justify-between gap-2 border-b border-purple-500/20 pb-3">
                 <div className="space-y-1">
-                  <span className="text-[10px] text-amber-300 uppercase tracking-widest font-semibold block">
+                  <span className="text-2xs text-amber-300 uppercase tracking-widest font-semibold block">
                     {item.spreadTitle}
                   </span>
                   <h4 className="font-serif font-bold text-base text-gray-100 flex items-center gap-2">
@@ -110,7 +110,7 @@ export const Journal = ({ lang = 'vi' }) => {
                   <div key={idx} className="px-3 py-1.5 rounded-xl bg-space/70 border border-purple-400/20 flex items-center gap-2 text-xs">
                     <span>{card.icon || '🔮'}</span>
                     <span className="font-medium text-gray-200">{card.nameVi}</span>
-                    <span className={`text-[10px] ${card.isReversed ? 'text-rose-300' : 'text-emerald-300'}`}>
+                    <span className={`text-2xs ${card.isReversed ? 'text-rose-300' : 'text-emerald-300'}`}>
                       ({card.isReversed ? t.reversedBadge : t.uprightBadge})
                     </span>
                   </div>

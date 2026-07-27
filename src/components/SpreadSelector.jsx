@@ -87,7 +87,7 @@ export const SpreadSelector = ({ onSelectSpread, lang = 'vi' }) => {
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-2xl">{theme.icon}</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold bg-purple-900/60 text-purple-200 border border-purple-400/30">
+                    <span className="text-2xs px-2 py-0.5 rounded-full font-semibold bg-purple-900/60 text-purple-200 border border-purple-400/30">
                       {theme.styleTag}
                     </span>
                   </div>
@@ -96,12 +96,12 @@ export const SpreadSelector = ({ onSelectSpread, lang = 'vi' }) => {
                     <h4 className="font-serif font-bold text-sm text-gray-100 mb-1">
                       {theme.name}
                     </h4>
-                    <p className="text-[11px] text-gray-300 font-light leading-snug line-clamp-2">
+                    <p className="text-xs text-gray-300 font-light leading-snug line-clamp-2">
                       {theme.description}
                     </p>
                   </div>
 
-                  <div className="mt-3 pt-2 border-t border-purple-500/20 flex items-center justify-between text-[10px] text-amber-300 font-serif">
+                  <div className="mt-3 pt-2 border-t border-purple-500/20 flex items-center justify-between text-2xs text-amber-300 font-serif">
                     <span>{theme.symbol} {theme.englishName}</span>
                     {isSelected && <span className="font-bold">{t.selectedBadge}</span>}
                   </div>
@@ -146,7 +146,7 @@ export const SpreadSelector = ({ onSelectSpread, lang = 'vi' }) => {
                         </span>
                       </div>
                     </div>
-                    <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
+                    <span className={`text-2xs px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
                       isSelected ? 'bg-amber-400 text-purple-950' : 'bg-purple-900/60 text-purple-200'
                     }`}>
                       {spread.badge}

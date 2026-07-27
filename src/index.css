@@ -21,15 +21,38 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Cỡ chữ gốc: 17px trên điện thoại, 18px từ laptop trở lên.
+   Mọi đơn vị rem trong Tailwind đều nhân theo giá trị này. */
+html {
+  font-size: 17px;
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 18px;
+  }
+}
+
 body {
   background-color: var(--bg-space);
   color: #f3f4f6;
   font-family: var(--font-sans);
   min-height: 100vh;
   overflow-x: hidden;
-  line-height: 1.65;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Chừa chỗ cho thanh điều hướng dưới cùng trên điện thoại (xem .bottom-nav) */
+.has-bottom-nav {
+  padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: 768px) {
+  .has-bottom-nav {
+    padding-bottom: 0;
+  }
 }
 
 /* Typography Headers */
@@ -142,6 +165,140 @@ h1, h2, h3, .font-serif {
 
 .animate-pulse-glow {
   animation: pulseGlow 3s infinite;
+}
+
+/* ==========================================================================
+   HIỆU ỨNG RÚT BÀI
+   ========================================================================== */
+
+/* Xào bài: lá rung và lệch nhẹ.
+   Chỉ tác động lên lớp trong; lớp ngoài giữ vị trí nan quạt nên
+   hai transform không đè lên nhau. */
+@keyframes deckShuffle {
+  0%, 100% { transform: translateY(0)     rotate(0deg); }
+  20%      { transform: translateY(-14px) rotate(-8deg); }
+  40%      { transform: translateY(6px)   rotate(7deg); }
+  60%      { transform: translateY(-9px)  rotate(-5deg); }
+  80%      { transform: translateY(4px)   rotate(3deg); }
+}
+
+/* Khoảng cách giữa các lá trong nan quạt - đổi theo bề rộng màn hình
+   bằng CSS thay vì đọc window.innerWidth lúc render (không bắt được resize). */
+.fan-deck {
+  --fan-gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .fan-deck {
+    --fan-gap: 32px;
+  }
+}
+
+.animate-deck-shuffle {
+  animation: deckShuffle 0.55s ease-in-out infinite;
+}
+
+/* Lá bài bay ra khỏi cỗ bài khi được rút */
+@keyframes dealIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-90px) scale(0.55) rotate(-18deg);
+    filter: blur(6px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(8px) scale(1.06) rotate(3deg);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+    filter: blur(0);
+  }
+}
+
+.animate-deal-in {
+  animation: dealIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+/* Vòng sáng lan ra khi lá bài được lật lên */
+@keyframes revealRing {
+  0%   { opacity: 0.85; transform: scale(0.6); }
+  100% { opacity: 0;    transform: scale(1.9); }
+}
+
+.animate-reveal-ring {
+  animation: revealRing 0.9s ease-out forwards;
+}
+
+/* Dải sáng quét chéo mặt sau lá bài */
+@keyframes holoSheen {
+  0%   { transform: translateX(-130%) skewX(-20deg); }
+  55%  { transform: translateX(230%)  skewX(-20deg); }
+  100% { transform: translateX(230%)  skewX(-20deg); }
+}
+
+.animate-holo-sheen {
+  animation: holoSheen 3.8s ease-in-out infinite;
+}
+
+/* Hạt sáng bay lên khi lật bài */
+@keyframes sparkleFloat {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.4);
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--sx, 0px), var(--sy, -60px)) scale(1.1);
+  }
+}
+
+.animate-sparkle-float {
+  animation: sparkleFloat 1.1s ease-out forwards;
+}
+
+/* Mandala xoay chậm trên mặt sau lá bài */
+@keyframes slowSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.animate-slow-spin {
+  animation: slowSpin 26s linear infinite;
+}
+
+.animate-slow-spin-reverse {
+  animation: slowSpin 34s linear infinite reverse;
+}
+
+/* Nhịp thở nhẹ cho cỗ bài đang chờ rút */
+@keyframes deckBreathe {
+  0%, 100% { filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.25)); }
+  50%      { filter: drop-shadow(0 0 26px rgba(251, 191, 36, 0.55)); }
+}
+
+.animate-deck-breathe {
+  animation: deckBreathe 3.2s ease-in-out infinite;
+}
+
+/* Tôn trọng thiết lập giảm chuyển động của hệ điều hành */
+@media (prefers-reduced-motion: reduce) {
+  .animate-deck-shuffle,
+  .animate-deal-in,
+  .animate-reveal-ring,
+  .animate-holo-sheen,
+  .animate-sparkle-float,
+  .animate-slow-spin,
+  .animate-slow-spin-reverse,
+  .animate-deck-breathe,
+  .animate-float,
+  .animate-pulse-glow {
+    animation: none !important;
+  }
 }
 
 /* 3D Card Flip Perspective Container */
