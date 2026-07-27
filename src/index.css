@@ -241,14 +241,159 @@ h1, h2, h3, .font-serif {
   animation: orbBurst 1s ease-out forwards;
 }
 
-/* Thông điệp trồi lên từ trong quả cầu */
-@keyframes messageRise {
-  from { opacity: 0; transform: translateY(16px); filter: blur(6px); }
-  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+/* Vòng ấn cổ hiện ra rồi xoay tan đi khi triệu hồi thông điệp */
+@keyframes runeRing {
+  0%   { opacity: 0;    transform: rotate(0deg)   scale(0.75); }
+  25%  { opacity: 0.95; transform: rotate(90deg)  scale(1.05); }
+  100% { opacity: 0;    transform: rotate(300deg) scale(1.55); }
 }
 
-.animate-message-rise {
-  animation: messageRise 0.7s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+.animate-rune-ring {
+  animation: runeRing 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Sóng năng lượng lan rộng ra ngoài quả cầu */
+@keyframes shockwave {
+  0%   { opacity: 0.75; transform: scale(0.9);  filter: blur(0px); }
+  100% { opacity: 0;    transform: scale(3.05); filter: blur(3px); }
+}
+
+.animate-shockwave {
+  animation: shockwave 1.15s ease-out forwards;
+}
+
+/* Lõi cầu loé trắng lúc mở ra */
+@keyframes orbFlare {
+  0%   { opacity: 0;    transform: scale(0.5); }
+  18%  { opacity: 0.95; transform: scale(1.08); }
+  100% { opacity: 0;    transform: scale(1.5); }
+}
+
+.animate-orb-flare {
+  background: radial-gradient(circle at 50% 50%,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(253, 230, 138, 0.7) 32%,
+    rgba(192, 132, 252, 0.25) 62%,
+    transparent 78%);
+  animation: orbFlare 0.9s ease-out forwards;
+}
+
+/* Dải màu bên trong cuộn nhanh hẳn lên trong lúc quả cầu tích năng lượng */
+.cosmic-orb.is-charging .orb-swirl {
+  animation-duration: 2.4s;
+}
+
+/* ==========================================================================
+   BẦY ĐOM ĐÓM MANG THÔNG ĐIỆP
+   ========================================================================== */
+
+/* Gốc toạ độ của bầy: đúng tâm quả cầu. Lớp này không chiếm chỗ trong layout
+   nên đom đóm bay tự do xuống vùng khung thông điệp bên dưới. */
+.firefly-layer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 30;
+}
+
+.firefly {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--fsize, 5px);
+  height: var(--fsize, 5px);
+  margin-left: calc(var(--fsize, 5px) / -2);
+  margin-top: calc(var(--fsize, 5px) / -2);
+  border-radius: 9999px;
+  background: var(--fcolor, #fde68a);
+  box-shadow:
+    0 0 8px 2px var(--fcolor, #fde68a),
+    0 0 20px 7px rgba(251, 191, 36, 0.3);
+  opacity: 0;
+  /* Hai lớp riêng: đường bay lo transform/opacity, nhịp nháy lo độ sáng,
+     không lớp nào ghi đè thuộc tính của lớp kia. */
+  animation:
+    fireflyDrift var(--fdur, 2s) cubic-bezier(0.25, 0.75, 0.35, 1) var(--fdelay, 0s) forwards,
+    fireflyBlink var(--fblink, 0.5s) ease-in-out var(--fdelay, 0s) infinite;
+}
+
+/* Bay vòng cung xuống dưới: võng sang một bên ở đoạn giữa rồi mới tụ về đích. */
+@keyframes fireflyDrift {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.25);
+  }
+  10% {
+    opacity: 1;
+    transform: translate3d(calc(var(--fcurve) * 0.45), calc(var(--fy) * 0.16), 0) scale(1.25);
+  }
+  45% {
+    opacity: 1;
+    transform: translate3d(var(--fcurve), calc(var(--fy) * 0.55), 0) scale(1);
+  }
+  74% {
+    opacity: 0.9;
+    transform: translate3d(calc(var(--fx) * 0.88), calc(var(--fy) * 0.92), 0) scale(0.85);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--fx), var(--fy), 0) scale(0.4);
+  }
+}
+
+@keyframes fireflyBlink {
+  0%, 100% { filter: brightness(0.85); }
+  50%      { filter: brightness(2.2); }
+}
+
+/* Đom đóm ở lại lượn quanh khung thông điệp */
+.firefly-idle {
+  position: absolute;
+  width: var(--fsize, 4px);
+  height: var(--fsize, 4px);
+  border-radius: 9999px;
+  background: var(--fcolor, #fde68a);
+  box-shadow: 0 0 7px 2px var(--fcolor, #fde68a);
+  animation:
+    fireflyWander var(--fdur, 8s) ease-in-out var(--fdelay, 0s) infinite,
+    fireflyBlink 2.4s ease-in-out var(--fdelay, 0s) infinite;
+}
+
+@keyframes fireflyWander {
+  0%, 100% { opacity: 0.25; transform: translate3d(0, 0, 0); }
+  25%      { opacity: 0.8;  transform: translate3d(16px, -12px, 0); }
+  50%      { opacity: 0.45; transform: translate3d(26px, 9px, 0); }
+  75%      { opacity: 0.85; transform: translate3d(7px, 16px, 0); }
+}
+
+/* Thông điệp kết tụ từ ánh sáng thành chữ */
+@keyframes messageMaterialize {
+  0%   { opacity: 0; transform: translateY(20px) scale(0.96); filter: blur(12px); }
+  50%  { opacity: 1; transform: translateY(6px)  scale(0.99); filter: blur(3px); }
+  100% { opacity: 1; transform: translateY(0)    scale(1);    filter: blur(0); }
+}
+
+.animate-message-materialize {
+  animation: messageMaterialize 0.95s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+/* Chữ còn vương ánh lân tinh rồi nguội dần */
+@keyframes textEmber {
+  0% {
+    text-shadow: 0 0 28px rgba(253, 230, 138, 0.95), 0 0 65px rgba(251, 191, 36, 0.7);
+    letter-spacing: 0.14em;
+  }
+  100% {
+    text-shadow: 0 0 12px rgba(251, 191, 36, 0.2);
+    letter-spacing: normal;
+  }
+}
+
+.animate-text-ember {
+  animation: textEmber 1.9s ease-out forwards;
 }
 
 /* ==========================================================================
@@ -384,9 +529,24 @@ h1, h2, h3, .font-serif {
   .animate-orb-breathe,
   .animate-orb-twinkle,
   .animate-orb-burst,
-  .animate-message-rise,
+  .animate-rune-ring,
+  .animate-shockwave,
+  .animate-orb-flare,
+  .animate-message-materialize,
+  .animate-text-ember,
   .orb-swirl {
     animation: none !important;
+  }
+
+  /* Đom đóm không bay: hiện tại chỗ thông điệp và đứng yên le lói. */
+  .firefly,
+  .firefly-idle {
+    animation: none !important;
+    opacity: 0.5;
+  }
+
+  .firefly {
+    transform: translate3d(var(--fx), var(--fy), 0);
   }
 }
 
