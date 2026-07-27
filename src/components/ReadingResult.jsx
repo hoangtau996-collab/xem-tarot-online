@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import { analyzeReadingSession } from '../utils/tarotEngine';
 import {
   Sparkles, User, Heart, Briefcase, DollarSign, Compass,
@@ -16,7 +16,15 @@ export const ReadingResult = ({
   lang = 'vi'
 }) => {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.vi;
-  const analysis = analyzeReadingSession(drawnCards, spread.id, question, lang);
+
+  // Phải memo hoá: hàm này bốc thông điệp ngẫu nhiên và đóng dấu thời gian,
+  // nên nếu gọi thẳng trong thân render thì mỗi lần re-render (bấm tab khía
+  // cạnh, gõ ghi chú...) sẽ ra một thông điệp khác. Chỉ đổi khi sang lượt
+  // trải bài mới, vì lúc đó drawnCards là một mảng mới.
+  const analysis = useMemo(
+    () => analyzeReadingSession(drawnCards, spread.id, question, lang),
+    [drawnCards, spread.id, question, lang]
+  );
   const [activeAspectTab, setActiveAspectTab] = useState('situation');
   const [selectedCardModal, setSelectedCardModal] = useState(null);
   const [savedSuccess, setSavedSuccess] = useState(false);
