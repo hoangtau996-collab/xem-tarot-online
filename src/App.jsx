@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { SpreadSelector } from './components/SpreadSelector';
 import { CardDeck } from './components/CardDeck';
 import { ReadingResult } from './components/ReadingResult';
+import { CosmicOrb } from './components/CosmicOrb';
 import { Encyclopedia } from './components/Encyclopedia';
 import { Journal } from './components/Journal';
 import { VisitorCounter } from './components/VisitorCounter';
@@ -56,6 +57,11 @@ export function App() {
 
       {/* Main Body View Switching */}
       <main className="flex-1 pb-16">
+
+        {/* Quả cầu thông điệp Vũ Trụ - đứng đầu trang, khách vừa vào đã thấy.
+            Đặt ngoài phần chuyển tab nên không lẫn vào bản giải bài. */}
+        <CosmicOrb lang={lang} />
+
         {activeTab === 'reading' && (
           <>
             {readingStep === 'selector' && (

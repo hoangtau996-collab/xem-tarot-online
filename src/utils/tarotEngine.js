@@ -1,32 +1,7 @@
 // Tarot Interpretation Synthesis Engine with i18n Multi-Language & Holistic Interconnected Story Generator
-
-import { AFFIRMATIONS } from '../data/affirmations.js';
-
-const LAST_AFFIRMATION_KEY = 'phealing_last_affirmation';
-
-/* Bốc ngẫu nhiên một thông điệp, loại trừ câu của lượt trải bài liền trước
-   để hai lượt liên tiếp không bao giờ trùng nhau. */
-const pickAffirmation = (lang = 'vi') => {
-  const pool = AFFIRMATIONS[lang] || AFFIRMATIONS.vi;
-
-  let previous = null;
-  try {
-    previous = localStorage.getItem(LAST_AFFIRMATION_KEY);
-  } catch {
-    /* localStorage bị chặn hoặc chạy ngoài trình duyệt - bỏ qua */
-  }
-
-  const candidates = pool.filter(line => line !== previous);
-  const chosen = candidates[Math.floor(Math.random() * candidates.length)] || pool[0];
-
-  try {
-    localStorage.setItem(LAST_AFFIRMATION_KEY, chosen);
-  } catch {
-    /* bỏ qua */
-  }
-
-  return chosen;
-};
+//
+// Thông điệp khẳng định từ Vũ Trụ (affirmation) không còn nằm trong bản giải
+// bài: nó là một trải nghiệm riêng ở quả cầu đầu trang (components/CosmicOrb).
 
 export const analyzeReadingSession = (drawnCards = [], spreadType = 'five_aspects', question = '', lang = 'vi') => {
   if (!drawnCards || drawnCards.length === 0) return null;
@@ -170,8 +145,6 @@ export const analyzeReadingSession = (drawnCards = [], spreadType = 'five_aspect
       `**Sự Tương Tác Nguyên Tố:** Sự áp đảo của **${currentElementMap[dominantElement]}** khẳng định rằng chiếc chìa khóa vạn năng giúp bạn tháo gỡ mọi vướng mắc lúc này chính là ${dominantElement === 'Fire' ? 'ngọn lửa nhiệt huyết, sự quyết đoán và tinh thần dấn thân' : dominantElement === 'Water' ? 'sự lắng nghe trực giác, yêu thương và chữa lành cảm xúc' : dominantElement === 'Air' ? 'sự minh bạch của sự thật, tư duy sắc bén và lý trí' : 'sự kiên trì, thực tế và xây dựng nền tảng vững chắc'}.`;
   }
 
-  const chosenAffirmation = pickAffirmation(lang);
-
   return {
     drawnCards,
     spreadType,
@@ -193,7 +166,6 @@ export const analyzeReadingSession = (drawnCards = [], spreadType = 'five_aspect
       dominantElement: currentElementMap[dominantElement] || dominantElement
     },
     aspects,
-    holisticNarrative,
-    affirmation: chosenAffirmation
+    holisticNarrative
   };
 };

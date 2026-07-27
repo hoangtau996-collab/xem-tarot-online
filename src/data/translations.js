@@ -12,7 +12,12 @@ export const TRANSLATIONS = {
     navVolume: 'Âm Lượng Nhạc',
     modeStream: 'Chuông Tây Tạng 🥣',
     modeCosmic: 'Vũ Trụ 🌌',
-    
+
+    // Quả cầu thông điệp vũ trụ (đầu trang)
+    orbHint: 'Hãy chạm vào quả cầu để nghe thông điệp từ Vũ Trụ',
+    orbHintAgain: 'Chạm vào quả cầu một lần nữa để nhận thông điệp mới',
+    orbAriaLabel: 'Chạm vào quả cầu ma thuật để nhận thông điệp từ Vũ Trụ',
+
     // Spread selector
     portalBadge: 'Cổng Kết Nối Tri Thức Vũ Trụ',
     mainHeading: 'Khám Phá Vận Mệnh Cùng Bài Tarot',
@@ -115,7 +120,12 @@ export const TRANSLATIONS = {
     navVolume: 'Music Volume',
     modeStream: 'Tibetan Bowls 🥣',
     modeCosmic: 'Cosmic Pad 🌌',
-    
+
+    // Cosmic message orb (top of page)
+    orbHint: 'Touch the orb to hear your message from the Universe',
+    orbHintAgain: 'Touch the orb once more for a new message',
+    orbAriaLabel: 'Touch the magic orb to receive a message from the Universe',
+
     // Spread selector
     portalBadge: 'Cosmic Knowledge Gateway',
     mainHeading: 'Discover Your Destiny with Tarot',
@@ -218,7 +228,12 @@ export const TRANSLATIONS = {
     navVolume: '音乐音量',
     modeStream: '西藏颂钵 🥣',
     modeCosmic: '宇宙冥想 🌌',
-    
+
+    // 宇宙讯息水晶球 (页面顶部)
+    orbHint: '轻触水晶球，聆听来自宇宙的讯息',
+    orbHintAgain: '再次轻触水晶球，接收全新讯息',
+    orbAriaLabel: '轻触魔法水晶球，接收来自宇宙的讯息',
+
     // Spread selector
     portalBadge: '宇宙智慧启示之门',
     mainHeading: '探索塔罗启示与命运指引',

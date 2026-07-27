@@ -58,7 +58,6 @@ export const ReadingResult = ({
           icon: c.icon
         })),
         dominantElement: analysis.stats.dominantElement,
-        affirmation: analysis.affirmation,
         userNote: userNote.trim()
       };
       localStorage.setItem('celestial_tarot_journal', JSON.stringify([newEntry, ...existing]));
@@ -75,8 +74,7 @@ export const ReadingResult = ({
       `📅 Date: ${analysis.date}\n` +
       `❓ Question: ${question || t.defaultQuestion}\n` +
       `🎴 Cards: ${drawnCards.map(c => `${lang === 'en' ? c.name : lang === 'zh' ? (c.nameZh || c.name) : c.nameVi} (${c.isReversed ? 'Reversed' : 'Upright'})`).join(', ')}\n` +
-      `🌟 Element: ${analysis.stats.dominantElement}\n` +
-      `✨ Affirmation: ${analysis.affirmation}`;
+      `🌟 Element: ${analysis.stats.dominantElement}`;
 
     navigator.clipboard.writeText(summaryText);
     setCopiedSuccess(true);
@@ -296,16 +294,8 @@ export const ReadingResult = ({
 
         </div>
 
-        {/* Cosmic Affirmation Banner */}
-        <div className="glass-panel-purple p-6 md:p-8 text-center space-y-3 relative overflow-hidden">
-          <Sparkles className="w-6 h-6 text-amber-300 mx-auto animate-pulse" />
-          <h4 className="text-xs font-semibold text-purple-300 uppercase tracking-widest">
-            {t.affirmationTitle}
-          </h4>
-          <p className="text-base md:text-xl font-serif text-amber-200 italic max-w-2xl mx-auto">
-            "{analysis.affirmation}"
-          </p>
-        </div>
+        {/* Thông điệp khẳng định từ Vũ Trụ đã tách khỏi phần giải bài:
+            nay nằm ở quả cầu đầu trang (xem components/CosmicOrb.jsx). */}
 
         {/* User Journal & Notes Input */}
         <div className="glass-panel p-6 space-y-4">
@@ -559,23 +549,6 @@ export const ReadingResult = ({
                 ))}
               </div>
             ))}
-          </div>
-
-          {/* Affirmation Poster */}
-          <div style={{
-            backgroundColor: '#2e1065',
-            border: '1px solid #fbbf24',
-            borderRadius: '16px',
-            padding: '20px',
-            textAlign: 'center',
-            marginBottom: '20px'
-          }}>
-            <div style={{ fontSize: '11px', color: '#c084fc', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 'bold' }}>
-              ✨ {t.affirmationTitle}
-            </div>
-            <div style={{ fontSize: '16px', color: '#fef08a', fontFamily: "'Philosopher', serif", fontStyle: 'italic', marginTop: '6px' }}>
-              "{analysis.affirmation}"
-            </div>
           </div>
 
           {/* Footer Signature */}
