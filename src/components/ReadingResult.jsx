@@ -8,6 +8,9 @@ import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
 import html2canvas from 'html2canvas';
 
+const MAX_CANVAS_AREA = 12e6; // chừa biên an toàn dưới ngưỡng ~16,7 triệu điểm ảnh của iOS Safari
+const MAX_CANVAS_SIDE = 8000; // một số máy còn giới hạn riêng từng chiều
+
 export const ReadingResult = ({
   drawnCards,
   spread,
@@ -30,6 +33,8 @@ export const ReadingResult = ({
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [copiedSuccess, setCopiedSuccess] = useState(false);
   const [isExportingImage, setIsExportingImage] = useState(false);
+  const [isExportingPdf, setIsExportingPdf] = useState(false);
+  const [exportError, setExportError] = useState('');
   const [userNote, setUserNote] = useState('');
   
   const posterRef = useRef(null);
@@ -82,40 +87,141 @@ export const ReadingResult = ({
     setTimeout(() => setCopiedSuccess(false), 3000);
   };
 
-  // 📄 Export Result to PDF (Print to PDF)
-  const handleExportPDF = () => {
-    cosmicAudio.playSparkleSound();
-    window.print();
-  };
+  /* Chụp poster kết quả thành canvas - dùng chung cho cả PNG và PDF.
+     Tỉ lệ chụp phải co lại theo độ dài poster: trình duyệt điện thoại từ chối
+     canvas quá lớn (iOS Safari chặn ở khoảng 16,7 triệu điểm ảnh) và trả về
+     ảnh trắng, nên trải bài càng nhiều lá thì scale càng nhỏ. */
+  const capturePoster = async () => {
+    const node = posterRef.current;
+    if (!node) throw new Error('Poster template chưa được gắn vào DOM');
 
-  // 🖼️ Export Result to High-Res PNG Image via Dedicated Poster Template
-  const handleExportImage = async () => {
-    if (!posterRef.current) return;
+    node.style.display = 'block';
     try {
-      setIsExportingImage(true);
-      cosmicAudio.playSparkleSound();
+      const rawW = node.offsetWidth || 900;
+      const rawH = node.scrollHeight || 1;
+      const scale = Math.min(
+        2,
+        Math.max(
+          0.8,
+          Math.min(
+            Math.sqrt(MAX_CANVAS_AREA / (rawW * rawH)),
+            MAX_CANVAS_SIDE / rawH,
+            MAX_CANVAS_SIDE / rawW
+          )
+        )
+      );
 
-      posterRef.current.style.display = 'block';
-
-      const canvas = await html2canvas(posterRef.current, {
-        scale: 2,
+      const canvas = await html2canvas(node, {
+        scale,
         backgroundColor: '#0b0818',
         useCORS: true,
         logging: false
       });
 
-      posterRef.current.style.display = 'none';
+      if (!canvas.width || !canvas.height) throw new Error('Canvas rỗng');
+      return canvas;
+    } finally {
+      node.style.display = 'none';
+    }
+  };
 
-      const image = canvas.toDataURL('image/png');
-      const link = document.createElement('a');
-      link.href = image;
-      link.download = `p_healing_tarot_reading_${Date.now()}.png`;
-      link.click();
+  /* Tải file về máy qua blob URL. Data URL nặng vài MB hay bị iOS Safari và
+     trình duyệt trong ứng dụng (Zalo, Facebook) lặng lẽ bỏ qua. */
+  const downloadBlob = (blob, filename) => {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.rel = 'noopener';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    // Thu hồi muộn: một số trình duyệt cần URL còn sống lúc bắt đầu tải.
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+  };
 
-      setIsExportingImage(false);
+  const canvasToBlob = (canvas, type, quality) =>
+    new Promise((resolve, reject) => {
+      canvas.toBlob(
+        blob => (blob ? resolve(blob) : reject(new Error('canvas.toBlob trả về null'))),
+        type,
+        quality
+      );
+    });
+
+  /* 📄 Xuất PDF và tải thẳng về máy.
+     Trước đây nút này gọi window.print(): trên laptop chỉ mở hộp thoại in (khách
+     phải tự chọn "Save as PDF"), còn trên điện thoại và các trình duyệt trong
+     ứng dụng thì thường không phản hồi gì - nên không bao giờ có file tải về.
+     Giờ file PDF được dựng ngay tại máy khách từ poster kết quả. */
+  const handleExportPDF = async () => {
+    if (isExportingPdf) return;
+    setIsExportingPdf(true);
+    setExportError('');
+    cosmicAudio.playSparkleSound();
+
+    try {
+      const canvas = await capturePoster();
+      // Nạp muộn: thư viện PDF chỉ tải về khi khách thật sự bấm xuất file.
+      const { jsPDF } = await import('jspdf');
+
+      const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      const pageW = doc.internal.pageSize.getWidth();
+      const pageH = doc.internal.pageSize.getHeight();
+      const margin = 8;
+      const usableH = pageH - margin * 2;
+
+      const imgData = canvas.toDataURL('image/jpeg', 0.92);
+      const imgW = pageW - margin * 2;
+      const imgH = (canvas.height / canvas.width) * imgW;
+
+      // Nền vũ trụ cho từng trang, khớp màu poster (#0b0818) để không lòi ra
+      // dải trắng ở trang cuối.
+      const paintBackground = () => {
+        doc.setFillColor(11, 8, 24);
+        doc.rect(0, 0, pageW, pageH, 'F');
+      };
+
+      // Poster dài hơn một trang A4: cắt bằng cách đẩy dần ảnh lên qua từng trang.
+      let heightLeft = imgH;
+      let offset = margin;
+
+      paintBackground();
+      doc.addImage(imgData, 'JPEG', margin, offset, imgW, imgH, undefined, 'FAST');
+      heightLeft -= usableH;
+
+      while (heightLeft > 0) {
+        offset = margin - (imgH - heightLeft);
+        doc.addPage();
+        paintBackground();
+        doc.addImage(imgData, 'JPEG', margin, offset, imgW, imgH, undefined, 'FAST');
+        heightLeft -= usableH;
+      }
+
+      downloadBlob(doc.output('blob'), `p_healing_tarot_reading_${Date.now()}.pdf`);
+    } catch (err) {
+      console.error('Failed to export PDF', err);
+      setExportError(t.exportErrorHint);
+    } finally {
+      setIsExportingPdf(false);
+    }
+  };
+
+  // 🖼️ Export Result to High-Res PNG Image via Dedicated Poster Template
+  const handleExportImage = async () => {
+    if (isExportingImage) return;
+    setIsExportingImage(true);
+    setExportError('');
+    cosmicAudio.playSparkleSound();
+
+    try {
+      const canvas = await capturePoster();
+      const blob = await canvasToBlob(canvas, 'image/png');
+      downloadBlob(blob, `p_healing_tarot_reading_${Date.now()}.png`);
     } catch (err) {
       console.error('Failed to capture image', err);
-      if (posterRef.current) posterRef.current.style.display = 'none';
+      setExportError(t.exportErrorHint);
+    } finally {
       setIsExportingImage(false);
     }
   };
@@ -333,17 +439,18 @@ export const ReadingResult = ({
             {/* Export PDF Button */}
             <button
               onClick={handleExportPDF}
-              className="px-4 py-2.5 rounded-full bg-indigo-900/60 border border-indigo-400/40 text-indigo-200 text-xs font-semibold hover:bg-indigo-800/80 transition-all flex items-center gap-1.5"
+              disabled={isExportingPdf}
+              className="px-4 py-2.5 rounded-full bg-indigo-900/60 border border-indigo-400/40 text-indigo-200 text-xs font-semibold hover:bg-indigo-800/80 transition-all flex items-center gap-1.5 disabled:opacity-60 disabled:cursor-wait"
             >
               <FileText className="w-4 h-4 text-amber-300" />
-              {t.exportPdfBtn}
+              {isExportingPdf ? t.exportingPdfHint : t.exportPdfBtn}
             </button>
 
             {/* Export PNG Image Button */}
             <button
               onClick={handleExportImage}
               disabled={isExportingImage}
-              className="px-4 py-2.5 rounded-full bg-purple-900/60 border border-purple-400/40 text-purple-200 text-xs font-semibold hover:bg-purple-800/80 transition-all flex items-center gap-1.5"
+              className="px-4 py-2.5 rounded-full bg-purple-900/60 border border-purple-400/40 text-purple-200 text-xs font-semibold hover:bg-purple-800/80 transition-all flex items-center gap-1.5 disabled:opacity-60 disabled:cursor-wait"
             >
               <Download className="w-4 h-4 text-cyan-300" />
               {isExportingImage ? t.exportingHint : t.exportImageBtn}
@@ -374,6 +481,13 @@ export const ReadingResult = ({
               {t.newReadingBtn}
             </button>
           </div>
+
+          {/* Báo lỗi khi không dựng được file để tải */}
+          {exportError && (
+            <p className="text-xs text-rose-300 bg-rose-950/40 border border-rose-400/30 rounded-xl px-4 py-2.5">
+              ⚠️ {exportError}
+            </p>
+          )}
         </div>
 
       </div>

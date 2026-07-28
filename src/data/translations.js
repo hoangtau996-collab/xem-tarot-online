@@ -77,6 +77,8 @@ export const TRANSLATIONS = {
     exportPdfBtn: '📄 Xuất File PDF',
     exportImageBtn: '🖼️ Tải Ảnh Kết Quả',
     exportingHint: 'Đang tạo file ảnh...',
+    exportingPdfHint: 'Đang tạo file PDF...',
+    exportErrorHint: 'Chưa tạo được file tải về. Bạn thử lại giúp mình nhé, hoặc mở trang bằng Chrome / Safari thay vì trình duyệt trong ứng dụng.',
     newReadingBtn: 'Trải Bài Mới',
 
     // Encyclopedia
@@ -185,6 +187,8 @@ export const TRANSLATIONS = {
     exportPdfBtn: '📄 Export PDF File',
     exportImageBtn: '🖼️ Download PNG Image',
     exportingHint: 'Generating Image...',
+    exportingPdfHint: 'Generating PDF...',
+    exportErrorHint: 'Could not build the file. Please try again, or open the page in Chrome / Safari instead of an in-app browser.',
     newReadingBtn: 'New Reading',
 
     // Encyclopedia
@@ -293,6 +297,8 @@ export const TRANSLATIONS = {
     exportPdfBtn: '📄 导出 PDF 文件',
     exportImageBtn: '🖼️ 下载图片 (PNG)',
     exportingHint: '正在生成图片...',
+    exportingPdfHint: '正在生成 PDF...',
+    exportErrorHint: '文件生成失败，请重试，或改用 Chrome / Safari 打开本页面（避免使用应用内置浏览器）。',
     newReadingBtn: '开始新占卜',
 
     // Encyclopedia
