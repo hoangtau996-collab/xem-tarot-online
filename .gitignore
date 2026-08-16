@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Thư mục làm việc tạm (script thử, bản nháp) - không thuộc mã nguồn
+tmp/
