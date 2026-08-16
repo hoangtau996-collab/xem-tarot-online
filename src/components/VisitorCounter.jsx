@@ -5,28 +5,15 @@ import { TRANSLATIONS } from '../data/translations';
 /* ==========================================================================
    BỘ ĐẾM LƯỢT TRUY CẬP
 
-   Tổng hiển thị = NỀN + LƯỢT THẬT (từ cloud) + PHẦN CỘNG ĐỊNH KỲ
+   Tổng hiển thị = KHỞI ĐIỂM 400 + LƯỢT TRUY CẬP THẬT
 
-   Lưu ý quan trọng khi bảo trì: chỉ "LƯỢT THẬT" là số liệu traffic thực.
-   Phần cộng định kỳ bên dưới là số bù theo thời gian, KHÔNG phải người
-   truy cập. Đừng dùng con số hiển thị này để phân tích hay ra quyết định.
+   Không có số bù, không cộng theo thời gian. Mỗi đơn vị tăng thêm tương ứng
+   một lượt truy cập có thật. Bộ đếm nằm trên server nên gộp chung mọi thiết
+   bị, mọi trình duyệt, mọi thời điểm - không phụ thuộc máy của khách.
    ========================================================================== */
 
-// Nền cộng dồn, nối tiếp con số bộ đếm cũ đang hiển thị (~285) để không tụt.
-const BASE_VISITS = 290;
-
-/* --- Phần cộng định kỳ ------------------------------------------------- */
-// Đặt DRIFT_PER_DAY = 0 là tắt hoàn toàn, số về đúng traffic thật.
-const DRIFT_PER_DAY = 8;
-const DRIFT_START = Date.parse('2026-08-16T00:00:00Z');
-
-// Tính theo số ngày trôi qua nên mọi khách trong cùng một ngày thấy cùng một
-// con số, và nó chỉ tăng - không nhảy loạn giữa các lần tải trang.
-const driftVisits = () => {
-  if (!DRIFT_PER_DAY) return 0;
-  const days = Math.floor((Date.now() - DRIFT_START) / 86400000);
-  return days > 0 ? days * DRIFT_PER_DAY : 0;
-};
+// Khởi điểm do người dùng ấn định. Đây là mốc bắt đầu, không phải số đo được.
+const BASE_VISITS = 400;
 
 /* --- Bộ đếm thật ------------------------------------------------------- */
 // counterapi.dev v1 đã bị khai tử (trả 410 Gone) nên bộ đếm cũ ngừng chạy và
@@ -34,9 +21,9 @@ const driftVisits = () => {
 const COUNTER_UP = 'https://abacus.jasoncameron.dev/hit/phealing-tarot/visits';
 const COUNTER_READ = 'https://abacus.jasoncameron.dev/get/phealing-tarot/visits';
 
-// Giá trị bộ đếm mới tại thời điểm dựng (2 lượt gọi kiểm thử). Trừ đi để không
-// tính nhầm thành khách thật.
-const COUNTER_START = 2;
+// Giá trị bộ đếm tại thời điểm chốt mốc 400. Toàn bộ 6 lượt này là các lần gọi
+// kiểm thử lúc dựng, không phải khách thật, nên trừ ra.
+const COUNTER_START = 6;
 
 const SESSION_KEY = 'phealing_session_v2';
 const DAILY_LOG_KEY = 'phealing_daily_log_v2';
@@ -82,7 +69,7 @@ export const VisitorCounter = ({ lang = 'vi', variant = 'footer' }) => {
         localStorage.setItem(DAILY_LOG_KEY, JSON.stringify(log));
       }
 
-      localTotal = BASE_VISITS + driftVisits() + sumDailyLog(log);
+      localTotal = BASE_VISITS + sumDailyLog(log);
       cachedTotal = Number(localStorage.getItem(TOTAL_CACHE_KEY)) || 0;
 
       // Hiển thị ngay số cộng dồn cục bộ, cloud sẽ ghi đè khi về tới
@@ -102,7 +89,7 @@ export const VisitorCounter = ({ lang = 'vi', variant = 'footer' }) => {
         if (!Number.isFinite(cloudCount)) return;
 
         // Số chỉ tăng, không bao giờ tụt lại
-        const cloudTotal = BASE_VISITS + driftVisits() + Math.max(0, cloudCount - COUNTER_START);
+        const cloudTotal = BASE_VISITS + Math.max(0, cloudCount - COUNTER_START);
         const next = Math.max(cloudTotal, localTotal, cachedTotal);
         setTotalVisits(next);
         try {
