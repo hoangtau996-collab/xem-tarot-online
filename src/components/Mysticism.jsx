@@ -104,7 +104,7 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
 
   const TONE_CLASS = {
     emerald: 'border-emerald-400/35 text-emerald-300',
-    cyan: 'border-cyan-400/35 text-cyan-300',
+    cyan: 'border-yellow-400/35 text-yellow-300',
     amber: 'border-amber-400/35 text-amber-300',
     rose: 'border-rose-400/35 text-rose-300'
   };
@@ -114,8 +114,8 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
 
       {/* Header Banner */}
       <div className="text-center space-y-3">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-900/40 border border-purple-400/30 text-purple-300 text-xs font-semibold">
-          <Orbit className="w-4 h-4 text-cyan-300" />
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-stone-900/40 border border-stone-400/30 text-stone-300 text-xs font-semibold">
+          <Orbit className="w-4 h-4 text-yellow-300" />
           {t.mysBadge}
         </div>
         <h2 className="text-3xl md:text-4xl font-serif gold-gradient-text">
@@ -140,7 +140,7 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
           {/* Thanh hồ sơ đang xem */}
           <div className="glass-panel p-4 flex flex-wrap items-center justify-between gap-3">
             <div className="min-w-0">
-              <span className="text-2xs text-cyan-300 uppercase tracking-widest font-semibold block">
+              <span className="text-2xs text-yellow-300 uppercase tracking-widest font-semibold block">
                 {t.profileViewing}
               </span>
               <p className="font-serif font-bold text-base text-gray-100 truncate">
@@ -152,7 +152,7 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
             </div>
             <button
               onClick={() => { setIsEditing(true); cosmicAudio.playSparkleSound(); }}
-              className="px-4 py-2 rounded-full bg-purple-900/50 border border-purple-400/30 text-purple-200 text-xs hover:bg-purple-800/70 transition-all flex items-center gap-1.5 shrink-0"
+              className="px-4 py-2 rounded-full bg-stone-900/50 border border-stone-400/30 text-stone-200 text-xs hover:bg-stone-800/70 transition-all flex items-center gap-1.5 shrink-0"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               {t.profileEditBtn}
@@ -162,7 +162,7 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
           {/* Tuổi Can Chi & bản mệnh */}
           <div className="glass-panel p-6 md:p-8 space-y-5 border-amber-400/50">
             <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-7">
-              <div className="w-28 h-28 shrink-0 rounded-full bg-gradient-to-br from-amber-400/25 to-purple-600/25 border-2 border-amber-400/60 flex flex-col items-center justify-center shadow-lg shadow-amber-500/25">
+              <div className="w-28 h-28 shrink-0 rounded-full bg-gradient-to-br from-amber-400/25 to-stone-600/25 border-2 border-amber-400/60 flex flex-col items-center justify-center shadow-lg shadow-amber-500/25">
                 <span className="text-4xl leading-none">{result.canChi.branch.icon}</span>
                 <span className="text-2xs text-amber-200/90 mt-1 font-semibold">
                   {L(result.canChi.branch.animal)}
@@ -180,7 +180,7 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
                   </span>
                 </h3>
                 <div className="flex flex-wrap gap-1.5 justify-center sm:justify-start">
-                  <span className="px-2.5 py-1 rounded-full bg-purple-900/60 border border-purple-400/25 text-2xs text-purple-200">
+                  <span className="px-2.5 py-1 rounded-full bg-stone-900/60 border border-stone-400/25 text-2xs text-stone-200">
                     {t.mysNapAm}: {result.canChi.napAm.vi}
                   </span>
                   <span className="px-2.5 py-1 rounded-full bg-amber-900/50 border border-amber-400/30 text-2xs text-amber-200 font-semibold">
@@ -198,8 +198,8 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
             </p>
 
             {result.shiftedByLapXuan && (
-              <p className="text-2xs text-cyan-200/90 bg-cyan-950/40 border border-cyan-400/25 rounded-xl px-4 py-2.5 flex gap-2 font-light">
-                <Info className="w-4 h-4 shrink-0 text-cyan-300 mt-0.5" />
+              <p className="text-2xs text-yellow-200/90 bg-yellow-950/40 border border-yellow-400/25 rounded-xl px-4 py-2.5 flex gap-2 font-light">
+                <Info className="w-4 h-4 shrink-0 text-yellow-300 mt-0.5" />
                 <span>{t.mysLapXuanNote.replace('{year}', result.lunarYear)}</span>
               </p>
             )}
@@ -241,8 +241,8 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
                 </span>
                 <p className="text-xs text-gray-200 font-light">{L(result.elementInfo.avoidColors)}</p>
               </div>
-              <div className="p-4 rounded-xl bg-space/60 border border-cyan-400/30 space-y-1.5">
-                <span className="text-xs font-semibold text-cyan-300 flex items-center gap-1.5">
+              <div className="p-4 rounded-xl bg-space/60 border border-yellow-400/30 space-y-1.5">
+                <span className="text-xs font-semibold text-yellow-300 flex items-center gap-1.5">
                   <Gem className="w-4 h-4" />{t.mysGems}
                 </span>
                 <p className="text-xs text-gray-200 font-light">{L(result.elementInfo.gems)}</p>
@@ -254,25 +254,25 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
           <div className="glass-panel p-5 md:p-7 space-y-5">
             <div className="space-y-1.5">
               <h3 className="font-serif font-bold text-lg gold-gradient-text flex items-center gap-2">
-                <Compass className="w-5 h-5 text-cyan-400" />
+                <Compass className="w-5 h-5 text-yellow-400" />
                 {t.mysKuaTitle}
               </h3>
               <p className="text-xs text-gray-400 font-light">{t.mysKuaDesc}</p>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center gap-5">
-              <div className="w-24 h-24 shrink-0 rounded-2xl bg-space/70 border border-cyan-400/40 flex flex-col items-center justify-center">
-                <span className="text-2xs text-cyan-300 uppercase tracking-wider">{t.mysKuaNumber}</span>
-                <span className="text-3xl font-serif font-bold text-cyan-200 leading-none mt-1">{result.kua}</span>
+              <div className="w-24 h-24 shrink-0 rounded-2xl bg-space/70 border border-yellow-400/40 flex flex-col items-center justify-center">
+                <span className="text-2xs text-yellow-300 uppercase tracking-wider">{t.mysKuaNumber}</span>
+                <span className="text-3xl font-serif font-bold text-yellow-200 leading-none mt-1">{result.kua}</span>
               </div>
               <div className="text-center sm:text-left space-y-2">
-                <h4 className="text-xl font-serif font-bold text-cyan-200">
+                <h4 className="text-xl font-serif font-bold text-yellow-200">
                   {t.mysTrigram} {result.trigram.key}
                   <span className="text-sm text-gray-400 font-sans font-normal ml-2">
                     ({result.trigram.name.zh} • {L(result.trigram.name)})
                   </span>
                 </h4>
-                <span className="inline-block px-3 py-1 rounded-full bg-amber-400 text-purple-950 text-2xs font-bold">
+                <span className="inline-block px-3 py-1 rounded-full bg-amber-400 text-stone-950 text-2xs font-bold">
                   {L(result.houseGroup.name)}
                 </span>
                 <p className="text-xs text-gray-200 leading-relaxed font-light max-w-lg">
@@ -329,7 +329,7 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
           {/* Hợp - xung con giáp */}
           <div className="glass-panel p-5 md:p-7 space-y-4">
             <h3 className="font-serif font-bold text-lg gold-gradient-text flex items-center gap-2">
-              <HeartHandshake className="w-5 h-5 text-pink-400" />
+              <HeartHandshake className="w-5 h-5 text-yellow-400" />
               {t.mysCompatTitle}
             </h3>
 
@@ -350,9 +350,9 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
                 </div>
               )}
 
-              <div className="p-4 rounded-xl bg-cyan-950/25 border border-cyan-400/30 space-y-2">
-                <span className="text-xs font-semibold text-cyan-300 block">{t.mysLucHop}</span>
-                <span className="px-2.5 py-1 rounded-lg bg-space/70 border border-cyan-400/20 text-2xs text-gray-200 inline-block">
+              <div className="p-4 rounded-xl bg-yellow-950/25 border border-yellow-400/30 space-y-2">
+                <span className="text-xs font-semibold text-yellow-300 block">{t.mysLucHop}</span>
+                <span className="px-2.5 py-1 rounded-lg bg-space/70 border border-yellow-400/20 text-2xs text-gray-200 inline-block">
                   {result.animalGroups.lucHop.icon} {L(result.animalGroups.lucHop.animal)} ({result.animalGroups.lucHop.vi})
                 </span>
                 <p className="text-2xs text-gray-400 font-light">{t.mysLucHopHint}</p>
@@ -386,18 +386,18 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
           </div>
 
           {/* Cung hoàng đạo phương Tây */}
-          <div className="glass-panel p-5 md:p-7 space-y-4 border-purple-400/40">
+          <div className="glass-panel p-5 md:p-7 space-y-4 border-stone-400/40">
             <h3 className="font-serif font-bold text-lg cosmic-gradient-text flex items-center gap-2">
-              <Landmark className="w-5 h-5 text-purple-400" />
+              <Landmark className="w-5 h-5 text-stone-400" />
               {t.mysZodiacTitle}
             </h3>
 
             <div className="flex flex-col sm:flex-row items-center gap-5">
-              <div className="w-20 h-20 shrink-0 rounded-2xl bg-space/70 border border-purple-400/40 flex items-center justify-center">
-                <span className="text-4xl text-purple-200">{result.zodiac.icon}</span>
+              <div className="w-20 h-20 shrink-0 rounded-2xl bg-space/70 border border-stone-400/40 flex items-center justify-center">
+                <span className="text-4xl text-stone-200">{result.zodiac.icon}</span>
               </div>
               <div className="text-center sm:text-left space-y-1.5">
-                <h4 className="text-xl font-serif font-bold text-purple-200">{L(result.zodiac.name)}</h4>
+                <h4 className="text-xl font-serif font-bold text-stone-200">{L(result.zodiac.name)}</h4>
                 <p className="text-2xs text-gray-400">
                   {t.mysRuler}: {L(result.zodiac.ruler)} • {t.mysZodiacElement}: {result.zodiac.element}
                 </p>
@@ -417,7 +417,7 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
               onChange={(e) => setUserNote(e.target.value)}
               placeholder={t.notePlaceholder}
               rows={3}
-              className="w-full px-4 py-3 rounded-xl bg-space/80 border border-purple-400/30 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 text-xs resize-none"
+              className="w-full px-4 py-3 rounded-xl bg-space/80 border border-stone-400/30 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 text-xs resize-none"
             />
 
             <div className="grid sm:grid-cols-3 gap-3">
@@ -426,7 +426,7 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
                 className={`px-4 py-3 rounded-full text-xs font-semibold border transition-all flex items-center justify-center gap-1.5 ${
                   savedSuccess
                     ? 'bg-emerald-500 text-white border-emerald-400'
-                    : 'bg-purple-900/50 text-purple-100 border-purple-400/40 hover:bg-purple-800/70'
+                    : 'bg-stone-900/50 text-stone-100 border-stone-400/40 hover:bg-stone-800/70'
                 }`}
               >
                 {savedSuccess ? <Check className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
@@ -436,7 +436,7 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
               <button
                 onClick={handleExportPdf}
                 disabled={isExportingPdf}
-                className="px-4 py-3 rounded-full text-xs font-semibold border border-cyan-400/40 bg-cyan-950/40 text-cyan-200 hover:bg-cyan-900/60 transition-all flex items-center justify-center gap-1.5 disabled:opacity-60"
+                className="px-4 py-3 rounded-full text-xs font-semibold border border-yellow-400/40 bg-yellow-950/40 text-yellow-200 hover:bg-yellow-900/60 transition-all flex items-center justify-center gap-1.5 disabled:opacity-60"
               >
                 <FileText className="w-4 h-4" />
                 {isExportingPdf ? t.exportingPdfHint : t.exportPdfBtn}

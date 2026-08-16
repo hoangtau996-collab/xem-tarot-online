@@ -622,3 +622,84 @@ h1, h2, h3, .font-serif {
     border: 1px solid #fbbf24 !important;
   }
 }
+
+/* ==========================================================================
+   BẢNG MÀU RIÊNG CHO TỪNG MỤC
+
+   Màu Tailwind trong Numerology.jsx / Mysticism.jsx đã được đổi thẳng trong
+   file (sky/blue cho Thần Số, amber/stone cho Huyền Học). Phần dưới đây lo
+   nốt các class DÙNG CHUNG - glass-panel, gold-gradient-text, bg-space - vì
+   chúng nằm ở index.css nên không đổi theo từng file được.
+
+   Trang chủ Tarot không có data-section nên giữ nguyên tông vàng-tím cũ.
+   ========================================================================== */
+
+/* ---------- Thần Số Học: xanh galaxy huyền bí ---------- */
+[data-section="numerology"] .glass-panel {
+  background-color: rgba(13, 22, 55, 0.82);
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(125, 211, 252, 0.12);
+}
+
+[data-section="numerology"] .glass-panel-purple {
+  background-color: rgba(17, 28, 68, 0.78);
+  border-color: rgba(96, 165, 250, 0.32);
+}
+
+[data-section="numerology"] .gold-gradient-text {
+  background-image: linear-gradient(135deg, #e0f2fe 0%, #38bdf8 50%, #4f46e5 100%);
+}
+
+[data-section="numerology"] .cosmic-gradient-text {
+  background-image: linear-gradient(135deg, #67e8f9 0%, #60a5fa 50%, #a78bfa 100%);
+}
+
+[data-section="numerology"] .btn-gold {
+  background-image: linear-gradient(135deg, #7dd3fc 0%, #2563eb 100%);
+  color: #f8fafc;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.45);
+}
+
+[data-section="numerology"] .btn-gold:hover {
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.75);
+}
+
+/* Nền tối ngả xanh mực thay cho nền ngả tím của trang chủ */
+[data-section="numerology"] .bg-space\/60 { background-color: rgba(6, 14, 38, 0.6); }
+[data-section="numerology"] .bg-space\/70 { background-color: rgba(6, 14, 38, 0.7); }
+[data-section="numerology"] .bg-space\/80 { background-color: rgba(6, 14, 38, 0.8); }
+
+/* ---------- Huyền Học: vàng đen ---------- */
+[data-section="mysticism"] .glass-panel {
+  background-color: rgba(16, 13, 7, 0.88);
+  border-color: rgba(251, 191, 36, 0.34);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(253, 230, 138, 0.12);
+}
+
+[data-section="mysticism"] .glass-panel-purple {
+  background-color: rgba(22, 18, 9, 0.85);
+  border-color: rgba(217, 119, 6, 0.35);
+}
+
+[data-section="mysticism"] .gold-gradient-text {
+  background-image: linear-gradient(135deg, #fffbeb 0%, #fbbf24 45%, #b45309 100%);
+}
+
+[data-section="mysticism"] .cosmic-gradient-text {
+  background-image: linear-gradient(135deg, #fde68a 0%, #f59e0b 50%, #92400e 100%);
+}
+
+[data-section="mysticism"] .btn-cosmic {
+  background-image: linear-gradient(135deg, #b45309 0%, #f59e0b 50%, #fcd34d 100%);
+  color: #1c1917;
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
+}
+
+[data-section="mysticism"] .btn-cosmic:hover {
+  box-shadow: 0 6px 28px rgba(251, 191, 36, 0.65);
+}
+
+/* Nền đen ngả nâu ấm, bỏ hẳn sắc tím */
+[data-section="mysticism"] .bg-space\/60 { background-color: rgba(10, 8, 4, 0.6); }
+[data-section="mysticism"] .bg-space\/70 { background-color: rgba(10, 8, 4, 0.72); }
+[data-section="mysticism"] .bg-space\/80 { background-color: rgba(10, 8, 4, 0.85); }

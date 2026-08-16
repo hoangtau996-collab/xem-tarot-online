@@ -141,20 +141,27 @@ export function App() {
           </>
         )}
 
+        {/* data-section: khoá bảng màu riêng cho từng mục. Các class dùng chung
+            (glass-panel, gold-gradient-text, bg-space...) được đổi tông trong
+            index.css theo thuộc tính này, nên không phải nhân bản class. */}
         {activeTab === 'numerology' && (
-          <Numerology
-            lang={lang}
-            profile={mysticProfile}
-            onSaveProfile={handleSaveMysticProfile}
-          />
+          <div data-section="numerology">
+            <Numerology
+              lang={lang}
+              profile={mysticProfile}
+              onSaveProfile={handleSaveMysticProfile}
+            />
+          </div>
         )}
 
         {activeTab === 'mysticism' && (
-          <Mysticism
-            lang={lang}
-            profile={mysticProfile}
-            onSaveProfile={handleSaveMysticProfile}
-          />
+          <div data-section="mysticism">
+            <Mysticism
+              lang={lang}
+              profile={mysticProfile}
+              onSaveProfile={handleSaveMysticProfile}
+            />
+          </div>
         )}
 
         {activeTab === 'encyclopedia' && (

@@ -18,10 +18,10 @@ const FORECAST_YEARS_AHEAD = 30;
 
 /* Màu riêng cho từng chỉ số để bảng 7 con số không bị đọc thành một khối xám. */
 const CORE_ACCENTS = {
-  lifePath: { text: 'text-amber-300', border: 'border-amber-400/40', glow: 'shadow-amber-500/20' },
+  lifePath: { text: 'text-sky-300', border: 'border-sky-400/40', glow: 'shadow-sky-500/20' },
   expression: { text: 'text-cyan-300', border: 'border-cyan-400/40', glow: 'shadow-cyan-500/20' },
-  soulUrge: { text: 'text-pink-300', border: 'border-pink-400/40', glow: 'shadow-pink-500/20' },
-  personality: { text: 'text-purple-300', border: 'border-purple-400/40', glow: 'shadow-purple-500/20' },
+  soulUrge: { text: 'text-indigo-300', border: 'border-indigo-400/40', glow: 'shadow-indigo-500/20' },
+  personality: { text: 'text-blue-300', border: 'border-blue-400/40', glow: 'shadow-blue-500/20' },
   birthday: { text: 'text-emerald-300', border: 'border-emerald-400/40', glow: 'shadow-emerald-500/20' },
   attitude: { text: 'text-orange-300', border: 'border-orange-400/40', glow: 'shadow-orange-500/20' },
   maturity: { text: 'text-indigo-300', border: 'border-indigo-400/40', glow: 'shadow-indigo-500/20' }
@@ -137,8 +137,8 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
 
       {/* Header Banner */}
       <div className="text-center space-y-3">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-900/40 border border-purple-400/30 text-purple-300 text-xs font-semibold">
-          <Hash className="w-4 h-4 text-amber-300" />
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-900/40 border border-blue-400/30 text-blue-300 text-xs font-semibold">
+          <Hash className="w-4 h-4 text-sky-300" />
           {t.numBadge}
         </div>
         <h2 className="text-3xl md:text-4xl font-serif gold-gradient-text">
@@ -162,7 +162,7 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
           {/* Thanh hồ sơ đang xem */}
           <div className="glass-panel p-4 flex flex-wrap items-center justify-between gap-3">
             <div className="min-w-0">
-              <span className="text-2xs text-amber-300 uppercase tracking-widest font-semibold block">
+              <span className="text-2xs text-sky-300 uppercase tracking-widest font-semibold block">
                 {t.profileViewing}
               </span>
               <p className="font-serif font-bold text-base text-gray-100 truncate">
@@ -172,7 +172,7 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
             </div>
             <button
               onClick={() => { setIsEditing(true); cosmicAudio.playSparkleSound(); }}
-              className="px-4 py-2 rounded-full bg-purple-900/50 border border-purple-400/30 text-purple-200 text-xs hover:bg-purple-800/70 transition-all flex items-center gap-1.5 shrink-0"
+              className="px-4 py-2 rounded-full bg-blue-900/50 border border-blue-400/30 text-blue-200 text-xs hover:bg-blue-800/70 transition-all flex items-center gap-1.5 shrink-0"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               {t.profileEditBtn}
@@ -180,32 +180,32 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
           </div>
 
           {/* Số Đường Đời - chỉ số quan trọng nhất, để riêng một khối lớn */}
-          <div className="glass-panel p-6 md:p-8 space-y-5 border-amber-400/50">
+          <div className="glass-panel p-6 md:p-8 space-y-5 border-sky-400/50">
             <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-7">
               <div className="relative shrink-0">
-                <div className="w-28 h-28 rounded-full bg-gradient-to-br from-amber-400/25 to-purple-600/25 border-2 border-amber-400/60 flex flex-col items-center justify-center shadow-lg shadow-amber-500/25">
+                <div className="w-28 h-28 rounded-full bg-gradient-to-br from-sky-400/25 to-blue-600/25 border-2 border-sky-400/60 flex flex-col items-center justify-center shadow-lg shadow-sky-500/25">
                   <span className="text-4xl font-serif font-bold gold-gradient-text leading-none">
                     {result.lifePath}
                   </span>
-                  <span className="text-2xs text-amber-200/80 mt-1">{result.lifePathMeaning.icon}</span>
+                  <span className="text-2xs text-sky-200/80 mt-1">{result.lifePathMeaning.icon}</span>
                 </div>
                 {isMasterNumber(result.lifePath) && (
-                  <span className="absolute -top-1 -right-1 px-2 py-0.5 rounded-full bg-amber-400 text-purple-950 text-2xs font-bold shadow">
+                  <span className="absolute -top-1 -right-1 px-2 py-0.5 rounded-full bg-sky-400 text-blue-950 text-2xs font-bold shadow">
                     {t.numMasterBadge}
                   </span>
                 )}
               </div>
 
               <div className="text-center sm:text-left space-y-2 min-w-0">
-                <span className="text-2xs text-amber-300 uppercase tracking-widest font-semibold block">
+                <span className="text-2xs text-sky-300 uppercase tracking-widest font-semibold block">
                   {t.numLabels.lifePath.name}
                 </span>
-                <h3 className="text-2xl font-serif font-bold text-amber-200">
+                <h3 className="text-2xl font-serif font-bold text-sky-200">
                   {result.lifePathMeaning.title}
                 </h3>
                 <div className="flex flex-wrap gap-1.5 justify-center sm:justify-start">
                   {result.lifePathMeaning.keywords.map((kw, i) => (
-                    <span key={i} className="px-2.5 py-1 rounded-full bg-purple-900/60 border border-purple-400/25 text-2xs text-purple-200">
+                    <span key={i} className="px-2.5 py-1 rounded-full bg-blue-900/60 border border-blue-400/25 text-2xs text-blue-200">
                       {kw}
                     </span>
                   ))}
@@ -213,7 +213,7 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
               </div>
             </div>
 
-            <p className="text-sm text-gray-200 leading-relaxed font-light border-t border-amber-400/20 pt-4">
+            <p className="text-sm text-gray-200 leading-relaxed font-light border-t border-sky-400/20 pt-4">
               {result.lifePathMeaning.lifePath}
             </p>
           </div>
@@ -234,7 +234,7 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
                 onClick={() => goToYear(forecastYear - 1)}
                 disabled={forecastYear <= minYear}
                 aria-label={t.numPrevYear}
-                className="w-11 h-11 shrink-0 rounded-full border border-purple-400/30 bg-space/70 text-purple-200 flex items-center justify-center hover:bg-purple-900/50 transition-all disabled:opacity-30 disabled:hover:bg-space/70"
+                className="w-11 h-11 shrink-0 rounded-full border border-blue-400/30 bg-space/70 text-blue-200 flex items-center justify-center hover:bg-blue-900/50 transition-all disabled:opacity-30 disabled:hover:bg-space/70"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -247,7 +247,7 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
                   id="forecast-year"
                   value={forecastYear}
                   onChange={(e) => goToYear(Number(e.target.value))}
-                  className="px-4 py-2 rounded-xl bg-space/80 border border-cyan-400/40 text-lg font-serif font-bold text-cyan-200 focus:outline-none focus:border-amber-400 text-center cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-space/80 border border-cyan-400/40 text-lg font-serif font-bold text-cyan-200 focus:outline-none focus:border-sky-400 text-center cursor-pointer"
                 >
                   {yearOptions.map(y => (
                     <option key={y} value={y}>{y}</option>
@@ -259,7 +259,7 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
                 onClick={() => goToYear(forecastYear + 1)}
                 disabled={forecastYear >= maxYear}
                 aria-label={t.numNextYear}
-                className="w-11 h-11 shrink-0 rounded-full border border-purple-400/30 bg-space/70 text-purple-200 flex items-center justify-center hover:bg-purple-900/50 transition-all disabled:opacity-30 disabled:hover:bg-space/70"
+                className="w-11 h-11 shrink-0 rounded-full border border-blue-400/30 bg-space/70 text-blue-200 flex items-center justify-center hover:bg-blue-900/50 transition-all disabled:opacity-30 disabled:hover:bg-space/70"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -267,7 +267,7 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
               {forecastYear !== thisYear && (
                 <button
                   onClick={() => goToYear(thisYear)}
-                  className="px-4 py-2 rounded-full bg-amber-950/50 border border-amber-400/35 text-amber-200 text-xs font-semibold hover:bg-amber-900/60 transition-all self-end"
+                  className="px-4 py-2 rounded-full bg-sky-950/50 border border-sky-400/35 text-sky-200 text-xs font-semibold hover:bg-sky-900/60 transition-all self-end"
                 >
                   {t.numBackToday}
                 </button>
@@ -296,15 +296,15 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
                 </div>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-3 border-t border-purple-500/25 pt-4">
+              <div className="grid sm:grid-cols-2 gap-3 border-t border-blue-500/25 pt-4">
                 <div className="p-3.5 rounded-xl bg-space/60 border border-emerald-400/30 space-y-1">
                   <span className="text-2xs font-semibold text-emerald-300 uppercase tracking-wider flex items-center gap-1.5">
                     <Target className="w-3.5 h-3.5" />{t.numYearFocus}
                   </span>
                   <p className="text-xs text-gray-200 font-light">{forecast.info.focus}</p>
                 </div>
-                <div className="p-3.5 rounded-xl bg-space/60 border border-amber-400/30 space-y-1">
-                  <span className="text-2xs font-semibold text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
+                <div className="p-3.5 rounded-xl bg-space/60 border border-sky-400/30 space-y-1">
+                  <span className="text-2xs font-semibold text-sky-300 uppercase tracking-wider flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5" />{t.numYearAdvice}
                   </span>
                   <p className="text-xs text-gray-200 font-light">{forecast.info.advice}</p>
@@ -329,28 +329,28 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
                       key={m.calendarMonth}
                       className={`p-4 rounded-xl border space-y-2 transition-all ${
                         isNow
-                          ? 'bg-amber-950/40 border-amber-400/60 shadow-md shadow-amber-500/15'
-                          : 'bg-space/60 border-purple-400/25'
+                          ? 'bg-sky-950/40 border-sky-400/60 shadow-md shadow-sky-500/15'
+                          : 'bg-space/60 border-blue-400/25'
                       }`}
                     >
                       <div className="flex items-center justify-between gap-2">
-                        <span className={`text-xs font-semibold ${isNow ? 'text-amber-300' : 'text-gray-300'}`}>
+                        <span className={`text-xs font-semibold ${isNow ? 'text-sky-300' : 'text-gray-300'}`}>
                           {t.monthNames[m.calendarMonth - 1]}
                         </span>
                         <span className={`w-8 h-8 shrink-0 rounded-lg flex items-center justify-center font-serif font-bold text-sm ${
-                          isNow ? 'bg-amber-400 text-purple-950' : 'bg-purple-900/60 text-purple-200'
+                          isNow ? 'bg-sky-400 text-blue-950' : 'bg-blue-900/60 text-blue-200'
                         }`}>
                           {m.value}
                         </span>
                       </div>
 
                       {isNow && (
-                        <span className="inline-block px-2 py-0.5 rounded-full bg-amber-400 text-purple-950 text-[10px] font-bold">
+                        <span className="inline-block px-2 py-0.5 rounded-full bg-sky-400 text-blue-950 text-[10px] font-bold">
                           {t.numCurrentMonthBadge}
                         </span>
                       )}
 
-                      <h5 className={`text-sm font-serif font-bold ${isNow ? 'text-amber-200' : 'text-cyan-200'}`}>
+                      <h5 className={`text-sm font-serif font-bold ${isNow ? 'text-sky-200' : 'text-cyan-200'}`}>
                         {m.title}
                       </h5>
                       <p className="text-2xs text-gray-300 leading-relaxed font-light">
@@ -365,7 +365,7 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
 
           {/* Sáu chỉ số còn lại */}
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-amber-300 uppercase tracking-widest flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-sky-300 uppercase tracking-widest flex items-center gap-2">
               <Sparkles className="w-4 h-4" />
               {t.numCoreTitle}
             </h3>
@@ -386,7 +386,7 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
                       <div className={`shrink-0 w-12 h-12 rounded-xl bg-space/80 border ${accent.border} flex items-center justify-center relative`}>
                         <span className={`text-xl font-serif font-bold ${accent.text}`}>{item.value}</span>
                         {item.isMaster && (
-                          <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-amber-400 text-purple-950 text-[9px] font-bold flex items-center justify-center">
+                          <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-sky-400 text-blue-950 text-[9px] font-bold flex items-center justify-center">
                             ★
                           </span>
                         )}
@@ -442,8 +442,8 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
               <p className="text-xs text-gray-200 leading-relaxed font-light">{result.lifePathMeaning.career}</p>
             </div>
 
-            <div className="glass-panel p-5 space-y-2 border-pink-400/30">
-              <h4 className="font-serif font-bold text-pink-300 text-sm flex items-center gap-2">
+            <div className="glass-panel p-5 space-y-2 border-indigo-400/30">
+              <h4 className="font-serif font-bold text-indigo-300 text-sm flex items-center gap-2">
                 <Heart className="w-4 h-4" />
                 {t.numLove}
               </h4>
@@ -455,7 +455,7 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
           <div className="glass-panel p-5 md:p-7 space-y-5">
             <div className="space-y-1.5">
               <h3 className="font-serif font-bold text-lg gold-gradient-text flex items-center gap-2">
-                <Grid3x3 className="w-5 h-5 text-amber-400" />
+                <Grid3x3 className="w-5 h-5 text-sky-400" />
                 {t.numChartTitle}
               </h3>
               <p className="text-xs text-gray-400 font-light">{t.numChartDesc}</p>
@@ -469,12 +469,12 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
                     key={cell.number}
                     className={`aspect-square rounded-xl border flex flex-col items-center justify-center p-1 text-center transition-all ${
                       cell.count > 0
-                        ? 'bg-amber-950/40 border-amber-400/50'
-                        : 'bg-space/60 border-purple-500/20'
+                        ? 'bg-sky-950/40 border-sky-400/50'
+                        : 'bg-space/60 border-blue-500/20'
                     }`}
                   >
                     <span className={`font-serif font-bold leading-none ${
-                      cell.count > 0 ? 'text-amber-300 text-lg' : 'text-gray-600 text-base'
+                      cell.count > 0 ? 'text-sky-300 text-lg' : 'text-gray-600 text-base'
                     }`}>
                       {cell.count > 0 ? String(cell.number).repeat(cell.count) : cell.number}
                     </span>
@@ -491,12 +491,12 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
                   .map(cell => (
                     <div key={cell.number} className="flex gap-3 text-xs">
                       <span className={`shrink-0 w-6 h-6 rounded-lg flex items-center justify-center font-bold ${
-                        cell.count > 0 ? 'bg-amber-400/20 text-amber-300' : 'bg-white/5 text-gray-500'
+                        cell.count > 0 ? 'bg-sky-400/20 text-sky-300' : 'bg-white/5 text-gray-500'
                       }`}>
                         {cell.number}
                       </span>
                       <p className="text-gray-300 font-light leading-relaxed">
-                        <span className={cell.count > 0 ? 'text-amber-200 font-semibold' : 'text-gray-400 font-semibold'}>
+                        <span className={cell.count > 0 ? 'text-sky-200 font-semibold' : 'text-gray-400 font-semibold'}>
                           {cell.label}
                           {cell.count > 0 ? ` (x${cell.count})` : ` — ${t.numMissingLabel}`}:
                         </span>{' '}
@@ -509,7 +509,7 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
 
             {/* Mũi tên */}
             {result.birthChart.arrows.length > 0 && (
-              <div className="space-y-3 border-t border-purple-500/20 pt-4">
+              <div className="space-y-3 border-t border-blue-500/20 pt-4">
                 <h4 className="text-xs font-semibold text-cyan-300 uppercase tracking-wider flex items-center gap-2">
                   <Route className="w-4 h-4" />
                   {t.numArrowsTitle}
@@ -540,7 +540,7 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
 
           {/* Ghi chép & lưu */}
           <div className="glass-panel p-5 md:p-6 space-y-4">
-            <h3 className="font-serif font-bold text-sm text-amber-300 flex items-center gap-2">
+            <h3 className="font-serif font-bold text-sm text-sky-300 flex items-center gap-2">
               <Bookmark className="w-4 h-4" />
               {t.journalNoteTitle}
             </h3>
@@ -549,7 +549,7 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
               onChange={(e) => setUserNote(e.target.value)}
               placeholder={t.notePlaceholder}
               rows={3}
-              className="w-full px-4 py-3 rounded-xl bg-space/80 border border-purple-400/30 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 text-xs resize-none"
+              className="w-full px-4 py-3 rounded-xl bg-space/80 border border-blue-400/30 text-white placeholder-gray-500 focus:outline-none focus:border-sky-400 text-xs resize-none"
             />
 
             <div className="grid sm:grid-cols-3 gap-3">
@@ -558,7 +558,7 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
                 className={`px-4 py-3 rounded-full text-xs font-semibold border transition-all flex items-center justify-center gap-1.5 ${
                   savedSuccess
                     ? 'bg-emerald-500 text-white border-emerald-400'
-                    : 'bg-purple-900/50 text-purple-100 border-purple-400/40 hover:bg-purple-800/70'
+                    : 'bg-blue-900/50 text-blue-100 border-blue-400/40 hover:bg-blue-800/70'
                 }`}
               >
                 {savedSuccess ? <Check className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
@@ -577,7 +577,7 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
               <button
                 onClick={handleExportImage}
                 disabled={isExportingImage}
-                className="px-4 py-3 rounded-full text-xs font-semibold border border-amber-400/40 bg-amber-950/40 text-amber-200 hover:bg-amber-900/60 transition-all flex items-center justify-center gap-1.5 disabled:opacity-60"
+                className="px-4 py-3 rounded-full text-xs font-semibold border border-sky-400/40 bg-sky-950/40 text-sky-200 hover:bg-sky-900/60 transition-all flex items-center justify-center gap-1.5 disabled:opacity-60"
               >
                 <Download className="w-4 h-4" />
                 {isExportingImage ? t.exportingHint : t.exportImageBtn}
