@@ -80,23 +80,23 @@ export const Navbar = ({ activeTab, lang, setLang }) => {
   return (
     <>
       <header className="sticky top-0 z-50 px-3 sm:px-4 py-2.5 sm:py-3 border-b border-amber-400/20 backdrop-blur-xl bg-space/80">
-        <div className="max-w-6xl mx-auto flex items-center justify-between gap-2">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-3">
 
           {/* Thương hiệu */}
           <a
             href={buildPath('reading')}
             onClick={handleSelectTab}
-            className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group min-w-0 no-underline"
+            className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group shrink-0 no-underline"
           >
             <div className="w-11 h-11 sm:w-12 sm:h-12 shrink-0 rounded-full p-0.5 bg-gradient-to-tr from-amber-500 via-amber-300 to-yellow-600 shadow-md shadow-amber-500/30 group-hover:scale-105 transition-transform overflow-hidden flex items-center justify-center">
               <img src="/logo.jpg" alt="P Healing Logo" className="w-full h-full object-cover rounded-full" />
             </div>
-            <div className="min-w-0">
+            <div>
               {/* Tên thương hiệu không được cắt - nhãn phụ nhường chỗ trước */}
               <h1 className="text-lg sm:text-xl font-bold font-serif gold-gradient-text tracking-wide whitespace-nowrap">
                 {t.appTitle}
               </h1>
-              <p className="hidden sm:block text-2xs text-amber-300/80 tracking-widest uppercase font-medium truncate">
+              <p className="hidden sm:block xl:hidden text-2xs text-amber-300/80 tracking-widest uppercase font-medium truncate">
                 {t.appSubtitle}
               </p>
             </div>
@@ -104,7 +104,7 @@ export const Navbar = ({ activeTab, lang, setLang }) => {
 
           {/* Tab chính - chỉ hiện từ laptop trở lên. Năm tab không đủ chỗ ở khổ
               tablet nên tablet dùng chung thanh dưới với điện thoại. */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden xl:flex items-center gap-1 shrink-0">
             {TABS.map(({ id, label, Icon, accent }) => (
               <a
                 key={id}
@@ -171,7 +171,6 @@ export const Navbar = ({ activeTab, lang, setLang }) => {
                 }`}
               >
                 <span className="text-base">🥣</span>
-                <span className="hidden lg:inline">{t.navZenMusic}</span>
                 {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-amber-400" />}
               </button>
 
@@ -249,7 +248,7 @@ export const Navbar = ({ activeTab, lang, setLang }) => {
           Tách 5 tab chính khỏi header nên header không còn chen chúc,
           và nằm sẵn trong tầm ngón tay cái. */}
       <nav
-        className="lg:hidden fixed bottom-0 inset-x-0 z-50 border-t border-amber-400/25 bg-space/95 backdrop-blur-xl"
+        className="xl:hidden fixed bottom-0 inset-x-0 z-50 border-t border-amber-400/25 bg-space/95 backdrop-blur-xl"
         style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
       >
         <div className="grid grid-cols-5">
