@@ -2,25 +2,41 @@ import React, { useState, useEffect } from 'react';
 import { Eye } from 'lucide-react';
 import { TRANSLATIONS } from '../data/translations';
 
-// Mốc khởi điểm lượt truy cập.
-const START_VISITS = 190;
+/* ==========================================================================
+   BỘ ĐẾM LƯỢT TRUY CẬP
 
-// Traffic thật đã tích lũy trên bộ đếm cloud trước khi gộp (chốt 26/07/2026).
-// Bộ đếm khi đó ở mức 78, trong đó có 3 lượt gọi kiểm thử khi dựng bộ đếm.
-const MERGED_VISITS = 75;
+   Tổng hiển thị = NỀN + LƯỢT THẬT (từ cloud) + PHẦN CỘNG ĐỊNH KỲ
 
-// Nền cộng dồn: mốc khởi điểm + traffic đã gộp.
-const BASE_VISITS = START_VISITS + MERGED_VISITS;
+   Lưu ý quan trọng khi bảo trì: chỉ "LƯỢT THẬT" là số liệu traffic thực.
+   Phần cộng định kỳ bên dưới là số bù theo thời gian, KHÔNG phải người
+   truy cập. Đừng dùng con số hiển thị này để phân tích hay ra quyết định.
+   ========================================================================== */
 
-// Giá trị bộ đếm cloud tại thời điểm gộp. Trừ đi để không cộng trùng MERGED_VISITS.
-const COUNTER_START = 78;
+// Nền cộng dồn, nối tiếp con số bộ đếm cũ đang hiển thị (~285) để không tụt.
+const BASE_VISITS = 290;
 
-// Bộ đếm cộng dồn toàn cục (counterapi.dev v1).
-// LƯU Ý: endpoint đọc BẮT BUỘC có dấu "/" ở cuối. Thiếu dấu này server trả 301,
-// và response redirect không kèm header CORS nên browser chặn luôn request.
-const COUNTER = 'https://api.counterapi.dev/v1/phealing_tarot_app_real/visits';
-const COUNTER_READ = `${COUNTER}/`;
-const COUNTER_UP = `${COUNTER}/up`;
+/* --- Phần cộng định kỳ ------------------------------------------------- */
+// Đặt DRIFT_PER_DAY = 0 là tắt hoàn toàn, số về đúng traffic thật.
+const DRIFT_PER_DAY = 8;
+const DRIFT_START = Date.parse('2026-08-16T00:00:00Z');
+
+// Tính theo số ngày trôi qua nên mọi khách trong cùng một ngày thấy cùng một
+// con số, và nó chỉ tăng - không nhảy loạn giữa các lần tải trang.
+const driftVisits = () => {
+  if (!DRIFT_PER_DAY) return 0;
+  const days = Math.floor((Date.now() - DRIFT_START) / 86400000);
+  return days > 0 ? days * DRIFT_PER_DAY : 0;
+};
+
+/* --- Bộ đếm thật ------------------------------------------------------- */
+// counterapi.dev v1 đã bị khai tử (trả 410 Gone) nên bộ đếm cũ ngừng chạy và
+// số kẹt tại nền. Chuyển sang abacus: CORS "*", không redirect, không cần key.
+const COUNTER_UP = 'https://abacus.jasoncameron.dev/hit/phealing-tarot/visits';
+const COUNTER_READ = 'https://abacus.jasoncameron.dev/get/phealing-tarot/visits';
+
+// Giá trị bộ đếm mới tại thời điểm dựng (2 lượt gọi kiểm thử). Trừ đi để không
+// tính nhầm thành khách thật.
+const COUNTER_START = 2;
 
 const SESSION_KEY = 'phealing_session_v2';
 const DAILY_LOG_KEY = 'phealing_daily_log_v2';
@@ -66,7 +82,7 @@ export const VisitorCounter = ({ lang = 'vi', variant = 'footer' }) => {
         localStorage.setItem(DAILY_LOG_KEY, JSON.stringify(log));
       }
 
-      localTotal = BASE_VISITS + sumDailyLog(log);
+      localTotal = BASE_VISITS + driftVisits() + sumDailyLog(log);
       cachedTotal = Number(localStorage.getItem(TOTAL_CACHE_KEY)) || 0;
 
       // Hiển thị ngay số cộng dồn cục bộ, cloud sẽ ghi đè khi về tới
@@ -81,11 +97,12 @@ export const VisitorCounter = ({ lang = 'vi', variant = 'footer' }) => {
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error(res.status))))
       .then((data) => {
         if (cancelled) return;
-        const cloudCount = Number(data?.count);
+        // abacus trả về { value: N } - KHÔNG phải { count: N } như API cũ
+        const cloudCount = Number(data?.value);
         if (!Number.isFinite(cloudCount)) return;
 
         // Số chỉ tăng, không bao giờ tụt lại
-        const cloudTotal = BASE_VISITS + Math.max(0, cloudCount - COUNTER_START);
+        const cloudTotal = BASE_VISITS + driftVisits() + Math.max(0, cloudCount - COUNTER_START);
         const next = Math.max(cloudTotal, localTotal, cachedTotal);
         setTotalVisits(next);
         try {
