@@ -55,6 +55,14 @@ body {
   }
 }
 
+/* Điều hướng giờ dùng thẻ <a> thật để mỗi mục có link riêng (xem utils/router).
+   Trình duyệt tự tô màu xanh và gạch chân mọi liên kết, ghi đè cả màu chữ kế
+   thừa từ khối cha, nên phải trả màu về mặc định của giao diện. */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 /* Typography Headers */
 h1, h2, h3, .font-serif {
   font-family: var(--font-serif);

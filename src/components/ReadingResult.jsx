@@ -6,10 +6,7 @@ import {
 } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
-import html2canvas from 'html2canvas';
-
-const MAX_CANVAS_AREA = 12e6; // chừa biên an toàn dưới ngưỡng ~16,7 triệu điểm ảnh của iOS Safari
-const MAX_CANVAS_SIDE = 8000; // một số máy còn giới hạn riêng từng chiều
+import { exportNodeAsPng, exportNodeAsPdf } from '../utils/posterExport';
 
 export const ReadingResult = ({
   drawnCards,
@@ -87,143 +84,30 @@ export const ReadingResult = ({
     setTimeout(() => setCopiedSuccess(false), 3000);
   };
 
-  /* Chụp poster kết quả thành canvas - dùng chung cho cả PNG và PDF.
-     Tỉ lệ chụp phải co lại theo độ dài poster: trình duyệt điện thoại từ chối
-     canvas quá lớn (iOS Safari chặn ở khoảng 16,7 triệu điểm ảnh) và trả về
-     ảnh trắng, nên trải bài càng nhiều lá thì scale càng nhỏ. */
-  const capturePoster = async () => {
-    const node = posterRef.current;
-    if (!node) throw new Error('Poster template chưa được gắn vào DOM');
+  const exportFileName = (ext) => `p_healing_tarot_reading_${Date.now()}.${ext}`;
 
-    node.style.display = 'block';
+  const runExport = async (setBusy, task) => {
+    setBusy(true);
+    setExportError('');
+    cosmicAudio.playSparkleSound();
     try {
-      const rawW = node.offsetWidth || 900;
-      const rawH = node.scrollHeight || 1;
-      const scale = Math.min(
-        2,
-        Math.max(
-          0.8,
-          Math.min(
-            Math.sqrt(MAX_CANVAS_AREA / (rawW * rawH)),
-            MAX_CANVAS_SIDE / rawH,
-            MAX_CANVAS_SIDE / rawW
-          )
-        )
-      );
-
-      const canvas = await html2canvas(node, {
-        scale,
-        backgroundColor: '#0b0818',
-        useCORS: true,
-        logging: false
-      });
-
-      if (!canvas.width || !canvas.height) throw new Error('Canvas rỗng');
-      return canvas;
+      await task();
+    } catch (err) {
+      console.error('Failed to export reading', err);
+      setExportError(t.exportErrorHint);
     } finally {
-      node.style.display = 'none';
+      setBusy(false);
     }
   };
 
-  /* Tải file về máy qua blob URL. Data URL nặng vài MB hay bị iOS Safari và
-     trình duyệt trong ứng dụng (Zalo, Facebook) lặng lẽ bỏ qua. */
-  const downloadBlob = (blob, filename) => {
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    link.rel = 'noopener';
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    // Thu hồi muộn: một số trình duyệt cần URL còn sống lúc bắt đầu tải.
-    setTimeout(() => URL.revokeObjectURL(url), 60000);
-  };
-
-  const canvasToBlob = (canvas, type, quality) =>
-    new Promise((resolve, reject) => {
-      canvas.toBlob(
-        blob => (blob ? resolve(blob) : reject(new Error('canvas.toBlob trả về null'))),
-        type,
-        quality
-      );
-    });
-
-  /* 📄 Xuất PDF và tải thẳng về máy.
-     Trước đây nút này gọi window.print(): trên laptop chỉ mở hộp thoại in (khách
-     phải tự chọn "Save as PDF"), còn trên điện thoại và các trình duyệt trong
-     ứng dụng thì thường không phản hồi gì - nên không bao giờ có file tải về.
-     Giờ file PDF được dựng ngay tại máy khách từ poster kết quả. */
-  const handleExportPDF = async () => {
+  const handleExportPDF = () => {
     if (isExportingPdf) return;
-    setIsExportingPdf(true);
-    setExportError('');
-    cosmicAudio.playSparkleSound();
-
-    try {
-      const canvas = await capturePoster();
-      // Nạp muộn: thư viện PDF chỉ tải về khi khách thật sự bấm xuất file.
-      const { jsPDF } = await import('jspdf');
-
-      const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-      const pageW = doc.internal.pageSize.getWidth();
-      const pageH = doc.internal.pageSize.getHeight();
-      const margin = 8;
-      const usableH = pageH - margin * 2;
-
-      const imgData = canvas.toDataURL('image/jpeg', 0.92);
-      const imgW = pageW - margin * 2;
-      const imgH = (canvas.height / canvas.width) * imgW;
-
-      // Nền vũ trụ cho từng trang, khớp màu poster (#0b0818) để không lòi ra
-      // dải trắng ở trang cuối.
-      const paintBackground = () => {
-        doc.setFillColor(11, 8, 24);
-        doc.rect(0, 0, pageW, pageH, 'F');
-      };
-
-      // Poster dài hơn một trang A4: cắt bằng cách đẩy dần ảnh lên qua từng trang.
-      let heightLeft = imgH;
-      let offset = margin;
-
-      paintBackground();
-      doc.addImage(imgData, 'JPEG', margin, offset, imgW, imgH, undefined, 'FAST');
-      heightLeft -= usableH;
-
-      while (heightLeft > 0) {
-        offset = margin - (imgH - heightLeft);
-        doc.addPage();
-        paintBackground();
-        doc.addImage(imgData, 'JPEG', margin, offset, imgW, imgH, undefined, 'FAST');
-        heightLeft -= usableH;
-      }
-
-      downloadBlob(doc.output('blob'), `p_healing_tarot_reading_${Date.now()}.pdf`);
-    } catch (err) {
-      console.error('Failed to export PDF', err);
-      setExportError(t.exportErrorHint);
-    } finally {
-      setIsExportingPdf(false);
-    }
+    return runExport(setIsExportingPdf, () => exportNodeAsPdf(posterRef.current, exportFileName('pdf')));
   };
 
-  // 🖼️ Export Result to High-Res PNG Image via Dedicated Poster Template
-  const handleExportImage = async () => {
+  const handleExportImage = () => {
     if (isExportingImage) return;
-    setIsExportingImage(true);
-    setExportError('');
-    cosmicAudio.playSparkleSound();
-
-    try {
-      const canvas = await capturePoster();
-      const blob = await canvasToBlob(canvas, 'image/png');
-      downloadBlob(blob, `p_healing_tarot_reading_${Date.now()}.png`);
-    } catch (err) {
-      console.error('Failed to capture image', err);
-      setExportError(t.exportErrorHint);
-    } finally {
-      setIsExportingImage(false);
-    }
+    return runExport(setIsExportingImage, () => exportNodeAsPng(posterRef.current, exportFileName('png')));
   };
 
   return (

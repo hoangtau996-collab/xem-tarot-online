@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StarfieldBackground } from './components/StarfieldBackground';
 import { Navbar } from './components/Navbar';
 import { SpreadSelector } from './components/SpreadSelector';
@@ -6,23 +6,72 @@ import { CardDeck } from './components/CardDeck';
 import { ReadingResult } from './components/ReadingResult';
 import { CosmicOrb } from './components/CosmicOrb';
 import { Encyclopedia } from './components/Encyclopedia';
+import { Numerology } from './components/Numerology';
+import { Mysticism } from './components/Mysticism';
 import { Journal } from './components/Journal';
 import { VisitorCounter } from './components/VisitorCounter';
 import { SPREAD_TYPES, TAROT_DECKS_THEMES } from './data/tarotData';
 import { TRANSLATIONS } from './data/translations';
+import { useHashRoute, buildPath, navigate } from './utils/router';
 import { Sparkles } from 'lucide-react';
+
+// Hồ sơ ngày sinh dùng chung cho tab Thần Số Học và tab Huyền Học. Giữ ở App
+// (và nhớ qua localStorage) nên khách chỉ nhập một lần là hai tab cùng dùng.
+const PROFILE_KEY = 'phealing_mystic_profile';
+
+const loadProfile = () => {
+  try {
+    const raw = localStorage.getItem(PROFILE_KEY);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    return data && data.birthDate ? data : null;
+  } catch {
+    return null;
+  }
+};
 
 export function App() {
   const [lang, setLang] = useState('vi'); // 'vi', 'en', 'zh'
-  const [activeTab, setActiveTab] = useState('reading'); // 'reading', 'encyclopedia', 'journal'
+
+  // Tab đang mở do link trên thanh địa chỉ quyết định, không phải state riêng:
+  // nhờ vậy nút Quay lại / Tiến tới của trình duyệt và link dán vào đều đúng.
+  const route = useHashRoute();
+  const activeTab = route.tab;
+
   const [readingStep, setReadingStep] = useState('selector'); // 'selector', 'deck', 'result'
-  
+
   const [selectedSpread, setSelectedSpread] = useState(SPREAD_TYPES[3]);
   const [selectedDeckTheme, setSelectedDeckTheme] = useState(TAROT_DECKS_THEMES[0]);
   const [question, setQuestion] = useState('');
   const [drawnCards, setDrawnCards] = useState([]);
+  const [mysticProfile, setMysticProfile] = useState(loadProfile);
 
   const t = TRANSLATIONS[lang] || TRANSLATIONS.vi;
+
+  // Link rỗng hoặc gõ sai được thay bằng link chuẩn của tab đang hiện, để thanh
+  // địa chỉ luôn là một link sao chép được. Dùng replace nên nút Quay lại không
+  // đưa khách trở lại đúng cái link hỏng vừa sửa.
+  useEffect(() => {
+    const canonical = buildPath(activeTab, route);
+    if (window.location.hash !== canonical) navigate(canonical, { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Đổi tiêu đề trình duyệt theo từng mục: link chia sẻ và mục lịch sử hiện
+  // đúng tên chức năng thay vì cùng một tiêu đề cho cả trang.
+  useEffect(() => {
+    const pageTitle = t.routeTitles[activeTab] || t.routeTitles.reading;
+    document.title = `${pageTitle} | ${t.appTitle} - ${t.appSubtitle}`;
+  }, [activeTab, t]);
+
+  const handleSaveMysticProfile = (profile) => {
+    setMysticProfile(profile);
+    try {
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+    } catch {
+      /* localStorage bị chặn - vẫn xem được trong phiên hiện tại */
+    }
+  };
 
   const handleSelectSpread = (spread, deckTheme, qText) => {
     setSelectedSpread(spread);
@@ -50,7 +99,6 @@ export function App() {
       {/* Cosmic Navigation Header */}
       <Navbar
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
         lang={lang}
         setLang={setLang}
       />
@@ -93,7 +141,25 @@ export function App() {
           </>
         )}
 
-        {activeTab === 'encyclopedia' && <Encyclopedia lang={lang} />}
+        {activeTab === 'numerology' && (
+          <Numerology
+            lang={lang}
+            profile={mysticProfile}
+            onSaveProfile={handleSaveMysticProfile}
+          />
+        )}
+
+        {activeTab === 'mysticism' && (
+          <Mysticism
+            lang={lang}
+            profile={mysticProfile}
+            onSaveProfile={handleSaveMysticProfile}
+          />
+        )}
+
+        {activeTab === 'encyclopedia' && (
+          <Encyclopedia lang={lang} arcana={route.arcana} cardId={route.cardId} />
+        )}
 
         {activeTab === 'journal' && <Journal lang={lang} />}
       </main>

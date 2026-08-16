@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { BookOpen, BookmarkCheck, Volume2, VolumeX, Compass, Disc, Globe, Settings2 } from 'lucide-react';
+import { BookOpen, BookmarkCheck, Volume2, VolumeX, Compass, Disc, Globe, Settings2, Hash, Orbit } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
+import { buildPath } from '../utils/router';
 import { VisitorCounter } from './VisitorCounter';
 
 const LANG_NAMES = {
@@ -10,7 +11,7 @@ const LANG_NAMES = {
   zh: '🇨🇳 中文'
 };
 
-export const Navbar = ({ activeTab, setActiveTab, lang, setLang }) => {
+export const Navbar = ({ activeTab, lang, setLang }) => {
   const [isMuted, setIsMuted] = useState(cosmicAudio.isMuted);
   const [volume, setVolume] = useState(cosmicAudio.volume);
   const [musicMode, setMusicMode] = useState(cosmicAudio.musicMode);
@@ -22,11 +23,14 @@ export const Navbar = ({ activeTab, setActiveTab, lang, setLang }) => {
 
   const t = TRANSLATIONS[lang] || TRANSLATIONS.vi;
 
-  // Ba tab chính, dùng chung cho thanh trên (desktop) và thanh dưới (điện thoại)
+  // Năm tab chính, dùng chung cho thanh trên (laptop) và thanh dưới (di động).
+  // Thanh dưới chỉ có 1/5 chiều ngang mỗi ô nên dùng nhãn ngắn cho khỏi vỡ chữ.
   const TABS = [
-    { id: 'reading', label: t.navReading, Icon: Compass, accent: 'text-amber-400' },
-    { id: 'encyclopedia', label: t.navEncyclopedia, Icon: BookOpen, accent: 'text-cyan-400' },
-    { id: 'journal', label: t.navJournal, Icon: BookmarkCheck, accent: 'text-pink-400' }
+    { id: 'reading', label: t.navReading, short: t.navReadingShort, Icon: Compass, accent: 'text-amber-400' },
+    { id: 'numerology', label: t.navNumerology, short: t.navNumerologyShort, Icon: Hash, accent: 'text-emerald-400' },
+    { id: 'mysticism', label: t.navMysticism, short: t.navMysticismShort, Icon: Orbit, accent: 'text-purple-400' },
+    { id: 'encyclopedia', label: t.navEncyclopedia, short: t.navEncyclopediaShort, Icon: BookOpen, accent: 'text-cyan-400' },
+    { id: 'journal', label: t.navJournal, short: t.navJournalShort, Icon: BookmarkCheck, accent: 'text-pink-400' }
   ];
 
   // Chạm ra ngoài thì đóng dropdown - trên điện thoại rất dễ để menu mở lơ lửng
@@ -42,8 +46,10 @@ export const Navbar = ({ activeTab, setActiveTab, lang, setLang }) => {
     return () => document.removeEventListener('pointerdown', handleOutside);
   }, [showLangMenu, showAudioMenu]);
 
-  const handleSelectTab = (id) => {
-    setActiveTab(id);
+  /* Các tab là thẻ <a href="#/..."> thật, nên việc chuyển trang do chính hash
+     lo - ở đây chỉ phát âm thanh. Nhờ vậy khách bấm chuột phải mở tab mới hoặc
+     sao chép địa chỉ liên kết đều được, thứ mà thẻ <button> không làm được. */
+  const handleSelectTab = () => {
     cosmicAudio.playSparkleSound();
   };
 
@@ -77,9 +83,10 @@ export const Navbar = ({ activeTab, setActiveTab, lang, setLang }) => {
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-2">
 
           {/* Thương hiệu */}
-          <div
-            onClick={() => handleSelectTab('reading')}
-            className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group min-w-0"
+          <a
+            href={buildPath('reading')}
+            onClick={handleSelectTab}
+            className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group min-w-0 no-underline"
           >
             <div className="w-11 h-11 sm:w-12 sm:h-12 shrink-0 rounded-full p-0.5 bg-gradient-to-tr from-amber-500 via-amber-300 to-yellow-600 shadow-md shadow-amber-500/30 group-hover:scale-105 transition-transform overflow-hidden flex items-center justify-center">
               <img src="/logo.jpg" alt="P Healing Logo" className="w-full h-full object-cover rounded-full" />
@@ -93,23 +100,26 @@ export const Navbar = ({ activeTab, setActiveTab, lang, setLang }) => {
                 {t.appSubtitle}
               </p>
             </div>
-          </div>
+          </a>
 
-          {/* Tab chính - chỉ hiện từ tablet trở lên; điện thoại dùng thanh dưới */}
-          <nav className="hidden md:flex items-center gap-2">
+          {/* Tab chính - chỉ hiện từ laptop trở lên. Năm tab không đủ chỗ ở khổ
+              tablet nên tablet dùng chung thanh dưới với điện thoại. */}
+          <nav className="hidden lg:flex items-center gap-1">
             {TABS.map(({ id, label, Icon, accent }) => (
-              <button
+              <a
                 key={id}
-                onClick={() => handleSelectTab(id)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
+                href={buildPath(id)}
+                onClick={handleSelectTab}
+                aria-current={activeTab === id ? 'page' : undefined}
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all no-underline ${
                   activeTab === id
                     ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30 border border-amber-400/40'
                     : 'text-gray-300 hover:text-white hover:bg-white/5'
                 }`}
               >
-                <Icon className={`w-5 h-5 ${accent}`} />
+                <Icon className={`w-4 h-4 ${accent}`} />
                 <span>{label}</span>
-              </button>
+              </a>
             ))}
           </nav>
 
@@ -235,33 +245,34 @@ export const Navbar = ({ activeTab, setActiveTab, lang, setLang }) => {
         </div>
       </header>
 
-      {/* Thanh điều hướng dưới cùng - chỉ trên điện thoại.
-          Tách 3 tab chính khỏi header nên không còn chen chúc,
+      {/* Thanh điều hướng dưới cùng - dùng cho điện thoại và tablet.
+          Tách 5 tab chính khỏi header nên header không còn chen chúc,
           và nằm sẵn trong tầm ngón tay cái. */}
       <nav
-        className="md:hidden fixed bottom-0 inset-x-0 z-50 border-t border-amber-400/25 bg-space/95 backdrop-blur-xl"
+        className="lg:hidden fixed bottom-0 inset-x-0 z-50 border-t border-amber-400/25 bg-space/95 backdrop-blur-xl"
         style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
       >
-        <div className="grid grid-cols-3">
-          {TABS.map(({ id, label, Icon, accent }) => {
+        <div className="grid grid-cols-5">
+          {TABS.map(({ id, short, Icon, accent }) => {
             const active = activeTab === id;
             return (
-              <button
+              <a
                 key={id}
-                onClick={() => handleSelectTab(id)}
+                href={buildPath(id)}
+                onClick={handleSelectTab}
                 aria-current={active ? 'page' : undefined}
-                className={`relative flex flex-col items-center justify-center gap-1 py-2.5 min-h-[4.25rem] transition-colors ${
+                className={`relative flex flex-col items-center justify-center gap-1 py-2.5 min-h-[4.25rem] transition-colors no-underline ${
                   active ? 'text-amber-300' : 'text-gray-400 active:bg-white/5'
                 }`}
               >
                 {active && (
-                  <span className="absolute top-0 inset-x-5 h-0.5 rounded-full bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
+                  <span className="absolute top-0 inset-x-2.5 h-0.5 rounded-full bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
                 )}
-                <Icon className={`w-6 h-6 ${active ? accent : 'text-gray-500'}`} />
-                <span className={`text-xs leading-none text-center px-1 ${active ? 'font-bold' : 'font-medium'}`}>
-                  {label}
+                <Icon className={`w-5 h-5 ${active ? accent : 'text-gray-500'}`} />
+                <span className={`text-2xs leading-tight text-center px-0.5 ${active ? 'font-bold' : 'font-medium'}`}>
+                  {short}
                 </span>
-              </button>
+              </a>
             );
           })}
         </div>
