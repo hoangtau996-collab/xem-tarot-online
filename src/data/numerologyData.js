@@ -519,41 +519,220 @@ const ZH = {
 
 export const NUMBER_MEANINGS = { vi: VI, en: EN, zh: ZH };
 
-/* Năm cá nhân chỉ rút gọn về 1-9 (không giữ số bậc thầy), nên bảng này chỉ cần
-   9 mục. Mỗi mục là một câu tóm tắt chủ đề của năm đó. */
+/* Năm cá nhân và tháng cá nhân đều rút gọn về 1-9 (không giữ số bậc thầy),
+   nên mỗi bảng chỉ cần 9 mục.
+
+   Năm cá nhân = ngày sinh + tháng sinh + năm cần xem.
+   Tháng cá nhân = năm cá nhân + số thứ tự tháng dương lịch.
+
+   Chu kỳ chạy theo năm dương lịch: tháng 1 mở đầu và tháng 12 khép lại một
+   năm cá nhân. */
 export const PERSONAL_YEAR = {
   vi: {
-    1: 'Năm khởi đầu. Hạt giống gieo năm nay quyết định cả chu kỳ 9 năm tới - hãy bắt đầu thứ bạn thật sự muốn.',
-    2: 'Năm của quan hệ và kiên nhẫn. Đừng ép tiến độ; hợp tác và chờ đúng thời điểm sẽ hiệu quả hơn lao tới.',
-    3: 'Năm của biểu đạt và giao lưu. Cơ hội đến qua lời nói, sáng tạo và những người bạn mới gặp.',
-    4: 'Năm xây nền. Ít hào nhoáng, nhiều việc thật. Kỷ luật năm nay sẽ đỡ bạn suốt những năm sau.',
-    5: 'Năm biến động và tự do. Thay đổi tới nhanh - hãy giữ sự linh hoạt và đừng bám chấp.',
-    6: 'Năm của gia đình và trách nhiệm. Tổ ấm, người thân và các cam kết dài hạn được đặt lên bàn.',
-    7: 'Năm nhìn vào bên trong. Chậm lại, học thêm, chữa lành. Đừng ép mình phải bung ra ngoài.',
-    8: 'Năm thu hoạch về vật chất và quyền lực. Bản lĩnh và kỷ luật những năm trước sẽ được trả công.',
-    9: 'Năm khép lại chu kỳ. Buông những gì đã hết duyên để năm sau bắt đầu nhẹ nhàng.'
+    1: {
+      title: 'Năm Khởi Đầu',
+      summary: 'Năm khởi đầu. Hạt giống gieo năm nay quyết định cả chu kỳ 9 năm tới - hãy bắt đầu thứ bạn thật sự muốn.',
+      focus: 'Khởi xướng, tự quyết, đặt nền cho chu kỳ mới',
+      advice: 'Hãy chủ động đề xuất và bắt đầu, đừng chờ ai cho phép.'
+    },
+    2: {
+      title: 'Năm Vun Đắp Quan Hệ',
+      summary: 'Năm của quan hệ và kiên nhẫn. Đừng ép tiến độ; hợp tác và chờ đúng thời điểm sẽ hiệu quả hơn lao tới.',
+      focus: 'Hợp tác, lắng nghe, chờ đúng thời điểm',
+      advice: 'Hãy nuôi dưỡng các mối quan hệ, năm nay bạn tiến nhờ người khác.'
+    },
+    3: {
+      title: 'Năm Biểu Đạt',
+      summary: 'Năm của biểu đạt và giao lưu. Cơ hội đến qua lời nói, sáng tạo và những người bạn mới gặp.',
+      focus: 'Sáng tạo, giao tiếp, mở rộng quan hệ',
+      advice: 'Hãy nói ra và cho người khác thấy thứ bạn làm được.'
+    },
+    4: {
+      title: 'Năm Xây Nền',
+      summary: 'Năm xây nền. Ít hào nhoáng, nhiều việc thật. Kỷ luật năm nay sẽ đỡ bạn suốt những năm sau.',
+      focus: 'Kỷ luật, hệ thống, làm chắc từng bước',
+      advice: 'Hãy làm cho xong phần nhàm chán, nó chính là nền của mọi năm sau.'
+    },
+    5: {
+      title: 'Năm Biến Động',
+      summary: 'Năm biến động và tự do. Thay đổi tới nhanh - hãy giữ sự linh hoạt và đừng bám chấp.',
+      focus: 'Thay đổi, di chuyển, trải nghiệm mới',
+      advice: 'Hãy giữ lịch trống một phần, năm nay cơ hội tới rất đột ngột.'
+    },
+    6: {
+      title: 'Năm Gia Đình',
+      summary: 'Năm của gia đình và trách nhiệm. Tổ ấm, người thân và các cam kết dài hạn được đặt lên bàn.',
+      focus: 'Gia đình, cam kết, chăm sóc lẫn nhau',
+      advice: 'Hãy dành thời gian thật cho người nhà, đừng chỉ gửi tiền về.'
+    },
+    7: {
+      title: 'Năm Nhìn Vào Trong',
+      summary: 'Năm nhìn vào bên trong. Chậm lại, học thêm, chữa lành. Đừng ép mình phải bung ra ngoài.',
+      focus: 'Học hỏi, chiêm nghiệm, hồi phục',
+      advice: 'Hãy cho phép mình chậm lại, đây không phải năm để bung sức.'
+    },
+    8: {
+      title: 'Năm Thu Hoạch',
+      summary: 'Năm thu hoạch về vật chất và quyền lực. Bản lĩnh và kỷ luật những năm trước sẽ được trả công.',
+      focus: 'Tài chính, quyền lực, kết quả đo được',
+      advice: 'Hãy dám đàm phán và đòi đúng giá trị công sức của mình.'
+    },
+    9: {
+      title: 'Năm Khép Lại',
+      summary: 'Năm khép lại chu kỳ. Buông những gì đã hết duyên để năm sau bắt đầu nhẹ nhàng.',
+      focus: 'Kết thúc, buông bỏ, tổng kết chín năm',
+      advice: 'Đừng khởi sự lớn năm nay, hãy dọn sạch để năm sau bắt đầu nhẹ.'
+    }
   },
   en: {
-    1: 'A year of beginnings. What you plant now shapes the whole nine-year cycle - start what you actually want.',
-    2: 'A year of relationships and patience. Do not force the pace; cooperation and timing beat rushing.',
-    3: 'A year of expression and connection. Opportunity arrives through words, creativity and new people.',
-    4: 'A year of foundations. Less glamour, more real work. This year discipline carries you for years after.',
-    5: 'A year of movement and freedom. Change arrives fast - stay flexible and hold nothing too tightly.',
-    6: 'A year of family and responsibility. Home, loved ones and long-term commitments come to the table.',
-    7: 'A year of looking inward. Slow down, study, heal. Do not force yourself outward.',
-    8: 'A year of material harvest and authority. Earlier discipline and nerve get paid back.',
-    9: 'A year that closes the cycle. Release what has run its course so next year can start light.'
+    1: {
+      title: 'A Year of Beginnings',
+      summary: 'A year of beginnings. What you plant now shapes the whole nine-year cycle - start what you actually want.',
+      focus: 'Initiative, self-direction, laying ground for a new cycle',
+      advice: 'Propose and begin on your own - do not wait for permission.'
+    },
+    2: {
+      title: 'A Year of Relationships',
+      summary: 'A year of relationships and patience. Do not force the pace; cooperation and timing beat rushing.',
+      focus: 'Cooperation, listening, waiting for the right moment',
+      advice: 'Tend your relationships - this year you advance through other people.'
+    },
+    3: {
+      title: 'A Year of Expression',
+      summary: 'A year of expression and connection. Opportunity arrives through words, creativity and new people.',
+      focus: 'Creativity, communication, widening your circle',
+      advice: 'Speak up and let people see what you can actually do.'
+    },
+    4: {
+      title: 'A Year of Foundations',
+      summary: 'A year of foundations. Less glamour, more real work. This year discipline carries you for years after.',
+      focus: 'Discipline, systems, one solid step at a time',
+      advice: 'Finish the boring part - it is the ground every later year stands on.'
+    },
+    5: {
+      title: 'A Year of Change',
+      summary: 'A year of movement and freedom. Change arrives fast - stay flexible and hold nothing too tightly.',
+      focus: 'Change, travel, new experience',
+      advice: 'Keep part of your calendar open; this year opportunity arrives abruptly.'
+    },
+    6: {
+      title: 'A Year of Family',
+      summary: 'A year of family and responsibility. Home, loved ones and long-term commitments come to the table.',
+      focus: 'Family, commitment, mutual care',
+      advice: 'Give your people real time, not just money sent home.'
+    },
+    7: {
+      title: 'A Year of Looking Inward',
+      summary: 'A year of looking inward. Slow down, study, heal. Do not force yourself outward.',
+      focus: 'Study, reflection, recovery',
+      advice: 'Let yourself slow down - this is not the year to push hard outward.'
+    },
+    8: {
+      title: 'A Year of Harvest',
+      summary: 'A year of material harvest and authority. Earlier discipline and nerve get paid back.',
+      focus: 'Money, authority, measurable results',
+      advice: 'Negotiate, and ask for what your work is actually worth.'
+    },
+    9: {
+      title: 'A Year of Closure',
+      summary: 'A year that closes the cycle. Release what has run its course so next year can start light.',
+      focus: 'Endings, release, reviewing nine years',
+      advice: 'Do not launch anything big - clear the ground so next year starts light.'
+    }
   },
   zh: {
-    1: '开始之年。今年播下的种子决定未来九年的循环——去开始你真正想要的事。',
-    2: '关系与耐心之年。别硬赶进度；合作与时机胜过猛冲。',
-    3: '表达与交流之年。机会来自言语、创作，以及新遇见的人。',
-    4: '打地基之年。少些光鲜，多些实事。今年的纪律会撑住往后数年。',
-    5: '变动与自由之年。变化来得快——保持灵活，不要执着。',
-    6: '家庭与责任之年。家、亲人与长期承诺都会被摆上台面。',
-    7: '向内之年。慢下来、进修、疗愈。别逼自己向外冲。',
-    8: '物质与权力的收成之年。前几年的纪律与胆识会得到回报。',
-    9: '收束循环之年。放下缘尽之事，好让明年轻装启程。'
+    1: {
+      title: '开始之年',
+      summary: '开始之年。今年播下的种子决定未来九年的循环——去开始你真正想要的事。',
+      focus: '开创、自主、为新循环奠基',
+      advice: '主动提议并动手，别等谁来批准。'
+    },
+    2: {
+      title: '关系之年',
+      summary: '关系与耐心之年。别硬赶进度；合作与时机胜过猛冲。',
+      focus: '合作、倾听、等待恰当时机',
+      advice: '好好经营关系，今年你靠他人推进。'
+    },
+    3: {
+      title: '表达之年',
+      summary: '表达与交流之年。机会来自言语、创作，以及新遇见的人。',
+      focus: '创作、沟通、拓展人脉',
+      advice: '说出来，让别人看见你真正的本事。'
+    },
+    4: {
+      title: '筑基之年',
+      summary: '打地基之年。少些光鲜，多些实事。今年的纪律会撑住往后数年。',
+      focus: '纪律、体系、一步一个脚印',
+      advice: '把枯燥的部分做完，它是往后每一年的地基。'
+    },
+    5: {
+      title: '变动之年',
+      summary: '变动与自由之年。变化来得快——保持灵活，不要执着。',
+      focus: '变化、走动、新体验',
+      advice: '留出一部分空档，今年机会来得很突然。'
+    },
+    6: {
+      title: '家庭之年',
+      summary: '家庭与责任之年。家、亲人与长期承诺都会被摆上台面。',
+      focus: '家庭、承诺、彼此照顾',
+      advice: '给家人实实在在的时间，而不只是寄钱回去。'
+    },
+    7: {
+      title: '内省之年',
+      summary: '向内之年。慢下来、进修、疗愈。别逼自己向外冲。',
+      focus: '进修、沉思、休养',
+      advice: '允许自己慢下来，今年不是向外冲的年份。'
+    },
+    8: {
+      title: '收成之年',
+      summary: '物质与权力的收成之年。前几年的纪律与胆识会得到回报。',
+      focus: '财务、权力、可衡量的成果',
+      advice: '敢于谈判，索取与你付出相称的回报。'
+    },
+    9: {
+      title: '收束之年',
+      summary: '收束循环之年。放下缘尽之事，好让明年轻装启程。',
+      focus: '结束、放下、总结九年',
+      advice: '今年别开大局，清理干净好让明年轻装上阵。'
+    }
+  }
+};
+
+/* Tháng cá nhân mang cùng chủ đề với năm nhưng ở quy mô ngắn hơn: đây là nhịp
+   để sắp lịch trong năm chứ không phải bước ngoặt cuộc đời. */
+export const PERSONAL_MONTH = {
+  vi: {
+    1: { title: 'Tháng Khởi Động', summary: 'Tháng để mở màn: đề xuất ý tưởng, ký kết, bắt đầu việc mới.' },
+    2: { title: 'Tháng Kết Nối', summary: 'Tháng của hợp tác và kiên nhẫn. Việc tiến chậm là bình thường, đừng ép.' },
+    3: { title: 'Tháng Giao Tiếp', summary: 'Tháng thuận cho nói, viết, gặp gỡ và mọi việc cần sáng tạo.' },
+    4: { title: 'Tháng Sắp Xếp', summary: 'Tháng dọn dẹp và làm việc nền: giấy tờ, quy trình, số liệu.' },
+    5: { title: 'Tháng Thay Đổi', summary: 'Tháng nhiều biến động và di chuyển. Hãy chừa chỗ cho việc phát sinh.' },
+    6: { title: 'Tháng Gia Đình', summary: 'Tháng dành cho người thân, tổ ấm và các trách nhiệm chung.' },
+    7: { title: 'Tháng Tĩnh Lặng', summary: 'Tháng nên chậm lại: nghỉ ngơi, học thêm, xem lại kế hoạch.' },
+    8: { title: 'Tháng Tiền Bạc', summary: 'Tháng thuận cho đàm phán, chốt hợp đồng và các quyết định tài chính.' },
+    9: { title: 'Tháng Dọn Dẹp', summary: 'Tháng kết thúc và buông bỏ. Hoàn tất việc cũ thay vì mở việc mới.' }
+  },
+  en: {
+    1: { title: 'Month of Starting', summary: 'A month to open: pitch ideas, sign things, begin new work.' },
+    2: { title: 'Month of Connecting', summary: 'A month of cooperation and patience. Slow progress is normal - do not force it.' },
+    3: { title: 'Month of Expression', summary: 'A good month for speaking, writing, meeting people and creative work.' },
+    4: { title: 'Month of Ordering', summary: 'A month for tidying and groundwork: paperwork, process, numbers.' },
+    5: { title: 'Month of Change', summary: 'A month of movement and disruption. Leave room for the unexpected.' },
+    6: { title: 'Month of Family', summary: 'A month for loved ones, home and shared responsibilities.' },
+    7: { title: 'Month of Quiet', summary: 'A month to slow down: rest, study, review your plans.' },
+    8: { title: 'Month of Money', summary: 'A good month for negotiation, closing contracts and financial decisions.' },
+    9: { title: 'Month of Clearing', summary: 'A month of endings and release. Finish old work rather than opening new.' }
+  },
+  zh: {
+    1: { title: '启动之月', summary: '适合开局的月份：提案、签约、开始新工作。' },
+    2: { title: '连结之月', summary: '合作与耐心之月。进展缓慢很正常，别硬推。' },
+    3: { title: '表达之月', summary: '适合言谈、写作、会面与一切创意工作的月份。' },
+    4: { title: '整理之月', summary: '适合整理与打底的月份：文书、流程、数据。' },
+    5: { title: '变动之月', summary: '多变动与奔走的月份。请为突发之事留出余地。' },
+    6: { title: '家庭之月', summary: '属于亲人、家与共同责任的月份。' },
+    7: { title: '静养之月', summary: '宜放慢的月份：休息、进修、检视计划。' },
+    8: { title: '财务之月', summary: '适合谈判、签定合同与财务决策的月份。' },
+    9: { title: '清理之月', summary: '结束与放下的月份。收尾旧事，而非开启新事。' }
   }
 };
 

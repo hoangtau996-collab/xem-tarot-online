@@ -4,7 +4,13 @@
 // đưa về "NGUYEN THI HOA" trước khi tra số, nếu không các ký tự có dấu sẽ rơi
 // ra ngoài bảng A-Z và mọi chỉ số đều lệch.
 
-import { NUMBER_MEANINGS, PERSONAL_YEAR, BIRTH_CHART_CELLS, BIRTH_CHART_ARROWS } from '../data/numerologyData.js';
+import {
+  NUMBER_MEANINGS,
+  PERSONAL_YEAR,
+  PERSONAL_MONTH,
+  BIRTH_CHART_CELLS,
+  BIRTH_CHART_ARROWS
+} from '../data/numerologyData.js';
 
 const MASTER_NUMBERS = [11, 22, 33];
 
@@ -79,8 +85,55 @@ export const calcLifePath = (day, month, year) => {
   return reduceNumber(d + m + y);
 };
 
+/* Năm cá nhân = ngày sinh + tháng sinh + năm cần xem, luôn rút về 1-9.
+   Không giữ số bậc thầy: 11 hay 22 ở đây là nhịp của năm chứ không phải một
+   tầng rung động cao hơn, nên rút hết cho đồng nhất với bảng tra 9 mục. */
+export const calcPersonalYear = (birthDay, birthMonth, targetYear) =>
+  reduceNumber(
+    reduceNumber(birthDay, false) + reduceNumber(birthMonth, false) + reduceNumber(targetYear, false),
+    false
+  );
+
+/* Tháng cá nhân = năm cá nhân + số thứ tự tháng dương lịch (1-12). */
+export const calcPersonalMonth = (personalYear, calendarMonth) =>
+  reduceNumber(personalYear + calendarMonth, false);
+
+/* Dự báo một năm bất kỳ: con số của năm kèm nhịp của cả 12 tháng.
+   Tách khỏi calcNumerologyProfile để đổi năm không phải tính lại toàn bộ hồ sơ
+   (họ tên, biểu đồ ngày sinh... đều không đổi theo năm). */
+export const calcYearForecast = (birthDay, birthMonth, targetYear, lang = 'vi') => {
+  if (!birthDay || !birthMonth || !targetYear) return null;
+
+  const yearTable = PERSONAL_YEAR[lang] || PERSONAL_YEAR.vi;
+  const monthTable = PERSONAL_MONTH[lang] || PERSONAL_MONTH.vi;
+
+  const personalYear = calcPersonalYear(birthDay, birthMonth, targetYear);
+
+  const months = Array.from({ length: 12 }, (_, i) => {
+    const calendarMonth = i + 1;
+    const value = calcPersonalMonth(personalYear, calendarMonth);
+    return {
+      calendarMonth,
+      value,
+      title: monthTable[value].title,
+      summary: monthTable[value].summary
+    };
+  });
+
+  return {
+    year: targetYear,
+    personalYear,
+    info: yearTable[personalYear],
+    months
+  };
+};
+
 /* Tính toàn bộ hồ sơ thần số học từ họ tên + ngày sinh.
-   birthDate ở dạng chuỗi 'YYYY-MM-DD' (giá trị của input type=date). */
+   birthDate ở dạng chuỗi 'YYYY-MM-DD' (giá trị của input type=date).
+
+   Chỉ chứa những chỉ số cố định suốt đời. Phần đổi theo năm (năm cá nhân,
+   tháng cá nhân) nằm ở calcYearForecast để đổi năm không phải tính lại tên và
+   biểu đồ ngày sinh. */
 export const calcNumerologyProfile = (fullName, birthDate, lang = 'vi') => {
   const normalized = normalizeName(fullName);
   const [yearStr, monthStr, dayStr] = String(birthDate || '').split('-');
@@ -103,13 +156,6 @@ export const calcNumerologyProfile = (fullName, birthDate, lang = 'vi') => {
   const birthday = reduceNumber(day);
   const attitude = reduceNumber(reduceNumber(day) + reduceNumber(month));
   const maturity = reduceNumber(lifePath + expression);
-
-  // Năm cá nhân: ngày + tháng sinh + năm hiện tại, luôn rút về 1-9.
-  const currentYear = new Date().getFullYear();
-  const personalYear = reduceNumber(
-    reduceNumber(day, false) + reduceNumber(month, false) + reduceNumber(currentYear, false),
-    false
-  );
 
   const meanings = NUMBER_MEANINGS[lang] || NUMBER_MEANINGS.vi;
 
@@ -145,11 +191,8 @@ export const calcNumerologyProfile = (fullName, birthDate, lang = 'vi') => {
     birthday,
     attitude,
     maturity,
-    personalYear,
-    currentYear,
     core,
     lifePathMeaning: meanings[lifePath] || meanings[9],
-    personalYearText: (PERSONAL_YEAR[lang] || PERSONAL_YEAR.vi)[personalYear],
     birthChart: calcBirthChart(day, month, year, lang)
   };
 };

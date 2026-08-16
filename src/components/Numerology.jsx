@@ -1,15 +1,20 @@
 import React, { useState, useRef, useMemo } from 'react';
 import {
   Hash, Sparkles, Grid3x3, CalendarClock, TrendingUp, ShieldCheck,
-  Briefcase, Heart, Bookmark, Check, Download, FileText, RefreshCw, Route
+  Briefcase, Heart, Bookmark, Check, Download, FileText, RefreshCw, Route,
+  ChevronLeft, ChevronRight, CalendarRange, Target
 } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
-import { calcNumerologyProfile, isMasterNumber } from '../utils/numerology';
+import { calcNumerologyProfile, calcYearForecast, isMasterNumber } from '../utils/numerology';
 import { exportNodeAsPng, exportNodeAsPdf } from '../utils/posterExport';
 import { MysticProfileForm } from './MysticProfileForm';
 
 const JOURNAL_KEY = 'celestial_tarot_journal';
+
+// Xem trước được 30 năm là đủ cho mọi kế hoạch đời người; xa hơn nữa chỉ làm
+// danh sách chọn năm dài ra mà không ai dùng tới.
+const FORECAST_YEARS_AHEAD = 30;
 
 /* Màu riêng cho từng chỉ số để bảng 7 con số không bị đọc thành một khối xám. */
 const CORE_ACCENTS = {
@@ -32,6 +37,11 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
   const [isExportingPdf, setIsExportingPdf] = useState(false);
   const [exportError, setExportError] = useState('');
 
+  const now = new Date();
+  const thisYear = now.getFullYear();
+  const thisMonth = now.getMonth() + 1;
+  const [forecastYear, setForecastYear] = useState(thisYear);
+
   const posterRef = useRef(null);
 
   const result = useMemo(
@@ -40,6 +50,27 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
       : null),
     [profile?.fullName, profile?.birthDate, lang]
   );
+
+  // Tách khỏi hồ sơ chính: đổi năm chỉ tính lại 12 tháng, không tính lại tên
+  // và biểu đồ ngày sinh vốn không đổi theo năm.
+  const forecast = useMemo(
+    () => (result ? calcYearForecast(result.day, result.month, forecastYear, lang) : null),
+    [result, forecastYear, lang]
+  );
+
+  // Không cho lùi về trước năm sinh - năm cá nhân khi chưa chào đời là vô nghĩa.
+  const minYear = result?.year || thisYear;
+  const maxYear = thisYear + FORECAST_YEARS_AHEAD;
+  const yearOptions = useMemo(
+    () => Array.from({ length: maxYear - minYear + 1 }, (_, i) => minYear + i),
+    [minYear, maxYear]
+  );
+
+  const goToYear = (year) => {
+    if (year < minYear || year > maxYear) return;
+    setForecastYear(year);
+    cosmicAudio.playSparkleSound();
+  };
 
   const handleSubmit = (data) => {
     onSaveProfile(data);
@@ -60,7 +91,10 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
         lifePath: result.lifePath,
         lifePathTitle: result.lifePathMeaning.title,
         numbers: result.core.map(c => ({ key: c.key, value: c.value })),
-        personalYear: result.personalYear,
+        // Lưu đúng năm khách đang xem, không phải mặc định năm hiện tại.
+        forecastYear: forecast.year,
+        personalYear: forecast.personalYear,
+        personalYearTitle: forecast.info.title,
         userNote: userNote.trim()
       };
       localStorage.setItem(JOURNAL_KEY, JSON.stringify([entry, ...existing]));
@@ -184,21 +218,148 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
             </p>
           </div>
 
-          {/* Năm cá nhân */}
-          <div className="glass-panel-purple p-5 md:p-6 flex flex-col sm:flex-row items-center gap-5">
-            <div className="w-20 h-20 shrink-0 rounded-2xl bg-space/70 border border-cyan-400/40 flex flex-col items-center justify-center">
-              <CalendarClock className="w-5 h-5 text-cyan-300" />
-              <span className="text-2xl font-serif font-bold text-cyan-200 leading-none mt-1">
-                {result.personalYear}
-              </span>
+          {/* Dự báo theo năm & tháng */}
+          <div className="glass-panel p-5 md:p-7 space-y-6 border-cyan-400/40">
+            <div className="space-y-1.5">
+              <h3 className="font-serif font-bold text-lg gold-gradient-text flex items-center gap-2">
+                <CalendarRange className="w-5 h-5 text-cyan-400" />
+                {t.numForecastTitle}
+              </h3>
+              <p className="text-xs text-gray-400 font-light">{t.numForecastDesc}</p>
             </div>
-            <div className="space-y-1.5 text-center sm:text-left">
-              <span className="text-2xs text-cyan-300 uppercase tracking-widest font-semibold block">
-                {t.numPersonalYearTitle} {result.currentYear}
-              </span>
-              <p className="text-sm text-gray-200 leading-relaxed font-light">
-                {result.personalYearText}
-              </p>
+
+            {/* Chọn năm */}
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <button
+                onClick={() => goToYear(forecastYear - 1)}
+                disabled={forecastYear <= minYear}
+                aria-label={t.numPrevYear}
+                className="w-11 h-11 shrink-0 rounded-full border border-purple-400/30 bg-space/70 text-purple-200 flex items-center justify-center hover:bg-purple-900/50 transition-all disabled:opacity-30 disabled:hover:bg-space/70"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+
+              <div className="text-center">
+                <label htmlFor="forecast-year" className="text-2xs text-cyan-300 uppercase tracking-widest font-semibold block mb-1">
+                  {t.numForecastYearLabel}
+                </label>
+                <select
+                  id="forecast-year"
+                  value={forecastYear}
+                  onChange={(e) => goToYear(Number(e.target.value))}
+                  className="px-4 py-2 rounded-xl bg-space/80 border border-cyan-400/40 text-lg font-serif font-bold text-cyan-200 focus:outline-none focus:border-amber-400 text-center cursor-pointer"
+                >
+                  {yearOptions.map(y => (
+                    <option key={y} value={y}>{y}</option>
+                  ))}
+                </select>
+              </div>
+
+              <button
+                onClick={() => goToYear(forecastYear + 1)}
+                disabled={forecastYear >= maxYear}
+                aria-label={t.numNextYear}
+                className="w-11 h-11 shrink-0 rounded-full border border-purple-400/30 bg-space/70 text-purple-200 flex items-center justify-center hover:bg-purple-900/50 transition-all disabled:opacity-30 disabled:hover:bg-space/70"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+
+              {forecastYear !== thisYear && (
+                <button
+                  onClick={() => goToYear(thisYear)}
+                  className="px-4 py-2 rounded-full bg-amber-950/50 border border-amber-400/35 text-amber-200 text-xs font-semibold hover:bg-amber-900/60 transition-all self-end"
+                >
+                  {t.numBackToday}
+                </button>
+              )}
+            </div>
+
+            {/* Con số của năm đang xem */}
+            <div className="glass-panel-purple p-5 md:p-6 space-y-4">
+              <div className="flex flex-col sm:flex-row items-center gap-5">
+                <div className="w-24 h-24 shrink-0 rounded-2xl bg-space/70 border border-cyan-400/40 flex flex-col items-center justify-center">
+                  <CalendarClock className="w-5 h-5 text-cyan-300" />
+                  <span className="text-3xl font-serif font-bold text-cyan-200 leading-none mt-1">
+                    {forecast.personalYear}
+                  </span>
+                </div>
+                <div className="space-y-1.5 text-center sm:text-left">
+                  <span className="text-2xs text-cyan-300 uppercase tracking-widest font-semibold block">
+                    {t.numPersonalYearTitle} {forecast.year}
+                  </span>
+                  <h4 className="text-xl font-serif font-bold text-cyan-100">
+                    {forecast.info.title}
+                  </h4>
+                  <p className="text-sm text-gray-200 leading-relaxed font-light">
+                    {forecast.info.summary}
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-3 border-t border-purple-500/25 pt-4">
+                <div className="p-3.5 rounded-xl bg-space/60 border border-emerald-400/30 space-y-1">
+                  <span className="text-2xs font-semibold text-emerald-300 uppercase tracking-wider flex items-center gap-1.5">
+                    <Target className="w-3.5 h-3.5" />{t.numYearFocus}
+                  </span>
+                  <p className="text-xs text-gray-200 font-light">{forecast.info.focus}</p>
+                </div>
+                <div className="p-3.5 rounded-xl bg-space/60 border border-amber-400/30 space-y-1">
+                  <span className="text-2xs font-semibold text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5" />{t.numYearAdvice}
+                  </span>
+                  <p className="text-xs text-gray-200 font-light">{forecast.info.advice}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Mười hai tháng */}
+            <div className="space-y-3">
+              <div className="space-y-1">
+                <h4 className="text-xs font-semibold text-cyan-300 uppercase tracking-wider">
+                  {t.numMonthlyTitle}
+                </h4>
+                <p className="text-2xs text-gray-400 font-light">{t.numMonthlyDesc}</p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {forecast.months.map(m => {
+                  const isNow = forecastYear === thisYear && m.calendarMonth === thisMonth;
+                  return (
+                    <div
+                      key={m.calendarMonth}
+                      className={`p-4 rounded-xl border space-y-2 transition-all ${
+                        isNow
+                          ? 'bg-amber-950/40 border-amber-400/60 shadow-md shadow-amber-500/15'
+                          : 'bg-space/60 border-purple-400/25'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className={`text-xs font-semibold ${isNow ? 'text-amber-300' : 'text-gray-300'}`}>
+                          {t.monthNames[m.calendarMonth - 1]}
+                        </span>
+                        <span className={`w-8 h-8 shrink-0 rounded-lg flex items-center justify-center font-serif font-bold text-sm ${
+                          isNow ? 'bg-amber-400 text-purple-950' : 'bg-purple-900/60 text-purple-200'
+                        }`}>
+                          {m.value}
+                        </span>
+                      </div>
+
+                      {isNow && (
+                        <span className="inline-block px-2 py-0.5 rounded-full bg-amber-400 text-purple-950 text-[10px] font-bold">
+                          {t.numCurrentMonthBadge}
+                        </span>
+                      )}
+
+                      <h5 className={`text-sm font-serif font-bold ${isNow ? 'text-amber-200' : 'text-cyan-200'}`}>
+                        {m.title}
+                      </h5>
+                      <p className="text-2xs text-gray-300 leading-relaxed font-light">
+                        {m.summary}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
@@ -489,12 +650,55 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
                 ))}
               </div>
 
-              {/* Năm cá nhân */}
-              <div style={{ backgroundColor: '#0b0818', border: '1px solid #38bdf8', borderRadius: '14px', padding: '14px', marginBottom: '20px' }}>
-                <div style={{ fontSize: '13px', color: '#38bdf8', fontWeight: 'bold', marginBottom: '4px' }}>
-                  📅 {t.numPersonalYearTitle} {result.currentYear}: {result.personalYear}
+              {/* Dự báo năm đang xem + 12 tháng */}
+              <div style={{ backgroundColor: '#0b0818', border: '1px solid #38bdf8', borderRadius: '14px', padding: '16px', marginBottom: '20px' }}>
+                <div style={{ fontSize: '14px', color: '#38bdf8', fontWeight: 'bold', marginBottom: '6px' }}>
+                  📅 {t.numPersonalYearTitle} {forecast.year}: {forecast.personalYear} — {forecast.info.title}
                 </div>
-                <div style={{ fontSize: '12px', color: '#e5e7eb', lineHeight: '1.6' }}>{result.personalYearText}</div>
+                <div style={{ fontSize: '12px', color: '#e5e7eb', lineHeight: '1.6', marginBottom: '6px' }}>
+                  {forecast.info.summary}
+                </div>
+                <div style={{ fontSize: '12px', color: '#e5e7eb', lineHeight: '1.7' }}>
+                  <div><span style={{ color: '#10b981', fontWeight: 'bold' }}>{t.numYearFocus}: </span>{forecast.info.focus}</div>
+                  <div><span style={{ color: '#fbbf24', fontWeight: 'bold' }}>{t.numYearAdvice}: </span>{forecast.info.advice}</div>
+                </div>
+              </div>
+
+              <div style={{ marginBottom: '20px' }}>
+                <div style={{ fontSize: '14px', color: '#fbbf24', fontWeight: 'bold', marginBottom: '10px', borderBottom: '1px solid rgba(251,191,36,0.2)', paddingBottom: '8px' }}>
+                  🗓️ {t.numMonthlyTitle} — {forecast.year}
+                </div>
+                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '6px' }}>
+                  <tbody>
+                    {[0, 1, 2, 3].map(row => (
+                      <tr key={row}>
+                        {forecast.months.slice(row * 3, row * 3 + 3).map(m => (
+                          <td
+                            key={m.calendarMonth}
+                            style={{
+                              width: '33%',
+                              verticalAlign: 'top',
+                              borderRadius: '10px',
+                              border: '1px solid rgba(192,132,252,0.3)',
+                              backgroundColor: '#0b0818',
+                              padding: '10px'
+                            }}
+                          >
+                            <div style={{ fontSize: '11px', color: '#9ca3af' }}>
+                              {t.monthNames[m.calendarMonth - 1]}
+                            </div>
+                            <div style={{ fontSize: '13px', color: '#38bdf8', fontWeight: 'bold' }}>
+                              {m.value} — {m.title}
+                            </div>
+                            <div style={{ fontSize: '11px', color: '#e5e7eb', lineHeight: '1.5' }}>
+                              {m.summary}
+                            </div>
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
 
               {/* Biểu đồ ngày sinh */}

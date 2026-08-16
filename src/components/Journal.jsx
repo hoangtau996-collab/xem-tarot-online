@@ -188,7 +188,10 @@ export const Journal = ({ lang = 'vi' }) => {
                         <Fact key={n.key} label={t.numLabels[n.key]?.name || n.key} value={n.value} />
                       ))}
                       {item.personalYear != null && (
-                        <Fact label={t.numPersonalYearTitle} value={item.personalYear} />
+                        <Fact
+                          label={`${t.numPersonalYearTitle}${item.forecastYear ? ` ${item.forecastYear}` : ''}`}
+                          value={item.personalYearTitle ? `${item.personalYear} — ${item.personalYearTitle}` : item.personalYear}
+                        />
                       )}
                     </div>
                   </div>

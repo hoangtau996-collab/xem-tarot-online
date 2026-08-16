@@ -7,8 +7,11 @@ import { TRANSLATIONS } from '../data/translations';
 
    Tổng hiển thị = KHỞI ĐIỂM 400 + LƯỢT TRUY CẬP THẬT
 
+   Một lượt = một lần tải trang. F5 tính thêm một lượt; đổi tab trong web
+   (điều hướng bằng hash) không tải lại trang nên không tính thêm.
+
    Không có số bù, không cộng theo thời gian. Mỗi đơn vị tăng thêm tương ứng
-   một lượt truy cập có thật. Bộ đếm nằm trên server nên gộp chung mọi thiết
+   một lần tải trang có thật. Bộ đếm nằm trên server nên gộp chung mọi thiết
    bị, mọi trình duyệt, mọi thời điểm - không phụ thuộc máy của khách.
    ========================================================================== */
 
@@ -25,7 +28,15 @@ const COUNTER_READ = 'https://abacus.jasoncameron.dev/get/phealing-tarot/visits'
 // kiểm thử lúc dựng, không phải khách thật, nên trừ ra.
 const COUNTER_START = 6;
 
-const SESSION_KEY = 'phealing_session_v2';
+/* Một lượt = một lần tải trang.
+   Cờ này ở phạm vi module nên nó đúng trong cả bốn tình huống:
+     - Component được dùng 2 chỗ cùng lúc (navbar + footer) -> chỉ đếm 1
+     - StrictMode mount đôi khi chạy dev              -> chỉ đếm 1
+     - Đổi tab bằng hash, không tải lại trang         -> không đếm thêm
+     - F5 / mở lại link: module nạp mới, cờ reset     -> đếm tiếp
+   Cố tình KHÔNG dùng sessionStorage: như vậy sẽ khoá cả phiên, mỗi phiên
+   chỉ đếm 1 lần, không còn là đếm theo lần tải trang. */
+let pageLoadCounted = false;
 const DAILY_LOG_KEY = 'phealing_daily_log_v2';
 const TOTAL_CACHE_KEY = 'phealing_total_cache_v2';
 
@@ -54,16 +65,17 @@ export const VisitorCounter = ({ lang = 'vi', variant = 'footer' }) => {
     let cancelled = false;
     let localTotal = BASE_VISITS;
     let cachedTotal = 0;
-    let isNewSession = false;
+    let isFirstOnThisPageLoad = false;
 
     try {
-      isNewSession = !sessionStorage.getItem(SESSION_KEY);
-      // Đặt cờ trước khi fetch để StrictMode (mount 2 lần) không đếm trùng.
-      if (isNewSession) sessionStorage.setItem(SESSION_KEY, '1');
+      // Đặt cờ ngay, trước mọi thao tác bất đồng bộ, để lần mount thứ hai
+      // trong cùng một lần tải trang không đếm trùng.
+      isFirstOnThisPageLoad = !pageLoadCounted;
+      pageLoadCounted = true;
 
       // 1. Ghi nhận lượt của hôm nay vào nhật ký ngày
       const log = readDailyLog();
-      if (isNewSession) {
+      if (isFirstOnThisPageLoad) {
         const day = todayStr();
         log[day] = (Number(log[day]) || 0) + 1;
         localStorage.setItem(DAILY_LOG_KEY, JSON.stringify(log));
@@ -79,8 +91,8 @@ export const VisitorCounter = ({ lang = 'vi', variant = 'footer' }) => {
     }
     setIsLoaded(true);
 
-    // 2. Đồng bộ số cộng dồn toàn cục (tăng 1 lần cho mỗi phiên truy cập)
-    fetch(isNewSession ? COUNTER_UP : COUNTER_READ)
+    // 2. Đồng bộ bộ đếm toàn cục (tăng 1 lần cho mỗi lần tải trang)
+    fetch(isFirstOnThisPageLoad ? COUNTER_UP : COUNTER_READ)
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error(res.status))))
       .then((data) => {
         if (cancelled) return;
