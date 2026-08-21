@@ -10,6 +10,8 @@ import { Numerology } from './components/Numerology';
 import { Destiny } from './components/Destiny';
 import { Journal } from './components/Journal';
 import { VisitorCounter } from './components/VisitorCounter';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { SectionError } from './components/SectionError';
 import { SPREAD_TYPES, TAROT_DECKS_THEMES } from './data/tarotData';
 import { TRANSLATIONS } from './data/translations';
 import { useHashRoute, buildPath, navigate } from './utils/router';
@@ -113,7 +115,12 @@ export function App() {
       />
 
       {/* Main Body View Switching */}
+      {/* Luoi an toan chi boc phan noi dung muc: thanh dieu huong va chan trang
+          nam ngoai nen mot muc hong thi khach van bam sang muc khac duoc.
+          key la tab dang mo: doi muc thi React dung lai khoi nay voi trang thai
+          sach, nen mot muc hong khong keo theo cac muc sau cung hien loi. */}
       <main className="flex-1 pb-16">
+        <ErrorBoundary key={activeTab} fallback={<SectionError lang={lang} />}>
 
         {/* Quả cầu thông điệp Vũ Trụ - đứng đầu trang, khách vừa vào đã thấy.
             Đặt ngoài phần chuyển tab nên không lẫn vào bản giải bài. */}
@@ -179,6 +186,7 @@ export function App() {
         )}
 
         {activeTab === 'journal' && <Journal lang={lang} />}
+        </ErrorBoundary>
       </main>
 
       {/* Footer */}
