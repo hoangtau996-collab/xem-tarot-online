@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { BookOpen, BookmarkCheck, Volume2, VolumeX, Compass, Disc, Globe, Settings2, Hash, Orbit } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
-import { buildPath } from '../utils/router';
+import { buildPath, navigate, SITE_URL, isCanonicalSite } from '../utils/router';
 import { VisitorCounter } from './VisitorCounter';
 
 const LANG_NAMES = {
@@ -54,12 +54,19 @@ export const Navbar = ({ activeTab, lang, setLang, onGoHome }) => {
   };
 
   /* Bam logo phai luon quay ve dau trang chu.
-     Rieng cho nay khong the pho mac cho hash: khi khach dang xem ket qua trai
-     bai thi hash da la #/xem-tarot san roi, nen the <a> khong doi gi ca va
-     khach ket o lai man hinh ket qua. Buoc trai bai la state ben App chu khong
-     nam trong duong dan, nen phai bao nguoc len cho App dat lai. */
-  const handleLogoClick = () => {
+     Tren ten mien that thi cu de trinh duyet di thang toi SITE_URL: trang tai
+     lai sach se va thanh dia chi tro ve dung mot dong healing.pmarcom.com.
+     Ngoai ten mien do (localhost, ban preview) thi chan lai va dat lai trang
+     ngay tai cho, khong thi vua bam logo la bi nem sang ban that. Phai tu goi
+     navigate vi da chan the <a>, va phai bao nguoc len App vi buoc trai bai
+     la state ben App chu khong nam trong duong dan - khach dang xem ket qua
+     ma chi doi hash thi khong thay gi xay ra. */
+  const handleLogoClick = (e) => {
     cosmicAudio.playSparkleSound();
+    if (isCanonicalSite()) return;
+
+    e.preventDefault();
+    navigate(buildPath('reading'));
     if (onGoHome) onGoHome();
   };
 
@@ -95,7 +102,7 @@ export const Navbar = ({ activeTab, lang, setLang, onGoHome }) => {
 
           {/* Thương hiệu */}
           <a
-            href={buildPath('reading')}
+            href={SITE_URL}
             onClick={handleLogoClick}
             aria-label={t.homeLinkLabel}
             title={t.homeLinkLabel}
