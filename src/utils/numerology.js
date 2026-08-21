@@ -134,6 +134,73 @@ export const calcYearForecast = (birthDay, birthMonth, targetYear, lang = 'vi') 
    Chỉ chứa những chỉ số cố định suốt đời. Phần đổi theo năm (năm cá nhân,
    tháng cá nhân) nằm ở calcYearForecast để đổi năm không phải tính lại tên và
    biểu đồ ngày sinh. */
+/* Bốn Đỉnh Cuộc Đời và bốn Thử Thách.
+
+   Đây là mảng chu kỳ dài của Pythagoras, khác hẳn Năm/Tháng cá nhân vốn chỉ
+   nói về nhịp ngắn. Đỉnh cho biết cơ hội và chủ đề của cả một giai đoạn nhiều
+   năm; Thử Thách nói cái giá phải trả để đi qua chính giai đoạn ấy. Hai thứ
+   luôn đi cặp và được tính từ cùng một bộ ba số, chỉ khác phép toán: Đỉnh lấy
+   tổng, Thử Thách lấy hiệu tuyệt đối.
+
+   Ba thành phần phải rút hết về một chữ số trước khi cộng trừ. Giữ lại số bậc
+   thầy ở bước này sẽ làm hỏng phép trừ của Thử Thách - hiệu của 11 và 3 không
+   có nghĩa gì trong hệ 0-8.
+
+   Riêng Thử Thách không rút gọn tiếp: hiệu của hai số 1-9 vốn đã nằm trong
+   khoảng 0-8, và số 0 ở đây là kết quả hợp lệ chứ không phải lỗi - nó mang
+   nghĩa riêng, khác hẳn mọi chỉ số còn lại của thần số học vốn không có số 0. */
+export const calcPinnacles = (day, month, year, lifePath) => {
+  const m = reduceNumber(month, false);
+  const d = reduceNumber(day, false);
+  const y = reduceNumber(year, false);
+
+  const p1 = reduceNumber(m + d);
+  const p2 = reduceNumber(d + y);
+  const p3 = reduceNumber(p1 + p2);
+  const p4 = reduceNumber(m + y);
+
+  const c1 = Math.abs(m - d);
+  const c2 = Math.abs(d - y);
+  const c3 = Math.abs(c1 - c2);
+  const c4 = Math.abs(m - y);
+
+  /* Đỉnh đầu kéo dài tới năm 36 trừ Số Đường Đời tuổi, nên luôn rơi vào
+     khoảng 27-35. Số Đường Đời là số bậc thầy thì rút về một chữ số ở riêng
+     phép tính này (11 thành 2, 22 thành 4), nếu không mốc chuyển sẽ rơi vào
+     tuổi 25 hay 14 - vô lý với một chu kỳ đời người.
+     Ba đỉnh sau mỗi đỉnh đúng chín năm, đỉnh cuối kéo tới hết đời. */
+  const firstEnd = 36 - reduceNumber(lifePath, false);
+
+  return [
+    { index: 1, pinnacle: p1, challenge: c1, fromAge: 0, toAge: firstEnd - 1 },
+    { index: 2, pinnacle: p2, challenge: c2, fromAge: firstEnd, toAge: firstEnd + 8 },
+    { index: 3, pinnacle: p3, challenge: c3, fromAge: firstEnd + 9, toAge: firstEnd + 17 },
+    { index: 4, pinnacle: p4, challenge: c4, fromAge: firstEnd + 18, toAge: null }
+  ];
+};
+
+/* Tuổi tròn tính tới hôm nay. Dùng để tô sáng đúng giai đoạn người xem đang
+   sống - phần có ích nhất của cả khối chu kỳ. */
+export const getCurrentAge = (birthDate, at = new Date()) => {
+  const [yearStr, monthStr, dayStr] = String(birthDate || '').split('-');
+  const y = Number(yearStr);
+  const m = Number(monthStr);
+  const d = Number(dayStr);
+  if (!y || !m || !d) return null;
+
+  let age = at.getFullYear() - y;
+  // Chưa tới sinh nhật trong năm nay thì chưa tính thêm một tuổi.
+  const beforeBirthday = at.getMonth() + 1 < m || (at.getMonth() + 1 === m && at.getDate() < d);
+  if (beforeBirthday) age -= 1;
+  return age < 0 ? null : age;
+};
+
+/* Giai đoạn đang sống. Trả về null khi chưa biết tuổi. */
+export const findActivePinnacle = (pinnacles, age) => {
+  if (age === null || age === undefined) return null;
+  return pinnacles.find(p => age >= p.fromAge && (p.toAge === null || age <= p.toAge)) || null;
+};
+
 export const calcNumerologyProfile = (fullName, birthDate, lang = 'vi') => {
   const normalized = normalizeName(fullName);
   const [yearStr, monthStr, dayStr] = String(birthDate || '').split('-');
@@ -193,7 +260,8 @@ export const calcNumerologyProfile = (fullName, birthDate, lang = 'vi') => {
     maturity,
     core,
     lifePathMeaning: meanings[lifePath] || meanings[9],
-    birthChart: calcBirthChart(day, month, year, lang)
+    birthChart: calcBirthChart(day, month, year, lang),
+    pinnacles: calcPinnacles(day, month, year, lifePath)
   };
 };
 

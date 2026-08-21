@@ -212,6 +212,19 @@ export const Journal = ({ lang = 'vi' }) => {
                   </div>
                 )}
 
+                {type === 'numerology' && item.pinnacleNumber != null && (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    <Fact
+                      label={`${t.numPinnacleLabel} ${item.pinnacleIndex}`}
+                      value={`${item.pinnacleNumber} — ${item.pinnacleTitle}`}
+                    />
+                    <Fact
+                      label={t.numChallengeLabel}
+                      value={`${item.challengeNumber} — ${item.challengeTitle}`}
+                    />
+                  </div>
+                )}
+
                 {type === 'astrology' && (
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {item.sunSign && <Fact label={t.astroSunLabel} value={item.sunSign} />}

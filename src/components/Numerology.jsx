@@ -2,11 +2,13 @@ import React, { useState, useRef, useMemo } from 'react';
 import {
   Hash, Sparkles, Grid3x3, CalendarClock, TrendingUp, ShieldCheck,
   Briefcase, Heart, Bookmark, Check, Download, FileText, RefreshCw, Route,
-  ChevronLeft, ChevronRight, CalendarRange, Target
+  ChevronLeft, ChevronRight, CalendarRange, Target, Mountain
 } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
-import { calcNumerologyProfile, calcYearForecast, isMasterNumber } from '../utils/numerology';
+import { calcNumerologyProfile, calcYearForecast, isMasterNumber,
+  getCurrentAge, findActivePinnacle } from '../utils/numerology';
+import { getPinnacleText, getChallengeText } from '../data/numerologyCycles';
 import { exportNodeAsPng, exportNodeAsPdf } from '../utils/posterExport';
 import { MysticProfileForm } from './MysticProfileForm';
 
@@ -44,12 +46,18 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
 
   const posterRef = useRef(null);
 
+
   const result = useMemo(
     () => (profile?.fullName && profile?.birthDate
       ? calcNumerologyProfile(profile.fullName, profile.birthDate, lang)
       : null),
     [profile?.fullName, profile?.birthDate, lang]
   );
+  /* Tuổi hiện tại chỉ dùng để tô sáng đúng chặng người xem đang sống - phần
+     có ích nhất của cả khối chu kỳ. Tính ngoài useMemo của hồ sơ vì nó phụ
+     thuộc vào hôm nay chứ không phải vào dữ liệu nhập. */
+  const currentAge = profile?.birthDate ? getCurrentAge(profile.birthDate) : null;
+  const activePinnacle = result ? findActivePinnacle(result.pinnacles, currentAge) : null;
 
   // Tách khỏi hồ sơ chính: đổi năm chỉ tính lại 12 tháng, không tính lại tên
   // và biểu đồ ngày sinh vốn không đổi theo năm.
@@ -95,6 +103,12 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
         forecastYear: forecast.year,
         personalYear: forecast.personalYear,
         personalYearTitle: forecast.info.title,
+        // Chang doi dang song, kem Dinh va Thu Thach cua chinh chang do.
+        pinnacleIndex: activePinnacle ? activePinnacle.index : null,
+        pinnacleNumber: activePinnacle ? activePinnacle.pinnacle : null,
+        pinnacleTitle: activePinnacle ? getPinnacleText(activePinnacle.pinnacle, lang).title : '',
+        challengeNumber: activePinnacle ? activePinnacle.challenge : null,
+        challengeTitle: activePinnacle ? getChallengeText(activePinnacle.challenge, lang).title : '',
         userNote: userNote.trim()
       };
       localStorage.setItem(JOURNAL_KEY, JSON.stringify([entry, ...existing]));
@@ -215,6 +229,87 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
 
             <p className="text-sm text-gray-200 leading-relaxed font-light border-t border-sky-400/20 pt-4">
               {result.lifePathMeaning.lifePath}
+            </p>
+          </div>
+
+          {/* Bốn Đỉnh Cuộc Đời & bốn Thử Thách.
+              Đặt ngay sau Số Đường Đời vì mốc chuyển đỉnh đầu tiên được tính
+              từ chính con số đó, và vì đây là mạch đọc tự nhiên: bạn là ai,
+              rồi đời bạn chia thành mấy chặng. */}
+          <div className="glass-panel p-5 md:p-7 space-y-5 border-violet-400/40">
+            <div className="space-y-1.5">
+              <h3 className="font-serif font-bold text-lg gold-gradient-text flex items-center gap-2">
+                <Mountain className="w-5 h-5 text-violet-400" />
+                {t.numPinnacleTitle}
+              </h3>
+              <p className="text-xs text-gray-400 font-light">{t.numPinnacleDesc}</p>
+            </div>
+
+            <div className="space-y-3">
+              {result.pinnacles.map(stage => {
+                const active = activePinnacle && activePinnacle.index === stage.index;
+                const pin = getPinnacleText(stage.pinnacle, lang);
+                const chal = getChallengeText(stage.challenge, lang);
+                const range = stage.toAge === null
+                  ? t.numPinnacleFromAge.replace('{from}', stage.fromAge)
+                  : `${stage.fromAge} - ${stage.toAge} ${t.numPinnacleAgeUnit}`;
+
+                return (
+                  <div
+                    key={stage.index}
+                    className={`rounded-2xl border p-4 space-y-3 transition-colors ${
+                      active
+                        ? 'bg-violet-950/50 border-violet-300/60 shadow-lg shadow-violet-500/15'
+                        : 'bg-space/70 border-violet-400/20'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`w-12 h-12 shrink-0 rounded-xl flex items-center justify-center border ${
+                        active ? 'bg-violet-400/25 border-violet-300/60' : 'bg-violet-900/40 border-violet-400/25'
+                      }`}>
+                        <span className="text-xl font-serif font-bold text-violet-100 leading-none">
+                          {stage.pinnacle}
+                        </span>
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                          <span className="text-2xs text-violet-300 uppercase tracking-widest font-semibold">
+                            {t.numPinnacleLabel} {stage.index}
+                          </span>
+                          <span className="text-2xs text-gray-400">{range}</span>
+                          {active && (
+                            <span className="text-2xs px-2 py-0.5 rounded-full bg-violet-400 text-violet-950 font-bold">
+                              {t.numPinnacleNow}
+                            </span>
+                          )}
+                          {isMasterNumber(stage.pinnacle) && (
+                            <span className="text-2xs px-2 py-0.5 rounded-full bg-sky-400 text-blue-950 font-bold">
+                              {t.numMasterBadge}
+                            </span>
+                          )}
+                        </div>
+                        <p className="font-serif font-bold text-base text-violet-100 truncate">{pin.title}</p>
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-gray-200 leading-relaxed font-light">{pin.text}</p>
+
+                    {/* Thử thách của đúng chặng đó - hai thứ luôn đi cặp nên
+                        không tách thành khối riêng ở cuối trang. */}
+                    <div className="rounded-xl bg-rose-950/25 border border-rose-400/25 px-3.5 py-3 space-y-1">
+                      <span className="flex flex-wrap items-center gap-x-2 text-2xs font-semibold text-rose-300 uppercase tracking-wider">
+                        {t.numChallengeLabel} {stage.challenge}
+                        <span className="text-rose-200/90 normal-case tracking-normal font-normal">{chal.title}</span>
+                      </span>
+                      <p className="text-2xs text-gray-300 leading-relaxed font-light">{chal.text}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <p className="text-2xs text-gray-400 leading-relaxed font-light border-t border-white/10 pt-3">
+              {t.numPinnacleNote}
             </p>
           </div>
 
@@ -699,6 +794,47 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
                     ))}
                   </tbody>
                 </table>
+              </div>
+
+              {/* Bốn Đỉnh Cuộc Đời & Thử Thách */}
+              <div style={{ marginBottom: '20px' }}>
+                <div style={{ fontSize: '14px', color: '#a78bfa', fontWeight: 'bold', marginBottom: '10px', borderBottom: '1px solid rgba(167,139,250,0.25)', paddingBottom: '8px' }}>
+                  {t.numPinnacleTitle}
+                </div>
+                {result.pinnacles.map(stage => {
+                  const pin = getPinnacleText(stage.pinnacle, lang);
+                  const chal = getChallengeText(stage.challenge, lang);
+                  const active = activePinnacle && activePinnacle.index === stage.index;
+                  const range = stage.toAge === null
+                    ? t.numPinnacleFromAge.replace('{from}', stage.fromAge)
+                    : `${stage.fromAge} - ${stage.toAge} ${t.numPinnacleAgeUnit}`;
+                  return (
+                    <div
+                      key={stage.index}
+                      style={{
+                        backgroundColor: active ? '#1b1340' : '#0b0818',
+                        border: active ? '1px solid rgba(167,139,250,0.6)' : '1px solid rgba(167,139,250,0.25)',
+                        borderRadius: '12px',
+                        padding: '12px',
+                        marginBottom: '8px'
+                      }}
+                    >
+                      <div style={{ fontSize: '12px', color: '#c4b5fd', fontWeight: 'bold', marginBottom: '4px' }}>
+                        {t.numPinnacleLabel} {stage.index} · {stage.pinnacle} — {pin.title}
+                        <span style={{ color: '#9ca3af', fontWeight: 'normal' }}>
+                          {'  '}({range}{active ? ` · ${t.numPinnacleNow}` : ''})
+                        </span>
+                      </div>
+                      <div style={{ fontSize: '12px', color: '#e5e7eb', lineHeight: '1.6', marginBottom: '4px' }}>
+                        {pin.text}
+                      </div>
+                      <div style={{ fontSize: '12px', color: '#fda4af', lineHeight: '1.6' }}>
+                        <span style={{ fontWeight: 'bold' }}>{t.numChallengeLabel} {stage.challenge} — {chal.title}: </span>
+                        <span style={{ color: '#e5e7eb' }}>{chal.text}</span>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
 
               {/* Biểu đồ ngày sinh */}
