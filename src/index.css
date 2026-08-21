@@ -703,3 +703,41 @@ h1, h2, h3, .font-serif {
 [data-section="mysticism"] .bg-space\/60 { background-color: rgba(10, 8, 4, 0.6); }
 [data-section="mysticism"] .bg-space\/70 { background-color: rgba(10, 8, 4, 0.72); }
 [data-section="mysticism"] .bg-space\/80 { background-color: rgba(10, 8, 4, 0.85); }
+
+/* ---------- Chiem Tinh: xanh dem ---------- */
+/* Huyen Hoc lay tong vang - den cua giay ban menh phuong Dong; Chiem Tinh lay
+   tong xanh dem cua bau troi sao. Hai he doc chung mot ngay sinh nen phai nhin
+   ra khac nhau ngay tu mau, khong doi khach doc chu moi biet dang o dau. */
+[data-section="astrology"] .glass-panel {
+  background-color: rgba(9, 10, 34, 0.88);
+  border-color: rgba(99, 102, 241, 0.34);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(165, 243, 252, 0.1);
+}
+
+[data-section="astrology"] .glass-panel-purple {
+  background-color: rgba(13, 15, 44, 0.85);
+  border-color: rgba(34, 211, 238, 0.3);
+}
+
+[data-section="astrology"] .gold-gradient-text {
+  background-image: linear-gradient(135deg, #ecfeff 0%, #67e8f9 45%, #6366f1 100%);
+}
+
+[data-section="astrology"] .cosmic-gradient-text {
+  background-image: linear-gradient(135deg, #a5f3fc 0%, #22d3ee 50%, #4338ca 100%);
+}
+
+[data-section="astrology"] .btn-cosmic {
+  background-image: linear-gradient(135deg, #3730a3 0%, #0891b2 50%, #67e8f9 100%);
+  color: #06121f;
+  box-shadow: 0 4px 20px rgba(34, 211, 238, 0.38);
+}
+
+[data-section="astrology"] .btn-cosmic:hover {
+  box-shadow: 0 6px 28px rgba(103, 232, 249, 0.6);
+}
+
+/* Nen xanh muc, bo han sac tim do */
+[data-section="astrology"] .bg-space\/60 { background-color: rgba(6, 8, 28, 0.6); }
+[data-section="astrology"] .bg-space\/70 { background-color: rgba(6, 8, 28, 0.72); }
+[data-section="astrology"] .bg-space\/80 { background-color: rgba(6, 8, 28, 0.85); }

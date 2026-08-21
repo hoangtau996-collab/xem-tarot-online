@@ -16,9 +16,25 @@ export const DEFAULT_TAB = 'reading';
 export const TAB_SLUGS = {
   reading: 'xem-tarot',
   numerology: 'than-so-hoc',
-  mysticism: 'huyen-hoc',
+  destiny: 'ban-menh',
   encyclopedia: 'tra-cuu',
   journal: 'nhat-ky'
+};
+
+/* Muc Ban Menh gom hai he luan giai song song, moi he mot slug con. Gom chung
+   mot muc de thanh dieu huong van du nam o, dong thoi giu duoc y niem "cung
+   mot cau hoi, hai truyen thong tra loi". */
+export const DESTINY_SLUGS = {
+  mysticism: 'huyen-hoc',
+  astrology: 'chiem-tinh'
+};
+
+export const DEFAULT_DESTINY = 'mysticism';
+
+/* Link cu da phat ra ngoai truoc khi co muc Ban Menh. Giu bang nay de moi
+   duong dan da chia se van mo dung cho, thay vi roi ve trang Tarot. */
+const LEGACY_SLUGS = {
+  'huyen-hoc': { tab: 'destiny', destiny: 'mysticism' }
 };
 
 export const ARCANA_SLUGS = {
@@ -27,6 +43,7 @@ export const ARCANA_SLUGS = {
 };
 
 const SLUG_TO_TAB = Object.fromEntries(Object.entries(TAB_SLUGS).map(([tab, slug]) => [slug, tab]));
+const SLUG_TO_DESTINY = Object.fromEntries(Object.entries(DESTINY_SLUGS).map(([key, slug]) => [slug, key]));
 const SLUG_TO_ARCANA = Object.fromEntries(Object.entries(ARCANA_SLUGS).map(([arcana, slug]) => [slug, arcana]));
 
 /* Đọc hash hiện tại thành một route đã chuẩn hoá.
@@ -45,8 +62,12 @@ export const parseHash = (hash = '') => {
       }
     });
 
-  const tab = SLUG_TO_TAB[parts[0]] || DEFAULT_TAB;
-  const route = { tab, arcana: 'All', cardId: null };
+  const legacy = LEGACY_SLUGS[parts[0]];
+  const tab = SLUG_TO_TAB[parts[0]] || legacy?.tab || DEFAULT_TAB;
+  const route = { tab, arcana: 'All', cardId: null, destiny: legacy?.destiny || DEFAULT_DESTINY };
+
+  // Ban Menh co hai he: Huyen Hoc Dong Phuong va Chiem Tinh Tay Phuong.
+  if (tab === 'destiny' && SLUG_TO_DESTINY[parts[1]]) route.destiny = SLUG_TO_DESTINY[parts[1]];
 
   // Tra Cứu có hai kiểu link con: lọc theo bộ ẩn, và mở thẳng một lá bài.
   if (tab === 'encyclopedia') {
@@ -60,9 +81,11 @@ export const parseHash = (hash = '') => {
 /* Dựng hash từ tab + tham số. Dùng cho cả thuộc tính href của thẻ <a> lẫn lệnh
    điều hướng, nên link hiện trên thanh địa chỉ luôn khớp với link người dùng
    thấy khi rê chuột. */
-export const buildPath = (tab, { arcana, cardId } = {}) => {
+export const buildPath = (tab, { arcana, cardId, destiny } = {}) => {
   const slug = TAB_SLUGS[tab] || TAB_SLUGS[DEFAULT_TAB];
   let path = `#/${slug}`;
+
+  if (tab === 'destiny') path += `/${DESTINY_SLUGS[destiny] || DESTINY_SLUGS[DEFAULT_DESTINY]}`;
 
   if (tab === 'encyclopedia') {
     if (cardId) path += `/la/${encodeURIComponent(cardId)}`;

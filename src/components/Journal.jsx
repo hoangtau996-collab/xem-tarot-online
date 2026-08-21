@@ -48,6 +48,7 @@ export const Journal = ({ lang = 'vi' }) => {
   const typeLabel = (type) => {
     if (type === 'numerology') return t.journalTypeNumerology;
     if (type === 'mysticism') return t.journalTypeMysticism;
+    if (type === 'astrology') return t.journalTypeAstrology;
     return t.journalTypeTarot;
   };
 
@@ -208,6 +209,20 @@ export const Journal = ({ lang = 'vi' }) => {
                     {item.goodDirections?.length > 0 && (
                       <Fact label={t.mysGoodDirections} value={item.goodDirections.join(', ')} />
                     )}
+                  </div>
+                )}
+
+                {type === 'astrology' && (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {item.sunSign && <Fact label={t.astroSunLabel} value={item.sunSign} />}
+                    {item.moonSign && <Fact label={t.astroMoonLabel} value={item.moonSign} />}
+                    {item.ascSign && <Fact label={t.astroAscLabel} value={item.ascSign} />}
+                    {item.mcSign && <Fact label={t.astroMcLabel} value={item.mcSign} />}
+                    {item.dominantElement && <Fact label={t.astroDominant} value={item.dominantElement} />}
+                    {item.birthTime && <Fact label={t.astroTimeLabel} value={item.birthTime} />}
+                    {item.place && <Fact label={t.astroPlaceLabel} value={item.place} />}
+                    {item.houseSystem && <Fact label={t.astroHouseSystemLabel} value={item.houseSystem} />}
+                    {item.aspectCount != null && <Fact label={t.astroAspectsTitle} value={String(item.aspectCount)} />}
                   </div>
                 )}
 

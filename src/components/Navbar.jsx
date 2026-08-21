@@ -28,7 +28,7 @@ export const Navbar = ({ activeTab, lang, setLang }) => {
   const TABS = [
     { id: 'reading', label: t.navReading, short: t.navReadingShort, Icon: Compass, accent: 'text-amber-400' },
     { id: 'numerology', label: t.navNumerology, short: t.navNumerologyShort, Icon: Hash, accent: 'text-emerald-400' },
-    { id: 'mysticism', label: t.navMysticism, short: t.navMysticismShort, Icon: Orbit, accent: 'text-purple-400' },
+    { id: 'destiny', label: t.navDestiny, short: t.navDestinyShort, Icon: Orbit, accent: 'text-purple-400' },
     { id: 'encyclopedia', label: t.navEncyclopedia, short: t.navEncyclopediaShort, Icon: BookOpen, accent: 'text-cyan-400' },
     { id: 'journal', label: t.navJournal, short: t.navJournalShort, Icon: BookmarkCheck, accent: 'text-pink-400' }
   ];

@@ -7,7 +7,7 @@ import { ReadingResult } from './components/ReadingResult';
 import { CosmicOrb } from './components/CosmicOrb';
 import { Encyclopedia } from './components/Encyclopedia';
 import { Numerology } from './components/Numerology';
-import { Mysticism } from './components/Mysticism';
+import { Destiny } from './components/Destiny';
 import { Journal } from './components/Journal';
 import { VisitorCounter } from './components/VisitorCounter';
 import { SPREAD_TYPES, TAROT_DECKS_THEMES } from './data/tarotData';
@@ -154,14 +154,15 @@ export function App() {
           </div>
         )}
 
-        {activeTab === 'mysticism' && (
-          <div data-section="mysticism">
-            <Mysticism
-              lang={lang}
-              profile={mysticProfile}
-              onSaveProfile={handleSaveMysticProfile}
-            />
-          </div>
+        {/* Ban Menh tu dat data-section theo he dang mo, vi hai he con dung hai
+            bang mau khac nhau. */}
+        {activeTab === 'destiny' && (
+          <Destiny
+            lang={lang}
+            section={route.destiny}
+            profile={mysticProfile}
+            onSaveProfile={handleSaveMysticProfile}
+          />
         )}
 
         {activeTab === 'encyclopedia' && (

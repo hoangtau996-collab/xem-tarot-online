@@ -18,7 +18,7 @@ export const TRANSLATIONS = {
     routeTitles: {
       reading: 'Xem Tarot Online',
       numerology: 'Thần Số Học Pythagoras',
-      mysticism: 'Huyền Học Đông Phương',
+      destiny: 'Bản Mệnh - Huyền Học & Chiêm Tinh',
       encyclopedia: 'Tra Cứu 78 Lá Bài Tarot',
       journal: 'Nhật Ký Trải Bài'
     },
@@ -219,10 +219,80 @@ export const TRANSLATIONS = {
     mysXungTrucTiep: 'Xung trực tiếp (lục xung)',
     mysXungTrucTiepHint: 'Con giáp đối đỉnh trên vòng địa chi, khác biệt nhiều nhất về nhịp sống.',
     mysZodiacTitle: 'Cung Hoàng Đạo Phương Tây',
+    mysZodiacDeepLink: 'Đây mới là cung Mặt Trời, đọc từ ngày tháng. Thêm giờ và nơi sinh để xem bản đồ sao đầy đủ - Cung Mọc, mười hai nhà và góc chiếu.',
     mysRuler: 'Sao chiếu mệnh',
     mysZodiacElement: 'Nguyên tố',
 
     // Nhật ký - nhãn phân loại
+    // ---------- Bản Mệnh: nhãn mục và hai tab con ----------
+    navDestiny: 'Bản Mệnh',
+    navDestinyShort: 'Bản Mệnh',
+    destinyEastTab: 'Huyền Học Đông Phương',
+    destinyEastHint: 'Can Chi • Ngũ Hành • Bát Trạch',
+    destinyWestTab: 'Chiêm Tinh Tây Phương',
+    destinyWestHint: 'Bản đồ sao • 12 nhà • Góc chiếu',
+
+    // ---------- Chiêm tinh: bản đồ sao ----------
+    astroBadge: 'Bản Đồ Sao • 12 Nhà • Góc Chiếu',
+    astroTitle: 'Bản Đồ Sao Chuyên Sâu',
+    astroDesc: 'Dựng lá số từ đúng ngày, giờ và nơi bạn sinh ra: vị trí mười hai thiên thể tới từng phút cung, Cung Mọc và Thiên Đỉnh, mười hai nhà, toàn bộ góc chiếu, cân bằng nguyên tố và các hình mẫu lớn trong lá số.',
+    astroSubmitBtn: 'Dựng Bản Đồ Sao',
+
+    astroTimeLabel: 'Giờ sinh',
+    astroTimeRequired: 'Hãy nhập giờ sinh, hoặc tích vào ô "không nhớ giờ sinh".',
+    astroUnknownTime: 'Tôi không nhớ giờ sinh',
+    astroUnknownTimeHint: 'Không có giờ sinh thì vẫn xem được hành tinh nằm ở cung nào, nhưng sẽ không có Cung Mọc và không chia được mười hai nhà - đó là hai phần cá nhân nhất của lá số. Giờ sinh thường ghi trên giấy chứng sinh hoặc sổ y bạ của mẹ.',
+    astroNoTimeShort: 'chưa có giờ sinh',
+
+    astroPlaceLabel: 'Nơi sinh',
+    astroPlacePlaceholder: 'Gõ tên tỉnh thành hoặc thành phố...',
+    astroPlaceNoResult: 'Không tìm thấy. Thử tên khác, hoặc nhập toạ độ tay.',
+    astroUseManual: 'Nhập toạ độ tay',
+    astroUseCityList: 'Chọn từ danh sách',
+    astroManualHint: 'Vĩ độ dương là Bắc, kinh độ dương là Đông. Nhớ chọn đúng múi giờ đang dùng tại nơi đó vào năm bạn sinh.',
+    astroLatPlaceholder: 'Vĩ độ, ví dụ 21.0285',
+    astroLonPlaceholder: 'Kinh độ, ví dụ 105.8542',
+    astroLatInvalid: 'Vĩ độ phải là số từ -90 tới 90.',
+    astroLonInvalid: 'Kinh độ phải là số từ -180 tới 180.',
+    astroHouseSystemLabel: 'Hệ chia nhà',
+
+    astroBigThreeTitle: 'Ba Trụ Của Lá Số',
+    astroWheelTitle: 'Vòng Bản Đồ Sao',
+    astroWheelHint: 'Cung Mọc nằm ở mép trái, các nhà chạy ngược chiều kim đồng hồ. Vạch nối từ vành cung tới glyph cho biết vị trí thật của hành tinh - glyph chỉ được đẩy ra cho khỏi chồng nhau.',
+
+    astroPlanetsTitle: 'Vị Trí Mười Hai Thiên Thể',
+    astroRetroTitle: 'Nghịch hành',
+    astroHouseShort: 'Nhà ',
+    astroHousesTitle: 'Mười Hai Nhà',
+    astroHouseEmpty: 'Không có hành tinh',
+
+    astroAspectsTitle: 'Góc Chiếu',
+    astroAspectsHint: 'Góc chiếu là khoảng cách giữa hai hành tinh trên vòng hoàng đạo. Sai lệch càng nhỏ thì góc càng mạnh - dưới một độ là góc chi phối cả lá số.',
+    astroOrb: 'lệch',
+    astroNoAspects: 'Không có góc chiếu nào nằm trong sai lệch cho phép.',
+    astroTightAspect: 'Rất khít',
+
+    astroPatternsTitle: 'Hình Mẫu Lớn',
+    astroNoPatterns: 'Lá số không có hình mẫu lớn nào. Đây là chuyện bình thường - phần lớn lá số đều vậy, và nó chỉ có nghĩa là năng lượng của bạn trải đều chứ không dồn vào một cấu trúc duy nhất.',
+
+    astroBalanceTitle: 'Cân Bằng Lá Số',
+    astroElements: 'Bốn nguyên tố',
+    astroModalities: 'Ba tam thể',
+    astroPolarity: 'Âm dương',
+    astroHemispheres: 'Bán cầu',
+    astroDominant: 'Nguyên tố trội',
+    astroLacking: 'Nguyên tố thiếu',
+    astroRulerTitle: 'Chủ Tinh & Điểm Phúc',
+    astroUtcLabel: 'giờ UTC',
+    astroNotePlaceholder: 'Ghi lại điều bạn nhận ra khi đọc lá số này...',
+
+    astroSunLabel: 'Mặt Trời',
+    astroMoonLabel: 'Mặt Trăng',
+    astroAscLabel: 'Cung Mọc',
+    astroMcLabel: 'Thiên Đỉnh',
+
+    // Nhật ký - nhãn phân loại chiêm tinh
+    journalTypeAstrology: 'Bản Đồ Sao Cá Nhân',
     journalTypeTarot: 'Phiên Trải Bài Tarot',
     journalTypeNumerology: 'Hồ Sơ Thần Số Học',
     journalTypeMysticism: 'Hồ Sơ Huyền Học',
@@ -249,7 +319,7 @@ export const TRANSLATIONS = {
     routeTitles: {
       reading: 'Online Tarot Reading',
       numerology: 'Pythagorean Numerology',
-      mysticism: 'Eastern Metaphysics',
+      destiny: 'Destiny - Metaphysics & Astrology',
       encyclopedia: 'Tarot Card Encyclopedia',
       journal: 'Reading Journal'
     },
@@ -450,10 +520,80 @@ export const TRANSLATIONS = {
     mysXungTrucTiep: 'Direct clash',
     mysXungTrucTiepHint: 'The animal directly opposite you on the twelve-branch wheel, furthest from your rhythm of life.',
     mysZodiacTitle: 'Western Zodiac Sign',
+    mysZodiacDeepLink: 'This is the Sun sign alone, read from the date. Add a birth time and place to see the full chart - Ascendant, twelve houses and aspects.',
     mysRuler: 'Ruling planet',
     mysZodiacElement: 'Element',
 
     // Journal category labels
+    // ---------- Destiny: section label and two sub-tabs ----------
+    navDestiny: 'Destiny',
+    navDestinyShort: 'Destiny',
+    destinyEastTab: 'Eastern Metaphysics',
+    destinyEastHint: 'Stem-Branch • Five Elements • Ba Zhai',
+    destinyWestTab: 'Western Astrology',
+    destinyWestHint: 'Natal chart • 12 houses • Aspects',
+
+    // ---------- Astrology: the natal chart ----------
+    astroBadge: 'Natal Chart • 12 Houses • Aspects',
+    astroTitle: 'In-Depth Natal Chart',
+    astroDesc: 'Built from the exact date, time and place you were born: twelve bodies placed to the arc-minute, the Ascendant and Midheaven, all twelve houses, every aspect, elemental balance and the major patterns in your chart.',
+    astroSubmitBtn: 'Cast the Chart',
+
+    astroTimeLabel: 'Birth time',
+    astroTimeRequired: 'Enter a birth time, or tick "I do not know my birth time".',
+    astroUnknownTime: 'I do not know my birth time',
+    astroUnknownTimeHint: 'Without a time you can still see which sign each planet occupies, but there will be no Ascendant and no house division - the two most personal parts of a chart. The time is usually on the birth certificate or in a hospital record.',
+    astroNoTimeShort: 'no birth time',
+
+    astroPlaceLabel: 'Birthplace',
+    astroPlacePlaceholder: 'Type a province or city...',
+    astroPlaceNoResult: 'Nothing found. Try another name, or enter coordinates manually.',
+    astroUseManual: 'Enter coordinates',
+    astroUseCityList: 'Pick from list',
+    astroManualHint: 'Positive latitude is North, positive longitude is East. Remember to pick the offset actually in use at that place in your birth year.',
+    astroLatPlaceholder: 'Latitude, e.g. 21.0285',
+    astroLonPlaceholder: 'Longitude, e.g. 105.8542',
+    astroLatInvalid: 'Latitude must be a number between -90 and 90.',
+    astroLonInvalid: 'Longitude must be a number between -180 and 180.',
+    astroHouseSystemLabel: 'House system',
+
+    astroBigThreeTitle: 'The Big Three',
+    astroWheelTitle: 'The Chart Wheel',
+    astroWheelHint: 'The Ascendant sits at the left edge and the houses run anticlockwise. The line from the zodiac band to each glyph marks the planet true position - glyphs are only nudged apart so they do not overlap.',
+
+    astroPlanetsTitle: 'Twelve Placements',
+    astroRetroTitle: 'Retrograde',
+    astroHouseShort: 'House ',
+    astroHousesTitle: 'The Twelve Houses',
+    astroHouseEmpty: 'No planets',
+
+    astroAspectsTitle: 'Aspects',
+    astroAspectsHint: 'An aspect is the angular distance between two planets on the zodiac. The smaller the deviation, the stronger the aspect - under one degree it dominates the whole chart.',
+    astroOrb: 'orb',
+    astroNoAspects: 'No aspects fall within the allowed orb.',
+    astroTightAspect: 'Very tight',
+
+    astroPatternsTitle: 'Major Patterns',
+    astroNoPatterns: 'This chart carries no major pattern. That is entirely ordinary - most charts do not, and it simply means your energy is spread evenly rather than gathered into one structure.',
+
+    astroBalanceTitle: 'Chart Balance',
+    astroElements: 'Four elements',
+    astroModalities: 'Three modalities',
+    astroPolarity: 'Polarity',
+    astroHemispheres: 'Hemispheres',
+    astroDominant: 'Dominant element',
+    astroLacking: 'Missing element',
+    astroRulerTitle: 'Chart Ruler & Part of Fortune',
+    astroUtcLabel: 'UTC',
+    astroNotePlaceholder: 'Write down whatever you recognised while reading this chart...',
+
+    astroSunLabel: 'Sun',
+    astroMoonLabel: 'Moon',
+    astroAscLabel: 'Ascendant',
+    astroMcLabel: 'Midheaven',
+
+    // Journal - astrology entry label
+    journalTypeAstrology: 'Personal Natal Chart',
     journalTypeTarot: 'Tarot Reading Session',
     journalTypeNumerology: 'Numerology Profile',
     journalTypeMysticism: 'Metaphysics Profile',
@@ -480,7 +620,7 @@ export const TRANSLATIONS = {
     routeTitles: {
       reading: '在线塔罗占卜',
       numerology: '毕达哥拉斯生命灵数',
-      mysticism: '东方玄学命盘',
+      destiny: '本命 · 玄学与占星',
       encyclopedia: '塔罗牌库查询',
       journal: '占卜日记'
     },
@@ -681,10 +821,80 @@ export const TRANSLATIONS = {
     mysXungTrucTiep: '直接相冲（六冲）',
     mysXungTrucTiepHint: '十二地支上与你正对面的生肖，生活节奏差异最大。',
     mysZodiacTitle: '西洋星座',
+    mysZodiacDeepLink: '这只是从日期读出的太阳星座。补上出生时间与地点，即可看到完整星盘——上升、十二宫与相位。',
     mysRuler: '守护星',
     mysZodiacElement: '元素',
 
     // 日记分类标签
+    // ---------- 本命：栏目名称与两个子页 ----------
+    navDestiny: '本命',
+    navDestinyShort: '本命',
+    destinyEastTab: '东方玄学',
+    destinyEastHint: '干支 • 五行 • 八宅',
+    destinyWestTab: '西方占星',
+    destinyWestHint: '本命星盘 • 十二宫 • 相位',
+
+    // ---------- 占星：本命星盘 ----------
+    astroBadge: '本命星盘 • 十二宫 • 相位',
+    astroTitle: '深度本命星盘',
+    astroDesc: '依你出生的确切日期、时间与地点起盘：十二个星体精确到角分，上升与天顶，完整十二宫，全部相位，元素平衡，以及盘中的重要格局。',
+    astroSubmitBtn: '起本命盘',
+
+    astroTimeLabel: '出生时间',
+    astroTimeRequired: '请填写出生时间，或勾选「不记得出生时间」。',
+    astroUnknownTime: '我不记得出生时间',
+    astroUnknownTimeHint: '没有时间仍可看到各行星落在哪个星座，但不会有上升，也无法划分十二宫——而那正是星盘中最个人化的两部分。出生时间通常记在出生证明或母亲的产检本上。',
+    astroNoTimeShort: '无出生时间',
+
+    astroPlaceLabel: '出生地',
+    astroPlacePlaceholder: '输入省份或城市名称…',
+    astroPlaceNoResult: '未找到。请换个名称，或手动输入坐标。',
+    astroUseManual: '手动输入坐标',
+    astroUseCityList: '从列表选择',
+    astroManualHint: '纬度为正表示北纬，经度为正表示东经。请选择你出生那年该地实际使用的时区偏移。',
+    astroLatPlaceholder: '纬度，例如 21.0285',
+    astroLonPlaceholder: '经度，例如 105.8542',
+    astroLatInvalid: '纬度须为 -90 至 90 之间的数字。',
+    astroLonInvalid: '经度须为 -180 至 180 之间的数字。',
+    astroHouseSystemLabel: '分宫制',
+
+    astroBigThreeTitle: '星盘三柱',
+    astroWheelTitle: '星盘轮',
+    astroWheelHint: '上升位于左侧边缘，各宫逆时针排列。从黄道带连到符号的短线标示行星的真实位置——符号只是被推开一点，以免重叠。',
+
+    astroPlanetsTitle: '十二星体位置',
+    astroRetroTitle: '逆行',
+    astroHouseShort: '第 ',
+    astroHousesTitle: '十二宫',
+    astroHouseEmpty: '无行星',
+
+    astroAspectsTitle: '相位',
+    astroAspectsHint: '相位是两颗行星在黄道上的角距。偏差越小，相位越强——小于一度者主导整张星盘。',
+    astroOrb: '偏差',
+    astroNoAspects: '没有相位落在允许的容许度之内。',
+    astroTightAspect: '极紧密',
+
+    astroPatternsTitle: '重要格局',
+    astroNoPatterns: '此盘没有大格局。这完全平常——多数星盘都没有，它只意味着你的能量分布均匀，而非集中于单一结构。',
+
+    astroBalanceTitle: '星盘平衡',
+    astroElements: '四元素',
+    astroModalities: '三模式',
+    astroPolarity: '阴阳',
+    astroHemispheres: '半球',
+    astroDominant: '主导元素',
+    astroLacking: '欠缺元素',
+    astroRulerTitle: '命主星与福点',
+    astroUtcLabel: 'UTC 时间',
+    astroNotePlaceholder: '写下读这张星盘时你认出的东西…',
+
+    astroSunLabel: '太阳',
+    astroMoonLabel: '月亮',
+    astroAscLabel: '上升',
+    astroMcLabel: '天顶',
+
+    // 日记 — 占星条目标签
+    journalTypeAstrology: '个人本命星盘',
     journalTypeTarot: '塔罗牌阵记录',
     journalTypeNumerology: '生命灵数档案',
     journalTypeMysticism: '东方玄学档案',
