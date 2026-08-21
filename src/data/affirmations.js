@@ -1,15 +1,19 @@
-// Thông điệp khẳng định từ vũ trụ (Affirmation) - 200 câu mỗi ngôn ngữ.
+// Thông điệp khẳng định từ vũ trụ (Affirmation) - 240 câu mỗi ngôn ngữ.
 //
 // Ba ngôn ngữ song song theo chỉ số: AFFIRMATIONS.vi[i], .en[i] và .zh[i]
 // cùng diễn đạt một ý. Giữ nguyên trật tự này khi thêm/sửa để người dùng đổi
 // ngôn ngữ vẫn nhận được nội dung tương đương.
 //
-// Xếp theo 10 chủ đề, mỗi chủ đề 20 câu:
-//   1. Giá trị bản thân      6. Thịnh vượng & đón nhận
-//   2. Buông bỏ              7. Ranh giới & năng lượng
-//   3. Niềm tin & thời điểm  8. Hiện tại & biết ơn
-//   4. Chữa lành             9. Sức mạnh & kiên cường
-//   5. Trực giác            10. Tình yêu & kết nối
+// Thêm câu mới thì nối vào CUỐI mảng để chỉ số các câu cũ không đổi: quả cầu
+// thông điệp ở đầu trang nhớ chỉ số câu vừa hiện trong localStorage.
+//
+// Xếp theo 12 chủ đề, mỗi chủ đề 20 câu:
+//   1. Giá trị bản thân         7. Ranh giới & năng lượng
+//   2. Buông bỏ                 8. Hiện tại & biết ơn
+//   3. Niềm tin & thời điểm     9. Sức mạnh & kiên cường
+//   4. Chữa lành               10. Tình yêu & kết nối
+//   5. Trực giác               11. Bình an & tĩnh lặng
+//   6. Thịnh vượng & đón nhận  12. Trưởng thành & khởi đầu mới
 
 export const AFFIRMATIONS = {
   vi: [
@@ -231,7 +235,49 @@ export const AFFIRMATIONS = {
     "Tôi chọn những người khiến tôi muốn tốt hơn, chứ không khiến tôi nhỏ đi.",
     "Yêu bản thân là nền móng cho mọi tình yêu khác.",
     "Tôi mở cửa trái tim mình cho những khởi đầu mới.",
-    "Tôi là người kiến tạo thực tại của chính mình. Vũ trụ luôn rộng mở soi đường cho tôi."
+    "Tôi là người kiến tạo thực tại của chính mình. Vũ trụ luôn rộng mở soi đường cho tôi.",
+    // --- 11. Bình an & tĩnh lặng ---
+    "Tôi cho phép mình nghỉ ngơi mà không cần thấy có lỗi.",
+    "Sự tĩnh lặng không phải là trống rỗng, đó là nơi tôi nghe được chính mình.",
+    "Tôi không cần bận rộn mới thấy mình có giá trị.",
+    "Hơi thở của tôi luôn là chốn về an toàn nhất.",
+    "Tôi buông những gì mình không kiểm soát được và thấy lòng nhẹ đi.",
+    "Bình an trong tôi không phụ thuộc vào việc mọi thứ phải hoàn hảo.",
+    "Tôi chọn sự chậm rãi thay vì vội vã đến mức đánh mất mình.",
+    "Tâm trí tôi được phép yên tĩnh, dù thế giới ngoài kia ồn ào.",
+    "Tôi không cần trả lời mọi thứ ngay lập tức.",
+    "Một khoảng lặng cũng là một phần của hành trình.",
+    "Tôi tha thứ cho những ngày mình chẳng làm được gì nhiều.",
+    "Cơ thể tôi xứng đáng được dịu dàng, không phải bị thúc ép.",
+    "Tôi đặt mọi ồn ào xuống và trở về với chính mình.",
+    "Giấc ngủ của tôi là sự chữa lành, không phải sự lười biếng.",
+    "Tôi để mọi thứ diễn ra mà không cần gồng lên kiểm soát.",
+    "Trong tôi luôn có một nơi chưa bao giờ bị xáo động.",
+    "Tôi hít vào sự bình yên và thở ra những căng thẳng.",
+    "Tôi không nợ ai một lời giải thích cho nhu cầu nghỉ ngơi của mình.",
+    "Sự yên ổn của tôi quý giá hơn việc thắng một cuộc tranh cãi.",
+    "Hôm nay tôi cho phép mọi thứ được đủ như nó đang là.",
+    // --- 12. Trưởng thành & khởi đầu mới ---
+    "Tôi được phép bắt đầu lại từ hôm nay.",
+    "Mỗi lần vấp ngã dạy tôi điều mà thành công không dạy được.",
+    "Tôi không cần nhìn thấy trọn con đường mới dám bước bước đầu tiên.",
+    "Tôi của hôm nay đã khác tôi của năm ngoái, và đó là điều tốt.",
+    "Tôi cho phép mình là một người mới bắt đầu.",
+    "Thay đổi không phải là mất mát, đó là sự nới rộng.",
+    "Tôi trưởng thành theo nhịp của mình, không theo nhịp của ai khác.",
+    "Những gì kết thúc đang dọn chỗ cho điều sắp đến.",
+    "Tôi mang theo bài học và để lại gánh nặng.",
+    "Tôi đủ can đảm để thử một điều mình chưa từng làm.",
+    "Mỗi ngày là một trang trắng tôi được quyền viết lại.",
+    "Tôi không bị mắc kẹt, tôi chỉ đang ở giữa hành trình.",
+    "Sự không chắc chắn là dấu hiệu tôi đang bước ra khỏi vùng quen thuộc.",
+    "Tôi tự hào về quãng đường mình đã đi, dù chưa ai nhìn thấy.",
+    "Tôi được phép đổi ý khi mình đã hiểu nhiều hơn.",
+    "Rễ cần thời gian trước khi cây kịp ra hoa.",
+    "Tôi tin vào phiên bản mà mình đang dần trở thành.",
+    "Điều tôi xây hôm nay sẽ nâng đỡ tôi ngày mai.",
+    "Tôi không cần xoá bỏ quá khứ mới có thể đi tiếp.",
+    "Mọi khởi đầu mới đều bắt đầu từ một quyết định nhỏ."
   ],
 
   en: [
@@ -453,7 +499,49 @@ export const AFFIRMATIONS = {
     "I choose people who make me want to be better, not smaller.",
     "Loving myself is the foundation of every other love.",
     "I open the door of my heart to new beginnings.",
-    "I am the co-creator of my reality. The Universe illuminates my path."
+    "I am the co-creator of my reality. The Universe illuminates my path.",
+    // --- 11. Peace & stillness ---
+    "I allow myself to rest without feeling guilty.",
+    "Stillness is not emptiness; it is where I can hear myself.",
+    "I do not need to be busy in order to be worthy.",
+    "My breath is always the safest place to come home to.",
+    "I release what I cannot control and my heart grows lighter.",
+    "My peace does not depend on everything being perfect.",
+    "I choose slowness over a rush that costs me myself.",
+    "My mind is allowed to be quiet even when the world is loud.",
+    "I do not have to answer everything right away.",
+    "A pause is part of the journey too.",
+    "I forgive the days when I got very little done.",
+    "My body deserves gentleness, not pressure.",
+    "I set down all the noise and return to myself.",
+    "My sleep is healing, not laziness.",
+    "I let things unfold without gripping them tightly.",
+    "Within me there is a place that has never been disturbed.",
+    "I breathe in calm and breathe out tension.",
+    "I owe no one an explanation for needing rest.",
+    "My peace is worth more than winning an argument.",
+    "Today I let everything be enough exactly as it is.",
+    // --- 12. Growth & new beginnings ---
+    "I am allowed to begin again today.",
+    "Every stumble teaches me what success never could.",
+    "I do not need to see the whole path to take the first step.",
+    "I am not who I was last year, and that is a good thing.",
+    "I give myself permission to be a beginner.",
+    "Change is not a loss; it is an expansion.",
+    "I grow at my own pace, not at anyone else's.",
+    "What is ending is making room for what is coming.",
+    "I carry the lesson with me and leave the weight behind.",
+    "I am brave enough to try something I have never done.",
+    "Each day is a blank page I am free to write anew.",
+    "I am not stuck; I am in the middle of the journey.",
+    "Uncertainty is a sign that I am stepping beyond the familiar.",
+    "I am proud of how far I have come, even if no one has seen it.",
+    "I am allowed to change my mind once I understand more.",
+    "Roots need time before the tree can bloom.",
+    "I trust the version of myself I am becoming.",
+    "What I build today will hold me up tomorrow.",
+    "I do not need to erase my past in order to move forward.",
+    "Every new beginning starts with one small decision."
   ],
 
   zh: [
@@ -675,6 +763,48 @@ export const AFFIRMATIONS = {
     "我选择那些让我想变得更好、而非更小的人。",
     "爱自己，是一切其他之爱的地基。",
     "我为崭新的开始，敞开心门。",
-    "我是自身现实的显化创造者，宇宙神圣光芒时刻照亮前路。"
+    "我是自身现实的显化创造者，宇宙神圣光芒时刻照亮前路。",
+    // --- 11. 平静与安宁 ---
+    "我允许自己休息，无需感到愧疚。",
+    "宁静不是空无，而是我能听见自己的地方。",
+    "我不需要靠忙碌来证明自己的价值。",
+    "我的呼吸永远是最安全的归处。",
+    "我放下无法掌控的事，心便轻盈起来。",
+    "我的平静，不取决于一切是否完美。",
+    "我选择从容，而不是匆忙到弄丢自己。",
+    "即使世界喧嚣，我的心也可以保持安静。",
+    "我不必立刻回应每一件事。",
+    "停顿，也是旅程的一部分。",
+    "我原谅那些几乎一事无成的日子。",
+    "我的身体值得被温柔以待，而不是被鞭策。",
+    "我放下所有喧嚣，回到自己身边。",
+    "我的睡眠是疗愈，不是懒惰。",
+    "我让一切自然展开，无需紧抓不放。",
+    "我心中始终有一处，从未被扰动。",
+    "我吸入宁静，呼出紧绷。",
+    "我不必向任何人解释我需要休息。",
+    "我的安宁，比赢得一场争论更珍贵。",
+    "今天，我允许一切如其所是地足够。",
+    // --- 12. 成长与新的开始 ---
+    "我可以从今天重新开始。",
+    "每一次跌倒，都教会我成功无法教会的事。",
+    "我无需看清整条路，也能迈出第一步。",
+    "今天的我已不是去年的我，而这是好事。",
+    "我允许自己做一个新手。",
+    "改变不是失去，而是拓展。",
+    "我按自己的节奏成长，而不是他人的节奏。",
+    "正在结束的一切，都在为即将到来的事物腾出空间。",
+    "我带走教训，留下重担。",
+    "我有足够的勇气，去尝试从未做过的事。",
+    "每一天都是一页空白，我有权重新书写。",
+    "我并没有被困住，我只是走在旅程之中。",
+    "不确定，正说明我在走出熟悉的地带。",
+    "即使无人看见，我也为自己走过的路感到骄傲。",
+    "当我懂得更多，我可以改变自己的想法。",
+    "扎根需要时间，花开自有其时。",
+    "我信任那个正在成为的自己。",
+    "我今天所建造的，将在明天撑住我。",
+    "我不必抹去过去，也能继续前行。",
+    "每一个新的开始，都源于一个小小的决定。"
   ]
 };

@@ -106,6 +106,23 @@ export const navigate = (path, { replace = false } = {}) => {
   else window.location.hash = path;
 };
 
+/* Ten mien chinh thuc cua trang. Logo lay hang so nay lam link "ve trang
+   chu", nen khach re chuot len logo thay dia chi that chu khong phai mot cai
+   hash. Doi ten mien thi sua o day va o the canonical trong index.html. */
+export const SITE_URL = 'https://healing.pmarcom.com/';
+
+/* Trang co dang chay tren chinh ten mien do khong. Ban chay o may (localhost)
+   va ban preview deu tra ve false, de bam logo luc thu nghiem khong bi nem
+   sang ban that. */
+export const isCanonicalSite = () => {
+  if (typeof window === 'undefined') return false;
+  try {
+    return window.location.origin === new URL(SITE_URL).origin;
+  } catch {
+    return false; // moi truong khong co URL hop le - coi nhu khong phai ban that
+  }
+};
+
 /* Link tuyệt đối để khách sao chép và gửi cho người khác. */
 export const absoluteUrl = (path) => {
   if (typeof window === 'undefined') return path;
