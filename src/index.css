@@ -45,16 +45,6 @@ body {
 }
 
 /* Chừa chỗ cho thanh điều hướng dưới cùng trên điện thoại (xem .bottom-nav) */
-.has-bottom-nav {
-  padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
-}
-
-@media (min-width: 768px) {
-  .has-bottom-nav {
-    padding-bottom: 0;
-  }
-}
-
 /* Điều hướng giờ dùng thẻ <a> thật để mỗi mục có link riêng (xem utils/router).
    Trình duyệt tự tô màu xanh và gạch chân mọi liên kết, ghi đè cả màu chữ kế
    thừa từ khối cha, nên phải trả màu về mặc định của giao diện. */

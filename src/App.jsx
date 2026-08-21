@@ -99,7 +99,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col relative text-gray-100 selection:bg-purple-500 selection:text-white has-bottom-nav">
+    <div className="min-h-screen flex flex-col relative text-gray-100 selection:bg-purple-500 selection:text-white">
       
       {/* Dynamic Starfield Canvas Background */}
       <StarfieldBackground />

@@ -89,7 +89,8 @@ export const Navbar = ({ activeTab, lang, setLang, onGoHome }) => {
 
   return (
     <>
-      <header className="sticky top-0 z-50 px-3 sm:px-4 py-2.5 sm:py-3 border-b border-amber-400/20 backdrop-blur-xl bg-space/80">
+      <div className="sticky top-0 z-50">
+      <header className="px-3 sm:px-4 py-2.5 sm:py-3 border-b border-amber-400/20 backdrop-blur-xl bg-space/80">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-3">
 
           {/* Thương hiệu */}
@@ -256,14 +257,17 @@ export const Navbar = ({ activeTab, lang, setLang, onGoHome }) => {
         </div>
       </header>
 
-      {/* Thanh điều hướng dưới cùng - dùng cho điện thoại và tablet.
-          Tách 5 tab chính khỏi header nên header không còn chen chúc,
-          và nằm sẵn trong tầm ngón tay cái. */}
-      <nav
-        className="xl:hidden fixed bottom-0 inset-x-0 z-50 border-t border-amber-400/25 bg-space/95 backdrop-blur-xl"
-        style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
-      >
-        <div className="grid grid-cols-5">
+      {/* Tab chính cho điện thoại và tablet - hàng thứ hai ngay dưới logo.
+          Trước đây thanh này nằm cố định ở đáy màn hình. Đưa lên đầu trang vì
+          ở dưới nó che mất phần cuối nội dung và người xem phải rời mắt khỏi
+          chỗ đang đọc mới thấy mình đang ở mục nào. Nằm trong cùng khối dính
+          với logo nên luôn thấy được khi cuộn.
+
+          Năm tab vẫn không đủ chỗ nằm ngang ở khổ tablet nên vẫn xếp chồng
+          biểu tượng trên nhãn, chỉ bó gọn chiều cao lại vì giờ nó ăn vào phần
+          nội dung ở đầu trang chứ không phải đáy trang. */}
+      <nav className="xl:hidden border-b border-amber-400/25 bg-space/95 backdrop-blur-xl">
+        <div className="max-w-7xl mx-auto grid grid-cols-5">
           {TABS.map(({ id, short, Icon, accent }) => {
             const active = activeTab === id;
             return (
@@ -272,12 +276,12 @@ export const Navbar = ({ activeTab, lang, setLang, onGoHome }) => {
                 href={buildPath(id)}
                 onClick={handleSelectTab}
                 aria-current={active ? 'page' : undefined}
-                className={`relative flex flex-col items-center justify-center gap-1 py-2.5 min-h-[4.25rem] transition-colors no-underline ${
+                className={`relative flex flex-col items-center justify-center gap-0.5 py-2 transition-colors no-underline ${
                   active ? 'text-amber-300' : 'text-gray-400 active:bg-white/5'
                 }`}
               >
                 {active && (
-                  <span className="absolute top-0 inset-x-2.5 h-0.5 rounded-full bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
+                  <span className="absolute bottom-0 inset-x-2.5 h-0.5 rounded-full bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
                 )}
                 <Icon className={`w-5 h-5 ${active ? accent : 'text-gray-500'}`} />
                 <span className={`text-2xs leading-tight text-center px-0.5 ${active ? 'font-bold' : 'font-medium'}`}>
@@ -288,6 +292,7 @@ export const Navbar = ({ activeTab, lang, setLang, onGoHome }) => {
           })}
         </div>
       </nav>
+      </div>
     </>
   );
 };
