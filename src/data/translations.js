@@ -64,7 +64,7 @@ export const TRANSLATIONS = {
     ],
 
     // Reading Result
-    resultBadge: 'Bản Đồ Năng Lượng Vũ Trụ',
+    resultBadge: 'Kết quả phiên xem bài',
     resultHeading: 'Giải Nghĩa Phiên Rút Bài Tarot',
     defaultQuestion: 'Thông điệp tổng quan & Vận mệnh cuộc sống',
     statTotal: 'Số Lá Bài',
@@ -75,15 +75,35 @@ export const TRANSLATIONS = {
     clickDetailHint: '(Bấm vào từng lá để xem thông tin chi tiết)',
     
     // Holistic & Aspects
-    holisticTitle: '🔮 Bản Luận Giải Liên Kết Năng Lượng Tổng Thể',
-    holisticBadge: 'Thông Điệp Cốt Lõi Vũ Trụ',
+    holisticTitle: '🔮 Đọc Tổng Thể Phiên Bài Của Bạn',
+    holisticBadge: 'Đọc phần này trước',
     aspectSituation: 'Tôi trong hoàn cảnh gì',
     aspectLove: 'Tình cảm',
     aspectWork: 'Công việc / Học tập',
     aspectFinance: 'Tài chính',
     aspectAdvice: 'Lời khuyên chung',
     
-    aspectHeading: 'Phân Tích Chi Tiết Khía Cạnh:',
+    aspectHeading: 'Đọc kỹ từng lá về:',
+
+    // Nhãn giúp người xem hiểu mình đang đọc cái gì
+    howToReadTitle: 'Cách đọc bản giải này',
+    howToReadBody: 'Đọc từ trên xuống: phần tổng thể cho bạn bức tranh chung trước, rồi mới xem từng khía cạnh. Bài không phán xét bạn và cũng không định sẵn tương lai — nó chỉ gọi tên điều bạn đang cảm thấy, để bạn dễ quyết định hơn.',
+    quickTakeLabel: 'Đọc nhanh một dòng',
+    primaryCardBadge: 'Lá chính của phần này',
+    cardSaysLabel: 'Lá này nói về',
+    meaningHereLabel: 'Ở phần này nghĩa là',
+    cardAdviceLabel: 'Lời khuyên của lá này',
+    positionWord: 'Vị trí',
+    cardWordPrefix: 'Lá ',
+    cardWordSuffix: '',
+    actionPlanTitle: 'Vậy tôi nên làm gì?',
+    actionPlanHint: 'Rút thẳng từ lời khuyên của những lá bạn vừa lật, không thêm bớt.',
+    statsNoteTitle: 'Mấy con số phía trên nghĩa là gì',
+    shareDateLabel: 'Ngày xem',
+    shareQuestionLabel: 'Câu hỏi',
+    shareFooter: 'Xem bài tại P Healing — Kết nối tâm trí • Chữa lành cảm xúc • Soi sáng tương lai',
+    shareFailedHint: 'Trình duyệt không cho phép chép vào bộ nhớ tạm. Bạn thử tải bản PDF hoặc ảnh bên dưới nhé.',
+
     affirmationTitle: 'Thông Điệp Khẳng Định Từ Vũ Trụ (Affirmation)',
     journalNoteTitle: 'Ghi Chép Cảm Nhận Cá Nhân & Lưu Lại',
     notePlaceholder: 'Nhập suy nghĩ, cảm nhận hoặc dòng lưu ý của bạn về phiên xem bài này...',
@@ -365,7 +385,7 @@ export const TRANSLATIONS = {
     ],
 
     // Reading Result
-    resultBadge: 'Cosmic Energy Map',
+    resultBadge: 'Your reading',
     resultHeading: 'Tarot Session Detailed Interpretation',
     defaultQuestion: 'General Destiny & Life Cosmic Message',
     statTotal: 'Total Cards',
@@ -376,15 +396,34 @@ export const TRANSLATIONS = {
     clickDetailHint: '(Click on any card to view full details)',
     
     // Holistic & Aspects
-    holisticTitle: '🔮 Holistic Interconnected Reading Synthesis',
-    holisticBadge: 'Core Cosmic Message',
+    holisticTitle: '🔮 Your Reading, Read as a Whole',
+    holisticBadge: 'Start here',
     aspectSituation: 'My Current Situation',
     aspectLove: 'Love & Relationships',
     aspectWork: 'Career & Education',
     aspectFinance: 'Finance & Wealth',
     aspectAdvice: 'General Advice',
     
-    aspectHeading: 'Detailed Aspect Analysis:',
+    aspectHeading: 'Card by card, on:',
+
+    howToReadTitle: 'How to read this',
+    howToReadBody: 'Read top to bottom: the overview gives you the whole picture first, then look at each aspect. The cards do not judge you and do not fix your future — they name what you are already feeling, so the decision gets easier.',
+    quickTakeLabel: 'The short version',
+    primaryCardBadge: 'Main card here',
+    cardSaysLabel: 'This card is about',
+    meaningHereLabel: 'What that means here',
+    cardAdviceLabel: 'What this card advises',
+    positionWord: 'Position',
+    cardWordPrefix: 'Card ',
+    cardWordSuffix: '',
+    actionPlanTitle: 'So what should I do?',
+    actionPlanHint: 'Taken straight from the advice on the cards you drew — nothing added.',
+    statsNoteTitle: 'What those numbers mean',
+    shareDateLabel: 'Date',
+    shareQuestionLabel: 'Question',
+    shareFooter: 'Read with P Healing — Connect the mind • Heal the heart • Light the way',
+    shareFailedHint: 'Your browser would not allow copying to the clipboard. Try downloading the PDF or image below instead.',
+
     affirmationTitle: 'Cosmic Affirmation Message',
     journalNoteTitle: 'Personal Reflection & Journal Entry',
     notePlaceholder: 'Type your thoughts, feelings, or meditation notes about this reading session...',
@@ -666,7 +705,7 @@ export const TRANSLATIONS = {
     ],
 
     // Reading Result
-    resultBadge: '宇宙能量图谱',
+    resultBadge: '本次占卜结果',
     resultHeading: '塔罗占卜深度解析',
     defaultQuestion: '整体运势与宇宙人生启示',
     statTotal: '抽牌总数',
@@ -677,15 +716,34 @@ export const TRANSLATIONS = {
     clickDetailHint: '(点击任意卡牌查看完整牌意与词条)',
     
     // Holistic & Aspects
-    holisticTitle: '🔮 整体牌阵能量连结深度解牌',
-    holisticBadge: '宇宙核心启示',
+    holisticTitle: '🔮 整体来看，这次牌在说什么',
+    holisticBadge: '先读这一段',
     aspectSituation: '我的现状与心境',
     aspectLove: '感情与情感羁绊',
     aspectWork: '事业与学业指引',
     aspectFinance: '财务与财富运势',
     aspectAdvice: '宇宙启示与建议',
     
-    aspectHeading: '维度深度解析:',
+    aspectHeading: '逐张细读：',
+
+    howToReadTitle: '这份解读怎么读',
+    howToReadBody: '由上往下读：整体解读先给你全貌，再看各个维度。牌不评判你，也不锁死未来——它只是把你已经感觉到的事说出口，让你更容易做决定。',
+    quickTakeLabel: '一句话读懂',
+    primaryCardBadge: '本节主牌',
+    cardSaysLabel: '这张牌讲的是',
+    meaningHereLabel: '放在这一节里的意思',
+    cardAdviceLabel: '这张牌的建议',
+    positionWord: '位置',
+    cardWordPrefix: '第 ',
+    cardWordSuffix: ' 张',
+    actionPlanTitle: '那我该怎么做？',
+    actionPlanHint: '直接取自你抽到的牌上的建议，未作添加。',
+    statsNoteTitle: '上面那几个数字的意思',
+    shareDateLabel: '占卜日期',
+    shareQuestionLabel: '提问',
+    shareFooter: '于 P Healing 占卜 — 连接心智 • 疗愈情绪 • 照亮前路',
+    shareFailedHint: '浏览器不允许写入剪贴板。请改用下方的 PDF 或图片下载。',
+
     affirmationTitle: '宇宙正能量神圣宣言 (Affirmation)',
     journalNoteTitle: '个人感悟与心得记录',
     notePlaceholder: '输入您对本次塔罗占卜的心得、感悟或禅修笔记...',

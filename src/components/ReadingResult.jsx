@@ -2,7 +2,8 @@ import React, { useState, useRef, useMemo } from 'react';
 import { analyzeReadingSession } from '../utils/tarotEngine';
 import {
   Sparkles, User, Heart, Briefcase, DollarSign, Compass,
-  Bookmark, Share2, Check, RefreshCw, X, Download, FileText, Layers
+  Bookmark, Share2, Check, RefreshCw, X, Download, FileText, Layers,
+  Info, ThumbsUp, AlertTriangle
 } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
@@ -71,17 +72,43 @@ export const ReadingResult = ({
     }
   };
 
-  const handleCopyShare = () => {
-    const summaryText = `🔮 ${t.appTitle} - Reading Result\n` +
-      `📅 Date: ${analysis.date}\n` +
-      `❓ Question: ${question || t.defaultQuestion}\n` +
-      `🎴 Cards: ${drawnCards.map(c => `${lang === 'en' ? c.name : lang === 'zh' ? (c.nameZh || c.name) : c.nameVi} (${c.isReversed ? 'Reversed' : 'Upright'})`).join(', ')}\n` +
-      `🌟 Element: ${analysis.stats.dominantElement}`;
+  /* Chep ban giai ra clipboard de khach gui cho ban be.
+     Van ban phai theo dung ngon ngu dang xem va phai co ban luan giai that -
+     chep moi ten la thi nguoi nhan khong hieu gi. Moi la deu ghi kem vi tri
+     cua no trong kieu trai bai, vi do la cau hoi dau tien nguoi doc dat ra. */
+  const handleCopyShare = async () => {
+    const cardLines = drawnCards.map((card, i) => {
+      const name = lang === 'en' ? card.name : lang === 'zh' ? (card.nameZh || card.name) : card.nameVi;
+      const position = analysis.positions[i];
+      const orientation = card.isReversed ? t.reversedBadge : t.uprightBadge;
+      return `- ${position ? `${position}: ` : ''}${name} (${orientation})`;
+    });
 
-    navigator.clipboard.writeText(summaryText);
-    setCopiedSuccess(true);
-    cosmicAudio.playSparkleSound();
-    setTimeout(() => setCopiedSuccess(false), 3000);
+    const summaryText = [
+      `${t.appTitle} — ${t.resultHeading}`,
+      `${t.shareDateLabel}: ${analysis.date}`,
+      `${t.shareQuestionLabel}: ${question || t.defaultQuestion}`,
+      '',
+      t.drawnCardsTitle, // nhan nay da co san dau hai cham o ca ba ngon ngu
+      ...cardLines,
+      '',
+      analysis.holisticNarrative,
+      '',
+      t.shareFooter
+    ].join('\n');
+
+    // Clipboard bi chan khi trang khong chay tren HTTPS hoac khach tu choi
+    // quyen. Bao that bai bang chinh o loi cua nut xuat file, con hon bao
+    // "da chep" trong khi khong co gi trong clipboard.
+    try {
+      await navigator.clipboard.writeText(summaryText);
+      setCopiedSuccess(true);
+      cosmicAudio.playSparkleSound();
+      setTimeout(() => setCopiedSuccess(false), 3000);
+    } catch (err) {
+      console.error('Failed to copy reading', err);
+      setExportError(t.shareFailedHint);
+    }
   };
 
   const exportFileName = (ext) => `p_healing_tarot_reading_${Date.now()}.${ext}`;
@@ -148,6 +175,19 @@ export const ReadingResult = ({
               <span className="font-bold text-cyan-300 text-sm">{analysis.stats.dominantElement}</span>
             </div>
           </div>
+
+          {/* Bốn con số trên vô nghĩa nếu không ai giải thích. "3 lá ngược"
+              làm người xem hoảng, trong khi nó không hề là điềm xấu. */}
+          <div className="pt-3 text-left space-y-1.5">
+            <span className="text-2xs uppercase tracking-widest text-gray-500 font-semibold">
+              {t.statsNoteTitle}
+            </span>
+            <ul className="space-y-1.5 text-xs text-gray-300 leading-relaxed">
+              <li className="flex gap-2"><span className="text-pink-300">•</span>{analysis.stats.reversedNote}</li>
+              <li className="flex gap-2"><span className="text-purple-300">•</span>{analysis.stats.majorNote}</li>
+              <li className="flex gap-2"><span className="text-cyan-300">•</span>{analysis.stats.elementNote}</li>
+            </ul>
+          </div>
         </div>
 
         {/* Drawn Cards Quick Gallery */}
@@ -161,13 +201,20 @@ export const ReadingResult = ({
               <div
                 key={idx}
                 onClick={() => {
-                  setSelectedCardModal(card);
+                  // Dinh kem nhan vi tri de cua so chi tiet cung noi duoc la
+                  // nay dung o dau trong kieu trai bai.
+                  setSelectedCardModal({ ...card, positionLabel: analysis.positions[idx] });
                   cosmicAudio.playSparkleSound();
                 }}
                 className="glass-panel p-3.5 flex items-center gap-3 cursor-pointer hover:border-amber-400/60 hover:scale-105 transition-all w-full sm:w-auto"
               >
                 <span className="text-3xl">{card.icon}</span>
                 <div>
+                  {analysis.positions[idx] && (
+                    <span className="text-2xs text-amber-300/90 font-semibold uppercase tracking-wider block">
+                      {analysis.positions[idx]}
+                    </span>
+                  )}
                   <h4 className="font-serif font-bold text-sm text-gray-100">
                     {lang === 'en' ? card.name : lang === 'zh' ? (card.nameZh || card.name) : card.nameVi}
                   </h4>
@@ -201,23 +248,40 @@ export const ReadingResult = ({
             </div>
           </div>
 
+          {/* Dặn trước cách đọc: người xem hay tưởng bài đang phán xét hoặc
+              chốt sẵn tương lai của họ, nên phải nói rõ ngay từ đầu. */}
+          <div className="text-left p-4 rounded-xl bg-space/50 border border-cyan-400/25 flex gap-3">
+            <Info className="w-4 h-4 text-cyan-300 shrink-0 mt-0.5" />
+            <div>
+              <span className="block text-xs font-semibold text-cyan-300 mb-1">{t.howToReadTitle}</span>
+              <p className="text-xs text-gray-300 leading-relaxed">{t.howToReadBody}</p>
+            </div>
+          </div>
+
           <div className="text-sm md:text-base text-gray-200 leading-relaxed space-y-4 pt-2 font-light border-t border-purple-500/20">
-            {analysis.holisticNarrative.split('\n\n').map((paragraph, pIdx) => {
-              if (paragraph.startsWith('###')) {
-                return null;
-              }
-              return (
-                <p key={pIdx} className="bg-space/40 p-4 rounded-xl border border-purple-400/20">
-                  {paragraph.split('**').map((chunk, cIdx) => (
-                    cIdx % 2 === 1 ? (
-                      <strong key={cIdx} className="text-amber-300 font-semibold">{chunk}</strong>
-                    ) : (
-                      chunk
-                    )
-                  ))}
-                </p>
-              );
-            })}
+            {analysis.holisticSections.map((section, pIdx) => (
+              <div key={pIdx} className="bg-space/40 p-4 rounded-xl border border-purple-400/20 text-left space-y-1.5">
+                <h4 className="font-serif font-bold text-amber-300 text-sm md:text-base">
+                  {section.title}
+                </h4>
+                <p className="text-sm text-gray-200 leading-relaxed">{section.body}</p>
+                {section.items && (
+                  <ul className="pt-1.5 space-y-2">
+                    {section.items.map((item, iIdx) => (
+                      <li key={iIdx} className="text-sm text-gray-200 leading-relaxed flex gap-2">
+                        <span className="text-amber-400/70 shrink-0">◆</span>
+                        <span>
+                          {item.label && (
+                            <strong className="text-amber-200 font-semibold">{item.label}: </strong>
+                          )}
+                          {item.text}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
           </div>
         </div>
 
@@ -261,27 +325,133 @@ export const ReadingResult = ({
               </h3>
             </div>
 
+            {/* Đọc nhanh: trả lời trước câu "rốt cuộc phần này nói gì", để
+                người xem không phải tự gộp mấy đoạn văn bên dưới. */}
+            {analysis.aspectQuickTakes?.[activeAspectTab] && (
+              <div className="p-4 md:p-5 rounded-xl bg-amber-400/10 border border-amber-400/30 space-y-1.5">
+                <span className="text-2xs uppercase tracking-widest text-amber-300 font-bold">
+                  {t.quickTakeLabel}
+                </span>
+                <p className="text-sm md:text-base text-gray-100 leading-relaxed">
+                  {analysis.aspectQuickTakes[activeAspectTab]}
+                </p>
+              </div>
+            )}
+
             <div className="grid grid-cols-1 gap-4">
               {analysis.aspects[activeAspectTab]?.map((item, idx) => (
                 <div
                   key={idx}
-                  className="p-5 rounded-xl bg-space/60 border border-purple-400/25 space-y-2 hover:border-amber-400/40 transition-all"
+                  className={`p-5 rounded-xl bg-space/60 space-y-3 transition-all ${
+                    item.isPrimary
+                      ? 'border-2 border-amber-400/50'
+                      : 'border border-purple-400/25 hover:border-amber-400/40'
+                  }`}
                 >
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
+                    <span className="text-xl">{item.icon}</span>
                     <h4 className="font-serif font-bold text-amber-300 text-sm md:text-base">
-                      Card #{item.cardIndex}: {item.cardName}
+                      {t.cardWordPrefix}{item.cardIndex}{t.cardWordSuffix} — {item.cardName}
                     </h4>
-                    <span className="text-xs text-gray-400 italic">{item.summary}</span>
+                    <span className={`px-2 py-0.5 rounded text-2xs font-semibold ${
+                      item.isReversed ? 'bg-rose-950 text-rose-300' : 'bg-emerald-950 text-emerald-300'
+                    }`}>
+                      {item.orientation}
+                    </span>
+                    {item.positionLabel && (
+                      <span className="px-2 py-0.5 rounded text-2xs bg-purple-900/70 text-purple-200">
+                        {t.positionWord}: {item.positionLabel}
+                      </span>
+                    )}
+                    {item.isPrimary && (
+                      <span className="px-2 py-0.5 rounded text-2xs bg-amber-400/20 text-amber-200 border border-amber-400/40 font-semibold">
+                        ★ {t.primaryCardBadge}
+                      </span>
+                    )}
                   </div>
-                  <p className="text-sm text-gray-200 leading-relaxed font-light">
-                    {item.text}
-                  </p>
+
+                  <div className="space-y-1">
+                    <span className="text-2xs uppercase tracking-widest text-gray-500 font-semibold block">
+                      {t.cardSaysLabel}
+                    </span>
+                    <p className="text-sm text-gray-300 leading-relaxed italic">
+                      {item.summary}
+                    </p>
+                  </div>
+
+                  <div className="space-y-1 pt-1 border-t border-purple-500/15">
+                    <span className="text-2xs uppercase tracking-widest text-amber-400/80 font-semibold block pt-2">
+                      {t.meaningHereLabel}
+                    </span>
+                    <p className="text-sm md:text-base text-gray-100 leading-relaxed">
+                      {item.text}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
 
           </div>
 
+        </div>
+
+        {/* 3. VẬY TÔI NÊN LÀM GÌ — gộp lời khuyên của các lá thành hai cột
+            việc nên làm / điều nên để ý, thay vì bắt người xem tự đúc kết. */}
+        <div className="glass-panel p-6 md:p-8 space-y-5">
+          <div>
+            <h3 className="text-xl md:text-2xl font-serif text-amber-300 font-bold">
+              {t.actionPlanTitle}
+            </h3>
+            <p className="text-xs text-gray-400 mt-1">{t.actionPlanHint}</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-5 rounded-xl bg-emerald-950/30 border border-emerald-400/30 space-y-3">
+              <h4 className="font-serif font-bold text-emerald-300 text-sm flex items-center gap-2">
+                <ThumbsUp className="w-4 h-4" />
+                {analysis.actionPlan.doTitle}
+              </h4>
+              <p className="text-2xs text-gray-400 leading-relaxed">{analysis.actionPlan.doHint}</p>
+              {analysis.actionPlan.doList.length > 0 ? (
+                <ul className="space-y-2.5">
+                  {analysis.actionPlan.doList.map((item, i) => (
+                    <li key={i} className="text-sm text-gray-200 leading-relaxed flex gap-2">
+                      <span className="shrink-0">{item.icon}</span>
+                      <span>
+                        <strong className="text-emerald-200 font-semibold">{item.cardName}: </strong>
+                        {item.text}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-sm text-gray-500 italic">{analysis.actionPlan.empty}</p>
+              )}
+            </div>
+
+            <div className="p-5 rounded-xl bg-rose-950/25 border border-rose-400/30 space-y-3">
+              <h4 className="font-serif font-bold text-rose-300 text-sm flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4" />
+                {analysis.actionPlan.watchTitle}
+              </h4>
+              <p className="text-2xs text-gray-400 leading-relaxed">{analysis.actionPlan.watchHint}</p>
+              {analysis.actionPlan.watchList.length > 0 ? (
+                <ul className="space-y-2.5">
+                  {analysis.actionPlan.watchList.map((item, i) => (
+                    <li key={i} className="text-sm text-gray-200 leading-relaxed flex gap-2">
+                      <span className="shrink-0">{item.icon}</span>
+                      <span>
+                        <strong className="text-rose-200 font-semibold">{item.cardName}: </strong>
+                        {item.text}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-sm text-gray-500 italic">{analysis.actionPlan.empty}</p>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Thông điệp khẳng định từ Vũ Trụ đã tách khỏi phần giải bài:
@@ -396,10 +566,35 @@ export const ReadingResult = ({
                 <p className="text-xs text-purple-300">
                   {selectedCardModal.arcana} Arcana • Element {selectedCardModal.element}
                 </p>
+                {selectedCardModal.positionLabel && (
+                  <p className="text-2xs text-amber-300/90 font-semibold uppercase tracking-wider mt-0.5">
+                    {t.positionWord}: {selectedCardModal.positionLabel}
+                  </p>
+                )}
               </div>
             </div>
 
             <div className="space-y-3 text-sm">
+              {/* Lá này rơi xuôi hay ngược trong chính phiên vừa rút, kèm lời
+                  khuyên tương ứng — thứ người xem cần, thay vì phải tự đối
+                  chiếu hai đoạn nghĩa xuôi/ngược bên dưới. */}
+              <div className={`p-3.5 rounded-xl border space-y-1.5 ${
+                selectedCardModal.isReversed
+                  ? 'bg-rose-950/30 border-rose-400/35'
+                  : 'bg-emerald-950/25 border-emerald-400/35'
+              }`}>
+                <span className={`text-2xs font-bold uppercase tracking-wider block ${
+                  selectedCardModal.isReversed ? 'text-rose-300' : 'text-emerald-300'
+                }`}>
+                  {selectedCardModal.isReversed ? t.reversedBadge : t.uprightBadge} · {t.cardAdviceLabel}
+                </span>
+                <p className="text-sm text-gray-100 leading-relaxed">
+                  {selectedCardModal.isReversed
+                    ? selectedCardModal.reversed?.advice
+                    : selectedCardModal.upright?.advice}
+                </p>
+              </div>
+
               <div>
                 <span className="text-xs font-semibold text-amber-400 uppercase tracking-wider block mb-1">
                   {t.keywordsTitle}
@@ -518,9 +713,53 @@ export const ReadingResult = ({
             <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#fbbf24', marginBottom: '10px' }}>
               {t.holisticTitle}
             </div>
-            <div style={{ fontSize: '12px', color: '#e2e8f0', lineHeight: '1.65' }}>
-              {analysis.holisticNarrative.replace(/###/g, '').replace(/\*\*/g, '')}
+            {analysis.holisticSections.map((section, i) => (
+              <div key={i} style={{ marginBottom: '12px' }}>
+                <div style={{ fontSize: '12px', fontWeight: 'bold', color: '#e9d5ff', marginBottom: '3px' }}>
+                  {section.title}
+                </div>
+                <div style={{ fontSize: '12px', color: '#e2e8f0', lineHeight: '1.65' }}>
+                  {section.body}
+                </div>
+                {section.items && section.items.map((item, ii) => (
+                  <div key={ii} style={{ fontSize: '12px', color: '#e2e8f0', lineHeight: '1.65', paddingLeft: '10px' }}>
+                    <span style={{ color: '#fbbf24' }}>◆ {item.label ? `${item.label}: ` : ''}</span>{item.text}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+
+          {/* Việc nên làm / điều nên để ý trong bản in */}
+          <div style={{
+            backgroundColor: '#0b0818',
+            border: '1px solid #c084fc',
+            borderRadius: '16px',
+            padding: '20px',
+            marginBottom: '24px'
+          }}>
+            <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#fbbf24', marginBottom: '10px' }}>
+              {t.actionPlanTitle}
             </div>
+            {[
+              { title: analysis.actionPlan.doTitle, list: analysis.actionPlan.doList, color: '#10b981' },
+              { title: analysis.actionPlan.watchTitle, list: analysis.actionPlan.watchList, color: '#f43f5e' }
+            ].map((group, gi) => (
+              <div key={gi} style={{ marginBottom: '10px' }}>
+                <div style={{ fontSize: '12px', fontWeight: 'bold', color: group.color, marginBottom: '4px' }}>
+                  {group.title}
+                </div>
+                {group.list.length > 0 ? group.list.map((item, i) => (
+                  <div key={i} style={{ fontSize: '12px', color: '#e5e7eb', lineHeight: '1.6' }}>
+                    <span style={{ color: '#fbbf24' }}>{item.cardName}: </span>{item.text}
+                  </div>
+                )) : (
+                  <div style={{ fontSize: '12px', color: '#9ca3af', fontStyle: 'italic' }}>
+                    {analysis.actionPlan.empty}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
 
           {/* 5 Aspects Breakdown Poster */}
@@ -539,9 +778,16 @@ export const ReadingResult = ({
                 <div style={{ fontSize: '13px', fontWeight: 'bold', color: '#38bdf8', marginBottom: '6px' }}>
                   ✦ {tab.label}
                 </div>
+                {analysis.aspectQuickTakes?.[tab.id] && (
+                  <div style={{ fontSize: '12px', color: '#fde68a', lineHeight: '1.6', marginBottom: '6px' }}>
+                    {t.quickTakeLabel}: {analysis.aspectQuickTakes[tab.id]}
+                  </div>
+                )}
                 {analysis.aspects[tab.id]?.map((item, idx) => (
                   <div key={idx} style={{ fontSize: '12px', color: '#e5e7eb', lineHeight: '1.6' }}>
-                    <span style={{ color: '#fbbf24', fontWeight: 'bold' }}>{item.cardName}: </span>
+                    <span style={{ color: '#fbbf24', fontWeight: 'bold' }}>
+                      {item.cardName} ({item.orientation}){item.positionLabel ? ` · ${item.positionLabel}` : ''}:{' '}
+                    </span>
                     {item.text}
                   </div>
                 ))}

@@ -29,6 +29,15 @@ export const Encyclopedia = ({ lang = 'vi', arcana = 'All', cardId = null }) => 
 
   const cardName = (card) => (lang === 'en' ? card.name : lang === 'zh' ? (card.nameZh || card.name) : card.nameVi);
 
+  // Bốn khía cạnh đời sống hiện trong ô tra cứu. Lời khuyên tách riêng bên dưới
+  // vì đó là dòng người tra cứu tìm đọc nhiều nhất.
+  const aspectRows = [
+    { key: 'situation', label: t.aspectSituation },
+    { key: 'love', label: t.aspectLove },
+    { key: 'work', label: t.aspectWork },
+    { key: 'finance', label: t.aspectFinance }
+  ];
+
   const filteredCards = TAROT_DECK.filter(card => {
     const query = searchQuery.trim().toLowerCase();
     const matchesSearch =
@@ -184,33 +193,56 @@ export const Encyclopedia = ({ lang = 'vi', arcana = 'All', cardId = null }) => 
               </div>
             </div>
 
-            {/* Upright Detail */}
-            <div className="p-4 rounded-xl bg-space/60 border border-emerald-400/30 space-y-2">
-              <h4 className="font-serif font-bold text-emerald-300 text-sm">
-                {t.uprightMeaningTitle}
-              </h4>
-              <p className="text-xs text-gray-200 leading-relaxed font-light">
-                {lang === 'en'
-                  ? selectedCard.upright?.summaryEn
-                  : lang === 'zh'
-                    ? selectedCard.upright?.summaryZh
-                    : selectedCard.upright?.summary}
-              </p>
-            </div>
+            {/* Nghĩa xuôi và nghĩa ngược. Trước đây mỗi chiều chỉ hiện đúng
+                một câu tóm tắt, nên người tra cứu đọc xong vẫn không biết lá
+                đó nói gì về tình cảm, công việc hay nên làm gì. */}
+            {[
+              {
+                data: selectedCard.upright,
+                title: t.uprightMeaningTitle,
+                border: 'border-emerald-400/30',
+                heading: 'text-emerald-300',
+                label: 'text-emerald-400/80'
+              },
+              {
+                data: selectedCard.reversed,
+                title: t.reversedMeaningTitle,
+                border: 'border-rose-400/30',
+                heading: 'text-rose-300',
+                label: 'text-rose-400/80'
+              }
+            ].map((side, si) => (
+              <div key={si} className={`p-4 rounded-xl bg-space/60 border ${side.border} space-y-3`}>
+                <h4 className={`font-serif font-bold ${side.heading} text-sm`}>
+                  {side.title}
+                </h4>
+                <p className="text-xs text-gray-200 leading-relaxed font-light">
+                  {lang === 'en'
+                    ? side.data?.summaryEn
+                    : lang === 'zh'
+                      ? side.data?.summaryZh
+                      : side.data?.summary}
+                </p>
 
-            {/* Reversed Detail */}
-            <div className="p-4 rounded-xl bg-space/60 border border-rose-400/30 space-y-2">
-              <h4 className="font-serif font-bold text-rose-300 text-sm">
-                {t.reversedMeaningTitle}
-              </h4>
-              <p className="text-xs text-gray-200 leading-relaxed font-light">
-                {lang === 'en'
-                  ? selectedCard.reversed?.summaryEn
-                  : lang === 'zh'
-                    ? selectedCard.reversed?.summaryZh
-                    : selectedCard.reversed?.summary}
-              </p>
-            </div>
+                <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 pt-2 border-t border-white/10">
+                  {aspectRows.map(row => (
+                    <div key={row.key}>
+                      <dt className={`text-2xs uppercase tracking-wider font-semibold ${side.label}`}>
+                        {row.label}
+                      </dt>
+                      <dd className="text-xs text-gray-300 leading-relaxed">{side.data?.[row.key]}</dd>
+                    </div>
+                  ))}
+                </dl>
+
+                <div className="pt-2 border-t border-white/10">
+                  <span className={`text-2xs uppercase tracking-wider font-semibold ${side.label} block`}>
+                    {t.cardAdviceLabel}
+                  </span>
+                  <p className="text-xs text-gray-100 leading-relaxed">{side.data?.advice}</p>
+                </div>
+              </div>
+            ))}
 
             <div className="pt-2 flex flex-wrap justify-center gap-3">
               <button
