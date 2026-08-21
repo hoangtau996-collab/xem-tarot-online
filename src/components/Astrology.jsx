@@ -20,6 +20,7 @@ import {
 import { exportNodeAsPng, exportNodeAsPdf } from '../utils/posterExport';
 import { NatalChart, AspectLegend } from './NatalChart';
 import { AstroBirthForm } from './AstroBirthForm';
+import { AstroIntro } from './AstroIntro';
 
 const JOURNAL_KEY = 'celestial_tarot_journal';
 
@@ -184,7 +185,13 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
       </div>
 
       {(isEditing || !chart) ? (
-        <AstroBirthForm lang={lang} profile={profile} onSubmit={handleSubmit} />
+        <>
+          {/* Gioi thieu chi hien o man hinh nhap lieu - do la luc khach can
+              hieu minh dang lam gi va vi sao phai dua gio sinh. Xem xong la so
+              roi thi khong ai doc lai phan nay nua. */}
+          <AstroIntro lang={lang} />
+          <AstroBirthForm lang={lang} profile={profile} onSubmit={handleSubmit} />
+        </>
       ) : (
         <>
           {/* Hồ sơ đang xem */}

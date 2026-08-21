@@ -269,6 +269,9 @@ export const AstroBirthForm = ({ lang = 'vi', profile, onSubmit }) => {
           ))}
         </div>
         <p className="text-2xs text-gray-400 font-light">{L(HOUSE_SYSTEMS[houseSystem].hint)}</p>
+        {/* Nhac lai ngay tai cho chon: khach cuon thang xuong day thuong khong
+            doc phan gioi thieu o tren, va deu so chon sai la hong ca la so. */}
+        <p className="text-2xs text-emerald-200/80 font-light">{t.astroHouseSystemReassure}</p>
       </div>
 
       {error && (
