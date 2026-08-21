@@ -11,7 +11,7 @@ const LANG_NAMES = {
   zh: '🇨🇳 中文'
 };
 
-export const Navbar = ({ activeTab, lang, setLang }) => {
+export const Navbar = ({ activeTab, lang, setLang, onGoHome }) => {
   const [isMuted, setIsMuted] = useState(cosmicAudio.isMuted);
   const [volume, setVolume] = useState(cosmicAudio.volume);
   const [musicMode, setMusicMode] = useState(cosmicAudio.musicMode);
@@ -53,6 +53,16 @@ export const Navbar = ({ activeTab, lang, setLang }) => {
     cosmicAudio.playSparkleSound();
   };
 
+  /* Bam logo phai luon quay ve dau trang chu.
+     Rieng cho nay khong the pho mac cho hash: khi khach dang xem ket qua trai
+     bai thi hash da la #/xem-tarot san roi, nen the <a> khong doi gi ca va
+     khach ket o lai man hinh ket qua. Buoc trai bai la state ben App chu khong
+     nam trong duong dan, nen phai bao nguoc len cho App dat lai. */
+  const handleLogoClick = () => {
+    cosmicAudio.playSparkleSound();
+    if (onGoHome) onGoHome();
+  };
+
   const handleToggleSound = () => {
     const muted = cosmicAudio.toggleMute();
     setIsMuted(muted);
@@ -85,7 +95,9 @@ export const Navbar = ({ activeTab, lang, setLang }) => {
           {/* Thương hiệu */}
           <a
             href={buildPath('reading')}
-            onClick={handleSelectTab}
+            onClick={handleLogoClick}
+            aria-label={t.homeLinkLabel}
+            title={t.homeLinkLabel}
             className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group shrink-0 no-underline"
           >
             <div className="w-11 h-11 sm:w-12 sm:h-12 shrink-0 rounded-full p-0.5 bg-gradient-to-tr from-amber-500 via-amber-300 to-yellow-600 shadow-md shadow-amber-500/30 group-hover:scale-105 transition-transform overflow-hidden flex items-center justify-center">

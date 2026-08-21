@@ -23,6 +23,7 @@ export const TRANSLATIONS = {
       journal: 'Nhật Ký Trải Bài'
     },
     copyLinkBtn: 'Sao Chép Link',
+    homeLinkLabel: 'Về trang chủ P Healing',
     copiedLinkBtn: 'Đã Sao Chép Link!',
     navZenMusic: 'Chuông Xoay Tây Tạng',
     navMusicMode: 'Chế Độ Nhạc Nền:',
@@ -344,6 +345,7 @@ export const TRANSLATIONS = {
       journal: 'Reading Journal'
     },
     copyLinkBtn: 'Copy Link',
+    homeLinkLabel: 'Back to the P Healing home page',
     copiedLinkBtn: 'Link Copied!',
     navZenMusic: 'Tibetan Bowl Meditation',
     navMusicMode: 'Background Music:',
@@ -664,6 +666,7 @@ export const TRANSLATIONS = {
       journal: '占卜日记'
     },
     copyLinkBtn: '复制链接',
+    homeLinkLabel: '返回 P Healing 首页',
     copiedLinkBtn: '已复制链接！',
     navZenMusic: '西藏颂钵禅音',
     navMusicMode: '背景音乐:',

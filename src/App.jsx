@@ -90,6 +90,14 @@ export function App() {
     setReadingStep('selector');
   };
 
+  /* Bam logo = ve dau trang chu that su: doi ve tab Tarot, xoa phien trai bai
+     dang do va keo len dau trang. Neu chi doi hash thi khach dang xem ket qua
+     se khong thay gi xay ra, vi hash luc do da la #/xem-tarot. */
+  const handleGoHome = () => {
+    handleResetReading();
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen flex flex-col relative text-gray-100 selection:bg-purple-500 selection:text-white has-bottom-nav">
       
@@ -101,6 +109,7 @@ export function App() {
         activeTab={activeTab}
         lang={lang}
         setLang={setLang}
+        onGoHome={handleGoHome}
       />
 
       {/* Main Body View Switching */}
