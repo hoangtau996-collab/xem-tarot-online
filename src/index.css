@@ -169,8 +169,9 @@ h1, h2, h3, .font-serif {
    QUẢ CẦU THÔNG ĐIỆP VŨ TRỤ (CosmicOrb)
    ========================================================================== */
 
-/* Thuỷ tinh tím: nguồn sáng lệch lên góc trên trái, tối dần xuống mép dưới
-   phải để khối cầu trông có chiều sâu. */
+/* Nền lót phía sau ảnh quả cầu - chỉ thấy trong khoảnh khắc ảnh chưa tải
+   xong, hoặc khi ảnh hỏng. Nguồn sáng lệch lên góc trên trái cho giống hướng
+   đèn của tấm ảnh thật. */
 .cosmic-orb {
   background:
     radial-gradient(circle at 32% 26%,
@@ -202,21 +203,17 @@ h1, h2, h3, .font-serif {
   animation: orbBreathe 4s ease-in-out infinite;
 }
 
-/* Dải màu cuộn bên trong quả cầu */
-.orb-swirl {
-  position: absolute;
-  inset: -35%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    rgba(56, 189, 248, 0.4) 55deg,
-    transparent 125deg,
-    rgba(251, 191, 36, 0.3) 195deg,
-    transparent 250deg,
-    rgba(244, 114, 182, 0.4) 315deg,
-    transparent 360deg);
-  filter: blur(8px);
-  animation: slowSpin 14s linear infinite;
+/* Ảnh quả cầu. Sáng bừng lên trong lúc tích năng lượng rồi dịu lại. */
+.orb-photo {
+  transition: filter 0.5s ease;
+}
+
+/* Lớp kính phủ lên ảnh: viền tối ở mép dưới phải, ánh sáng hắt ở mép trên
+   trái - đủ để mắt đọc ra khối cầu chứ không phải hình tròn dán phẳng. */
+.orb-glass {
+  box-shadow:
+    inset -9px -13px 38px rgba(11, 8, 24, 0.8),
+    inset 9px 11px 28px rgba(196, 181, 253, 0.2);
 }
 
 /* Hạt sáng nhấp nháy quanh quả cầu */
@@ -276,9 +273,9 @@ h1, h2, h3, .font-serif {
   animation: orbFlare 0.9s ease-out forwards;
 }
 
-/* Dải màu bên trong cuộn nhanh hẳn lên trong lúc quả cầu tích năng lượng */
-.cosmic-orb.is-charging .orb-swirl {
-  animation-duration: 2.4s;
+/* Thiên hà trong lòng cầu bừng sáng lúc quả cầu tích năng lượng */
+.cosmic-orb.is-charging .orb-photo {
+  filter: brightness(1.5) saturate(1.25);
 }
 
 /* ==========================================================================
@@ -531,8 +528,7 @@ h1, h2, h3, .font-serif {
   .animate-shockwave,
   .animate-orb-flare,
   .animate-message-materialize,
-  .animate-text-ember,
-  .orb-swirl {
+  .animate-text-ember {
     animation: none !important;
   }
 

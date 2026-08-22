@@ -117,13 +117,22 @@ export const CosmicOrb = ({ lang = 'vi' }) => {
             </React.Fragment>
           )}
 
-          {/* Thân cầu thuỷ tinh */}
+          {/* Thân cầu: ảnh chụp quả cầu pha lê khắc thiên hà, đã cắt vuông ôm
+              sát mép cầu nên khung tròn của nút cắt đúng vào viền kính. Nền tím
+              vẽ bằng CSS (.cosmic-orb) vẫn giữ ở dưới để lúc ảnh chưa tải xong
+              khách thấy một quả cầu mờ chứ không phải lỗ đen. */}
           <span className={`absolute inset-0 rounded-full overflow-hidden cosmic-orb animate-orb-breathe ${isCharging ? 'is-charging' : ''}`}>
-            {/* Dải màu xoay bên trong */}
-            <span className="orb-swirl" />
-            {/* Đốm sáng phản chiếu */}
-            <span className="absolute top-[16%] left-[20%] w-1/4 h-1/5 rounded-full bg-white/70 blur-md" />
-            <span className="absolute bottom-[14%] right-[22%] w-6 h-2 md:w-8 md:h-2.5 rounded-full bg-cyan-200/40 blur-sm" />
+            <img
+              src="/cosmic-orb.jpg"
+              alt=""
+              aria-hidden="true"
+              draggable="false"
+              className="orb-photo absolute inset-0 w-full h-full object-cover select-none"
+            />
+            {/* Lớp kính phủ lên ảnh. Bóng đổ inset của .animate-orb-breathe nằm
+                dưới ảnh nên không thấy được - phải có lớp riêng ở trên thì khối
+                cầu mới có chiều sâu thay vì phẳng như cái đĩa. */}
+            <span className="orb-glass absolute inset-0 rounded-full pointer-events-none" />
           </span>
 
           {/* Hạt sáng lấp lánh quanh cầu */}
