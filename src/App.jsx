@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StarfieldBackground } from './components/StarfieldBackground';
 import { Navbar } from './components/Navbar';
 import { SpreadSelector } from './components/SpreadSelector';
@@ -62,6 +62,24 @@ export function App() {
     if (window.location.hash !== canonical) navigate(canonical, { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  /* Đổi màn thì đưa khách về đầu trang.
+     Điều hướng bằng hash không tự cuộn khi không có phần tử nào trùng id, nên
+     trước đây khách đang đọc cuối bản Thần Số Học mà bấm sang Tarot sẽ rơi vào
+     giữa trang - rất rõ trên điện thoại.
+
+     Cố ý chỉ theo dõi "màn đang xem", không theo dõi cả route:
+       - Mở một lá bài trong Tra Cứu chỉ là mở hộp thoại, cuộn nền lúc đó là sai.
+       - Lần vẽ đầu tiên bỏ qua, vì trình duyệt tự khôi phục vị trí cuộn khi
+         tải lại trang; cuộn đè lên sẽ giật khách về đầu trang giữa lúc đọc.
+     Cuộn tức thì chứ không mượt: đây là chuyển màn, kéo mượt qua một trang dài
+     mất cả giây và cảm giác như trang bị treo. */
+  const screenKey = `${activeTab}/${route.destiny}/${readingStep}`;
+  const firstRender = useRef(true);
+  useEffect(() => {
+    if (firstRender.current) { firstRender.current = false; return; }
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [screenKey]);
 
   // Thẻ <html lang> phải khớp ngôn ngữ đang xem: trình đọc màn hình chọn giọng
   // theo thuộc tính này, và Google dựa vào đó để biết trang thuộc ngôn ngữ nào.
