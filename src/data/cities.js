@@ -12,6 +12,8 @@
 // Tên tỉnh giữ theo cách gọi quen thuộc khi khai sinh, kèm tên thành phố tỉnh
 // lỵ trong ngoặc, để người tra cứu tìm được bằng đúng chữ họ nhớ.
 
+import { foldAccents } from '../utils/text.js';
+
 export const CITIES = [
   /* ---------------- VIỆT NAM ---------------- */
   { key: 'hanoi', region: 'vn', lat: 21.0285, lon: 105.8542, tz: 'Asia/Ho_Chi_Minh', alias: 'ha noi,hn,thang long,thu do', name: { vi: 'Hà Nội', en: 'Hanoi', zh: '河内' } },
@@ -145,18 +147,6 @@ export const CITIES = [
 ];
 
 export const DEFAULT_CITY_KEY = 'hanoi';
-
-/* Bỏ dấu để gõ "da nang" hay "Đà Nẵng" đều tìm ra.
-   NFD tách được dấu thanh và dấu mũ, nhưng chữ đ/Đ là một ký tự riêng chứ
-   không phải d có dấu, nên phải thay tay. */
-export const foldAccents = (text = '') =>
-  text
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/đ/g, 'd')
-    .replace(/Đ/g, 'D')
-    .toLowerCase()
-    .trim();
 
 /* Tìm nơi sinh theo từ khoá, khớp trên cả ba ngôn ngữ lẫn danh sách bí danh,
    để người gõ "saigon", "tphcm", "Ho Chi Minh" hay "胡志明" đều ra cùng một

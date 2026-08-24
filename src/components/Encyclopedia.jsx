@@ -5,6 +5,7 @@ import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
 import { buildPath, navigate, absoluteUrl } from '../utils/router';
 import { cardText } from '../data/tarot/cardText.js';
+import { foldAccents } from '../utils/text.js';
 import { elementLabel, keywordLabel } from '../data/tarot/i18n/labels.js';
 
 /* Bộ lọc và lá bài đang mở đều lấy từ link chứ không phải state nội bộ, nên mỗi
@@ -40,13 +41,18 @@ export const Encyclopedia = ({ lang = 'vi', arcana = 'All', cardId = null }) => 
     { key: 'finance', label: t.aspectFinance }
   ];
 
+  /* Bỏ dấu cả hai đầu trước khi so khớp: người gõ "chang kho" phải ra Chàng
+     Khờ. Phần lớn khách gõ tiếng Việt trên điện thoại không bỏ dấu, mà trước
+     đây ô này so khớp nguyên văn nên với họ nó luôn trả về không có gì.
+     Từ khoá tra theo cả bản đang xem lẫn bản gốc tiếng Anh, để người quen tên
+     quốc tế ("the fool") và người quen tên Việt đều tìm được. */
   const filteredCards = TAROT_DECK.filter(card => {
-    const query = searchQuery.trim().toLowerCase();
+    const query = foldAccents(searchQuery);
     const matchesSearch =
       !query ||
-      cardName(card).toLowerCase().includes(query) ||
-      card.name.toLowerCase().includes(query) ||
-      card.keywords.some(k => k.toLowerCase().includes(query));
+      foldAccents(cardName(card)).includes(query) ||
+      foldAccents(card.name).includes(query) ||
+      card.keywords.some(k => foldAccents(k).includes(query));
 
     const matchesArcana = arcana === 'All' || card.arcana === arcana;
 
