@@ -1,11 +1,17 @@
-// Định tuyến bằng hash cho ứng dụng một trang.
+// Định tuyến bằng đường dẫn thật cho ứng dụng một trang.
 //
-// Vì sao dùng hash (#/than-so-hoc) chứ không phải đường dẫn thật
-// (/than-so-hoc): trang này là SPA tĩnh đẩy thẳng lên GitHub. Với đường dẫn
-// thật, khách dán link vào trình duyệt sẽ nhận 404 vì máy chủ tĩnh đi tìm một
-// file không tồn tại - muốn chạy được phải cấu hình rewrite ở phía host. Hash
-// thì không bao giờ được gửi lên máy chủ, nên mọi link đều mở đúng mục ở bất
-// kỳ nơi nào ta đặt trang.
+// Trước đây file này dùng hash (#/than-so-hoc). Lý do ghi lúc đó là đúng với
+// hoàn cảnh lúc đó: trang là SPA tĩnh đẩy thẳng lên GitHub, mà máy chủ tĩnh
+// thì trả 404 cho mọi đường dẫn không phải file có thật. Hoàn cảnh đã khác -
+// trang chạy trên Vercel, và vercel.json ở gốc dự án đã bảo máy chủ trả
+// index.html cho mọi đường dẫn.
+//
+// Vì sao phải đổi: hash không bao giờ được gửi lên máy chủ. Với Google thì cả
+// trang chỉ là MỘT địa chỉ duy nhất, năm mục và 78 trang lá bài đều vô hình.
+// Còn Facebook và Zalo thì không chạy JavaScript, nên mọi link chia sẻ đều
+// hiện đúng một ô xem trước giống hệt nhau, bất kể người gửi đang ở trang nào.
+//
+// Link cũ dạng #/than-so-hoc vẫn mở đúng chỗ: xem redirectLegacyHash bên dưới.
 
 import { useMemo, useSyncExternalStore } from 'react';
 
@@ -46,19 +52,19 @@ const SLUG_TO_TAB = Object.fromEntries(Object.entries(TAB_SLUGS).map(([tab, slug
 const SLUG_TO_DESTINY = Object.fromEntries(Object.entries(DESTINY_SLUGS).map(([key, slug]) => [slug, key]));
 const SLUG_TO_ARCANA = Object.fromEntries(Object.entries(ARCANA_SLUGS).map(([arcana, slug]) => [slug, arcana]));
 
-/* Đọc hash hiện tại thành một route đã chuẩn hoá.
-   Hash lạ hoặc rỗng đều rơi về tab mặc định thay vì hiện màn hình trắng. */
-export const parseHash = (hash = '') => {
-  const parts = hash
-    .replace(/^#\/?/, '')
+/* Đọc một đường dẫn thành route đã chuẩn hoá.
+   Đường dẫn lạ hoặc rỗng đều rơi về tab mặc định thay vì hiện màn hình trắng. */
+export const parsePath = (pathname = '') => {
+  const parts = pathname
     .split('?')[0]
+    .split('#')[0]
     .split('/')
     .filter(Boolean)
     .map(part => {
       try {
         return decodeURIComponent(part);
       } catch {
-        return part; // hash bị dán hỏng - giữ nguyên còn hơn ném lỗi
+        return part; // đường dẫn bị dán hỏng - giữ nguyên còn hơn ném lỗi
       }
     });
 
@@ -78,12 +84,12 @@ export const parseHash = (hash = '') => {
   return route;
 };
 
-/* Dựng hash từ tab + tham số. Dùng cho cả thuộc tính href của thẻ <a> lẫn lệnh
-   điều hướng, nên link hiện trên thanh địa chỉ luôn khớp với link người dùng
-   thấy khi rê chuột. */
+/* Dựng đường dẫn từ tab + tham số. Dùng cho cả thuộc tính href của thẻ <a> lẫn
+   lệnh điều hướng, nên link hiện trên thanh địa chỉ luôn khớp với link người
+   dùng thấy khi rê chuột. */
 export const buildPath = (tab, { arcana, cardId, destiny } = {}) => {
   const slug = TAB_SLUGS[tab] || TAB_SLUGS[DEFAULT_TAB];
-  let path = `#/${slug}`;
+  let path = `/${slug}`;
 
   if (tab === 'destiny') path += `/${DESTINY_SLUGS[destiny] || DESTINY_SLUGS[DEFAULT_DESTINY]}`;
 
@@ -95,15 +101,48 @@ export const buildPath = (tab, { arcana, cardId, destiny } = {}) => {
   return path;
 };
 
-/* Đổi hash bằng tay (dùng cho nút bấm không phải thẻ <a>).
+/* Mọi đường dẫn hợp lệ của trang, dùng cho sitemap và cho bước dựng sẵn HTML.
+   Nhận danh sách id lá bài để khỏi kéo dữ liệu 78 lá vào gói chính. */
+export const allPaths = (cardIds = []) => [
+  '/',
+  ...Object.keys(TAB_SLUGS)
+    .filter(tab => tab !== 'destiny')
+    .map(tab => buildPath(tab)),
+  ...Object.keys(DESTINY_SLUGS).map(destiny => buildPath('destiny', { destiny })),
+  ...Object.keys(ARCANA_SLUGS).map(arcana => buildPath('encyclopedia', { arcana })),
+  ...cardIds.map(cardId => buildPath('encyclopedia', { cardId }))
+];
+
+/* Đổi đường dẫn mà không tải lại trang.
    replace=true ghi đè mục hiện tại trong lịch sử - dùng khi chuẩn hoá một link
-   hỏng, để nút Quay lại không đưa khách về đúng cái link hỏng đó. */
+   hỏng, để nút Quay lại không đưa khách về đúng cái link hỏng đó.
+
+   Chuỗi ?lang= luôn được mang theo: nó nằm ở phần query chứ không phải đường
+   dẫn, mà pushState thì ghi đè cả hai nếu ta quên. */
 export const navigate = (path, { replace = false } = {}) => {
   if (typeof window === 'undefined') return;
-  if (window.location.hash === path) return;
+  const target = `${path}${window.location.search}`;
+  if (`${window.location.pathname}${window.location.search}` === target) return;
 
-  if (replace) window.location.replace(`${window.location.pathname}${window.location.search}${path}`);
-  else window.location.hash = path;
+  window.history[replace ? 'replaceState' : 'pushState'](null, '', target);
+  // pushState không tự phát sự kiện nào, nên phải tự báo cho useRoute biết.
+  window.dispatchEvent(new Event(ROUTE_EVENT));
+};
+
+/* Link cũ dạng #/than-so-hoc đã phát ra ngoài từ trước khi đổi sang đường dẫn
+   thật. Chúng vẫn phải mở đúng mục, nếu không mọi bài đăng và tin nhắn đã gửi
+   đều dẫn về trang Tarot. Dùng replace nên nút Quay lại không kẹt lại ở link
+   cũ vừa được sửa. */
+export const redirectLegacyHash = () => {
+  if (typeof window === 'undefined') return false;
+  const hash = window.location.hash;
+  if (!hash || !hash.startsWith('#/')) return false;
+
+  const route = parsePath(hash.slice(1));
+  const target = buildPath(route.tab, route);
+  window.history.replaceState(null, '', `${target}${window.location.search}`);
+  window.dispatchEvent(new Event(ROUTE_EVENT));
+  return true;
 };
 
 /* Ten mien chinh thuc cua trang. Logo lay hang so nay lam link "ve trang
@@ -125,21 +164,36 @@ export const isCanonicalSite = () => {
 
 /* Link tuyệt đối để khách sao chép và gửi cho người khác. */
 export const absoluteUrl = (path) => {
-  if (typeof window === 'undefined') return path;
-  return `${window.location.origin}${window.location.pathname}${path}`;
+  if (typeof window === 'undefined') return `${SITE_URL.replace(/\/$/, '')}${path}`;
+  return `${window.location.origin}${path}`;
 };
+
+/* ------------------------------------------------------------------ */
+/* THEO DÕI ĐƯỜNG DẪN                                                  */
+/* ------------------------------------------------------------------ */
+
+const ROUTE_EVENT = 'phealing:route';
 
 const subscribe = (onChange) => {
-  window.addEventListener('hashchange', onChange);
-  return () => window.removeEventListener('hashchange', onChange);
+  window.addEventListener('popstate', onChange);
+  window.addEventListener(ROUTE_EVENT, onChange);
+  return () => {
+    window.removeEventListener('popstate', onChange);
+    window.removeEventListener(ROUTE_EVENT, onChange);
+  };
 };
 
-// Ảnh chụp phải là chuỗi hash thô: trả về object mới mỗi lần gọi sẽ khiến
+// Ảnh chụp phải là chuỗi thô: trả về object mới mỗi lần gọi sẽ khiến
 // useSyncExternalStore coi như dữ liệu luôn thay đổi và render vô hạn.
-const getSnapshot = () => window.location.hash;
-const getServerSnapshot = () => '';
+const getSnapshot = () => window.location.pathname;
 
-export const useHashRoute = () => {
-  const hash = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-  return useMemo(() => parseHash(hash), [hash]);
+/* Đường dẫn dùng khi vẽ phía máy chủ. Bước dựng sẵn HTML đặt giá trị này trước
+   mỗi trang, nhờ đó cùng một component vẽ ra đúng mục tương ứng. */
+let ssrPath = '/';
+export const setSsrPath = (path) => { ssrPath = path || '/'; };
+const getServerSnapshot = () => ssrPath;
+
+export const useRoute = () => {
+  const path = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  return useMemo(() => parsePath(path), [path]);
 };

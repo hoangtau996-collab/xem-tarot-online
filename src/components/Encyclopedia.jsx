@@ -4,6 +4,7 @@ import { Search, Sparkles, Filter, X, Link2, Check } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
 import { buildPath, navigate, absoluteUrl } from '../utils/router';
+import { RouteLink } from './RouteLink';
 import { cardText } from '../data/tarot/cardText.js';
 import { foldAccents } from '../utils/text.js';
 import { elementLabel, keywordLabel } from '../data/tarot/i18n/labels.js';
@@ -117,9 +118,9 @@ export const Encyclopedia = ({ lang = 'vi', arcana = 'All', cardId = null }) => 
         <div className="flex items-center gap-2 w-full md:w-auto">
           <Filter className="w-4 h-4 text-amber-400 hidden sm:inline" />
           {arcanaFilters.map(({ value, label }) => (
-            <a
+            <RouteLink
               key={value}
-              href={buildPath('encyclopedia', { arcana: value })}
+              to={buildPath('encyclopedia', { arcana: value })}
               onClick={() => cosmicAudio.playSparkleSound()}
               aria-current={arcana === value ? 'true' : undefined}
               className={`px-4 py-2 rounded-full text-xs font-semibold transition-all no-underline ${
@@ -129,7 +130,7 @@ export const Encyclopedia = ({ lang = 'vi', arcana = 'All', cardId = null }) => 
               }`}
             >
               {label}
-            </a>
+            </RouteLink>
           ))}
         </div>
 
@@ -138,9 +139,9 @@ export const Encyclopedia = ({ lang = 'vi', arcana = 'All', cardId = null }) => 
       {/* Cards Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {filteredCards.map((card) => (
-          <a
+          <RouteLink
             key={card.id}
-            href={buildPath('encyclopedia', { cardId: card.id })}
+            to={buildPath('encyclopedia', { cardId: card.id })}
             onClick={() => cosmicAudio.playSparkleSound()}
             className="glass-panel p-4 flex flex-col items-center justify-between text-center cursor-pointer hover:border-amber-400/60 hover:scale-105 transition-all group no-underline"
           >
@@ -158,7 +159,7 @@ export const Encyclopedia = ({ lang = 'vi', arcana = 'All', cardId = null }) => 
                 {elementLabel(card.element, lang)}
               </span>
             </div>
-          </a>
+          </RouteLink>
         ))}
       </div>
 

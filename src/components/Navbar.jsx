@@ -3,6 +3,7 @@ import { BookOpen, BookmarkCheck, Volume2, VolumeX, Compass, Disc, Globe, Settin
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
 import { buildPath, navigate, SITE_URL, isCanonicalSite } from '../utils/router';
+import { RouteLink } from './RouteLink';
 import { VisitorCounter } from './VisitorCounter';
 
 const LANG_NAMES = {
@@ -126,9 +127,9 @@ export const Navbar = ({ activeTab, lang, setLang, onGoHome }) => {
               tablet nên tablet dùng chung thanh dưới với điện thoại. */}
           <nav className="hidden xl:flex items-center gap-1 shrink-0">
             {TABS.map(({ id, label, Icon, accent }) => (
-              <a
+              <RouteLink
                 key={id}
-                href={buildPath(id)}
+                to={buildPath(id)}
                 onClick={handleSelectTab}
                 aria-current={activeTab === id ? 'page' : undefined}
                 className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all no-underline ${
@@ -139,7 +140,7 @@ export const Navbar = ({ activeTab, lang, setLang, onGoHome }) => {
               >
                 <Icon className={`w-4 h-4 ${accent}`} />
                 <span>{label}</span>
-              </a>
+              </RouteLink>
             ))}
           </nav>
 
@@ -278,9 +279,9 @@ export const Navbar = ({ activeTab, lang, setLang, onGoHome }) => {
           {TABS.map(({ id, short, Icon, accent }) => {
             const active = activeTab === id;
             return (
-              <a
+              <RouteLink
                 key={id}
-                href={buildPath(id)}
+                to={buildPath(id)}
                 onClick={handleSelectTab}
                 aria-current={active ? 'page' : undefined}
                 className={`relative flex flex-col items-center justify-center gap-0.5 py-2 transition-colors no-underline ${
@@ -294,7 +295,7 @@ export const Navbar = ({ activeTab, lang, setLang, onGoHome }) => {
                 <span className={`text-2xs leading-tight text-center px-0.5 ${active ? 'font-bold' : 'font-medium'}`}>
                   {short}
                 </span>
-              </a>
+              </RouteLink>
             );
           })}
         </div>

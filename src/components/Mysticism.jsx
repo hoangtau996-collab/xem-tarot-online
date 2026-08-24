@@ -9,6 +9,7 @@ import { TRANSLATIONS } from '../data/translations';
 import { calcMetaphysicsProfile } from '../utils/metaphysics';
 import { exportNodeAsPng, exportNodeAsPdf } from '../utils/posterExport';
 import { buildPath } from '../utils/router';
+import { RouteLink } from './RouteLink';
 import { MysticProfileForm } from './MysticProfileForm';
 
 
@@ -411,14 +412,14 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
 
             {/* Khoi nay chi doc duoc cung Mat Troi tu ngay thang. Ai muon di sau
                 hon thi dan sang ban do sao - noi co them gio va noi sinh. */}
-            <a
-              href={buildPath('destiny', { destiny: 'astrology' })}
+            <RouteLink
+              to={buildPath('destiny', { destiny: 'astrology' })}
               onClick={() => cosmicAudio.playSparkleSound()}
               className="flex items-center justify-between gap-3 rounded-xl bg-space/70 border border-cyan-400/30 px-4 py-3 hover:bg-cyan-950/40 transition-colors"
             >
               <span className="text-xs text-cyan-200 font-light">{t.mysZodiacDeepLink}</span>
               <ArrowRight className="w-4 h-4 text-cyan-300 shrink-0" />
-            </a>
+            </RouteLink>
           </div>
 
           {/* Ghi chép & lưu */}

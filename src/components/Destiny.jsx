@@ -3,6 +3,7 @@ import { Compass, Orbit } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
 import { buildPath, DEFAULT_DESTINY } from '../utils/router';
+import { RouteLink } from './RouteLink';
 import { Mysticism } from './Mysticism';
 import { Astrology } from './Astrology';
 
@@ -35,9 +36,9 @@ export const Destiny = ({ lang = 'vi', section = DEFAULT_DESTINY, profile, onSav
           {SECTIONS.map(({ key, Icon, labelKey, hintKey }) => {
             const isActive = key === active;
             return (
-              <a
+              <RouteLink
                 key={key}
-                href={buildPath('destiny', { destiny: key })}
+                to={buildPath('destiny', { destiny: key })}
                 onClick={() => cosmicAudio.playSparkleSound()}
                 className={`rounded-xl px-3 py-2.5 text-center transition-all ${
                   isActive
@@ -52,7 +53,7 @@ export const Destiny = ({ lang = 'vi', section = DEFAULT_DESTINY, profile, onSav
                   {t[labelKey]}
                 </span>
                 <span className="block text-2xs text-gray-400 font-light mt-0.5">{t[hintKey]}</span>
-              </a>
+              </RouteLink>
             );
           })}
         </div>

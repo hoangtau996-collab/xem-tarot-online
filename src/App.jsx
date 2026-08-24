@@ -8,7 +8,7 @@ import { SectionError } from './components/SectionError';
 import { SectionLoading } from './components/SectionLoading';
 import { SPREAD_TYPES, TAROT_DECKS_THEMES } from './data/tarotSpreads';
 import { TRANSLATIONS } from './data/translations';
-import { useHashRoute, buildPath, navigate } from './utils/router';
+import { useRoute, buildPath, navigate, redirectLegacyHash } from './utils/router';
 import { readInitialLang, rememberLang, syncHtmlLang } from './utils/lang';
 import { Sparkles } from 'lucide-react';
 
@@ -52,7 +52,7 @@ export function App() {
 
   // Tab đang mở do link trên thanh địa chỉ quyết định, không phải state riêng:
   // nhờ vậy nút Quay lại / Tiến tới của trình duyệt và link dán vào đều đúng.
-  const route = useHashRoute();
+  const route = useRoute();
   const activeTab = route.tab;
 
   const [readingStep, setReadingStep] = useState('selector'); // 'selector', 'deck', 'result'
@@ -69,8 +69,12 @@ export function App() {
   // địa chỉ luôn là một link sao chép được. Dùng replace nên nút Quay lại không
   // đưa khách trở lại đúng cái link hỏng vừa sửa.
   useEffect(() => {
+    // Link cũ dạng #/than-so-hoc vẫn phải mở đúng mục - xử lý trước, rồi mới
+    // chuẩn hoá. Nếu chuẩn hoá trước thì hash bị vứt đi mất.
+    if (redirectLegacyHash()) return;
+
     const canonical = buildPath(activeTab, route);
-    if (window.location.hash !== canonical) navigate(canonical, { replace: true });
+    if (window.location.pathname !== canonical) navigate(canonical, { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
