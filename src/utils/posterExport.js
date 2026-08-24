@@ -3,8 +3,6 @@
 // Tách ra khỏi ReadingResult để bản giải Tarot, hồ sơ Thần Số Học và hồ sơ
 // Huyền Học dùng chung một đường xuất file - sửa một chỗ là cả ba cùng đúng.
 
-import html2canvas from 'html2canvas';
-
 const MAX_CANVAS_AREA = 12e6; // chừa biên an toàn dưới ngưỡng ~16,7 triệu điểm ảnh của iOS Safari
 const MAX_CANVAS_SIDE = 8000; // một số máy còn giới hạn riêng từng chiều
 
@@ -13,6 +11,11 @@ const MAX_CANVAS_SIDE = 8000; // một số máy còn giới hạn riêng từng
    canvas quá lớn và trả về ảnh trắng, nên poster càng dài thì scale càng nhỏ. */
 export const capturePoster = async (node) => {
   if (!node) throw new Error('Poster template chưa được gắn vào DOM');
+
+  // Nạp muộn, cùng lý do với jspdf bên dưới: thư viện chụp ảnh nặng gần 50KB nén
+  // và chỉ cần tới khi khách thật sự bấm xuất file. Nạp sẵn thì mọi người mở
+  // bản giải đều phải tải, kể cả người chỉ đọc rồi đóng.
+  const { default: html2canvas } = await import('html2canvas');
 
   node.style.display = 'block';
   try {
