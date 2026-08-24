@@ -7,6 +7,8 @@ import {
 } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
+import { cardText } from '../data/tarot/cardText.js';
+import { keywordLabel } from '../data/tarot/i18n/labels.js';
 import { exportNodeAsPng, exportNodeAsPdf } from '../utils/posterExport';
 
 export const ReadingResult = ({
@@ -589,9 +591,12 @@ export const ReadingResult = ({
                   {selectedCardModal.isReversed ? t.reversedBadge : t.uprightBadge} · {t.cardAdviceLabel}
                 </span>
                 <p className="text-sm text-gray-100 leading-relaxed">
-                  {selectedCardModal.isReversed
-                    ? selectedCardModal.reversed?.advice
-                    : selectedCardModal.upright?.advice}
+                  {cardText(
+                    selectedCardModal,
+                    selectedCardModal.isReversed ? 'reversed' : 'upright',
+                    'advice',
+                    lang
+                  )}
                 </p>
               </div>
 
@@ -602,7 +607,7 @@ export const ReadingResult = ({
                 <div className="flex flex-wrap gap-1.5">
                   {selectedCardModal.keywords?.map((kw, i) => (
                     <span key={i} className="px-2 py-0.5 rounded bg-purple-900/60 text-xs text-purple-200">
-                      {kw}
+                      {keywordLabel(kw, lang)}
                     </span>
                   ))}
                 </div>

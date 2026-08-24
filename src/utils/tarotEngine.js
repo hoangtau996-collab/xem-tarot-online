@@ -11,6 +11,8 @@
 // Thông điệp khẳng định từ Vũ Trụ (affirmation) không nằm trong bản giải bài:
 // nó là một trải nghiệm riêng ở quả cầu đầu trang (components/CosmicOrb).
 
+import { cardText } from '../data/tarot/cardText.js';
+
 // --- Vị trí các lá trong từng kiểu trải bài ---------------------------------
 
 const POSITION_LABELS = {
@@ -188,6 +190,9 @@ const buildSections = ({ lang, spreadType, drawnCards, positions, question, majo
   const name = (c) => cardNameByLang(c, lang);
   const face = (c) => (c.isReversed ? T[lang].reversed : T[lang].upright);
   const faceData = (c) => (c.isReversed ? c.reversed : c.upright);
+  /* Lời khuyên phải đi qua cardText: trường .advice trong dữ liệu chỉ có
+     tiếng Việt, đọc thẳng là bản tiếng Anh/Trung lọt một câu tiếng Việt. */
+  const adviceOf = (c) => cardText(c, c.isReversed ? 'reversed' : 'upright', 'advice', lang);
   const sum = (c) => summaryByLang(faceData(c), lang);
   const pos = (i) => positions[i];
 
@@ -220,7 +225,7 @@ const buildSections = ({ lang, spreadType, drawnCards, positions, question, majo
       domainTitle: 'One card for each part of your life',
       domainBody: 'A five-card spread is not a timeline. Each card was drawn for one specific area, so you can read the lines below one at a time.',
       oneThingTitle: 'If you only do one thing',
-      oneThingBody: `The card sitting in the "${pos(total - 1)}" slot is ${name(last)}, ${face(last)}. Its advice: ${faceData(last).advice}`,
+      oneThingBody: `The card sitting in the "${pos(total - 1)}" slot is ${name(last)}, ${face(last)}. Its advice: ${adviceOf(last)}`,
       wholeTitle: 'What the spread says as a whole'
     },
     zh: {
@@ -247,7 +252,7 @@ const buildSections = ({ lang, spreadType, drawnCards, positions, question, majo
       domainTitle: '每张牌各答一个生活面向',
       domainBody: '五张牌不是时间线。每张牌都是为某一个面向而抽的，因此下面几行可以一条一条分开来读。',
       oneThingTitle: '如果只做一件事',
-      oneThingBody: `落在「${pos(total - 1)}」位置的是 ${name(last)}，${face(last)}。它的建议是：${faceData(last).advice}`,
+      oneThingBody: `落在「${pos(total - 1)}」位置的是 ${name(last)}，${face(last)}。它的建议是：${adviceOf(last)}`,
       wholeTitle: '整个牌阵合起来看'
     },
     vi: {
@@ -274,7 +279,7 @@ const buildSections = ({ lang, spreadType, drawnCards, positions, question, majo
       domainTitle: 'Mỗi lá trả lời một mặt của cuộc sống',
       domainBody: 'Trải 5 lá không đọc theo thứ tự thời gian. Mỗi lá được rút riêng cho một mặt, nên bạn có thể đọc từng dòng dưới đây một cách độc lập.',
       oneThingTitle: 'Nếu chỉ chọn một việc để làm',
-      oneThingBody: `Lá nằm ở vị trí "${pos(total - 1)}" là ${name(last)}, ra ${face(last)}. Lời khuyên của nó: ${faceData(last).advice}`,
+      oneThingBody: `Lá nằm ở vị trí "${pos(total - 1)}" là ${name(last)}, ra ${face(last)}. Lời khuyên của nó: ${adviceOf(last)}`,
       wholeTitle: 'Nhìn cả phiên bài thì thấy gì'
     }
   }[lang];
@@ -290,7 +295,7 @@ const buildSections = ({ lang, spreadType, drawnCards, positions, question, majo
 
   if (shape === 'single') {
     sections.push({ title: C.singleTitle, body: C.singleBody });
-    sections.push({ title: C.singleAdviceTitle, body: faceData(first).advice });
+    sections.push({ title: C.singleAdviceTitle, body: adviceOf(first) });
   } else if (shape === 'domains') {
     sections.push({
       title: C.domainTitle,
@@ -433,7 +438,8 @@ export const analyzeReadingSession = (drawnCards = [], spreadType = 'five_aspect
   const aspects = { situation: [], love: [], work: [], finance: [], advice: [] };
 
   drawnCards.forEach((card, index) => {
-    const data = card.isReversed ? card.reversed : card.upright;
+    const side = card.isReversed ? 'reversed' : 'upright';
+    const data = card[side];
     const orientationTag = card.isReversed ? T[lang].reversedTag : T[lang].uprightTag;
 
     ASPECT_KEYS.forEach(key => {
@@ -444,7 +450,7 @@ export const analyzeReadingSession = (drawnCards = [], spreadType = 'five_aspect
         isReversed: !!card.isReversed,
         positionLabel: positions[index],
         isPrimary: primaryMap[index] === key,
-        text: data[key],
+        text: cardText(card, side, key, lang),
         summary: summaryByLang(data, lang),
         icon: card.icon,
         color: card.color
@@ -479,10 +485,10 @@ export const analyzeReadingSession = (drawnCards = [], spreadType = 'five_aspect
     ...ACTION_COPY[lang],
     doList: drawnCards
       .filter(c => !c.isReversed)
-      .map(c => ({ cardName: cardNameByLang(c, lang), icon: c.icon, text: c.upright.advice })),
+      .map(c => ({ cardName: cardNameByLang(c, lang), icon: c.icon, text: cardText(c, 'upright', 'advice', lang) })),
     watchList: drawnCards
       .filter(c => c.isReversed)
-      .map(c => ({ cardName: cardNameByLang(c, lang), icon: c.icon, text: c.reversed.advice }))
+      .map(c => ({ cardName: cardNameByLang(c, lang), icon: c.icon, text: cardText(c, 'reversed', 'advice', lang) }))
   };
 
   // 6. Bản luận giải tổng thể

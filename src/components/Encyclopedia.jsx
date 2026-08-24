@@ -4,6 +4,8 @@ import { Search, Sparkles, Filter, X, Link2, Check } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
 import { buildPath, navigate, absoluteUrl } from '../utils/router';
+import { cardText } from '../data/tarot/cardText.js';
+import { elementLabel, keywordLabel } from '../data/tarot/i18n/labels.js';
 
 /* Bộ lọc và lá bài đang mở đều lấy từ link chứ không phải state nội bộ, nên mỗi
    lá bài có một địa chỉ riêng gửi cho khách được:
@@ -147,7 +149,7 @@ export const Encyclopedia = ({ lang = 'vi', arcana = 'All', cardId = null }) => 
                 {cardName(card)}
               </h4>
               <span className="text-2xs text-cyan-300 font-medium block">
-                {card.element}
+                {elementLabel(card.element, lang)}
               </span>
             </div>
           </a>
@@ -174,7 +176,7 @@ export const Encyclopedia = ({ lang = 'vi', arcana = 'All', cardId = null }) => 
                   {cardName(selectedCard)}
                 </h3>
                 <p className="text-xs text-purple-300 font-medium">
-                  {selectedCard.arcana} Arcana • Element {selectedCard.element}
+                  {selectedCard.arcana} Arcana • Element {elementLabel(selectedCard.element, lang)}
                 </p>
               </div>
             </div>
@@ -187,7 +189,7 @@ export const Encyclopedia = ({ lang = 'vi', arcana = 'All', cardId = null }) => 
               <div className="flex flex-wrap gap-1.5">
                 {selectedCard.keywords?.map((kw, i) => (
                   <span key={i} className="px-2.5 py-1 rounded bg-purple-900/60 text-xs text-purple-200">
-                    {kw}
+                    {keywordLabel(kw, lang)}
                   </span>
                 ))}
               </div>
@@ -198,6 +200,7 @@ export const Encyclopedia = ({ lang = 'vi', arcana = 'All', cardId = null }) => 
                 đó nói gì về tình cảm, công việc hay nên làm gì. */}
             {[
               {
+                side: 'upright',
                 data: selectedCard.upright,
                 title: t.uprightMeaningTitle,
                 border: 'border-emerald-400/30',
@@ -205,6 +208,7 @@ export const Encyclopedia = ({ lang = 'vi', arcana = 'All', cardId = null }) => 
                 label: 'text-emerald-400/80'
               },
               {
+                side: 'reversed',
                 data: selectedCard.reversed,
                 title: t.reversedMeaningTitle,
                 border: 'border-rose-400/30',
@@ -230,7 +234,7 @@ export const Encyclopedia = ({ lang = 'vi', arcana = 'All', cardId = null }) => 
                       <dt className={`text-2xs uppercase tracking-wider font-semibold ${side.label}`}>
                         {row.label}
                       </dt>
-                      <dd className="text-xs text-gray-300 leading-relaxed">{side.data?.[row.key]}</dd>
+                      <dd className="text-xs text-gray-300 leading-relaxed">{cardText(selectedCard, side.side, row.key, lang)}</dd>
                     </div>
                   ))}
                 </dl>
@@ -239,7 +243,7 @@ export const Encyclopedia = ({ lang = 'vi', arcana = 'All', cardId = null }) => 
                   <span className={`text-2xs uppercase tracking-wider font-semibold ${side.label} block`}>
                     {t.cardAdviceLabel}
                   </span>
-                  <p className="text-xs text-gray-100 leading-relaxed">{side.data?.advice}</p>
+                  <p className="text-xs text-gray-100 leading-relaxed">{cardText(selectedCard, side.side, 'advice', lang)}</p>
                 </div>
               </div>
             ))}

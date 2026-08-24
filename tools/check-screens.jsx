@@ -20,6 +20,8 @@ import { Destiny } from '../src/components/Destiny.jsx';
 import { Journal } from '../src/components/Journal.jsx';
 import { ReadingResult } from '../src/components/ReadingResult.jsx';
 import { TAROT_DECK } from '../src/data/tarotData.js';
+import { translationCoverage } from '../src/data/tarot/cardText.js';
+import { labelCoverage } from '../src/data/tarot/i18n/labels.js';
 
 /* Phía máy chủ không có trình duyệt. Chỉ dựng đúng những thứ được đụng tới
    trong lúc vẽ - không giả lập cả DOM, vì càng giả lập nhiều thì phép thử
@@ -64,7 +66,19 @@ const SCREENS = [
   // Hai ngôn ngữ còn lại chỉ cần một màn hình nặng nhất là đủ để lộ ra thiếu
   // bản dịch hay lỗi ghép chuỗi theo ngôn ngữ.
   ['Chiêm Tinh (English)', () => <Destiny lang="en" section="astrology" profile={PROFILE} onSaveProfile={noop} />],
-  ['Chiêm Tinh (中文)', () => <Destiny lang="zh" section="astrology" profile={PROFILE} onSaveProfile={noop} />]
+  ['Chiêm Tinh (中文)', () => <Destiny lang="zh" section="astrology" profile={PROFILE} onSaveProfile={noop} />],
+
+  // Bản giải Tarot ở hai ngôn ngữ kia. Chỗ này từng lọt lưới đúng vì không ai
+  // đem đi vẽ thử: thân bài Tarot đọc từ một bảng dịch riêng (data/tarot/i18n),
+  // đi đường khác hẳn phần chiêm tinh, nên phải thử tách ra.
+  ['Giải bài Tarot (English)', () => (
+    <ReadingResult drawnCards={cards} spread={{ id: 'five_aspects', title: 'Five Cards', cardCount: 5 }}
+      question="Test question" onReset={noop} lang="en" />
+  )],
+  ['Giải bài Tarot (中文)', () => (
+    <ReadingResult drawnCards={cards} spread={{ id: 'five_aspects', title: '五张牌', cardCount: 5 }}
+      question="测试问题" onReset={noop} lang="zh" />
+  )]
 ];
 
 const failures = [];
@@ -82,8 +96,28 @@ for (const [name, render] of SCREENS) {
   }
 }
 
+/* Độ phủ bản dịch Tarot.
+   Cố tình KHÔNG làm vỡ build: dịch 78 lá là việc nội dung, làm dần từng bộ ẩn;
+   chặn build lại thì trong lúc đó không sửa được gì khác. Nhưng phải in ra mỗi
+   lần, để phần còn thiếu không lặng lẽ trôi ra bản phát hành. */
+const reportCoverage = () => {
+  for (const lang of ['en', 'zh']) {
+    const { total, done, missingCards } = translationCoverage(TAROT_DECK, lang);
+    const percent = total ? Math.round((done / total) * 100) : 0;
+    const line = `  ban dich ${lang}: ${done}/${total} doan (${percent}%)`;
+    if (done === total) console.log(`${line} - du`);
+    else console.log(`${line} - con ${missingCards.length} la chua dich, tam hien tieng Viet`);
+
+    // Nhãn ngắn (nguyên tố + từ khoá) đi đường khác với phần luận giải, nên đếm riêng.
+    const labels = labelCoverage(TAROT_DECK, lang);
+    if (labels.length) console.log(`  nhan ${lang}    : con ${labels.length} nhan chua dich (vi du: ${labels.slice(0, 3).join(', ')})`);
+  }
+};
+
 if (failures.length === 0) {
-  console.log(`\n✓ ${SCREENS.length} màn hình đều vẽ được.\n`);
+  console.log(`\n✓ ${SCREENS.length} màn hình đều vẽ được.`);
+  reportCoverage();
+  console.log('');
   process.exit(0);
 }
 
