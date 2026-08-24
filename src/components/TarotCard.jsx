@@ -1,5 +1,5 @@
 import React from 'react';
-import { TAROT_DECKS_THEMES } from '../data/tarotData';
+import { TAROT_DECKS_THEMES } from '../data/tarotSpreads';
 import { TRANSLATIONS } from '../data/translations';
 
 /* Hoa văn mandala hình học thiêng trên mặt sau lá bài.

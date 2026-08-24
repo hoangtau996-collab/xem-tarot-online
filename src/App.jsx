@@ -1,22 +1,33 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { StarfieldBackground } from './components/StarfieldBackground';
 import { Navbar } from './components/Navbar';
-import { SpreadSelector } from './components/SpreadSelector';
-import { CardDeck } from './components/CardDeck';
-import { ReadingResult } from './components/ReadingResult';
 import { CosmicOrb } from './components/CosmicOrb';
-import { Encyclopedia } from './components/Encyclopedia';
-import { Numerology } from './components/Numerology';
-import { Destiny } from './components/Destiny';
-import { Journal } from './components/Journal';
 import { VisitorCounter } from './components/VisitorCounter';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { SectionError } from './components/SectionError';
-import { SPREAD_TYPES, TAROT_DECKS_THEMES } from './data/tarotData';
+import { SectionLoading } from './components/SectionLoading';
+import { SPREAD_TYPES, TAROT_DECKS_THEMES } from './data/tarotSpreads';
 import { TRANSLATIONS } from './data/translations';
 import { useHashRoute, buildPath, navigate } from './utils/router';
 import { readInitialLang, rememberLang, syncHtmlLang } from './utils/lang';
 import { Sparkles } from 'lucide-react';
+
+/* Mỗi mục là một gói riêng, chỉ tải khi khách mở tới.
+ *
+ * Trước đây tất cả nằm chung một gói 440KB: khách chỉ muốn rút một lá bài vẫn
+ * phải tải cả astronomy-engine (chỉ tab Chiêm Tinh dùng), cả 78 lá bài kèm bản
+ * dịch, cả dữ liệu thần số học và huyền học. Phần lớn khách không mở hết năm
+ * mục, nên phần lớn số đó là tải phí.
+ *
+ * Thanh điều hướng, quả cầu thông điệp và chân trang vẫn nạp ngay: chúng có
+ * mặt ở mọi mục, tách ra chỉ thêm một vòng chờ chứ không tiết kiệm được gì. */
+const SpreadSelector = lazy(() => import('./components/SpreadSelector').then(m => ({ default: m.SpreadSelector })));
+const CardDeck = lazy(() => import('./components/CardDeck').then(m => ({ default: m.CardDeck })));
+const ReadingResult = lazy(() => import('./components/ReadingResult').then(m => ({ default: m.ReadingResult })));
+const Encyclopedia = lazy(() => import('./components/Encyclopedia').then(m => ({ default: m.Encyclopedia })));
+const Numerology = lazy(() => import('./components/Numerology').then(m => ({ default: m.Numerology })));
+const Destiny = lazy(() => import('./components/Destiny').then(m => ({ default: m.Destiny })));
+const Journal = lazy(() => import('./components/Journal').then(m => ({ default: m.Journal })));
 
 // Hồ sơ ngày sinh dùng chung cho tab Thần Số Học và tab Huyền Học. Giữ ở App
 // (và nhớ qua localStorage) nên khách chỉ nhập một lần là hai tab cùng dùng.
@@ -160,6 +171,11 @@ export function App() {
             Đặt ngoài phần chuyển tab nên không lẫn vào bản giải bài. */}
         <CosmicOrb lang={lang} />
 
+        {/* Ranh giới chờ đặt SAU quả cầu, không bọc nó: quả cầu nạp sẵn trong
+            gói chính nên phải hiện ngay, nếu bọc chung thì nó cũng bị giữ lại
+            cho tới khi mã của mục tải xong. */}
+        <Suspense fallback={<SectionLoading lang={lang} />}>
+
         {activeTab === 'reading' && (
           <>
             {readingStep === 'selector' && (
@@ -220,6 +236,8 @@ export function App() {
         )}
 
         {activeTab === 'journal' && <Journal lang={lang} />}
+
+        </Suspense>
         </ErrorBoundary>
       </main>
 

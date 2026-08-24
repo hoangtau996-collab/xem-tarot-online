@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getSpreadTypes, getTarotDecksThemes } from '../data/tarotData';
+import { getSpreadTypes, getTarotDecksThemes } from '../data/tarotSpreads';
 import { Sparkles, HelpCircle, Layers, Compass } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';

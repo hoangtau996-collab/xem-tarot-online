@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { TAROT_DECK, getRandomDeckDraw, TAROT_DECKS_THEMES } from '../data/tarotData';
+import { TAROT_DECK, getRandomDeckDraw } from '../data/tarotData';
+import { TAROT_DECKS_THEMES } from '../data/tarotSpreads';
 import { TarotCard } from './TarotCard';
 import { Sparkles, Shuffle, Eye, ChevronRight, Layers } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';

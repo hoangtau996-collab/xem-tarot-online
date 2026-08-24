@@ -19,7 +19,11 @@ import { Numerology } from '../src/components/Numerology.jsx';
 import { Destiny } from '../src/components/Destiny.jsx';
 import { Journal } from '../src/components/Journal.jsx';
 import { ReadingResult } from '../src/components/ReadingResult.jsx';
+import { SpreadSelector } from '../src/components/SpreadSelector.jsx';
+import { CardDeck } from '../src/components/CardDeck.jsx';
+import { Encyclopedia } from '../src/components/Encyclopedia.jsx';
 import { TAROT_DECK } from '../src/data/tarotData.js';
+import { SPREAD_TYPES, TAROT_DECKS_THEMES } from '../src/data/tarotSpreads.js';
 import { translationCoverage } from '../src/data/tarot/cardText.js';
 import { labelCoverage } from '../src/data/tarot/i18n/labels.js';
 
@@ -52,7 +56,21 @@ const cards = Array.from({ length: 5 }, (_, i) => ({
 const noop = () => {};
 
 const SCREENS = [
-  ['Trang chủ', () => <App />],
+  /* Từ khi mỗi mục được tải riêng (React.lazy trong App), màn này chỉ còn vẽ
+     phần khung: thanh điều hướng, quả cầu, chân trang, cộng màn chờ. Nội dung
+     bên trong từng mục phải thử riêng ở các dòng dưới - nếu chỉ giữ mỗi dòng
+     này thì phép thử vẫn xanh trong khi chẳng còn kiểm được nội dung nào. */
+  ['Trang chủ (khung + màn chờ)', () => <App />],
+
+  /* Ba màn dưới đây trước nay chưa từng được đem đi vẽ thử. Chúng lọt lưới vì
+     màn "Trang chủ" từng vẽ hộ phần chọn kiểu trải bài, còn Tra Cứu thì không
+     ai để ý. Giờ tách gói rồi thì phải kê tên từng cái. */
+  ['Chọn kiểu trải bài', () => <SpreadSelector onSelectSpread={noop} lang="vi" />],
+  ['Rút bài', () => (
+    <CardDeck spread={SPREAD_TYPES[3]} deckTheme={TAROT_DECKS_THEMES[0]}
+      question="Câu hỏi thử" onCompleteDraw={noop} lang="vi" />
+  )],
+  ['Tra Cứu', () => <Encyclopedia lang="vi" arcana="All" cardId={null} />],
   ['Thần Số Học - chưa nhập', () => <Numerology lang="vi" profile={null} onSaveProfile={noop} />],
   ['Thần Số Học - đã nhập', () => <Numerology lang="vi" profile={PROFILE} onSaveProfile={noop} />],
   ['Huyền Học', () => <Destiny lang="vi" section="mysticism" profile={PROFILE} onSaveProfile={noop} />],
