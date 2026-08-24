@@ -15,6 +15,7 @@ import { SectionError } from './components/SectionError';
 import { SPREAD_TYPES, TAROT_DECKS_THEMES } from './data/tarotData';
 import { TRANSLATIONS } from './data/translations';
 import { useHashRoute, buildPath, navigate } from './utils/router';
+import { readInitialLang, rememberLang, syncHtmlLang } from './utils/lang';
 import { Sparkles } from 'lucide-react';
 
 // Hồ sơ ngày sinh dùng chung cho tab Thần Số Học và tab Huyền Học. Giữ ở App
@@ -33,7 +34,10 @@ const loadProfile = () => {
 };
 
 export function App() {
-  const [lang, setLang] = useState('vi'); // 'vi', 'en', 'zh'
+  /* Ngôn ngữ đọc từ ?lang= trên link, rồi tới bộ nhớ máy, rồi mới tới tiếng
+     Việt - xem utils/lang.js. Trước đây chỗ này là useState('vi') trần, nên
+     tải lại trang là mất lựa chọn, và link chia sẻ luôn mở ra tiếng Việt. */
+  const [lang, setLang] = useState(readInitialLang);
 
   // Tab đang mở do link trên thanh địa chỉ quyết định, không phải state riêng:
   // nhờ vậy nút Quay lại / Tiến tới của trình duyệt và link dán vào đều đúng.
@@ -59,12 +63,24 @@ export function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Thẻ <html lang> phải khớp ngôn ngữ đang xem: trình đọc màn hình chọn giọng
+  // theo thuộc tính này, và Google dựa vào đó để biết trang thuộc ngôn ngữ nào.
+  useEffect(() => {
+    syncHtmlLang(lang);
+  }, [lang]);
+
   // Đổi tiêu đề trình duyệt theo từng mục: link chia sẻ và mục lịch sử hiện
   // đúng tên chức năng thay vì cùng một tiêu đề cho cả trang.
   useEffect(() => {
     const pageTitle = t.routeTitles[activeTab] || t.routeTitles.reading;
     document.title = `${pageTitle} | ${t.appTitle} - ${t.appSubtitle}`;
   }, [activeTab, t]);
+
+  /* Mỗi lần đổi ngôn ngữ đều ghi lại: vào localStorage cho lần sau, và vào
+     ?lang= trên đường dẫn để link khách sao chép mang theo đúng ngôn ngữ. */
+  const handleSetLang = (next) => {
+    setLang(rememberLang(next));
+  };
 
   const handleSaveMysticProfile = (profile) => {
     setMysticProfile(profile);
@@ -110,7 +126,7 @@ export function App() {
       <Navbar
         activeTab={activeTab}
         lang={lang}
-        setLang={setLang}
+        setLang={handleSetLang}
         onGoHome={handleGoHome}
       />
 
