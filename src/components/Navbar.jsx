@@ -197,8 +197,8 @@ export const Navbar = ({ activeTab, lang, setLang, onGoHome }) => {
               {!isMuted && (
                 <button
                   onClick={() => { setShowAudioMenu(v => !v); setShowLangMenu(false); }}
-                  title="Cài đặt âm thanh"
-                  aria-label="Audio settings"
+                  title={t.audioSettingsLabel}
+                  aria-label={t.audioSettingsLabel}
                   className="flex items-center justify-center w-11 h-11 rounded-full border border-purple-400/30 text-purple-300 hover:text-white bg-white/5"
                 >
                   <Settings2 className="w-4 h-4" />

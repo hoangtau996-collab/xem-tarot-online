@@ -10,7 +10,6 @@ export const TRANSLATIONS = {
     // Nhãn ngắn cho thanh điều hướng dưới cùng (5 ô, mỗi ô rất hẹp)
     navReadingShort: 'Tarot',
     navNumerologyShort: 'Thần Số',
-    navMysticismShort: 'Huyền Học',
     navEncyclopediaShort: 'Tra Cứu',
     navJournalShort: 'Nhật Ký',
 
@@ -28,7 +27,6 @@ export const TRANSLATIONS = {
     errorSectionBody: 'Xin lỗi bạn, chức năng này vừa gặp trục trặc nên chưa hiện ra được. Bạn thử tải lại trang xem sao. Các mục khác trên thanh menu vẫn dùng bình thường.',
     errorReloadBtn: 'Tải lại trang',
     copiedLinkBtn: 'Đã Sao Chép Link!',
-    navZenMusic: 'Chuông Xoay Tây Tạng',
     navMusicMode: 'Chế Độ Nhạc Nền:',
     navVolume: 'Âm Lượng Nhạc',
     modeStream: 'Chuông Tây Tạng 🥣',
@@ -113,6 +111,7 @@ export const TRANSLATIONS = {
     notePlaceholder: 'Nhập suy nghĩ, cảm nhận hoặc dòng lưu ý của bạn về phiên xem bài này...',
     saveJournalBtn: 'Lưu Phiên Trải Bài',
     saveFailedBtn: 'Không lưu được',
+    audioSettingsLabel: 'Cài đặt âm thanh',
     savedSuccessBtn: 'Đã Lưu Vào Nhật Ký!',
     shareBtn: 'Chia Sẻ Kết Quả',
     sharedSuccessBtn: 'Đã Sao Chép Tóm Tắt!',
@@ -188,7 +187,6 @@ export const TRANSLATIONS = {
     numMonthlyTitle: 'Nhịp Mười Hai Tháng',
     numMonthlyDesc: 'Tháng cá nhân = số của năm cá nhân cộng số thứ tự tháng dương lịch.',
     numCurrentMonthBadge: 'Tháng này',
-    numMonthShort: 'Tháng',
     monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
     numStrengths: 'Điểm Mạnh Bẩm Sinh',
     numChallenges: 'Thử Thách Cần Vượt Qua',
@@ -220,7 +218,6 @@ export const TRANSLATIONS = {
     },
 
     // ------- Huyền Học -------
-    navMysticism: 'Huyền Học',
     mysBadge: 'Can Chi • Ngũ Hành • Bát Trạch',
     mysTitle: 'Huyền Học Đông Phương',
     mysDesc: 'Tra tuổi Can Chi, ngũ hành nạp âm bản mệnh, cung phi Bát Trạch cùng bốn hướng tốt - bốn hướng xấu, màu sắc và đá hợp mệnh, kèm cung hoàng đạo phương Tây.',
@@ -372,7 +369,6 @@ export const TRANSLATIONS = {
     // Short labels for the bottom navigation bar (5 very narrow cells)
     navReadingShort: 'Tarot',
     navNumerologyShort: 'Numbers',
-    navMysticismShort: 'Destiny',
     navEncyclopediaShort: 'Cards',
     navJournalShort: 'Journal',
 
@@ -390,7 +386,6 @@ export const TRANSLATIONS = {
     errorSectionBody: 'Sorry - this feature just hit a snag and could not be shown. Try reloading the page. Everything else on the menu still works normally.',
     errorReloadBtn: 'Reload the page',
     copiedLinkBtn: 'Link Copied!',
-    navZenMusic: 'Tibetan Bowl Meditation',
     navMusicMode: 'Background Music:',
     navVolume: 'Music Volume',
     modeStream: 'Tibetan Bowls 🥣',
@@ -474,6 +469,7 @@ export const TRANSLATIONS = {
     notePlaceholder: 'Type your thoughts, feelings, or meditation notes about this reading session...',
     saveJournalBtn: 'Save Reading Session',
     saveFailedBtn: 'Could not save',
+    audioSettingsLabel: 'Audio settings',
     savedSuccessBtn: 'Saved to Journal!',
     shareBtn: 'Share Result',
     sharedSuccessBtn: 'Copied Summary!',
@@ -549,7 +545,6 @@ export const TRANSLATIONS = {
     numMonthlyTitle: 'The Twelve-Month Rhythm',
     numMonthlyDesc: 'Personal month = personal year number plus the calendar month number.',
     numCurrentMonthBadge: 'This month',
-    numMonthShort: 'Month',
     monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     numStrengths: 'Innate Strengths',
     numChallenges: 'Challenges To Work Through',
@@ -581,7 +576,6 @@ export const TRANSLATIONS = {
     },
 
     // ------- Eastern Metaphysics -------
-    navMysticism: 'Metaphysics',
     mysBadge: 'Stem-Branch • Five Elements • Ba Zhai',
     mysTitle: 'Eastern Metaphysics',
     mysDesc: 'Look up your Stem-Branch year, your Na Yin destiny element, your Ba Zhai Kua number with four auspicious and four inauspicious directions, lucky colours and crystals, plus your Western zodiac sign.',
@@ -733,7 +727,6 @@ export const TRANSLATIONS = {
     // 底部导航栏的简短标签（5 格，每格很窄）
     navReadingShort: '塔罗',
     navNumerologyShort: '灵数',
-    navMysticismShort: '玄学',
     navEncyclopediaShort: '牌库',
     navJournalShort: '日记',
 
@@ -751,7 +744,6 @@ export const TRANSLATIONS = {
     errorSectionBody: '抱歉，这项功能刚刚出了点状况，暂时无法显示。请尝试重新载入页面。菜单上的其他栏目仍可正常使用。',
     errorReloadBtn: '重新载入页面',
     copiedLinkBtn: '已复制链接！',
-    navZenMusic: '西藏颂钵禅音',
     navMusicMode: '背景音乐:',
     navVolume: '音乐音量',
     modeStream: '西藏颂钵 🥣',
@@ -835,6 +827,7 @@ export const TRANSLATIONS = {
     notePlaceholder: '输入您对本次塔罗占卜的心得、感悟或禅修笔记...',
     saveJournalBtn: '保存本次占卜',
     saveFailedBtn: '没能保存',
+    audioSettingsLabel: '声音设置',
     savedSuccessBtn: '已保存至日记!',
     shareBtn: '分享占卜结果',
     sharedSuccessBtn: '已复制摘要!',
@@ -910,7 +903,6 @@ export const TRANSLATIONS = {
     numMonthlyTitle: '十二个月的节奏',
     numMonthlyDesc: '个人月 = 个人年数字 + 公历月份序号。',
     numCurrentMonthBadge: '本月',
-    numMonthShort: '月',
     monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
     numStrengths: '天生优势',
     numChallenges: '需跨越的挑战',
@@ -942,7 +934,6 @@ export const TRANSLATIONS = {
     },
 
     // ------- 东方玄学 -------
-    navMysticism: '东方玄学',
     mysBadge: '干支 • 五行 • 八宅',
     mysTitle: '东方玄学命盘',
     mysDesc: '查你的干支年、纳音本命五行、八宅命卦与四吉四凶方位、适合的颜色与晶石，并附西洋星座。',
