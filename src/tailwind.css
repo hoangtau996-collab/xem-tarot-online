@@ -1,0 +1,10 @@
+/* Tailwind được nạp SAU index.css - xem thứ tự import trong main.jsx.
+   Đây không phải chuyện tuỳ tiện: bản Play CDN cũ chèn thẻ <style> vào cuối
+   <head> lúc chạy, tức là preflight và utilities luôn nằm sau index.css. Nếu
+   giờ đảo lại, quy tắc `body { line-height: 1.7 }` trong index.css sẽ thắng
+   preflight và giãn dòng chữ toàn trang so với bản đang chạy. Giữ nguyên thứ
+   tự cũ để lần chuyển này không đổi giao diện. */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
