@@ -8,8 +8,9 @@ import { SectionError } from './components/SectionError';
 import { SectionLoading } from './components/SectionLoading';
 import { SPREAD_TYPES, TAROT_DECKS_THEMES } from './data/tarotSpreads';
 import { TRANSLATIONS } from './data/translations';
-import { useRoute, buildPath, navigate, redirectLegacyHash } from './utils/router';
+import { useRoute, buildPath, navigate, redirectLegacyHash, SITE_URL } from './utils/router';
 import { readInitialLang, rememberLang, syncHtmlLang } from './utils/lang';
+import { pageMeta } from './utils/pageMeta';
 import { Sparkles } from 'lucide-react';
 
 /* Mỗi mục là một gói riêng, chỉ tải khi khách mở tới.
@@ -102,12 +103,29 @@ export function App() {
     syncHtmlLang(lang);
   }, [lang]);
 
-  // Đổi tiêu đề trình duyệt theo từng mục: link chia sẻ và mục lịch sử hiện
-  // đúng tên chức năng thay vì cùng một tiêu đề cho cả trang.
+  /* Tiêu đề, mô tả và địa chỉ chuẩn đổi theo từng mục.
+     Chữ lấy từ utils/pageMeta - đúng nguồn mà bước dựng sẵn HTML dùng, nên
+     bản khách thấy và bản máy tìm kiếm đọc không thể lệch nhau.
+
+     Trang một lá bài giữ nguyên tiêu đề chung của mục Tra Cứu khi khách đi
+     tới bằng cách bấm trong trang: muốn ghi đúng tên lá thì App phải nắm dữ
+     liệu 78 lá, mà như vậy là kéo ngược nó về gói chính, phá đúng việc tách
+     gói vừa làm. Bản dựng sẵn đã ghi đúng tên lá rồi, và đó mới là bản mà
+     Google, Facebook và Zalo đọc. */
   useEffect(() => {
-    const pageTitle = t.routeTitles[activeTab] || t.routeTitles.reading;
-    document.title = `${pageTitle} | ${t.appTitle} - ${t.appSubtitle}`;
-  }, [activeTab, t]);
+    const { title, description } = pageMeta(route, lang);
+    document.title = title;
+
+    const set = (selector, attr, value) => {
+      const el = document.head.querySelector(selector);
+      if (el) el.setAttribute(attr, value);
+    };
+    set('meta[name="description"]', 'content', description);
+    set('meta[property="og:description"]', 'content', description);
+    set('meta[property="og:title"]', 'content', title);
+    set('link[rel="canonical"]', 'href', `${SITE_URL.replace(/\/$/, '')}${buildPath(route.tab, route)}`);
+    set('meta[property="og:url"]', 'content', `${SITE_URL.replace(/\/$/, '')}${buildPath(route.tab, route)}`);
+  }, [route, lang]);
 
   /* Mỗi lần đổi ngôn ngữ đều ghi lại: vào localStorage cho lần sau, và vào
      ?lang= trên đường dẫn để link khách sao chép mang theo đúng ngôn ngữ. */

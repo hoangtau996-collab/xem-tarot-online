@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "vite",
     "prebuild": "npm run check",
-    "build": "vite build",
+    "build": "vite build && npm run prerender",
     "check": "vite build --ssr tools/check-screens.jsx --outDir node_modules/.cache/screen-check --logLevel error && node node_modules/.cache/screen-check/check-screens.js",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prerender": "vite build --ssr tools/prerender.jsx --outDir node_modules/.cache/prerender --logLevel error && node node_modules/.cache/prerender/prerender.js"
   },
   "dependencies": {
     "astronomy-engine": "^2.1.19",
