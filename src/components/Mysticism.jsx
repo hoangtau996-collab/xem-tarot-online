@@ -1,8 +1,9 @@
 import React, { useState, useRef, useMemo } from 'react';
 import {
   Orbit, Compass, Palette, Gem, HeartHandshake, Swords, Bookmark, Check,
-  Download, FileText, RefreshCw, Sparkles, Landmark, Info, ArrowRight
+  Download, FileText, RefreshCw, Sparkles, Landmark, Info, ArrowRight, AlertTriangle
 } from 'lucide-react';
+import { saveJournalEntry } from '../utils/journal.js';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
 import { calcMetaphysicsProfile } from '../utils/metaphysics';
@@ -10,7 +11,6 @@ import { exportNodeAsPng, exportNodeAsPdf } from '../utils/posterExport';
 import { buildPath } from '../utils/router';
 import { MysticProfileForm } from './MysticProfileForm';
 
-const JOURNAL_KEY = 'celestial_tarot_journal';
 
 export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.vi;
@@ -21,6 +21,7 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
   const [isEditing, setIsEditing] = useState(!profile?.birthDate);
   const [userNote, setUserNote] = useState('');
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [saveFailed, setSaveFailed] = useState(false);
   const [isExportingImage, setIsExportingImage] = useState(false);
   const [isExportingPdf, setIsExportingPdf] = useState(false);
   const [exportError, setExportError] = useState('');
@@ -40,30 +41,32 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
 
   const handleSaveJournal = () => {
     if (!result) return;
-    try {
-      const existing = JSON.parse(localStorage.getItem(JOURNAL_KEY) || '[]');
-      const entry = {
-        id: 'mysticism-' + Date.now(),
-        type: 'mysticism',
-        date: new Date().toLocaleString(lang === 'en' ? 'en-GB' : lang === 'zh' ? 'zh-CN' : 'vi-VN'),
-        name: profile.fullName || '',
-        birthDate: profile.birthDate,
-        canChi: `${result.canChi.stem.vi} ${result.canChi.branch.vi}`,
-        animal: L(result.canChi.branch.animal),
-        napAm: result.canChi.napAm.vi,
-        destinyElement: result.destinyElement,
-        kua: result.kua,
-        trigram: result.trigram.key,
-        zodiac: L(result.zodiac.name),
-        goodDirections: result.goodDirections.map(d => L(d.directionName)),
-        userNote: userNote.trim()
-      };
-      localStorage.setItem(JOURNAL_KEY, JSON.stringify([entry, ...existing]));
+    const entry = {
+      id: 'mysticism-' + Date.now(),
+      type: 'mysticism',
+      date: new Date().toLocaleString(lang === 'en' ? 'en-GB' : lang === 'zh' ? 'zh-CN' : 'vi-VN'),
+      name: profile.fullName || '',
+      birthDate: profile.birthDate,
+      canChi: `${result.canChi.stem.vi} ${result.canChi.branch.vi}`,
+      animal: L(result.canChi.branch.animal),
+      napAm: result.canChi.napAm.vi,
+      destinyElement: result.destinyElement,
+      kua: result.kua,
+      trigram: result.trigram.key,
+      zodiac: L(result.zodiac.name),
+      goodDirections: result.goodDirections.map(d => L(d.directionName)),
+      userNote: userNote.trim()
+    };
+    /* Báo đúng chuyện đã xảy ra. Trước đây nếu localStorage bị chặn thì
+       khối catch nuốt lỗi và nút không đổi gì cả - khách bấm Lưu, không
+       thấy gì, không biết là đã lưu hay chưa. */
+    if (saveJournalEntry(entry)) {
       setSavedSuccess(true);
       cosmicAudio.playSparkleSound();
       setTimeout(() => setSavedSuccess(false), 3000);
-    } catch (e) {
-      console.error('Failed to save mysticism entry', e);
+    } else {
+      setSaveFailed(true);
+      setTimeout(() => setSaveFailed(false), 3000);
     }
   };
 
@@ -436,13 +439,15 @@ export const Mysticism = ({ lang = 'vi', profile, onSaveProfile }) => {
               <button
                 onClick={handleSaveJournal}
                 className={`px-4 py-3 rounded-full text-xs font-semibold border transition-all flex items-center justify-center gap-1.5 ${
-                  savedSuccess
+                  saveFailed
+                    ? 'bg-rose-600 text-white border-rose-400'
+                    : savedSuccess
                     ? 'bg-emerald-500 text-white border-emerald-400'
                     : 'bg-stone-900/50 text-stone-100 border-stone-400/40 hover:bg-stone-800/70'
                 }`}
               >
-                {savedSuccess ? <Check className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
-                {savedSuccess ? t.savedSuccessBtn : t.saveProfileBtn}
+                {saveFailed ? <AlertTriangle className="w-4 h-4" /> : savedSuccess ? <Check className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
+                {saveFailed ? t.saveFailedBtn : savedSuccess ? t.savedSuccessBtn : t.saveProfileBtn}
               </button>
 
               <button

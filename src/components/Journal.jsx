@@ -2,20 +2,8 @@ import React, { useState } from 'react';
 import { Bookmark, Sparkles, Trash2, Calendar, HelpCircle, MessageSquare, Hash, Orbit, Compass } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
+import { readJournal, removeJournalEntry, clearJournal } from '../utils/journal.js';
 
-const JOURNAL_KEY = 'celestial_tarot_journal';
-
-/* Đọc ngay lúc dựng state chứ không đợi useEffect: nếu đọc trong effect thì
-   lần vẽ đầu tiên luôn là màn hình "chưa có bản ghi nào", rồi mới nháy sang
-   danh sách thật. */
-const readJournal = () => {
-  try {
-    const data = JSON.parse(localStorage.getItem(JOURNAL_KEY) || '[]');
-    return Array.isArray(data) ? data : [];
-  } catch {
-    return [];
-  }
-};
 
 /* Nhật ký chứa ba loại bản ghi: phiên trải bài Tarot, hồ sơ Thần Số Học và hồ
    sơ Huyền Học. Bản ghi Tarot cũ được lưu trước khi có trường `type` nên mặc
@@ -28,19 +16,20 @@ const ENTRY_STYLES = {
 
 export const Journal = ({ lang = 'vi' }) => {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.vi;
+  /* Đọc ngay lúc dựng state chứ không đợi useEffect: nếu đọc trong effect thì
+     lần vẽ đầu tiên luôn là màn hình "chưa có bản ghi nào", rồi mới nháy sang
+     danh sách thật. */
   const [entries, setEntries] = useState(readJournal);
 
   const handleDelete = (id) => {
     cosmicAudio.playSparkleSound();
-    const updated = entries.filter(e => e.id !== id);
-    localStorage.setItem(JOURNAL_KEY, JSON.stringify(updated));
-    setEntries(updated);
+    setEntries(removeJournalEntry(id));
   };
 
   const handleClearAll = () => {
     if (window.confirm(t.clearAllConfirm)) {
       cosmicAudio.playSparkleSound();
-      localStorage.removeItem(JOURNAL_KEY);
+      clearJournal();
       setEntries([]);
     }
   };

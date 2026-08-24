@@ -9,6 +9,7 @@ import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
 import { cardText } from '../data/tarot/cardText.js';
 import { keywordLabel } from '../data/tarot/i18n/labels.js';
+import { saveJournalEntry } from '../utils/journal.js';
 import { exportNodeAsPng, exportNodeAsPdf } from '../utils/posterExport';
 
 export const ReadingResult = ({
@@ -31,6 +32,7 @@ export const ReadingResult = ({
   const [activeAspectTab, setActiveAspectTab] = useState('situation');
   const [selectedCardModal, setSelectedCardModal] = useState(null);
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [saveFailed, setSaveFailed] = useState(false);
   const [copiedSuccess, setCopiedSuccess] = useState(false);
   const [isExportingImage, setIsExportingImage] = useState(false);
   const [isExportingPdf, setIsExportingPdf] = useState(false);
@@ -50,27 +52,29 @@ export const ReadingResult = ({
   ];
 
   const handleSaveJournal = () => {
-    try {
-      const existing = JSON.parse(localStorage.getItem('celestial_tarot_journal') || '[]');
-      const newEntry = {
-        id: 'journal-' + Date.now(),
-        date: analysis.date,
-        question: question || t.defaultQuestion,
-        spreadTitle: spread.title,
-        cards: drawnCards.map(c => ({
-          nameVi: lang === 'en' ? c.name : lang === 'zh' ? (c.nameZh || c.name) : c.nameVi,
-          isReversed: c.isReversed,
-          icon: c.icon
-        })),
-        dominantElement: analysis.stats.dominantElement,
-        userNote: userNote.trim()
-      };
-      localStorage.setItem('celestial_tarot_journal', JSON.stringify([newEntry, ...existing]));
-      setSavedSuccess(true);
-      cosmicAudio.playSparkleSound();
-      setTimeout(() => setSavedSuccess(false), 3000);
-    } catch (e) {
-      console.error('Failed to save journal entry', e);
+    const newEntry = {
+      id: 'journal-' + Date.now(),
+      date: analysis.date,
+      question: question || t.defaultQuestion,
+      spreadTitle: spread.title,
+      cards: drawnCards.map(c => ({
+        nameVi: lang === 'en' ? c.name : lang === 'zh' ? (c.nameZh || c.name) : c.nameVi,
+        isReversed: c.isReversed,
+        icon: c.icon
+      })),
+      dominantElement: analysis.stats.dominantElement,
+      userNote: userNote.trim()
+    };
+    /* Báo đúng chuyện đã xảy ra. Trước đây nếu localStorage bị chặn thì khối
+     catch nuốt lỗi và nút không đổi gì cả - khách bấm Lưu, không thấy gì,
+     không biết là đã lưu hay chưa. */
+    if (saveJournalEntry(newEntry)) {
+    setSavedSuccess(true);
+    cosmicAudio.playSparkleSound();
+    setTimeout(() => setSavedSuccess(false), 3000);
+    } else {
+    setSaveFailed(true);
+    setTimeout(() => setSaveFailed(false), 3000);
     }
   };
 
@@ -323,7 +327,7 @@ export const ReadingResult = ({
                 <Sparkles className="w-4 h-4 text-amber-300" />
               </div>
               <h3 className="text-xl font-serif text-amber-300 font-bold">
-                {t.aspectHeading} {aspectTabs.find(t => t.id === activeAspectTab)?.label}
+                {t.aspectHeading} {aspectTabs.find(tab => tab.id === activeAspectTab)?.label}
               </h3>
             </div>
 
@@ -479,7 +483,12 @@ export const ReadingResult = ({
               onClick={handleSaveJournal}
               className="btn-gold text-xs font-serif"
             >
-              {savedSuccess ? (
+              {saveFailed ? (
+                <>
+                  <AlertTriangle className="w-4 h-4 text-purple-950" />
+                  {t.saveFailedBtn}
+                </>
+              ) : savedSuccess ? (
                 <>
                   <Check className="w-4 h-4 text-purple-950" />
                   {t.savedSuccessBtn}

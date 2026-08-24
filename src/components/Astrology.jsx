@@ -1,8 +1,9 @@
 import React, { useState, useRef, useMemo } from 'react';
 import {
   Orbit, Sparkles, RefreshCw, Bookmark, Check, Download, FileText,
-  Info, ChevronDown, Compass, Scale, Gem, Route, Home
+  Info, ChevronDown, Compass, Scale, Gem, Route, Home, AlertTriangle
 } from 'lucide-react';
+import { saveJournalEntry } from '../utils/journal.js';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
 import { calcNatalChart } from '../utils/natalChart';
@@ -22,7 +23,6 @@ import { NatalChart, AspectLegend } from './NatalChart';
 import { AstroBirthForm } from './AstroBirthForm';
 import { AstroIntro } from './AstroIntro';
 
-const JOURNAL_KEY = 'celestial_tarot_journal';
 
 /* Mặc định mở sẵn phần luận giải của các hành tinh cá nhân - đó là chỗ khách
    muốn đọc trước. Ba hành tinh ngoài và hai nút để gấp lại cho trang đỡ dài,
@@ -37,6 +37,7 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
   const [openPlanets, setOpenPlanets] = useState(DEFAULT_OPEN);
   const [userNote, setUserNote] = useState('');
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [saveFailed, setSaveFailed] = useState(false);
   const [isExportingImage, setIsExportingImage] = useState(false);
   const [isExportingPdf, setIsExportingPdf] = useState(false);
   const [exportError, setExportError] = useState('');
@@ -83,31 +84,33 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
 
   const handleSaveJournal = () => {
     if (!chart) return;
-    try {
-      const existing = JSON.parse(localStorage.getItem(JOURNAL_KEY) || '[]');
-      const entry = {
-        id: 'astrology-' + Date.now(),
-        type: 'astrology',
-        date: new Date().toLocaleString(lang === 'en' ? 'en-GB' : lang === 'zh' ? 'zh-CN' : 'vi-VN'),
-        name: profile.fullName || '',
-        birthDate: profile.birthDate,
-        birthTime: profile.birthTime || '',
-        place: placeLabel,
-        sunSign: L(SIGNS[sunPlanet.signIndex].name),
-        moonSign: L(SIGNS[moonPlanet.signIndex].name),
-        ascSign: chart.hasTime ? L(SIGNS[chart.angles.ascSign].name) : '',
-        mcSign: chart.hasTime ? L(SIGNS[chart.angles.mcSign].name) : '',
-        dominantElement: L(ELEMENT_INFO[chart.balances.dominantElement].name),
-        houseSystem: chart.houseSystem ? L(HOUSE_SYSTEMS[chart.houseSystem].name) : '',
-        aspectCount: chart.aspects.length,
-        userNote: userNote.trim()
-      };
-      localStorage.setItem(JOURNAL_KEY, JSON.stringify([entry, ...existing]));
+    const entry = {
+      id: 'astrology-' + Date.now(),
+      type: 'astrology',
+      date: new Date().toLocaleString(lang === 'en' ? 'en-GB' : lang === 'zh' ? 'zh-CN' : 'vi-VN'),
+      name: profile.fullName || '',
+      birthDate: profile.birthDate,
+      birthTime: profile.birthTime || '',
+      place: placeLabel,
+      sunSign: L(SIGNS[sunPlanet.signIndex].name),
+      moonSign: L(SIGNS[moonPlanet.signIndex].name),
+      ascSign: chart.hasTime ? L(SIGNS[chart.angles.ascSign].name) : '',
+      mcSign: chart.hasTime ? L(SIGNS[chart.angles.mcSign].name) : '',
+      dominantElement: L(ELEMENT_INFO[chart.balances.dominantElement].name),
+      houseSystem: chart.houseSystem ? L(HOUSE_SYSTEMS[chart.houseSystem].name) : '',
+      aspectCount: chart.aspects.length,
+      userNote: userNote.trim()
+    };
+    /* Báo đúng chuyện đã xảy ra. Trước đây nếu localStorage bị chặn thì
+       khối catch nuốt lỗi và nút không đổi gì cả - khách bấm Lưu, không
+       thấy gì, không biết là đã lưu hay chưa. */
+    if (saveJournalEntry(entry)) {
       setSavedSuccess(true);
       cosmicAudio.playSparkleSound();
       setTimeout(() => setSavedSuccess(false), 3000);
-    } catch (e) {
-      console.error('Failed to save astrology entry', e);
+    } else {
+      setSaveFailed(true);
+      setTimeout(() => setSaveFailed(false), 3000);
     }
   };
 
@@ -567,13 +570,15 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
               <button
                 onClick={handleSaveJournal}
                 className={`px-4 py-3 rounded-xl text-xs font-semibold border transition-all flex items-center justify-center gap-1.5 ${
-                  savedSuccess
+                  saveFailed
+                    ? 'bg-rose-600 text-white border-rose-400'
+                    : savedSuccess
                     ? 'bg-emerald-500 text-white border-emerald-400'
                     : 'bg-space/80 text-gray-200 border-indigo-400/30 hover:bg-indigo-900/40'
                 }`}
               >
-                {savedSuccess ? <Check className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
-                {savedSuccess ? t.savedSuccessBtn : t.saveProfileBtn}
+                {saveFailed ? <AlertTriangle className="w-4 h-4" /> : savedSuccess ? <Check className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
+                {saveFailed ? t.saveFailedBtn : savedSuccess ? t.savedSuccessBtn : t.saveProfileBtn}
               </button>
 
               <button

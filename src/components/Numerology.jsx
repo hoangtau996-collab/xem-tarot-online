@@ -2,8 +2,9 @@ import React, { useState, useRef, useMemo } from 'react';
 import {
   Hash, Sparkles, Grid3x3, CalendarClock, TrendingUp, ShieldCheck,
   Briefcase, Heart, Bookmark, Check, Download, FileText, RefreshCw, Route,
-  ChevronLeft, ChevronRight, CalendarRange, Target, Mountain
+  ChevronLeft, ChevronRight, CalendarRange, Target, Mountain, AlertTriangle
 } from 'lucide-react';
+import { saveJournalEntry } from '../utils/journal.js';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
 import { calcNumerologyProfile, calcYearForecast, isMasterNumber,
@@ -12,7 +13,6 @@ import { getPinnacleText, getChallengeText } from '../data/numerologyCycles';
 import { exportNodeAsPng, exportNodeAsPdf } from '../utils/posterExport';
 import { MysticProfileForm } from './MysticProfileForm';
 
-const JOURNAL_KEY = 'celestial_tarot_journal';
 
 // Xem trước được 30 năm là đủ cho mọi kế hoạch đời người; xa hơn nữa chỉ làm
 // danh sách chọn năm dài ra mà không ai dùng tới.
@@ -35,6 +35,7 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
   const [isEditing, setIsEditing] = useState(!profile?.birthDate || !profile?.fullName);
   const [userNote, setUserNote] = useState('');
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [saveFailed, setSaveFailed] = useState(false);
   const [isExportingImage, setIsExportingImage] = useState(false);
   const [isExportingPdf, setIsExportingPdf] = useState(false);
   const [exportError, setExportError] = useState('');
@@ -88,35 +89,37 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
 
   const handleSaveJournal = () => {
     if (!result) return;
-    try {
-      const existing = JSON.parse(localStorage.getItem(JOURNAL_KEY) || '[]');
-      const entry = {
-        id: 'numerology-' + Date.now(),
-        type: 'numerology',
-        date: new Date().toLocaleString(lang === 'en' ? 'en-GB' : lang === 'zh' ? 'zh-CN' : 'vi-VN'),
-        name: profile.fullName,
-        birthDate: profile.birthDate,
-        lifePath: result.lifePath,
-        lifePathTitle: result.lifePathMeaning.title,
-        numbers: result.core.map(c => ({ key: c.key, value: c.value })),
-        // Lưu đúng năm khách đang xem, không phải mặc định năm hiện tại.
-        forecastYear: forecast.year,
-        personalYear: forecast.personalYear,
-        personalYearTitle: forecast.info.title,
-        // Chang doi dang song, kem Dinh va Thu Thach cua chinh chang do.
-        pinnacleIndex: activePinnacle ? activePinnacle.index : null,
-        pinnacleNumber: activePinnacle ? activePinnacle.pinnacle : null,
-        pinnacleTitle: activePinnacle ? getPinnacleText(activePinnacle.pinnacle, lang).title : '',
-        challengeNumber: activePinnacle ? activePinnacle.challenge : null,
-        challengeTitle: activePinnacle ? getChallengeText(activePinnacle.challenge, lang).title : '',
-        userNote: userNote.trim()
-      };
-      localStorage.setItem(JOURNAL_KEY, JSON.stringify([entry, ...existing]));
+    const entry = {
+      id: 'numerology-' + Date.now(),
+      type: 'numerology',
+      date: new Date().toLocaleString(lang === 'en' ? 'en-GB' : lang === 'zh' ? 'zh-CN' : 'vi-VN'),
+      name: profile.fullName,
+      birthDate: profile.birthDate,
+      lifePath: result.lifePath,
+      lifePathTitle: result.lifePathMeaning.title,
+      numbers: result.core.map(c => ({ key: c.key, value: c.value })),
+      // Lưu đúng năm khách đang xem, không phải mặc định năm hiện tại.
+      forecastYear: forecast.year,
+      personalYear: forecast.personalYear,
+      personalYearTitle: forecast.info.title,
+      // Chang doi dang song, kem Dinh va Thu Thach cua chinh chang do.
+      pinnacleIndex: activePinnacle ? activePinnacle.index : null,
+      pinnacleNumber: activePinnacle ? activePinnacle.pinnacle : null,
+      pinnacleTitle: activePinnacle ? getPinnacleText(activePinnacle.pinnacle, lang).title : '',
+      challengeNumber: activePinnacle ? activePinnacle.challenge : null,
+      challengeTitle: activePinnacle ? getChallengeText(activePinnacle.challenge, lang).title : '',
+      userNote: userNote.trim()
+    };
+    /* Báo đúng chuyện đã xảy ra. Trước đây nếu localStorage bị chặn thì
+       khối catch nuốt lỗi và nút không đổi gì cả - khách bấm Lưu, không
+       thấy gì, không biết là đã lưu hay chưa. */
+    if (saveJournalEntry(entry)) {
       setSavedSuccess(true);
       cosmicAudio.playSparkleSound();
       setTimeout(() => setSavedSuccess(false), 3000);
-    } catch (e) {
-      console.error('Failed to save numerology entry', e);
+    } else {
+      setSaveFailed(true);
+      setTimeout(() => setSaveFailed(false), 3000);
     }
   };
 
@@ -651,13 +654,15 @@ export const Numerology = ({ lang = 'vi', profile, onSaveProfile }) => {
               <button
                 onClick={handleSaveJournal}
                 className={`px-4 py-3 rounded-full text-xs font-semibold border transition-all flex items-center justify-center gap-1.5 ${
-                  savedSuccess
+                  saveFailed
+                    ? 'bg-rose-600 text-white border-rose-400'
+                    : savedSuccess
                     ? 'bg-emerald-500 text-white border-emerald-400'
                     : 'bg-blue-900/50 text-blue-100 border-blue-400/40 hover:bg-blue-800/70'
                 }`}
               >
-                {savedSuccess ? <Check className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
-                {savedSuccess ? t.savedSuccessBtn : t.saveProfileBtn}
+                {saveFailed ? <AlertTriangle className="w-4 h-4" /> : savedSuccess ? <Check className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
+                {saveFailed ? t.saveFailedBtn : savedSuccess ? t.savedSuccessBtn : t.saveProfileBtn}
               </button>
 
               <button
