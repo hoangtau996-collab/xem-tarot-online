@@ -19,24 +19,24 @@ export const PENTACLES = [
     symbol: '🌱',
     color: '#10b981',
     upright: {
-      summary: 'Hạt giống thịnh vượng và cơ hội tài chính vật chất thực tế đang nằm trong tay bạn.',
+      summary: 'Một cơ hội thật đang được đặt vào tay bạn, sờ được chứ không phải chuyện trên trời.',
       summaryEn: 'A seed of material prosperity and promising financial opportunities.',
       summaryZh: '物质丰饶的种子，带来坚实的财务与实业机遇。',
-      situation: 'Cơ hội tuyệt vời để đầu tư và xây dựng.',
-      love: 'Mối quan hệ mang lại sự an toàn thực tế.',
-      work: 'Dự án mới sinh lời cao.',
-      finance: 'Khoản thu nhập mới hoặc quà tặng giá trị.',
-      advice: 'Vun trồng hạt giống bằng kế hoạch thực tế.'
+      situation: 'Có một khởi đầu chắc chắn đang mở ra: một công việc, một khoản, một chỗ ở. Nhận lấy và chăm cho nó.',
+      love: 'Mối quan hệ bắt đầu trên nền thực tế, không màu mè. Kiểu này thường bền.',
+      work: 'Lời mời làm việc hoặc một dự án có tiềm năng lâu dài. Xem kỹ rồi hãy gật, nhưng đừng bỏ qua.',
+      finance: 'Nguồn thu mới hoặc cơ hội đầu tư đáng cân nhắc. Bắt đầu nhỏ và giữ lâu.',
+      advice: 'Hạt giống nào cũng cần thời gian mới thành cây. Gieo hôm nay và kiên nhẫn tưới.'
     },
     reversed: {
-      summary: 'Bỏ lỡ cơ hội tài chính, quản lý ngân sách kém hoặc kế hoạch thiếu tính thực tế.',
+      summary: 'Cơ hội có đó nhưng bạn chưa cầm chắc được.',
       summaryEn: 'Missed financial opportunity or poor budget management.',
       summaryZh: '错失理财良机或缺乏切合实际的规划。',
-      situation: 'Quản lý ngân sách chưa chặt chẽ.',
-      love: 'Áp lực vật chất tác động lên tình cảm.',
-      work: 'Dự án chậm sinh lời.',
-      finance: 'Thất thoát nhỏ do thiếu kiểm soát.',
-      advice: 'Xây dựng nền tảng chắc chắn trước khi mở rộng.'
+      situation: 'Kế hoạch chưa đủ nền nên dễ lung lay. Củng cố phần gốc trước khi đi tiếp.',
+      love: 'Bạn ngại bắt đầu vì lo chuyện tiền nong, chuyện thực tế. Nói ra để cùng tính.',
+      work: 'Cơ hội bị lỡ hoặc đến sai lúc. Còn cơ hội khác, chuẩn bị cho kỹ.',
+      finance: 'Đầu tư vội mà chưa hiểu rõ. Rút lại một bước và tìm hiểu thêm.',
+      advice: 'Đừng chạy theo cái nhanh. Thứ gì mọc chậm thì rễ mới sâu.'
     }
   },
   {
@@ -53,24 +53,24 @@ export const PENTACLES = [
     symbol: '🌱',
     color: '#10b981',
     upright: {
-      summary: 'Bạn đang tung hứng nhiều việc cùng lúc và vẫn giữ được thăng bằng.',
+      summary: 'Bạn đang tung hứng nhiều việc cùng lúc, và vẫn giữ được.',
       summaryEn: 'You are juggling several things at once and still keeping your balance.',
       summaryZh: '你同时兼顾多件事，仍能保持平衡。',
-      situation: 'Nhiều việc dồn tới nhưng bạn xoay xở được nếu biết ưu tiên.',
-      love: 'Cân đối giữa tình cảm và các trách nhiệm khác trong đời.',
-      work: 'Làm nhiều đầu việc song song, cần sắp xếp thứ tự rõ ràng.',
-      finance: 'Dòng tiền vào ra liên tục, cần theo dõi sát để không hụt.',
-      advice: 'Hãy bớt một quả bóng xuống trước khi bạn đánh rơi tất cả.'
+      situation: 'Nhiều thứ cần bạn cùng một lúc. Xoay xở được, chỉ cần đừng nhận thêm.',
+      love: 'Bạn khó chia thời gian giữa công việc và người ấy. Nói ra để họ hiểu, đừng để họ tự đoán.',
+      work: 'Nhiều đầu việc song song. Ưu tiên hai việc quan trọng nhất, phần còn lại xếp sau.',
+      finance: 'Bạn đang cân đối các khoản thu chi khá khéo. Giữ nhịp và ghi chép đều.',
+      advice: 'Linh hoạt là điểm mạnh của bạn lúc này. Nhưng nhớ đặt xuống một quả bóng trước khi rơi cả nắm.'
     },
     reversed: {
-      summary: 'Mất thăng bằng, ôm quá nhiều nên thứ gì cũng dở dang.',
+      summary: 'Quá nhiều thứ cùng lúc, và bạn bắt đầu rơi mất vài cái.',
       summaryEn: 'Losing balance - taking on so much that nothing is finished.',
       summaryZh: '失去平衡，揽得太多以致事事半途。',
-      situation: 'Bạn quá tải và bắt đầu để rơi những việc quan trọng.',
-      love: 'Không đủ thời gian cho mối quan hệ vì bận quá nhiều thứ.',
-      work: 'Làm nhiều việc cùng lúc khiến chất lượng đi xuống.',
-      finance: 'Thu chi mất kiểm soát, không biết tiền đi đâu.',
-      advice: 'Hãy lập một danh sách và mạnh tay cắt bớt phần không thiết yếu.'
+      situation: 'Bạn ôm nhiều hơn sức mình. Bỏ bớt một việc, không ai trách bạn đâu.',
+      love: 'Người ấy cảm thấy bị xếp sau. Dành hẳn một buổi, tắt điện thoại.',
+      work: 'Lộn xộn lịch trình và trễ hạn. Viết ra một danh sách và làm theo thứ tự.',
+      finance: 'Thu chi mất kiểm soát. Ngồi lại một buổi để dựng lại bảng.',
+      advice: 'Bạn không cần giỏi mọi việc cùng lúc. Chọn thứ quan trọng nhất và làm cho tử tế.'
     }
   },
   {
@@ -87,24 +87,24 @@ export const PENTACLES = [
     symbol: '🌱',
     color: '#10b981',
     upright: {
-      summary: 'Tay nghề của bạn được công nhận và mọi người muốn làm việc cùng bạn.',
+      summary: 'Tay nghề của bạn đang được nhìn thấy và được cần tới.',
       summaryEn: 'Your craft is recognised and people want to work alongside you.',
       summaryZh: '你的手艺获得认可，众人愿与你共事。',
-      situation: 'Bạn đang góp phần vào một công trình chung có giá trị.',
-      love: 'Hai người cùng xây dựng điều gì đó cụ thể cho tương lai.',
-      work: 'Được giao vai trò quan trọng nhờ chuyên môn vững.',
-      finance: 'Thu nhập tăng nhờ kỹ năng nghề nghiệp được đánh giá cao.',
-      advice: 'Hãy học hỏi từ những người giỏi hơn quanh bạn.'
+      situation: 'Bạn làm việc cùng người khác và mọi thứ ăn khớp. Cứ giữ vai của mình cho tốt.',
+      love: 'Hai người đang cùng xây một thứ chung. Bàn bạc rõ ràng thì càng chắc.',
+      work: 'Được ghi nhận về chuyên môn, hoặc được mời vào một nhóm tốt. Nhận đi.',
+      finance: 'Thu nhập cải thiện nhờ tay nghề. Đầu tư thêm vào kỹ năng của mình.',
+      advice: 'Không ai làm được một mình. Hỏi và nhận giúp đỡ cũng là một phần của nghề.'
     },
     reversed: {
-      summary: 'Phối hợp kém hoặc tay nghề chưa đủ so với yêu cầu.',
+      summary: 'Làm chung mà không hợp nhau, hoặc công của bạn chưa được kể tên.',
       summaryEn: 'Poor coordination, or skill not yet matching the demand.',
       summaryZh: '协作不良，或技艺尚未匹配要求。',
-      situation: 'Mọi người làm việc rời rạc, thiếu người điều phối.',
-      love: 'Hai người không cùng nỗ lực cho mục tiêu chung.',
-      work: 'Chất lượng công việc chưa đạt, cần nâng cao chuyên môn.',
-      finance: 'Thu nhập chững lại vì kỹ năng chưa được nâng cấp.',
-      advice: 'Hãy đầu tư vào việc học nghề, đó là khoản sinh lời chắc nhất.'
+      situation: 'Phối hợp trục trặc vì không rõ ai làm gì. Ngồi lại và viết ra.',
+      love: 'Một người xây, một người đứng nhìn. Nói ra kỳ vọng của bạn.',
+      work: 'Chất lượng đang bị hạ để kịp hạn. Nói lên vấn đề trước khi bàn giao.',
+      finance: 'Công sức chưa quy được ra tiền tương xứng. Đàm phán lại.',
+      advice: 'Làm cho tử tế một việc còn hơn làm qua loa năm việc. Giữ lấy tay nghề của bạn.'
     }
   },
   {
@@ -121,24 +121,24 @@ export const PENTACLES = [
     symbol: '🌱',
     color: '#10b981',
     upright: {
-      summary: 'Bạn giữ rất chặt những gì đang có vì sợ mất đi.',
+      summary: 'Bạn đang giữ rất chặt, và nó cho bạn cảm giác an toàn.',
       summaryEn: 'You hold tightly to what you have, for fear of losing it.',
       summaryZh: '你紧握手中所有，只因害怕失去。',
-      situation: 'Tâm thế phòng thủ, ưu tiên giữ hơn là phát triển.',
-      love: 'Có xu hướng kiểm soát hoặc sợ mất người mình yêu.',
-      work: 'Bám chặt vị trí hiện tại, ngại thử điều mới.',
-      finance: 'Tiết kiệm tốt nhưng có thể đang quá dè sẻn với chính mình.',
-      advice: 'Hãy nới tay một chút, nắm quá chặt thì không nhận thêm được gì.'
+      situation: 'Bạn muốn mọi thứ chắc chắn nên không dám nới ra. Hiểu được, nhưng đừng chặt tới mức nghẹt.',
+      love: 'Bạn sợ mất nên kiểm soát nhiều hơn cần thiết. Nới tay ra, người ta sẽ ở lại vì muốn.',
+      work: 'Bạn bám lấy vị trí quen và ngại đổi. An toàn thật, nhưng cũng đang giới hạn bạn.',
+      finance: 'Tiết kiệm tốt nhưng đang giữ quá chặt. Một phần nhỏ nên được cho làm việc.',
+      advice: 'Giữ là đúng, giữ tất cả thì không. Buông một chút để còn chỗ cho cái mới vào.'
     },
     reversed: {
-      summary: 'Bắt đầu buông bớt và chia sẻ, hoặc ngược lại là tiêu quá tay.',
+      summary: 'Bạn đang học cách buông tay, và điều đó tốt.',
       summaryEn: 'Starting to loosen up and share - or the opposite, overspending.',
       summaryZh: '开始放手与分享，或反之挥霍过度。',
-      situation: 'Bạn đang điều chỉnh lại quan hệ của mình với sự an toàn.',
-      love: 'Học được cách tin tưởng và bớt kiểm soát đối phương.',
-      work: 'Dám rời vùng an toàn để thử cơ hội mới.',
-      finance: 'Hoặc bắt đầu chi tiêu hợp lý hơn, hoặc đang mất kiểm soát.',
-      advice: 'Hãy phân biệt rõ giữa tiết kiệm khôn ngoan và keo kiệt với bản thân.'
+      situation: 'Bạn bớt sợ mất và bắt đầu dám chi cho việc đáng. Đúng hướng rồi.',
+      love: 'Bạn cho người kia không gian riêng. Mối quan hệ dễ thở hơn hẳn.',
+      work: 'Bạn dám thử một hướng mới. Cứ đi, có sai cũng học được.',
+      finance: 'Coi chừng nới quá tay thành tiêu bừa. Đặt một hạn mức rồi hẵng thoải mái.',
+      advice: 'Tiền là để phục vụ cuộc sống của bạn, không phải ngược lại. Dùng nó cho thứ khiến bạn thấy sống.'
     }
   },
   {
@@ -155,24 +155,24 @@ export const PENTACLES = [
     symbol: '🌱',
     color: '#10b981',
     upright: {
-      summary: 'Giai đoạn thiếu thốn và cô đơn, dù sự giúp đỡ ở gần hơn bạn tưởng.',
+      summary: 'Đang thiếu thốn và thấy lạnh, nhưng cửa vẫn sáng ngay bên cạnh.',
       summaryEn: 'A time of lack and loneliness, though help is nearer than you think.',
       summaryZh: '匮乏又孤单的时期，但援手比你以为的更近。',
-      situation: 'Bạn đang trải qua giai đoạn khó khăn cả về vật chất lẫn tinh thần.',
-      love: 'Cảm giác bị bỏ rơi hoặc không được nâng đỡ khi cần.',
-      work: 'Mất việc, giảm thu nhập hoặc môi trường thiếu hỗ trợ.',
-      finance: 'Tình hình tài chính eo hẹp, cần thắt chặt chi tiêu.',
-      advice: 'Hãy mở lời nhờ giúp đỡ, cánh cửa sáng đèn ngay bên cạnh bạn.'
+      situation: 'Bạn đang trong quãng khó, cả về tiền lẫn về cảm giác bị bỏ lại. Giai đoạn này có thật, và nó sẽ qua.',
+      love: 'Bạn thấy cô đơn ngay cả khi có người bên cạnh. Nói ra, đừng ôm.',
+      work: 'Mất việc, giảm thu nhập, hoặc thấy mình bị gạt ra rìa. Đây chưa phải kết luận về giá trị của bạn.',
+      finance: 'Thiếu hụt thật sự. Cắt hết những khoản không sống còn và tìm hỗ trợ.',
+      advice: 'Nhờ giúp không làm bạn kém đi. Có người sẵn lòng, chỉ là bạn chưa lên tiếng.'
     },
     reversed: {
-      summary: 'Giai đoạn khó khăn qua dần, bạn tìm lại được chỗ dựa.',
+      summary: 'Quãng khó nhất đang qua và bạn bắt đầu đứng dậy.',
       summaryEn: 'The hard season passes and you find support again.',
       summaryZh: '艰难期渐过，你重新找到依靠。',
-      situation: 'Tình hình bắt đầu cải thiện sau thời gian chật vật.',
-      love: 'Tìm lại được sự ấm áp và kết nối với người thân.',
-      work: 'Có công việc mới hoặc nguồn thu nhập ổn định trở lại.',
-      finance: 'Vượt qua giai đoạn túng thiếu, bắt đầu tích luỹ lại.',
-      advice: 'Hãy nhớ cảm giác này để sau đó biết đưa tay cho người khác.'
+      situation: 'Có sự giúp đỡ tới, hoặc bạn tìm được lối. Nhận lấy nó.',
+      love: 'Bạn cởi mở hơn và thấy mình được đỡ. Đừng ngại cảm ơn.',
+      work: 'Việc mới hoặc thu nhập bắt đầu về lại. Giữ nhịp và đừng vội tiêu bù.',
+      finance: 'Tình hình khá lên từng chút. Xây lại quỹ dự phòng trước tiên.',
+      advice: 'Bạn đã đi qua được đoạn đó. Ghi nhớ mình mạnh hơn mình tưởng.'
     }
   },
   {
@@ -189,24 +189,24 @@ export const PENTACLES = [
     symbol: '🌱',
     color: '#10b981',
     upright: {
-      summary: 'Dòng chảy cho và nhận đang cân bằng, bạn được giúp hoặc đang giúp người.',
+      summary: 'Có sự cho đi và nhận lại, và lần này cán cân đang đều.',
       summaryEn: 'Giving and receiving flow in balance; you are helped, or you help.',
       summaryZh: '施与受达至平衡，你受助，或你助人。',
-      situation: 'Có sự hỗ trợ qua lại lành mạnh giữa bạn và người khác.',
-      love: 'Mối quan hệ có sự chăm sóc qua lại công bằng.',
-      work: 'Được cấp trên hoặc đồng nghiệp nâng đỡ đúng lúc.',
-      finance: 'Nhận được hỗ trợ tài chính, hoặc có điều kiện giúp lại người khác.',
-      advice: 'Hãy cho đi trong khả năng và nhận về mà không thấy áy náy.'
+      situation: 'Bạn giúp được ai đó, hoặc có ai đó giúp bạn. Cả hai đều đáng quý.',
+      love: 'Hai người biết chăm cho nhau. Đừng đếm ai làm nhiều hơn.',
+      work: 'Có người đỡ bạn một tay, hoặc bạn đang dìu người mới. Đây là quãng dễ chịu.',
+      finance: 'Tiền vào ra rõ ràng và có chỗ để giúp người khác. Giúp trong khả năng.',
+      advice: 'Cho đi cũng cần đúng cách. Giúp người ta đứng lên, đừng gánh thay họ.'
     },
     reversed: {
-      summary: 'Cho đi kèm điều kiện, hoặc quan hệ có sự lệ thuộc về tiền bạc.',
+      summary: 'Cán cân đang lệch: một bên cho mãi, một bên nhận mãi.',
       summaryEn: 'Giving with strings attached, or a relationship dependent on money.',
       summaryZh: '施予附带条件，或关系中存在金钱依赖。',
-      situation: 'Sự giúp đỡ đang đi kèm quyền lực hoặc kỳ vọng đáp trả.',
-      love: 'Một bên dùng vật chất để giữ hoặc kiểm soát bên kia.',
-      work: 'Sự nâng đỡ có điều kiện, khiến bạn thấy mắc nợ.',
-      finance: 'Cho vay hoặc vay mượn làm mối quan hệ trở nên nặng nề.',
-      advice: 'Hãy làm rõ ranh giới tiền bạc trước khi nó ăn mòn tình cảm.'
+      situation: 'Bạn cho nhiều hơn hẳn phần nhận lại, và bắt đầu thấy mệt. Đặt lại giới hạn.',
+      love: 'Một người luôn phải hy sinh. Nói ra trước khi thành oán.',
+      work: 'Bạn làm phần của người khác. Trả lại phần không phải của mình.',
+      finance: 'Cho mượn rồi khó đòi. Lần sau nói rõ điều kiện từ đầu.',
+      advice: 'Tử tế cũng cần có ranh giới. Nếu không thì tử tế sẽ hoá thành kiệt sức.'
     }
   },
   {
@@ -223,24 +223,24 @@ export const PENTACLES = [
     symbol: '🌱',
     color: '#10b981',
     upright: {
-      summary: 'Bạn đã gieo trồng và giờ là lúc kiên nhẫn chờ cây kết trái.',
+      summary: 'Cây đã ra quả nhưng chưa chín, và bạn đang sốt ruột.',
       summaryEn: 'You have planted; now comes the patience of waiting for fruit.',
       summaryZh: '你已播种，如今是耐心等待结果的时候。',
-      situation: 'Công sức bỏ ra chưa thấy kết quả ngay, nhưng đang tích luỹ.',
-      love: 'Mối quan hệ cần thời gian để chín, đừng vội thúc ép.',
-      work: 'Dự án dài hạn đang đi đúng hướng dù chưa có thành quả rõ.',
-      finance: 'Khoản đầu tư cần thêm thời gian mới sinh lời.',
-      advice: 'Hãy đánh giá lại xem có đáng đầu tư tiếp không, rồi kiên nhẫn.'
+      situation: 'Bạn đã làm nhiều và giờ phải chờ. Dùng quãng chờ để xem lại xem cách làm có còn đúng.',
+      love: 'Mối quan hệ cần thêm thời gian mới rõ. Đừng thúc.',
+      work: 'Kết quả chưa tới nhưng đang tới. Kiên nhẫn thêm một mùa nữa.',
+      finance: 'Đầu tư dài hạn chưa sinh lời. Đó là bình thường, đừng rút sớm.',
+      advice: 'Dừng lại xem xét không phải là mất thời gian. Nhìn lại rồi đi tiếp cho đúng đường.'
     },
     reversed: {
-      summary: 'Sốt ruột bỏ cuộc giữa chừng, hoặc đầu tư vào chỗ không sinh lời.',
+      summary: 'Công sức đổ vào mà chẳng thấy gì về, và bạn nên xem lại.',
       summaryEn: 'Impatiently quitting halfway, or investing where nothing grows.',
       summaryZh: '因急躁半途放弃，或投入于不生果之处。',
-      situation: 'Bạn nản vì chờ lâu mà chưa thấy kết quả nào.',
-      love: 'Đầu tư cảm xúc vào mối quan hệ không có tương lai.',
-      work: 'Bỏ dở dự án ngay trước lúc nó bắt đầu có kết quả.',
-      finance: 'Khoản đầu tư kém hiệu quả, nên cân nhắc rút vốn.',
-      advice: 'Hãy phân biệt giữa cần thêm thời gian và thật sự không hiệu quả.'
+      situation: 'Có thể bạn đang tưới nhầm cây. Xem lại xem việc này còn đáng không.',
+      love: 'Bạn đầu tư nhiều vào một người không đáp lại. Hỏi thẳng một câu.',
+      work: 'Đầu tư sức mà không ra kết quả. Đổi cách làm hoặc đổi hướng.',
+      finance: 'Khoản này đang lỗ kéo dài. Cắt lỗ cũng là một quyết định khôn.',
+      advice: 'Kiên trì với thứ đúng thì đáng. Kiên trì với thứ sai chỉ là tốn thời gian.'
     }
   },
   {
@@ -257,24 +257,24 @@ export const PENTACLES = [
     symbol: '🌱',
     color: '#10b981',
     upright: {
-      summary: 'Ngày qua ngày mài giũa tay nghề, và sự tiến bộ đang thấy rõ.',
+      summary: 'Cứ làm đều tay đi, tay nghề đang lên thật đấy.',
       summaryEn: 'Day after day of honing your craft, and the progress shows.',
       summaryZh: '日复一日打磨技艺，进步已然可见。',
-      situation: 'Bạn đang trong giai đoạn học và làm rất chăm chỉ.',
-      love: 'Bạn đầu tư công sức thật sự để mối quan hệ tốt lên.',
-      work: 'Chuyên môn tăng nhanh nhờ luyện tập đều đặn.',
-      finance: 'Thu nhập tăng ổn định theo tay nghề, không đột biến.',
-      advice: 'Hãy tiếp tục làm tốt việc nhỏ, đó là cách nghề lên.'
+      situation: 'Đây là quãng của luyện tập và tích luỹ. Không hào nhoáng nhưng chắc.',
+      love: 'Mối quan hệ cần được vun mỗi ngày, bằng những việc nhỏ. Điều đó quan trọng hơn một dịp lớn.',
+      work: 'Hợp để học nghề, nâng kỹ năng, làm cho tỉ mỉ. Người ta sẽ nhận ra.',
+      finance: 'Thu nhập tăng dần theo tay nghề. Đầu tư cho việc học là đáng nhất lúc này.',
+      advice: 'Giỏi không tới trong một đêm. Mỗi ngày một chút, một năm nhìn lại sẽ khác hẳn.'
     },
     reversed: {
-      summary: 'Làm cho xong, hoặc lặp lại mãi mà không còn tiến bộ.',
+      summary: 'Làm cho xong chứ không còn làm cho tốt.',
       summaryEn: 'Going through the motions, or repeating without improving.',
       summaryZh: '敷衍了事，或重复而不再进步。',
-      situation: 'Công việc trở thành thói quen máy móc, thiếu tâm huyết.',
-      love: 'Duy trì mối quan hệ theo quán tính chứ không còn vun đắp.',
-      work: 'Chất lượng đi xuống vì làm ẩu hoặc mất động lực học hỏi.',
-      finance: 'Thu nhập chững vì kỹ năng không được nâng cấp.',
-      advice: 'Hãy tìm một thử thách mới để tay nghề khỏi chững lại.'
+      situation: 'Bạn đang làm qua loa và tự biết điều đó. Chọn một việc và làm cho tử tế.',
+      love: 'Bạn hết chăm chút cho mối quan hệ. Bắt đầu lại từ một việc nhỏ thôi.',
+      work: 'Lặp đi lặp lại tới mức chán. Xin đổi mảng, hoặc học thêm thứ mới để nạp lại.',
+      finance: 'Thu nhập giậm chân vì kỹ năng giậm chân. Đầu tư vào một khoá học.',
+      advice: 'Chán không có nghĩa là sai nghề. Có khi chỉ là bạn cần một thử thách mới.'
     }
   },
   {
@@ -291,24 +291,24 @@ export const PENTACLES = [
     symbol: '🌱',
     color: '#10b981',
     upright: {
-      summary: 'Bạn tự đứng được trên đôi chân mình và tận hưởng thành quả đó.',
+      summary: 'Bạn tự lo được cho mình, và cảm giác đó thật đáng giá.',
       summaryEn: 'You stand on your own feet and enjoy the fruit of it.',
       summaryZh: '你靠自己站稳，并享受这份成果。',
-      situation: 'Giai đoạn tự chủ, thoải mái và hài lòng với chính mình.',
-      love: 'Bạn đủ đầy một mình, nên mối quan hệ là lựa chọn chứ không phải nhu cầu.',
-      work: 'Đạt tới vị trí cho phép bạn tự quyết công việc của mình.',
-      finance: 'Tài chính độc lập, không phải phụ thuộc vào ai.',
-      advice: 'Hãy tận hưởng thành quả, bạn đã tự mình làm ra nó.'
+      situation: 'Bạn đang có sự độc lập mà nhiều người mong. Cho phép mình tận hưởng nó.',
+      love: 'Bạn ổn khi ở một mình, nên nếu chọn ai đó thì là vì muốn chứ không vì cần. Đó là nền tốt.',
+      work: 'Thành quả của bạn tự nói lên tất cả. Đây là lúc để hưởng, không phải lúc chứng minh thêm.',
+      finance: 'Ổn định và có dư. Dùng một phần cho thứ khiến bạn thấy sống.',
+      advice: 'Bạn đã đi một chặng dài để tới đây. Ngồi xuống và nhìn lại một chút.'
     },
     reversed: {
-      summary: 'Phụ thuộc về tài chính, hoặc làm việc quá sức mà quên hưởng thụ.',
+      summary: 'Có đủ thứ mà vẫn thấy chưa yên.',
       summaryEn: 'Financial dependence, or overworking and forgetting to enjoy.',
       summaryZh: '经济上依赖他人，或过劳而忘了享受。',
-      situation: 'Bạn chưa thật sự tự chủ như vẻ ngoài thể hiện.',
-      love: 'Ở lại vì lý do vật chất chứ không phải vì tình cảm.',
-      work: 'Làm quá nhiều mà không có thời gian cho bản thân.',
-      finance: 'Còn phụ thuộc tài chính vào người khác nhiều hơn mong muốn.',
-      advice: 'Hãy xây nền tảng tự chủ cho mình, dù chỉ từng bước nhỏ.'
+      situation: 'Bạn thành công nhưng vẫn thấy thiếu. Có thể thứ bạn cần không nằm trong danh sách đang đuổi.',
+      love: 'Bạn dựa vào người khác nhiều hơn mình muốn thừa nhận. Xây lại phần độc lập của mình.',
+      work: 'Bạn làm để chứng minh với ai đó. Hỏi xem người đó có còn quan trọng không.',
+      finance: 'Tiêu để lấp một khoảng thiếu bên trong. Thứ đó không mua được.',
+      advice: 'Học cách thấy đủ cũng là một kỹ năng. Bắt đầu bằng việc kể ra ba thứ bạn đang có.'
     }
   },
   {
@@ -325,24 +325,24 @@ export const PENTACLES = [
     symbol: '🌱',
     color: '#10b981',
     upright: {
-      summary: 'Thành quả đủ vững để truyền lại và nuôi được nhiều thế hệ.',
+      summary: 'Nền móng đã vững, đủ cho cả những người sau bạn.',
       summaryEn: 'Wealth solid enough to pass on and support more than one generation.',
       summaryZh: '成果稳固到足以传承，养育数代。',
-      situation: 'Bạn đang xây dựng thứ có giá trị lâu dài, không chỉ cho mình.',
-      love: 'Mối quan hệ hướng tới gia đình và sự gắn bó bền vững.',
-      work: 'Sự nghiệp ổn định, có nền tảng và uy tín lâu dài.',
-      finance: 'Tài sản tích luỹ vững, có thể tính chuyện thừa kế.',
-      advice: 'Hãy nghĩ xa hơn đời mình khi ra các quyết định lớn.'
+      situation: 'Bạn đang xây được thứ bền, không chỉ cho mình. Giữ gìn nó.',
+      love: 'Mối quan hệ ổn định và có thể tính chuyện lâu dài, chuyện gia đình.',
+      work: 'Chỗ đứng vững và có tương lai. Nghĩ tới việc truyền lại cho người sau.',
+      finance: 'Tài sản ổn định. Đây là lúc tính chuyện thừa kế, bảo hiểm, kế hoạch dài.',
+      advice: 'Thứ đáng để lại không chỉ là tiền. Người ta nhớ bạn ở cách bạn đối xử với họ.'
     },
     reversed: {
-      summary: 'Tranh chấp tài sản gia đình, hoặc nền tảng kém bền hơn vẻ ngoài.',
+      summary: 'Chuyện tiền bạc trong nhà đang có vướng mắc.',
       summaryEn: 'Family disputes over assets, or foundations weaker than they look.',
       summaryZh: '家族财产纷争，或根基不如表面稳固。',
-      situation: 'Có mâu thuẫn về tiền bạc hoặc trách nhiệm trong gia đình.',
-      love: 'Khác biệt về quan điểm gia đình gây căng thẳng.',
-      work: 'Công việc tưởng ổn định nhưng thật ra khá bấp bênh.',
-      finance: 'Tài sản chung chưa rõ ràng, dễ phát sinh tranh chấp.',
-      advice: 'Hãy làm rõ giấy tờ và thoả thuận trước khi mọi việc phức tạp lên.'
+      situation: 'Có bất đồng về tài sản hoặc trách nhiệm trong gia đình. Đưa ra bàn cho rõ ràng.',
+      love: 'Áp lực từ gia đình hai bên đang đè lên hai người. Thống nhất với nhau trước đã.',
+      work: 'Công ty gia đình hoặc chuyện lâu dài đang bấp bênh. Có phương án dự phòng.',
+      finance: 'Tài sản chung chưa rõ ràng. Giấy tờ đầy đủ ngay từ bây giờ sẽ đỡ nhiều về sau.',
+      advice: 'Tiền bạc rõ ràng giữ được tình thân. Nói ra khi còn dễ nói.'
     }
   },
   {
@@ -359,24 +359,24 @@ export const PENTACLES = [
     symbol: '🌱',
     color: '#10b981',
     upright: {
-      summary: 'Một khởi đầu nhỏ nhưng chắc, đặt nền cho điều lớn về sau.',
+      summary: 'Bạn đang bắt đầu học một thứ mới, và bạn học được.',
       summaryEn: 'A small but solid beginning that lays ground for something bigger.',
       summaryZh: '虽小却扎实的开始，为日后大事奠基。',
-      situation: 'Bạn bắt đầu học hoặc làm một việc thực tế, có ích lâu dài.',
-      love: 'Mối quan hệ mới bắt đầu từ sự chân thành và từ tốn.',
-      work: 'Cơ hội học nghề hoặc bắt đầu một công việc mới.',
-      finance: 'Bắt đầu tiết kiệm hoặc học cách quản lý tiền bài bản.',
-      advice: 'Hãy bắt đầu nhỏ và làm cho thật chắc, đừng vội lớn.'
+      situation: 'Một cơ hội nhỏ nhưng thực tế đang mở ra. Chăm chỉ ở giai đoạn này sẽ được trả công về sau.',
+      love: 'Một khởi đầu chậm mà chắc. Cứ để nó lớn dần.',
+      work: 'Bạn được giao việc mới hoặc bắt đầu học nghề. Hỏi nhiều và ghi chép.',
+      finance: 'Bắt đầu một thói quen tài chính tốt: tiết kiệm đều, ghi chép đủ. Nhỏ mà bền.',
+      advice: 'Không ai giỏi ngay từ đầu. Cứ học, và cho mình quyền được chậm.'
     },
     reversed: {
-      summary: 'Trì hoãn việc học, hoặc kế hoạch thiếu tính thực tế.',
+      summary: 'Muốn học mà chưa đủ kiên nhẫn ngồi xuống.',
       summaryEn: 'Putting off the learning, or a plan detached from reality.',
       summaryZh: '拖延学习，或计划脱离现实。',
-      situation: 'Bạn biết mình cần học gì nhưng cứ để đó mãi.',
-      love: 'Mối quan hệ mới thiếu sự nghiêm túc cần thiết.',
-      work: 'Thiếu kiên nhẫn với giai đoạn cơ bản của nghề.',
-      finance: 'Kế hoạch tài chính chưa dựa trên con số thật.',
-      advice: 'Hãy bắt đầu ngay hôm nay, dù chỉ mười lăm phút.'
+      situation: 'Bạn dễ bỏ dở khi thấy khó. Đặt một mục tiêu nhỏ thôi và làm cho xong.',
+      love: 'Bạn chưa nghiêm túc với chuyện này. Quyết xem mình muốn gì đã.',
+      work: 'Thiếu tập trung nên tiến bộ chậm. Cắt bớt thứ gây xao nhãng.',
+      finance: 'Kế hoạch tiết kiệm bị bỏ giữa chừng. Bắt đầu lại với con số nhỏ hơn.',
+      advice: 'Học chậm vẫn hơn không học. Mười lăm phút mỗi ngày là đủ để bắt đầu.'
     }
   },
   {
@@ -393,24 +393,24 @@ export const PENTACLES = [
     symbol: '🌱',
     color: '#10b981',
     upright: {
-      summary: 'Đi chậm nhưng không bao giờ dừng, và luôn tới đích.',
+      summary: 'Chậm, đều, và đáng tin. Đó chính là thế mạnh của bạn lúc này.',
       summaryEn: 'Moving slowly but never stopping, and always arriving.',
       summaryZh: '行虽缓却从不停步，终必抵达。',
-      situation: 'Bạn tiến từng bước đều đặn và rất đáng tin cậy.',
-      love: 'Mối quan hệ phát triển chậm nhưng vững chắc và an toàn.',
-      work: 'Hoàn thành công việc đúng hẹn, chất lượng ổn định.',
-      finance: 'Tích luỹ đều đặn, không nóng vội chạy theo lợi nhuận cao.',
-      advice: 'Hãy giữ nhịp này, sự đều đặn thắng những cú bứt tốc ngắn.'
+      situation: 'Không có gì bùng nổ nhưng mọi thứ đang tiến đều. Cứ giữ nhịp.',
+      love: 'Người ấy có thể không lãng mạn nhưng luôn có mặt. Đó cũng là một cách yêu.',
+      work: 'Bạn được tin vì làm gì cũng tới nơi. Giữ uy tín đó.',
+      finance: 'Tích luỹ đều đặn đang sinh kết quả. Đừng nôn nóng đổi cách.',
+      advice: 'Không phải lúc nào cũng cần nhanh. Đi đều thì đi được xa.'
     },
     reversed: {
-      summary: 'Quá chậm chạp, bảo thủ hoặc mắc kẹt trong lối mòn.',
+      summary: 'Chậm quá hoá ì, và mọi thứ đang đứng yên.',
       summaryEn: 'Too slow, too conservative, or stuck in a rut.',
       summaryZh: '过于迟缓保守，或困于窠臼。',
-      situation: 'Sự cẩn thận đã biến thành trì trệ.',
-      love: 'Mối quan hệ nhàm chán vì thiếu điều mới mẻ.',
-      work: 'Bám vào cách làm cũ dù đã có phương án tốt hơn.',
-      finance: 'Quá thận trọng nên bỏ lỡ cơ hội tốt.',
-      advice: 'Hãy thử một điều mới nhỏ để phá vỡ lối mòn.'
+      situation: 'Bạn ở trong lối mòn và không còn tiến. Thay đổi một thói quen nhỏ để phá thế.',
+      love: 'Mối quan hệ nhàm chán vì cả hai đều để nguyên như vậy. Đề xuất một điều mới.',
+      work: 'Công việc trì trệ. Đặt cho mình một hạn chót cụ thể.',
+      finance: 'Tiền nằm im không sinh gì. Xem xét một hướng an toàn nhưng có sinh lời.',
+      advice: 'Ổn định là tốt cho tới khi nó thành mắc kẹt. Nhìn lại xem bạn đang ở phía nào.'
     }
   },
   {
@@ -427,24 +427,24 @@ export const PENTACLES = [
     symbol: '🌱',
     color: '#10b981',
     upright: {
-      summary: 'Vừa lo được việc nhà vừa lo được việc tiền, và vẫn giữ được sự ấm áp.',
+      summary: 'Bạn vừa ấm áp vừa thực tế, và người quanh bạn được nhờ điều đó.',
       summaryEn: 'Managing home and money alike, and still staying warm-hearted.',
       summaryZh: '家事与财务皆能打理，且仍保有温暖。',
-      situation: 'Bạn đang chăm lo tốt cho cả bản thân lẫn những người quanh mình.',
-      love: 'Mối quan hệ ấm áp, thực tế và có người biết vun vén.',
-      work: 'Bạn là người giữ nhịp cho cả nhóm, chu đáo và đáng tin.',
-      finance: 'Quản lý tiền khéo, biết chi biết dành.',
-      advice: 'Hãy nhớ dành một phần sự chăm sóc đó cho chính mình.'
+      situation: 'Bạn đang lo được cho mình và cho cả người khác. Nhớ chừa phần cho mình.',
+      love: 'Bạn chăm sóc bằng những việc rất cụ thể. Đó là thứ ngôn ngữ yêu thương thật nhất.',
+      work: 'Bạn giữ cho mọi thứ chạy trơn. Người ta có thể quên nói cảm ơn, nhưng họ biết.',
+      finance: 'Bạn quản lý tiền khéo và có kế hoạch. Tin vào cách làm của mình.',
+      advice: 'Chăm người khác nhớ chăm cả mình. Bạn cũng nằm trong danh sách đó.'
     },
     reversed: {
-      summary: 'Lo cho người khác tới mức quên mình, hoặc quá nặng về vật chất.',
+      summary: 'Bạn lo cho mọi người tới lúc quên mất mình.',
       summaryEn: 'Caring for others to the point of self-neglect, or over-focus on material things.',
       summaryZh: '照顾他人以致忘我，或过度看重物质。',
-      situation: 'Bạn kiệt sức vì gánh vác quá nhiều cho gia đình.',
-      love: 'Một bên hy sinh liên tục mà không được ghi nhận.',
-      work: 'Ôm hết việc vì nghĩ không ai làm tốt bằng mình.',
-      finance: 'Lo lắng về tiền bạc chi phối cả tâm trạng hằng ngày.',
-      advice: 'Hãy nhờ người khác chia việc, bạn không phải làm tất cả.'
+      situation: 'Bạn gánh hết phần thực tế cho cả nhà và đang cạn. Nói ra và chia bớt.',
+      love: 'Sự chăm sóc đang biến thành kiểm soát. Nới ra một chút.',
+      work: 'Bạn ôm cả việc không phải của mình. Trả lại đi.',
+      finance: 'Chi cho người khác nhiều hơn khả năng. Đặt một giới hạn rõ.',
+      advice: 'Bạn không thể rót từ một cái bình rỗng. Hôm nay hãy làm một việc chỉ cho riêng mình.'
     }
   },
   {
@@ -461,24 +461,24 @@ export const PENTACLES = [
     symbol: '🌱',
     color: '#10b981',
     upright: {
-      summary: 'Sự giàu có đến từ kỷ luật nhiều năm, và bạn dùng nó để lo cho người khác.',
+      summary: 'Bạn đủ vững để lo cho mình và cho những người trông cậy vào bạn.',
       summaryEn: 'Wealth built on years of discipline, used to provide for others.',
       summaryZh: '财富源自多年自律，并用以供养他人。',
-      situation: 'Bạn ở vị trí vững vàng cả về tài chính lẫn uy tín.',
-      love: 'Mối quan hệ có nền tảng vật chất vững và cảm giác an toàn.',
-      work: 'Bạn là người cầm trịch, quyết định dựa trên kinh nghiệm thực tế.',
-      finance: 'Tài chính dồi dào, có khả năng đầu tư và chu cấp.',
-      advice: 'Hãy dùng nguồn lực của mình để nâng người khác lên cùng.'
+      situation: 'Bạn đang ở thế chủ động về tiền bạc và công việc. Dùng nó cho việc dài hơi.',
+      love: 'Bạn là chỗ dựa thật sự. Nhớ rằng người ấy cần cả sự có mặt của bạn, không chỉ sự chu cấp.',
+      work: 'Bạn có kinh nghiệm và uy tín. Đây là lúc mở rộng hoặc dìu người sau.',
+      finance: 'Thịnh vượng và ổn định. Đầu tư cho thứ lớn lên theo thời gian.',
+      advice: 'Của cải chỉ có nghĩa khi nó mua được sự yên tâm cho người bạn thương. Nhớ điều đó khi quyết.'
     },
     reversed: {
-      summary: 'Bủn xỉn, tham lam hoặc đánh giá con người qua tiền bạc.',
+      summary: 'Đuổi theo tiền tới mức quên mất mình đuổi để làm gì.',
       summaryEn: 'Stinginess, greed, or measuring people by their money.',
       summaryZh: '吝啬贪婪，或以金钱衡量他人。',
-      situation: 'Vật chất đang chiếm chỗ của những giá trị khác trong bạn.',
-      love: 'Mối quan hệ bị chi phối bởi tiền bạc và địa vị.',
-      work: 'Chạy theo lợi nhuận mà bỏ qua đạo đức nghề nghiệp.',
-      finance: 'Tham lam dẫn tới quyết định đầu tư rủi ro quá mức.',
-      advice: 'Hãy nhớ tiền là phương tiện, đừng để nó thành thước đo con người.'
+      situation: 'Bạn đang lấy tiền làm thước đo cho mọi thứ. Có những thứ không đo được như vậy.',
+      love: 'Bạn lo được vật chất nhưng thiếu sự có mặt. Về nhà sớm hơn một hôm.',
+      work: 'Ôm quyền quá chặt nên nhóm không lớn được. Tin và giao việc đi.',
+      finance: 'Quyết định lớn mà thiếu kiểm chứng, hoặc quá thận trọng nên đứng yên. Tìm lại mức giữa.',
+      advice: 'Tiền là công cụ chứ không phải đích đến. Hỏi lại xem bạn đang xây thứ này cho ai.'
     }
   }
 ];

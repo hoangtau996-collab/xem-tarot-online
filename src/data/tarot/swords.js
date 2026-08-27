@@ -19,24 +19,24 @@ export const SWORDS = [
     symbol: '⚡',
     color: '#0284c7',
     upright: {
-      summary: 'Thanh kiếm sự thật cắt đứt mọi nghi ngờ, mang lại tư duy sắc bén và đột phá ý tưởng.',
+      summary: 'Một điều vừa sáng ra trong đầu bạn, và nó đúng.',
       summaryEn: 'The sword of truth cutting through confusion with mental clarity and breakthroughs.',
       summaryZh: '斩断迷思的真理之剑，带来清晰洞察与理性突破。',
-      situation: 'Tư duy trở nên minh bạch và sắc bén.',
-      love: 'Giao tiếp thẳng thắn bằng sự thật.',
-      work: 'Đột phá trong giải pháp công việc.',
-      finance: 'Quyết định tài chính quyết đoán.',
-      advice: 'Dũng cảm nói lên sự thật.'
+      situation: 'Sau một quãng rối, bạn nhìn thấy vấn đề nằm ở đâu. Nói ra hoặc quyết ngay khi đầu còn sáng.',
+      love: 'Đây là lúc để nói thẳng điều bạn vẫn giữ trong lòng. Thật lòng thì có thể đau một chút, nhưng nó gỡ được nút thắt.',
+      work: 'Bạn có cái nhìn rõ ràng mà người khác chưa thấy. Trình bày mạch lạc, người ta sẽ nghe.',
+      finance: 'Nhìn thẳng vào con số thật. Sự rõ ràng lúc này quý hơn cả một cơ hội mới.',
+      advice: 'Gọi đúng tên sự việc là đã giải được nửa. Đừng nói vòng vo với chính mình.'
     },
     reversed: {
-      summary: 'Tư duy hỗn loạn, hiểu lầm giao tiếp hoặc sử dụng lời nói gây tổn thương.',
+      summary: 'Đầu đang rối và bạn nói nhiều hơn mức cần thiết.',
       summaryEn: 'Mental confusion, misunderstandings, or harsh words.',
       summaryZh: '思维混乱、沟通误解或言语造成伤害。',
-      situation: 'Suy nghĩ bị rối bời.',
-      love: 'Lời nói làm tổn thương nhau.',
-      work: 'Thiếu sự rõ ràng trong kế hoạch.',
-      finance: 'Đánh giá sai lầm thông tin.',
-      advice: 'Cân nhắc kỹ lời nói trước khi phát ngôn.'
+      situation: 'Thông tin lộn xộn khiến bạn không quyết được. Viết ra giấy, mọi thứ sẽ gọn lại.',
+      love: 'Lời nói ra đang sắc hơn ý bạn muốn. Chọn từ cẩn thận hơn, hoặc chờ hết giận rồi hãy nói.',
+      work: 'Trình bày lan man nên người ta không nắm được ý. Rút gọn còn ba câu thôi.',
+      finance: 'Quyết định dựa trên thông tin nửa vời. Kiểm chứng trước khi ký.',
+      advice: 'Không phải sự thật nào cũng cần nói ngay lúc này. Chọn đúng lúc cũng là một dạng tử tế.'
     }
   },
   {
@@ -53,24 +53,24 @@ export const SWORDS = [
     symbol: '⚡',
     color: '#0284c7',
     upright: {
-      summary: 'Bạn đang bịt mắt trước một quyết định vì sợ phải chọn.',
+      summary: 'Bạn đang bịt mắt mình lại vì chưa muốn phải chọn.',
       summaryEn: 'You are blindfolding yourself before a decision because choosing feels frightening.',
       summaryZh: '你在抉择前蒙住双眼，只因害怕做选择。',
-      situation: 'Thế giằng co giữa hai phương án, chưa bên nào thắng.',
-      love: 'Lửng lơ giữa hai người hoặc chưa dám xác định mối quan hệ.',
-      work: 'Trì hoãn một quyết định quan trọng vì thiếu thông tin.',
-      finance: 'Chưa quyết được nên giữ tiền hay đầu tư.',
-      advice: 'Hãy tháo băng bịt mắt ra, sự thật ít đáng sợ hơn bạn nghĩ.'
+      situation: 'Có một quyết định treo lơ lửng và bạn cứ hoãn. Sự lửng lơ này mệt hơn cả việc chọn sai.',
+      love: 'Bạn không dám nhìn thẳng vào một chuyện trong mối quan hệ. Nó sẽ không tự biến mất.',
+      work: 'Hai lựa chọn ngang nhau nên bạn kẹt. Viết ra được và mất của từng bên, cán cân sẽ nghiêng.',
+      finance: 'Bạn né nhìn vào tài khoản. Mở ra đi, sự thật thường nhẹ hơn nỗi sợ.',
+      advice: 'Tháo dải băng khỏi mắt trước đã. Nhìn thấy rồi thì quyết định sẽ tự rõ.'
     },
     reversed: {
-      summary: 'Bế tắc được gỡ, bạn nhìn rõ và ra được quyết định.',
+      summary: 'Bạn đã nhìn ra rồi, giờ chỉ còn dám nói ra.',
       summaryEn: 'The deadlock breaks; you see clearly and can decide.',
       summaryZh: '僵局打破，你看清并能做出决定。',
-      situation: 'Thông tin còn thiếu đã có, bạn chốt được phương án.',
-      love: 'Bạn xác định rõ tình cảm của mình và nói ra.',
-      work: 'Quyết định bị treo lâu nay cuối cùng được thông qua.',
-      finance: 'Chọn được hướng xử lý tiền bạc và bắt tay thực hiện.',
-      advice: 'Đã quyết rồi thì đi tới, đừng quay lại tự hỏi mãi.'
+      situation: 'Sự bế tắc đang được gỡ. Bạn biết mình phải làm gì, chỉ cần bắt đầu.',
+      love: 'Một cuộc nói chuyện thật lòng sắp diễn ra. Nó cần thiết, dù có làm bạn hồi hộp.',
+      work: 'Bạn chốt được lựa chọn. Đi theo nó và đừng ngoái lại.',
+      finance: 'Bạn đối diện với con số thật và bắt đầu sắp xếp. Đúng hướng rồi.',
+      advice: 'Quyết rồi thì thôi day dứt. Bạn đã chọn bằng những gì mình biết, thế là đủ.'
     }
   },
   {
@@ -87,24 +87,24 @@ export const SWORDS = [
     symbol: '⚡',
     color: '#0284c7',
     upright: {
-      summary: 'Một sự thật cắt vào lòng, nhưng chính nó mới giải phóng được bạn.',
+      summary: 'Có một nỗi đau thật ở đây, và bạn được quyền đau vì nó.',
       summaryEn: 'A truth that cuts, yet it is exactly what sets you free.',
       summaryZh: '一个刺心的真相，却正是它令你自由。',
-      situation: 'Bạn vừa nhận một tin hoặc nhận ra điều làm mình đau.',
-      love: 'Chia ly, phản bội hoặc lời nói làm tổn thương sâu sắc.',
-      work: 'Bị phê bình nặng hoặc mất một cơ hội đã kỳ vọng nhiều.',
-      finance: 'Tin xấu về tài chính buộc bạn phải nhìn thẳng vào con số.',
-      advice: 'Hãy cho phép mình đau, vết thương cần được nhìn thấy mới lành.'
+      situation: 'Một sự thật vừa làm bạn tổn thương. Đừng vội mạnh mẽ, cứ để mình buồn cho xong.',
+      love: 'Chia ly, phản bội, hoặc một lời nói cứa vào lòng. Nó có thật, nhưng nó không phải là kết cục của bạn.',
+      work: 'Một lời phê bình hoặc một thất bại làm bạn nản. Nhặt lấy phần đúng, bỏ lại phần làm bạn nhỏ đi.',
+      finance: 'Một mất mát về tiền để lại vết. Ghi lại bài học rồi thôi tự trách.',
+      advice: 'Khóc cũng là một cách chữa lành. Nỗi đau được nhìn thẳng sẽ nhạt nhanh hơn nỗi đau bị giấu.'
     },
     reversed: {
-      summary: 'Vết thương đang lành, hoặc bạn còn ôm nỗi đau lâu hơn cần thiết.',
+      summary: 'Vết thương đang lành, chậm thôi, nhưng thật.',
       summaryEn: 'The wound is healing, or you are holding the pain longer than needed.',
       summaryZh: '伤口正在愈合，或你抱着痛楚比必要更久。',
-      situation: 'Giai đoạn hồi phục sau tổn thương, chậm nhưng có tiến triển.',
-      love: 'Bạn dần tha thứ và bớt đau khi nhắc về chuyện cũ.',
-      work: 'Lấy lại tự tin sau một cú vấp trong sự nghiệp.',
-      finance: 'Bắt đầu khắc phục được hậu quả của quyết định sai.',
-      advice: 'Hãy nói ra nỗi đau với ai đó, giữ trong lòng chỉ làm nó lâu lành.'
+      situation: 'Bạn đang đi qua nỗi đau chứ không còn đứng lại trong nó. Đừng vội, cứ đi từng ngày.',
+      love: 'Bạn tha thứ được, cho người kia hoặc cho chính mình. Lòng nhẹ dần từ đó.',
+      work: 'Bạn hết còn bị ám ảnh bởi lần vấp cũ. Thử lại đi.',
+      finance: 'Tình hình đang gỡ. Bước nhỏ nhưng đều là được.',
+      advice: 'Sẹo không phải là chỗ xấu xí, đó là chỗ đã từng lành. Bạn giỏi hơn bạn nghĩ.'
     }
   },
   {
@@ -121,24 +121,24 @@ export const SWORDS = [
     symbol: '⚡',
     color: '#0284c7',
     upright: {
-      summary: 'Đã đến lúc dừng lại nghỉ, không phải để bỏ cuộc mà để lấy lại sức.',
+      summary: 'Nghỉ đi, thật sự nghỉ. Đó chính là việc cần làm lúc này.',
       summaryEn: 'Time to stop and rest - not to quit, but to recover your strength.',
       summaryZh: '是时候停下休息了，不是放弃，而是为了恢复力气。',
-      situation: 'Bạn cần một khoảng lặng thật sự sau giai đoạn căng thẳng.',
-      love: 'Mối quan hệ cần thời gian tạm lắng để cả hai bình tâm.',
-      work: 'Nên xin nghỉ phép hoặc giảm tải trước khi kiệt sức.',
-      finance: 'Tạm dừng mọi quyết định lớn cho tới khi đầu óc tỉnh táo.',
-      advice: 'Nghỉ ngơi không phải lười biếng, đó là một phần của công việc.'
+      situation: 'Bạn đang cần một quãng lặng. Nghỉ không phải là lười, nghỉ là một phần của việc.',
+      love: 'Hai người cần một khoảng để lắng lại. Không phải xa nhau, chỉ là bớt căng.',
+      work: 'Xin nghỉ vài ngày, tắt điện thoại. Đầu bạn cần trống mới nghĩ ra được.',
+      finance: 'Chưa phải lúc quyết. Để mọi thứ nguyên đó thêm một thời gian.',
+      advice: 'Cơ thể bạn đang nói và bạn nên nghe. Ngủ đủ trước khi làm bất cứ điều gì khác.'
     },
     reversed: {
-      summary: 'Kiệt sức vì không chịu nghỉ, hoặc đã đến lúc quay lại cuộc chơi.',
+      summary: 'Nghỉ đủ rồi, đã đến lúc quay lại.',
       summaryEn: 'Burnout from refusing to rest, or time to return to the field.',
       summaryZh: '因拒绝休息而力竭，或是该重返赛场了。',
-      situation: 'Bạn ép mình chạy tiếp dù cơ thể đã báo động.',
-      love: 'Đã đủ thời gian tạm lắng, giờ cần chủ động kết nối lại.',
-      work: 'Nghỉ đủ rồi, hãy quay lại với năng lượng mới.',
-      finance: 'Trì hoãn quá lâu khiến vấn đề tài chính nặng thêm.',
-      advice: 'Hãy lắng nghe cơ thể, nó nói trước khi mọi thứ đổ vỡ.'
+      situation: 'Bạn đã lùi khá lâu. Bắt đầu lại bằng một việc nhỏ, hôm nay.',
+      love: 'Đã đến lúc mở lời sau quãng im lặng. Nhắn một tin thôi cũng được.',
+      work: 'Bạn sẵn sàng trở lại nhưng còn ngại. Cứ bước vào, cảm giác quen sẽ về nhanh.',
+      finance: 'Xem lại kế hoạch và khởi động lại. Đừng để nó ngủ quên thêm.',
+      advice: 'Nghỉ quá lâu thì thành trốn. Bạn đã đủ khoẻ để quay ra rồi.'
     }
   },
   {
@@ -155,24 +155,24 @@ export const SWORDS = [
     symbol: '⚡',
     color: '#0284c7',
     upright: {
-      summary: 'Bạn có thể thắng cuộc tranh cãi này nhưng mất đi thứ quý hơn nhiều.',
+      summary: 'Thắng được cuộc cãi này rồi, nhưng cái giá phải trả có đáng không.',
       summaryEn: 'You may win this argument but lose something far more valuable.',
       summaryZh: '你或许赢了这场争论，却失去更珍贵之物。',
-      situation: 'Một cuộc tranh chấp mà cái giá phải trả lớn hơn phần thắng.',
-      love: 'Cãi vã hơn thua khiến cả hai đều tổn thương.',
-      work: 'Cạnh tranh không lành mạnh làm hỏng quan hệ đồng nghiệp.',
-      finance: 'Tranh chấp tiền bạc gây mất mối quan hệ lâu năm.',
-      advice: 'Hãy hỏi mình muốn thắng hay muốn giữ được mối quan hệ này.'
+      situation: 'Bạn đang ở trong một cuộc tranh chấp mà thắng cũng chẳng vui. Cân nhắc rút lui trong danh dự.',
+      love: 'Cãi nhau để giành phần đúng thì chỉ có mối quan hệ chịu thiệt. Nhường một bước không mất gì.',
+      work: 'Xung đột đang leo thang. Giữ chuyên nghiệp, đừng để cái tôi cầm lái.',
+      finance: 'Tranh chấp tiền bạc tốn nhiều hơn phần được. Tính kỹ cả chi phí tinh thần.',
+      advice: 'Hỏi mình xem bạn muốn đúng hay muốn yên. Câu trả lời sẽ chỉ đường.'
     },
     reversed: {
-      summary: 'Sẵn sàng làm hoà, hoặc nhận ra cuộc chiến này vô nghĩa.',
+      summary: 'Bạn muốn làm lành, và đó là bước đúng.',
       summaryEn: 'Ready to make peace, or realising the fight was pointless.',
       summaryZh: '愿意和解，或意识到这场争斗毫无意义。',
-      situation: 'Bạn muốn khép lại mâu thuẫn và bước tiếp.',
-      love: 'Một bên chủ động xin lỗi và hàn gắn.',
-      work: 'Hoà giải được với đồng nghiệp sau giai đoạn căng thẳng.',
-      finance: 'Thoả thuận được cách chia tài chính mà cả hai chấp nhận.',
-      advice: 'Xin lỗi trước không làm bạn nhỏ đi, nó làm bạn nhẹ hơn.'
+      situation: 'Cuộc xung đột đang được gỡ. Chủ động nói câu xin lỗi hoặc câu bỏ qua.',
+      love: 'Có cơ hội hàn gắn. Đừng chờ người kia nói trước.',
+      work: 'Mâu thuẫn hạ nhiệt. Quay lại làm việc bình thường, đừng nhắc lại.',
+      finance: 'Thoả thuận được một mức chấp nhận được. Chốt lại và đi tiếp.',
+      advice: 'Bỏ qua không phải là thua. Nhiều khi đó là cách duy nhất để cả hai còn đi được.'
     }
   },
   {
@@ -189,24 +189,24 @@ export const SWORDS = [
     symbol: '⚡',
     color: '#0284c7',
     upright: {
-      summary: 'Bạn đang rời khỏi vùng nước động để sang bờ yên hơn.',
+      summary: 'Bạn đang rời khỏi vùng khó, và phía trước êm hơn.',
       summaryEn: 'You are leaving troubled waters for a calmer shore.',
       summaryZh: '你正离开动荡的水域，驶向平静的彼岸。',
-      situation: 'Giai đoạn khó nhất đã qua, mọi thứ dần êm lại.',
-      love: 'Hai người vượt qua sóng gió và tìm lại sự bình yên.',
-      work: 'Chuyển sang môi trường hoặc vị trí phù hợp hơn.',
-      finance: 'Tình hình tài chính dần ổn định sau giai đoạn chật vật.',
-      advice: 'Hãy đi tới, đừng mang theo thứ khiến thuyền nặng thêm.'
+      situation: 'Chuyện nặng nhất đã ở lại sau lưng. Đi tiếp, đừng ngoái lại nhiều.',
+      love: 'Hai người đang qua được đoạn căng nhất. Nhẹ dần từ đây.',
+      work: 'Chuyển việc, chuyển nhóm, hoặc chuyển cách làm. Đây là bước đúng.',
+      finance: 'Tình hình bắt đầu ổn lại sau quãng chật vật. Giữ nhịp tiết kiệm thêm một thời gian.',
+      advice: 'Không cần mang theo hết mọi thứ cũ. Có những thứ nên để lại bên kia bờ.'
     },
     reversed: {
-      summary: 'Chưa thể rời đi, hoặc mang theo quá nhiều hành lý cũ.',
+      summary: 'Bạn muốn đi nhưng vẫn còn níu lại một chân.',
       summaryEn: 'Unable to leave yet, or carrying too much old baggage.',
       summaryZh: '尚无法离开，或带着太多旧行囊。',
-      situation: 'Bạn muốn thay đổi nhưng còn vướng nhiều ràng buộc.',
-      love: 'Vết thương cũ vẫn theo bạn sang mối quan hệ mới.',
-      work: 'Đổi chỗ làm nhưng vấn đề cũ vẫn lặp lại.',
-      finance: 'Nợ cũ chưa xử lý nên chưa thể bắt đầu kế hoạch mới.',
-      advice: 'Hãy giải quyết dứt điểm chuyện cũ trước khi sang trang.'
+      situation: 'Có gì đó cũ vẫn đang giữ bạn. Nhìn cho ra nó là gì rồi mới đi được.',
+      love: 'Bạn đã chia tay nhưng vẫn chưa dứt trong lòng. Cho mình thêm thời gian và đừng liên lạc lại.',
+      work: 'Bạn muốn đổi nhưng chưa dám. Chuẩn bị dần đi, đừng chỉ nghĩ.',
+      finance: 'Nợ cũ hoặc ràng buộc cũ còn kéo. Lập kế hoạch dứt điểm từng khoản.',
+      advice: 'Đi mà cứ ngoái lại thì rất mệt. Chọn phía trước, một lần thôi.'
     }
   },
   {
@@ -223,24 +223,24 @@ export const SWORDS = [
     symbol: '⚡',
     color: '#0284c7',
     upright: {
-      summary: 'Có điều gì đó đang được giấu, bởi người khác hoặc bởi chính bạn.',
+      summary: 'Có điều gì đó chưa được nói thẳng, và bạn cảm nhận được.',
       summaryEn: 'Something is being hidden - by someone else, or by you.',
       summaryZh: '有事被隐瞒着，或来自他人，或来自你自己。',
-      situation: 'Không phải mọi thông tin đều được nói ra đầy đủ.',
-      love: 'Có sự thiếu trung thực hoặc điều chưa nói giữa hai người.',
-      work: 'Cẩn trọng với người lấy công của bạn hoặc chơi không đẹp.',
-      finance: 'Đề phòng lừa đảo hoặc điều khoản bị giấu trong hợp đồng.',
-      advice: 'Hãy kiểm chứng thay vì tin ngay, và tự hỏi mình có đang giấu gì không.'
+      situation: 'Có người đang giữ lại thông tin, hoặc chính bạn đang chọn đường tắt. Cả hai đều nên được nhìn rõ.',
+      love: 'Có sự thiếu thành thật đâu đó. Hỏi thẳng thì hơn là tự dò.',
+      work: 'Cẩn thận với thoả thuận ngầm hoặc công sức bị nhận nhầm tên. Ghi chép lại mọi việc.',
+      finance: 'Kiểm tra kỹ hợp đồng và những dòng chữ nhỏ. Đừng ngại hỏi lại.',
+      advice: 'Đường tắt thường dẫn tới chỗ phải làm lại. Đi đường chính, chậm hơn nhưng yên.'
     },
     reversed: {
-      summary: 'Sự thật bị phơi bày, hoặc bạn quyết định thú nhận và làm lại.',
+      summary: 'Sự thật đang lộ ra, và đó là điều tốt.',
       summaryEn: 'The truth comes out, or you choose to come clean and start over.',
       summaryZh: '真相败露，或你选择坦白重来。',
-      situation: 'Điều giấu kín lộ ra và mọi thứ phải được xử lý minh bạch.',
-      love: 'Sự thật được nói ra, dù đau nhưng là bước cần thiết.',
-      work: 'Hành vi không minh bạch bị phát hiện và xử lý.',
-      finance: 'Phát hiện kịp một khoản chi hoặc thoả thuận mờ ám.',
-      advice: 'Hãy chọn đường thẳng, đường tắt luôn có phí trả sau.'
+      situation: 'Điều bị giấu bắt đầu sáng tỏ. Đón nhận nó một cách bình tĩnh.',
+      love: 'Một chuyện được nói thẳng ra. Đau nhưng dễ thở hơn lúc nghi ngờ.',
+      work: 'Bạn quyết định làm mọi thứ minh bạch. Đúng hướng rồi.',
+      finance: 'Bạn phát hiện ra sơ hở và kịp sửa. Giữ thói quen kiểm tra này.',
+      advice: 'Thú nhận sớm luôn rẻ hơn bị phát hiện muộn. Nói ra đi, rồi sửa.'
     }
   },
   {
@@ -257,24 +257,24 @@ export const SWORDS = [
     symbol: '⚡',
     color: '#0284c7',
     upright: {
-      summary: 'Bạn thấy mình bị trói, nhưng nút thắt phần lớn nằm trong suy nghĩ.',
+      summary: 'Bạn thấy mình bị trói, nhưng dây trói lỏng hơn bạn tưởng.',
       summaryEn: 'You feel bound, but most of the knots are in your own thinking.',
       summaryZh: '你感到被束缚，但大半的结其实系在自己的想法里。',
-      situation: 'Cảm giác không còn lựa chọn nào, dù thực tế vẫn còn.',
-      love: 'Ở lại vì sợ cô đơn chứ không vì còn muốn ở lại.',
-      work: 'Cảm thấy mắc kẹt trong công việc mà không thấy lối ra.',
-      finance: 'Nghĩ rằng mình không đủ khả năng thay đổi tình hình tiền bạc.',
-      advice: 'Hãy liệt kê ra ba lựa chọn, bạn sẽ thấy mình không hề bị trói.'
+      situation: 'Bạn nghĩ mình không còn lựa chọn nào. Thật ra có, chỉ là chưa cái nào dễ chịu.',
+      love: 'Bạn ở lại vì sợ, chứ không phải vì muốn. Gọi đúng tên nỗi sợ đó đi.',
+      work: 'Bạn nghĩ mình không thể nghỉ. Thử liệt kê ra ba phương án, dù nghe có vẻ khó.',
+      finance: 'Tiền bạc làm bạn thấy hết đường. Nói với một người biết việc, thường sẽ ra lối.',
+      advice: 'Bạn không bị nhốt, bạn đang tin rằng mình bị nhốt. Thử đẩy cửa xem sao.'
     },
     reversed: {
-      summary: 'Bạn bắt đầu tự cởi trói và nhìn thấy lối ra.',
+      summary: 'Bạn đang tự cởi dây, và trời sáng dần.',
       summaryEn: 'You begin to untie yourself and see the way out.',
       summaryZh: '你开始自我松绑，看见出路。',
-      situation: 'Nhận ra giới hạn phần lớn do mình tự đặt ra.',
-      love: 'Dám bước ra khỏi mối quan hệ hoặc nỗi sợ đã giam mình.',
-      work: 'Tìm được hướng đi mới sau thời gian bế tắc.',
-      finance: 'Bắt đầu hành động thay vì chỉ lo lắng về tiền.',
-      advice: 'Hãy làm một việc nhỏ hôm nay để chứng minh bạn còn lựa chọn.'
+      situation: 'Bạn nhận ra mình có lựa chọn. Đi bước đầu tiên, dù nhỏ.',
+      love: 'Bạn dám nói ra điều mình cần. Đó là bước lớn nhất rồi.',
+      work: 'Bạn tìm được lối ra khỏi tình huống bí. Cứ theo nó.',
+      finance: 'Có phương án bạn chưa từng nghĩ tới. Hỏi thêm người, đừng tự bó mình.',
+      advice: 'Tự do bắt đầu từ lúc bạn tin là mình có quyền chọn. Bạn có.'
     }
   },
   {
@@ -291,24 +291,24 @@ export const SWORDS = [
     symbol: '⚡',
     color: '#0284c7',
     upright: {
-      summary: 'Nỗi lo trong đêm phóng đại mọi thứ lớn hơn thực tế rất nhiều.',
+      summary: 'Bạn đang lo nhiều hơn rất nhiều so với chuyện thật.',
       summaryEn: 'Night-time worry magnifies everything far beyond its real size.',
       summaryZh: '深夜的忧虑把一切放大到远超实际。',
-      situation: 'Bạn đang bị cuốn vào vòng suy nghĩ tiêu cực không dứt.',
-      love: 'Lo lắng thái quá về mối quan hệ dù chưa có bằng chứng gì.',
-      work: 'Áp lực công việc gây mất ngủ và giảm khả năng tập trung.',
-      finance: 'Lo sợ về tiền bạc lớn hơn tình hình thực tế.',
-      advice: 'Hãy viết nỗi lo ra giấy, ban ngày nhìn lại nó sẽ nhỏ đi nhiều.'
+      situation: 'Ban đêm mọi thứ đều to hơn thật. Đừng quyết gì lúc ba giờ sáng.',
+      love: 'Bạn nghĩ quá nhiều về một câu nói, một tin nhắn chưa trả lời. Hỏi thẳng cho xong.',
+      work: 'Bạn sợ mình làm chưa đủ tốt. Hỏi người quản lý một câu, sự thật thường nhẹ hơn.',
+      finance: 'Nỗi lo tiền làm bạn mất ngủ. Viết ra con số thật, nó sẽ bớt đáng sợ.',
+      advice: 'Phần lớn điều bạn sợ sẽ không xảy ra. Kể cho một người nghe, gánh nặng sẽ vơi ngay.'
     },
     reversed: {
-      summary: 'Nỗi lo bắt đầu vơi đi, hoặc đã đến lúc tìm người giúp đỡ.',
+      summary: 'Cơn lo đang dịu lại và bạn ngủ được trở lại.',
       summaryEn: 'The worry begins to lift, or it is time to ask for help.',
       summaryZh: '忧虑开始消退，或是该寻求帮助了。',
-      situation: 'Bạn dần lấy lại sự bình tâm sau giai đoạn căng thẳng.',
-      love: 'Nói ra nỗi lo với đối phương và được trấn an.',
-      work: 'Chia sẻ áp lực với người khác giúp bạn nhẹ đi nhiều.',
-      finance: 'Nhìn vào con số thật và thấy mọi thứ không tệ như tưởng.',
-      advice: 'Đừng chịu đựng một mình, hãy nói với ai đó bạn tin tưởng.'
+      situation: 'Bạn bắt đầu phân biệt được đâu là thật đâu là do mình nghĩ ra. Giữ lấy sự tỉnh táo này.',
+      love: 'Bạn nói ra nỗi bất an và nhận được sự trấn an. Thấy chưa, hỏi thì hơn là đoán.',
+      work: 'Áp lực giảm sau khi bạn chia sẻ với ai đó. Đừng ôm một mình nữa.',
+      finance: 'Tình hình rõ ra và không tệ như bạn tưởng. Lập kế hoạch từ đây.',
+      advice: 'Nếu nỗi lo kéo dài quá lâu, tìm người có chuyên môn để nói chuyện. Đó là chăm sóc bản thân, không phải yếu đuối.'
     }
   },
   {
@@ -325,24 +325,24 @@ export const SWORDS = [
     symbol: '⚡',
     color: '#0284c7',
     upright: {
-      summary: 'Đã chạm đáy rồi, nghĩa là từ đây chỉ còn đường đi lên.',
+      summary: 'Chạm đáy rồi, và đáy nghĩa là từ đây chỉ còn đường lên.',
       summaryEn: 'You have hit bottom, which means the only way left is up.',
       summaryZh: '已然触底，也就意味着往后只剩向上。',
-      situation: 'Một chương kết thúc theo cách đau đớn và dứt khoát.',
-      love: 'Mối quan hệ chấm dứt hoàn toàn, không còn đường quay lại.',
-      work: 'Mất việc hoặc dự án thất bại hoàn toàn.',
-      finance: 'Thua lỗ nặng buộc bạn phải làm lại từ đầu.',
-      advice: 'Hãy để nó kết thúc trọn vẹn, bình minh luôn tới sau đêm sâu nhất.'
+      situation: 'Một chuyện kết thúc theo cách đau đớn. Nó thật, nhưng nó cũng đã xong.',
+      love: 'Một mối quan hệ khép lại dứt khoát. Cho mình khóc cho hết rồi hãy tính tiếp.',
+      work: 'Một dự án đổ hoặc một vai trò chấm dứt. Đừng vội tự trách, hãy nghỉ trước đã.',
+      finance: 'Một khoản mất khá nặng. Dừng lại, tính lại từ đầu, đừng cố gỡ ngay.',
+      advice: 'Điều tệ nhất đã xảy ra rồi, nghĩa là bạn không còn phải sợ nó nữa. Mặt trời vẫn mọc vào sáng mai.'
     },
     reversed: {
-      summary: 'Bắt đầu gượng dậy sau cú ngã, hoặc kéo dài nỗi đau quá lâu.',
+      summary: 'Bạn đang gượng dậy, và trời đã hửng.',
       summaryEn: 'Rising after the fall, or dragging out the pain too long.',
       summaryZh: '跌倒后开始站起，或将痛苦拖得太久。',
-      situation: 'Bạn đang hồi phục dần, từng chút một.',
-      love: 'Vượt qua được cú sốc chia tay và mở lòng trở lại.',
-      work: 'Làm lại sự nghiệp với bài học đắt giá đã học được.',
-      finance: 'Từng bước phục hồi tài chính sau tổn thất.',
-      advice: 'Hãy đứng dậy chậm cũng được, miễn là bạn đứng dậy.'
+      situation: 'Giai đoạn khó nhất đã qua. Đi từng bước nhỏ, đừng đòi hồi phục ngay.',
+      love: 'Bạn dần mở lòng lại được. Không cần vội, cứ theo nhịp của mình.',
+      work: 'Bạn bắt đầu lại sau một cú ngã. Lần này bạn có thứ mà trước kia không có.',
+      finance: 'Tình hình dần khá lên. Giữ kỷ luật thêm một thời gian nữa.',
+      advice: 'Bạn đã sống qua điều mình từng tưởng không chịu nổi. Ghi nhớ điều đó khi lần sau thấy sợ.'
     }
   },
   {
@@ -359,24 +359,24 @@ export const SWORDS = [
     symbol: '⚡',
     color: '#0284c7',
     upright: {
-      summary: 'Trí tò mò sắc bén và tinh thần muốn tìm hiểu tận gốc mọi chuyện.',
+      summary: 'Đầu óc bạn đang tò mò và tỉnh táo, hợp để học và để quan sát.',
       summaryEn: 'Sharp curiosity and an urge to get to the bottom of things.',
       summaryZh: '敏锐的好奇心，以及追根究底的劲头。',
-      situation: 'Bạn đang thu thập thông tin và học hỏi rất nhanh.',
-      love: 'Giai đoạn tìm hiểu, đặt nhiều câu hỏi về đối phương.',
-      work: 'Cơ hội học kỹ năng mới hoặc nhận thông tin quan trọng.',
-      finance: 'Nên nghiên cứu kỹ trước khi đưa ra quyết định tiền bạc.',
-      advice: 'Hãy hỏi nhiều hơn và giả định ít đi.'
+      situation: 'Có điều gì đó đáng để tìm hiểu kỹ. Hỏi nhiều vào, đừng ngại.',
+      love: 'Bạn đang muốn hiểu người ấy hơn. Hỏi trực tiếp, đừng suy diễn.',
+      work: 'Hợp để học kỹ năng mới hoặc nghiên cứu thông tin. Ghi chép cẩn thận.',
+      finance: 'Tìm hiểu kỹ trước khi quyết. Đọc thêm một nguồn nữa.',
+      advice: 'Giữ sự tò mò như trẻ con. Hỏi được một câu đúng là đã mở được một cánh cửa.'
     },
     reversed: {
-      summary: 'Nói mà chưa hiểu hết, hoặc tin đồn và lời phán xét vội.',
+      summary: 'Nghe nhiều mà chưa lọc, dễ tin nhầm.',
       summaryEn: 'Speaking before understanding, or gossip and hasty judgement.',
       summaryZh: '未明就里便发言，或流言与草率评断。',
-      situation: 'Bạn kết luận quá nhanh khi thông tin chưa đầy đủ.',
-      love: 'Hiểu lầm phát sinh từ nghe kể lại thay vì hỏi trực tiếp.',
-      work: 'Tin đồn nơi làm việc gây ảnh hưởng không đáng có.',
-      finance: 'Nghe theo lời khuyên tài chính thiếu kiểm chứng.',
-      advice: 'Hãy kiểm tra nguồn tin trước khi tin và trước khi kể lại.'
+      situation: 'Thông tin bạn nhận đang lẫn lộn thật giả. Kiểm chứng trước khi tin và trước khi kể lại.',
+      love: 'Đừng nghe chuyện người khác kể về người ấy. Hỏi thẳng đương sự.',
+      work: 'Tin đồn trong nhóm đang lan. Đừng góp phần vào.',
+      finance: 'Cẩn thận với thông tin đầu tư trên mạng. Nguồn không rõ thì không tin.',
+      advice: 'Biết nửa vời còn nguy hơn không biết gì. Hoặc tìm hiểu tới nơi, hoặc đừng quyết.'
     }
   },
   {
@@ -393,24 +393,24 @@ export const SWORDS = [
     symbol: '⚡',
     color: '#0284c7',
     upright: {
-      summary: 'Lao thẳng vào vấn đề với đầu óc sắc bén và không vòng vo.',
+      summary: 'Đã đến lúc quyết nhanh và làm cho gọn.',
       summaryEn: 'Charging straight at the problem with a sharp mind and no detours.',
       summaryZh: '以敏锐头脑直冲问题，绝不迂回。',
-      situation: 'Bạn hành động nhanh và dứt khoát, không chần chừ.',
-      love: 'Tỏ tình hoặc nói thẳng suy nghĩ một cách bất ngờ.',
-      work: 'Xử lý vấn đề nhanh gọn, phù hợp với tình huống khẩn cấp.',
-      finance: 'Ra quyết định tài chính nhanh dựa trên phân tích rõ ràng.',
-      advice: 'Hãy giữ tốc độ này nhưng nhớ hỏi ý người bị ảnh hưởng.'
+      situation: 'Chuyện này cần sự dứt khoát chứ không cần cân nhắc thêm. Quyết rồi làm.',
+      love: 'Nói thẳng điều bạn muốn. Người ấy cần nghe câu rõ ràng, không phải câu gợi ý.',
+      work: 'Xử lý dứt điểm những việc đang tồn. Nhanh và gọn.',
+      finance: 'Chốt một quyết định đã treo lâu. Đừng cân nhắc thêm nữa.',
+      advice: 'Nhanh thì tốt, nhưng nhớ nhìn đường. Dứt khoát không có nghĩa là nhắm mắt.'
     },
     reversed: {
-      summary: 'Nói năng gay gắt, hành động hấp tấp gây hậu quả.',
+      summary: 'Nói nhanh quá nên làm người khác đau mà không cố ý.',
       summaryEn: 'Harsh words and hasty action with consequences.',
       summaryZh: '言辞尖锐、行动仓促，招致后果。',
-      situation: 'Sự nóng vội của bạn đang làm tổn thương người khác.',
-      love: 'Lời nói thẳng nhưng thiếu tinh tế gây tổn thương.',
-      work: 'Quyết định vội vàng bỏ qua ý kiến của tập thể.',
-      finance: 'Hành động tài chính bốc đồng chưa tính hết rủi ro.',
-      advice: 'Sắc bén là tốt, nhưng lưỡi dao cũng cần được cầm cẩn thận.'
+      situation: 'Bạn đang gấp gáp và lời nói ra sắc hơn ý mình. Chậm lại một nhịp.',
+      love: 'Một câu nói buột ra làm tổn thương người kia. Xin lỗi cho tử tế, đừng biện minh.',
+      work: 'Làm vội nên sót và phải làm lại. Kiểm tra một lượt trước khi gửi.',
+      finance: 'Quyết vội rồi tiếc. Đặt quy tắc chờ trước mọi khoản lớn.',
+      advice: 'Thẳng thắn và thô lỗ chỉ cách nhau một chút thôi. Chọn từ ngữ cẩn thận hơn.'
     }
   },
   {
@@ -427,24 +427,24 @@ export const SWORDS = [
     symbol: '⚡',
     color: '#0284c7',
     upright: {
-      summary: 'Nhìn thấu sự việc và nói ra sự thật một cách rõ ràng, không cảm tính.',
+      summary: 'Bạn nhìn rõ mọi chuyện và biết chỗ nào cần đặt ranh giới.',
       summaryEn: 'Seeing through things and stating the truth clearly, without sentiment.',
       summaryZh: '看透事情，清晰而不感情用事地说出真相。',
-      situation: 'Bạn có cái nhìn sắc sảo và biết đặt ranh giới rõ ràng.',
-      love: 'Bạn nói rõ điều mình cần và không chấp nhận sự mập mờ.',
-      work: 'Bạn được tôn trọng vì phân tích chính xác và công tâm.',
-      finance: 'Quản lý tài chính tỉnh táo, không bị dụ bởi lời hứa hẹn.',
-      advice: 'Hãy giữ sự rõ ràng này, nhưng đừng quên kèm chút dịu dàng.'
+      situation: 'Bạn đang tỉnh táo và không dễ bị lay. Tin vào phán đoán của mình.',
+      love: 'Bạn cần sự thật thà hơn là lời ngọt. Nói rõ giới hạn của mình.',
+      work: 'Bạn đưa ra nhận xét sắc và đúng. Giữ giọng ôn hoà thì người ta dễ tiếp thu hơn.',
+      finance: 'Quyết định của bạn tỉnh táo, không bị cảm xúc kéo. Giữ vậy.',
+      advice: 'Nói không cũng là một câu tử tế, khi nó thật lòng. Bạn không nợ ai lời giải thích dài.'
     },
     reversed: {
-      summary: 'Lạnh lùng, cay nghiệt hoặc phòng thủ tới mức không ai vào được.',
+      summary: 'Sự sắc sảo đang biến thành lạnh lùng, kể cả với chính mình.',
       summaryEn: 'Cold, cutting, or so defended that nobody can get close.',
       summaryZh: '冷漠、尖刻，或防备到无人能靠近。',
-      situation: 'Bạn dựng tường quá cao vì từng bị tổn thương.',
-      love: 'Lời nói sắc lạnh đẩy người quan tâm ra xa.',
-      work: 'Phê bình thẳng thừng thiếu tinh tế làm mất lòng đồng nghiệp.',
-      finance: 'Quá khắt khe với chi tiêu tới mức tự làm khổ mình.',
-      advice: 'Hãy để một người đáng tin bước vào, tường cao cũng cần một cửa.'
+      situation: 'Bạn khắt khe quá mức, với người khác và với bản thân. Nới ra một chút.',
+      love: 'Rào chắn của bạn đang cao tới mức không ai vào được. Hé cửa cho một người.',
+      work: 'Lời phê bình của bạn đúng nhưng làm người ta co lại. Đổi cách nói.',
+      finance: 'Kiểm soát quá chặt tới mức không dám sống. Cho mình một khoản nhỏ để vui.',
+      advice: 'Bạn không cần luôn mạnh mẽ. Mềm đi một chút không làm bạn dễ bị tổn thương hơn đâu.'
     }
   },
   {
@@ -461,24 +461,24 @@ export const SWORDS = [
     symbol: '⚡',
     color: '#0284c7',
     upright: {
-      summary: 'Quyết định dựa trên lý lẽ và nguyên tắc, không để cảm xúc dẫn dắt.',
+      summary: 'Đây là lúc dùng lý trí, và bạn đang có nó.',
       summaryEn: 'Deciding on reason and principle, not letting emotion steer.',
       summaryZh: '依理据与原则决断，不让情绪主导。',
-      situation: 'Bạn ở vị trí cần phán xét công tâm và bạn làm được.',
-      love: 'Mối quan hệ được xây trên sự tôn trọng và thoả thuận rõ ràng.',
-      work: 'Bạn là người ra quyết định cuối cùng và được tin cậy.',
-      finance: 'Quản lý tài chính bằng nguyên tắc và số liệu.',
-      advice: 'Hãy dùng lý trí để dẫn đường, nhưng nhớ con người không phải con số.'
+      situation: 'Chuyện này giải bằng cái đầu lạnh chứ không bằng cảm xúc. Bạn làm được.',
+      love: 'Sự công bằng và rõ ràng là thứ mối quan hệ này đang cần. Nói chuyện như hai người lớn.',
+      work: 'Bạn có tiếng nói và người ta nghe. Dùng nó cho việc đúng.',
+      finance: 'Nguyên tắc và kỷ luật đang giúp bạn. Đừng phá lệ.',
+      advice: 'Lý trí sắc mà thiếu lòng tốt thì cắt vào chính người mình thương. Giữ cả hai.'
     },
     reversed: {
-      summary: 'Lạm dụng lý lẽ để áp đảo, hoặc phán xét thiếu công bằng.',
+      summary: 'Lý lẽ đang được dùng để thắng, không phải để hiểu.',
       summaryEn: 'Using logic to overpower, or judging unfairly.',
       summaryZh: '以理压人，或评断有失公允。',
-      situation: 'Có người dùng lập luận để áp đặt thay vì thuyết phục.',
-      love: 'Tranh luận để thắng thay vì để hiểu nhau.',
-      work: 'Quyền lực bị dùng sai, quyết định thiếu minh bạch.',
-      finance: 'Bị áp đặt trong các thoả thuận tài chính chung.',
-      advice: 'Hãy kiểm tra xem mình đang tìm sự thật hay chỉ muốn thắng.'
+      situation: 'Bạn đúng nhưng cách bạn đúng đang làm hỏng chuyện. Hạ giọng xuống.',
+      love: 'Phân tích quá nhiều mà không nghe cảm xúc của người kia. Hỏi họ đang thấy thế nào.',
+      work: 'Cứng nhắc theo quy định tới mức việc không chạy. Linh hoạt một chút.',
+      finance: 'Nguyên tắc cứng đang chặn cả cơ hội hợp lý. Xem lại từng trường hợp.',
+      advice: 'Đúng mà làm người ta xa mình thì cũng chưa gọi là được. Nghe trước, rồi hãy nói.'
     }
   }
 ];

@@ -19,24 +19,24 @@ export const WANDS = [
     symbol: '🔥',
     color: '#f97316',
     upright: {
-      summary: 'Ngọn lửa đam mê và cảm hứng bùng cháy, mở ra cơ hội khởi đầu hành động tràn đầy nhiệt huyết.',
+      summary: 'Một tia lửa vừa loé lên trong bạn, và nó đủ để bắt đầu.',
       summaryEn: 'A spark of passion and inspiration igniting new creative ventures.',
       summaryZh: '激情与灵感的火花迸发，带来全新的行动机会。',
-      situation: 'Bạn đang sở hữu nguồn năng lượng dồi dào để khởi tạo các dự án mới.',
-      love: 'Sự thu hút mãnh liệt, ngọn lửa tình cảm bùng cháy bất ngờ.',
-      work: 'Ý tưởng dự án mới đầy triển vọng, thời điểm vàng để khởi động hành động.',
-      finance: 'Cơ hội kiếm tiền mới xuất hiện từ chính đam mê cá nhân.',
-      advice: 'Nắm bắt ngay cơ hội khi ngọn lửa nhiệt huyết đang dâng cao.'
+      situation: 'Bạn vừa nghĩ ra thứ khiến mình muốn bắt tay làm ngay. Làm đi, đừng để tới mai vì mai nó nguội mất.',
+      love: 'Sức hút của bạn đang mạnh và người ta để ý. Chủ động một câu, đừng chờ.',
+      work: 'Đây là lúc mở màn cho thứ bạn ấp ủ. Chưa cần hoàn hảo, chỉ cần bắt đầu và sửa dần trên đường đi.',
+      finance: 'Có cơ hội kiếm thêm từ chính năng lượng và tay nghề của bạn. Nhận thử một việc nhỏ trước.',
+      advice: 'Đừng đợi cảm hứng lần sau, vì nó không hẹn ngày. Bắt tay vào ngay hôm nay.'
     },
     reversed: {
-      summary: 'Thiếu nhiệt huyết, ý tưởng bị trì hoãn hoặc cảm giác tụt năng lượng.',
+      summary: 'Lửa có mà chưa cháy được, thường vì bạn đang tự dập nó.',
       summaryEn: 'Lack of motivation, delayed ideas, or low energy.',
       summaryZh: '热情消退、创意受阻或行动力不足。',
-      situation: 'Đam mê tạm thời bị trì hoãn.',
-      love: 'Tình cảm có dấu hiệu thiếu lửa.',
-      work: 'Dự án chậm tiến độ do thiếu kế hoạch thực thi.',
-      finance: 'Kế hoạch kinh doanh bị gián đoạn.',
-      advice: 'Tìm lại nguồn cảm hứng bên trong trước khi ép bản thân hành động.'
+      situation: 'Bạn có ý tưởng nhưng cứ chần chừ và tự tìm lý do hoãn. Làm bước nhỏ nhất trong danh sách là đủ để phá thế bí.',
+      love: 'Sự hào hứng ban đầu nguội đi. Làm mới bằng một việc nhỏ chứ đừng chờ một dịp lớn.',
+      work: 'Dự án khởi động rồi khựng lại. Xem lại xem thứ gì đang chặn, thường là một chi tiết rất nhỏ.',
+      finance: 'Kế hoạch kiếm thêm chưa chạy. Đừng bỏ, chỉ cần đổi cách tiếp cận.',
+      advice: 'Động lực không tự tới, nó tới sau hành động. Cứ làm mười lăm phút rồi xem sao.'
     }
   },
   {
@@ -53,24 +53,24 @@ export const WANDS = [
     symbol: '🔥',
     color: '#f97316',
     upright: {
-      summary: 'Bạn đứng trước một tầm nhìn rộng và đang cân nhắc bước đi tiếp theo.',
+      summary: 'Bạn đang đứng nhìn ra xa và bắt đầu thấy đường đi của mình.',
       summaryEn: 'You stand before a wide horizon, weighing your next move.',
       summaryZh: '你立于开阔视野前，正在权衡下一步。',
-      situation: 'Đã có ý tưởng và nguồn lực, giờ là lúc chọn hướng đi cụ thể.',
-      love: 'Cân nhắc xem mối quan hệ này sẽ đi tới đâu trong dài hạn.',
-      work: 'Thời điểm lập kế hoạch và nghiên cứu thị trường trước khi triển khai.',
-      finance: 'Nên vạch ra kế hoạch tài chính dài hạn thay vì tính từng tháng.',
-      advice: 'Hãy dám mơ xa hơn vùng an toàn quen thuộc của bạn.'
+      situation: 'Đây là lúc lên kế hoạch chứ chưa phải lúc chạy. Vẽ ra bản đồ trước, đi sẽ đỡ vòng vo.',
+      love: 'Bạn đang cân nhắc chuyện lâu dài với người ấy. Nói ra dự tính của mình để hai người cùng biết đường.',
+      work: 'Một quyết định mở rộng đang chờ bạn: nhận việc mới, mở thêm hướng, đi xa hơn. Chuẩn bị kỹ rồi hẵng bước.',
+      finance: 'Lập kế hoạch tài chính cho một hai năm tới. Con số viết ra giấy sẽ khác hẳn con số trong đầu.',
+      advice: 'Tầm nhìn chỉ đáng giá khi có bước đi đầu tiên đi kèm. Chọn ngày, và ghi nó vào lịch.'
     },
     reversed: {
-      summary: 'Sợ rời vùng an toàn hoặc kế hoạch thiếu thực tế nên mãi không khởi động.',
+      summary: 'Kế hoạch nhiều mà chưa ra khỏi trang giấy.',
       summaryEn: 'Fear of leaving the comfort zone, or an unrealistic plan that never starts.',
       summaryZh: '惧怕离开舒适区，或计划不切实际而迟迟未动。',
-      situation: 'Bạn lập kế hoạch mãi mà không bước bước đầu tiên.',
-      love: 'Ngại cam kết vì chưa nhìn thấy tương lai rõ ràng.',
-      work: 'Kế hoạch quá tham vọng so với nguồn lực hiện có.',
-      finance: 'Dự tính thu nhập lạc quan hơn thực tế khá nhiều.',
-      advice: 'Hãy chọn một bước nhỏ làm được ngay trong tuần này.'
+      situation: 'Bạn đang lên kế hoạch để hoãn việc bắt đầu. Đủ rồi, chọn một hướng và đi.',
+      love: 'Bạn ngại cam kết vì sợ mất tự do. Nói thật điều đó ra thay vì lẳng lặng giữ khoảng cách.',
+      work: 'Sợ rủi ro nên bạn ở yên chỗ cũ. Tính thử xem cái giá của việc không làm gì là bao nhiêu.',
+      finance: 'Kế hoạch quá thận trọng nên tiền đứng yên. Thử một phần nhỏ, đừng để cả phần lớn nằm im.',
+      advice: 'Bạn sẽ không bao giờ đủ dữ liệu để chắc chắn. Có bảy phần chắc là đi được rồi.'
     }
   },
   {
@@ -87,24 +87,24 @@ export const WANDS = [
     symbol: '🔥',
     color: '#f97316',
     upright: {
-      summary: 'Những gì bạn gieo đang trên đường quay lại, hãy kiên nhẫn quan sát.',
+      summary: 'Thuyền đã ra khơi, giờ là lúc chờ và chuẩn bị cho đợt tới.',
       summaryEn: 'What you sowed is on its way back; watch with patience.',
       summaryZh: '你所播下的正在归来途中，请耐心观望。',
-      situation: 'Giai đoạn chờ kết quả sau khi đã hành động đúng hướng.',
-      love: 'Mối quan hệ đang mở rộng, có thể liên quan tới khoảng cách địa lý.',
-      work: 'Cơ hội hợp tác hoặc mở rộng ra thị trường mới đang đến.',
-      finance: 'Các khoản đầu tư bắt đầu có dấu hiệu sinh lời.',
-      advice: 'Hãy nhìn xa hơn và chuẩn bị năng lực cho quy mô lớn hơn.'
+      situation: 'Việc bạn gieo đang trên đường về. Trong lúc chờ, hãy dựng sẵn phần tiếp theo.',
+      love: 'Có thể là chuyện tình xa, hoặc một mối quan hệ cần thời gian mới rõ. Kiên nhẫn thêm chút nữa.',
+      work: 'Cơ hội mở rộng ra ngoài vùng quen thuộc, có khi là ở xa. Đừng ngại đường dài.',
+      finance: 'Những gì bạn đầu tư trước đây bắt đầu có tín hiệu. Giữ nguyên, đừng rút sớm.',
+      advice: 'Nhìn xa hơn một chút. Chuyện này lớn hơn cái bạn đang thấy trước mắt.'
     },
     reversed: {
-      summary: 'Kế hoạch mở rộng bị chậm lại hoặc tầm nhìn còn quá hẹp.',
+      summary: 'Chờ mãi chưa thấy gì về, và bạn bắt đầu nản.',
       summaryEn: 'Expansion delayed, or a vision still too narrow.',
       summaryZh: '扩张受阻，或眼界仍然太窄。',
-      situation: 'Tiến độ chậm hơn mong đợi, dễ sinh nản lòng.',
-      love: 'Khoảng cách hoặc sự khác biệt hoàn cảnh gây trở ngại.',
-      work: 'Đối tác chậm phản hồi hoặc thị trường chưa sẵn sàng.',
-      finance: 'Lợi nhuận về chậm hơn dự tính, cần thêm thời gian.',
-      advice: 'Đừng thu hẹp giấc mơ chỉ vì tiến độ chậm hơn dự kiến.'
+      situation: 'Tiến độ chậm hơn dự tính. Xem lại kế hoạch, có thể bạn đặt kỳ vọng quá gấp.',
+      love: 'Khoảng cách đang làm mọi thứ khó hơn. Nếu muốn giữ thì phải chủ động hơn hẳn bình thường.',
+      work: 'Việc mở rộng chưa tới lúc. Củng cố chỗ đang có trước đã.',
+      finance: 'Lợi nhuận về chậm. Đừng đổ thêm để gỡ, hãy chờ cho hết chu kỳ.',
+      advice: 'Chậm không có nghĩa là hỏng. Kiểm lại hướng đi, rồi kiên nhẫn thêm.'
     }
   },
   {
@@ -121,24 +121,24 @@ export const WANDS = [
     symbol: '🔥',
     color: '#f97316',
     upright: {
-      summary: 'Một cột mốc đáng ăn mừng cùng những người thân thiết của bạn.',
+      summary: 'Một cột mốc đáng ăn mừng, và mọi người đang ở quanh bạn.',
       summaryEn: 'A milestone worth celebrating with the people closest to you.',
       summaryZh: '值得与至亲之人共同庆祝的里程碑。',
-      situation: 'Giai đoạn ổn định, ấm áp và được nâng đỡ bởi người xung quanh.',
-      love: 'Tin vui về đính hôn, cưới hỏi hoặc về chung một nhà.',
-      work: 'Hoàn thành một chặng quan trọng và được tập thể ghi nhận.',
-      finance: 'Tài chính đủ vững để lo cho tổ ấm hoặc một dịp trọng đại.',
-      advice: 'Hãy dừng lại ăn mừng, đừng lao ngay sang mục tiêu kế tiếp.'
+      situation: 'Có chuyện vui đến với bạn hoặc với nhà bạn. Dừng lại tận hưởng nó cho tử tế.',
+      love: 'Không khí ấm áp, có thể có tin vui về cưới hỏi hoặc dọn về chung. Đây là quãng thuận.',
+      work: 'Một giai đoạn hoàn tất và được ghi nhận. Cảm ơn những người đã cùng bạn đi tới đây.',
+      finance: 'Ổn định và có nền. Hợp cho việc mua nhà hoặc sắp xếp chỗ ở.',
+      advice: 'Đừng vội chạy sang việc tiếp theo. Cho mình một buổi để mừng, bạn xứng đáng.'
     },
     reversed: {
-      summary: 'Không khí gia đình căng thẳng hoặc niềm vui bị hoãn lại.',
+      summary: 'Nhà cửa đang có chuyện, hoặc niềm vui bị hoãn.',
       summaryEn: 'Tension at home, or a celebration postponed.',
       summaryZh: '家中气氛紧张，或喜事被推迟。',
-      situation: 'Cảm giác thiếu chỗ thuộc về, hoặc chuyện nhà chưa êm.',
-      love: 'Kế hoạch chung bị trì hoãn vì bất đồng của hai bên.',
-      work: 'Môi trường làm việc thiếu gắn kết, mọi người làm việc rời rạc.',
-      finance: 'Chi phí cho sự kiện hoặc nhà cửa vượt dự trù.',
-      advice: 'Hãy vun lại nền móng trước khi tổ chức thêm bất cứ điều gì.'
+      situation: 'Có gì đó chưa yên trong tổ ấm của bạn. Về nhà sớm hơn một chút và ngồi nói chuyện.',
+      love: 'Kế hoạch chung bị lùi lại. Không phải là hỏng, chỉ là chưa tới lúc.',
+      work: 'Nhóm mất gắn kết, mỗi người một hướng. Tổ chức một buổi ngồi lại đơn giản thôi cũng có tác dụng.',
+      finance: 'Chi phí nhà cửa phát sinh. Lập một quỹ riêng cho khoản này.',
+      advice: 'Tổ ấm cần được chăm chứ không tự bền. Bắt đầu bằng việc có mặt.'
     }
   },
   {
@@ -155,24 +155,24 @@ export const WANDS = [
     symbol: '🔥',
     color: '#f97316',
     upright: {
-      summary: 'Nhiều luồng ý kiến va nhau, ồn ào nhưng chưa hẳn là xấu.',
+      summary: 'Va chạm và tranh giành, nhưng chưa đến mức làm hỏng chuyện.',
       summaryEn: 'Clashing opinions - noisy, but not necessarily harmful.',
       summaryZh: '众声相争，虽吵闹却未必是坏事。',
-      situation: 'Bạn đang ở giữa môi trường cạnh tranh hoặc nhiều tranh luận.',
-      love: 'Hai người hay va chạm vì cái tôi chứ không phải vì hết thương.',
-      work: 'Cạnh tranh nội bộ hoặc tranh luận gay gắt trong nhóm.',
-      finance: 'Phải cạnh tranh về giá hoặc tranh chấp quyền lợi nhỏ.',
-      advice: 'Hãy biến cạnh tranh thành động lực thay vì để nó thành thù hằn.'
+      situation: 'Đang có nhiều luồng ý kiến cùng lúc và ai cũng muốn phần mình. Giữ bình tĩnh, đây là ồn ào chứ chưa phải chiến tranh.',
+      love: 'Hay cãi vặt vì những chuyện nhỏ. Thường là do cả hai đều đang mệt chứ không phải hết thương.',
+      work: 'Cạnh tranh trong nhóm hoặc trong ngành đang căng. Tập trung vào phần việc của mình, đừng vướng vào so đo.',
+      finance: 'Có tranh chấp hoặc bất đồng về tiền. Đưa mọi thứ ra giấy tờ cho rõ.',
+      advice: 'Không phải cuộc tranh cãi nào cũng đáng tham gia. Chọn trận mà đánh.'
     },
     reversed: {
-      summary: 'Xung đột lắng xuống, hoặc mâu thuẫn bị nén lại chưa giải quyết.',
+      summary: 'Sóng lặng dần, hoặc mâu thuẫn đang bị dồn xuống đáy.',
       summaryEn: 'Conflict settles, or friction is suppressed rather than resolved.',
       summaryZh: '冲突平息，或矛盾被压下而未真正解决。',
-      situation: 'Căng thẳng giảm nhưng gốc rễ vấn đề vẫn còn đó.',
-      love: 'Hai bên tránh cãi nhau nhưng cũng tránh luôn việc nói thật.',
-      work: 'Nhóm ngừng tranh luận vì mệt chứ không vì đã thống nhất.',
-      finance: 'Tạm ngưng tranh chấp tiền bạc, nên chốt lại bằng văn bản.',
-      advice: 'Im lặng không phải là hoà giải, hãy nói cho hết chuyện.'
+      situation: 'Xung đột đã dịu, hoặc mọi người chọn im lặng cho xong. Nếu là kiểu thứ hai thì nó sẽ quay lại.',
+      love: 'Hai người tránh cãi bằng cách tránh nói. Chọn một buổi và nói cho hết.',
+      work: 'Bề ngoài yên nhưng ngầm vẫn có chuyện. Hỏi thẳng người liên quan.',
+      finance: 'Mâu thuẫn tiền bạc chưa được giải quyết dứt. Chốt lại bằng con số cụ thể.',
+      advice: 'Tránh né không phải là hoà giải. Nói ra thì mới thật sự xong.'
     }
   },
   {
@@ -189,24 +189,24 @@ export const WANDS = [
     symbol: '🔥',
     color: '#f97316',
     upright: {
-      summary: 'Nỗ lực của bạn được nhìn thấy và tán thưởng công khai.',
+      summary: 'Bạn thắng, và lần này có người nhìn thấy.',
       summaryEn: 'Your effort is seen and publicly applauded.',
       summaryZh: '你的努力被看见，并获得公开赞赏。',
-      situation: 'Bạn đang ở thế thượng phong và được nhiều người ủng hộ.',
-      love: 'Mối quan hệ được bạn bè, gia đình chúc phúc và ủng hộ.',
-      work: 'Thành tích được cấp trên ghi nhận, có thể kèm thăng tiến.',
-      finance: 'Thu nhập tăng nhờ kết quả công việc tốt.',
-      advice: 'Hãy nhận lời khen một cách khiêm tốn và giữ vững phong độ.'
+      situation: 'Công sức của bạn được ghi nhận. Nhận lấy lời khen mà không cần phải chối.',
+      love: 'Bạn đang được yêu thương và trân trọng. Cứ để mình được nhận.',
+      work: 'Thăng tiến, thắng thầu, hoặc được tuyên dương. Đây là lúc để bước lên trước.',
+      finance: 'Kết quả tài chính khả quan. Ghi nhận cách làm đã đúng và giữ nó.',
+      advice: 'Đừng nhỏ mình lại để người khác thấy dễ chịu. Bạn được phép tự hào.'
     },
     reversed: {
-      summary: 'Công sức chưa được ghi nhận, hoặc thành công làm sinh tự mãn.',
+      summary: 'Bạn làm nhiều mà công bị người khác nhận mất.',
       summaryEn: 'Effort unrecognised, or success breeding complacency.',
       summaryZh: '努力未获认可，或成功滋生自满。',
-      situation: 'Bạn làm nhiều nhưng người khác nhận công, cảm giác khá ấm ức.',
-      love: 'Một bên không được đối phương trân trọng đúng mức.',
-      work: 'Thành quả bị người khác nhận hoặc bị đánh giá thấp.',
-      finance: 'Thu nhập chưa tương xứng với đóng góp thực tế.',
-      advice: 'Hãy chủ động trình bày kết quả của mình bằng con số cụ thể.'
+      situation: 'Nỗ lực chưa được nhìn thấy đúng mức. Lên tiếng cho phần của mình, một cách bình tĩnh.',
+      love: 'Bạn cảm thấy mình không được coi trọng. Nói ra điều đó trước khi nó thành khoảng cách.',
+      work: 'Kết quả bị chậm ghi nhận, hoặc người khác đứng tên. Ghi lại việc mình làm để có bằng chứng.',
+      finance: 'Thành quả chưa quy ra được tiền. Đàm phán lại phần của bạn.',
+      advice: 'Sự tự tin không cần ai duyệt trước. Bạn biết mình đã làm gì, thế là đủ để đứng thẳng.'
     }
   },
   {
@@ -223,24 +223,24 @@ export const WANDS = [
     symbol: '🔥',
     color: '#f97316',
     upright: {
-      summary: 'Bạn phải bảo vệ điều mình đã gây dựng trước áp lực từ nhiều phía.',
+      summary: 'Bạn đang phải giữ chỗ đứng của mình, và bạn giữ được.',
       summaryEn: 'You must defend what you built against pressure from many sides.',
       summaryZh: '你须在四面压力下守护自己建立的成果。',
-      situation: 'Vị trí của bạn bị thử thách nhưng bạn vẫn đang ở thế có lợi.',
-      love: 'Cần bảo vệ mối quan hệ trước những lời bàn ra tán vào.',
-      work: 'Có người cạnh tranh vị trí hoặc chất vấn phương án của bạn.',
-      finance: 'Cần giữ vững nguyên tắc tài chính trước áp lực chi tiêu.',
-      advice: 'Hãy đứng vững, bạn đang ở vị trí cao hơn mình tưởng.'
+      situation: 'Có áp lực muốn bạn nhượng bộ. Đứng vững, bạn đang ở thế cao hơn bạn nghĩ.',
+      love: 'Cần bảo vệ mối quan hệ trước lời ra tiếng vào bên ngoài. Đứng cùng phía với nhau.',
+      work: 'Có người thách thức vị trí hoặc cách làm của bạn. Trả lời bằng kết quả, không bằng tranh cãi.',
+      finance: 'Giữ lấy nguyên tắc của bạn, đừng để ai đẩy vào quyết định vội.',
+      advice: 'Bạn không cần thắng tất cả, chỉ cần không bỏ chỗ mình đứng. Kiên định là đủ.'
     },
     reversed: {
-      summary: 'Kiệt sức vì phải chống đỡ quá lâu, hoặc muốn bỏ cuộc.',
+      summary: 'Bạn đang thủ thế với cả những người không tấn công mình.',
       summaryEn: 'Worn out from defending too long, or ready to give up.',
       summaryZh: '久守而力竭，或萌生放弃之念。',
-      situation: 'Bạn mệt mỏi vì phải liên tục chứng minh bản thân.',
-      love: 'Không còn muốn giải thích hay bảo vệ mối quan hệ nữa.',
-      work: 'Áp lực dai dẳng khiến bạn muốn buông vị trí hiện tại.',
-      finance: 'Khó giữ kỷ luật tài chính khi áp lực kéo dài.',
-      advice: 'Hãy chọn trận đáng đánh, không phải trận nào cũng cần thắng.'
+      situation: 'Sự đề phòng quá mức làm bạn mệt và làm người khác ngại lại gần. Hạ vai xuống một chút.',
+      love: 'Bạn phòng thủ ngay cả khi người kia đang muốn làm lành. Cho họ một cơ hội.',
+      work: 'Cãi để bảo vệ cái tôi chứ không phải bảo vệ công việc. Phân biệt được hai thứ đó thì nhẹ hẳn.',
+      finance: 'Giữ tiền quá chặt tới mức bỏ lỡ cơ hội hợp lý. Cân nhắc lại.',
+      advice: 'Không phải ai cũng đến để lấy đi thứ của bạn. Bớt gồng, bạn sẽ đỡ mệt hơn nhiều.'
     }
   },
   {
@@ -257,24 +257,24 @@ export const WANDS = [
     symbol: '🔥',
     color: '#f97316',
     upright: {
-      summary: 'Mọi thứ chuyển động rất nhanh, tin tức và cơ hội dồn dập tới.',
+      summary: 'Mọi thứ tăng tốc, và tin bạn chờ sắp tới.',
       summaryEn: 'Everything moves fast; news and opportunities arrive in a rush.',
       summaryZh: '一切飞速推进，消息与机会接踵而至。',
-      situation: 'Giai đoạn tăng tốc sau thời gian dài trì trệ.',
-      love: 'Tình cảm tiến triển nhanh, tin nhắn và lời hẹn tới dồn dập.',
-      work: 'Dự án chạy nhanh, nhiều thông tin cần xử lý cùng lúc.',
-      finance: 'Dòng tiền chuyển động nhanh, cần theo dõi sát sao.',
-      advice: 'Hãy hành động ngay khi cơ hội còn nóng, đừng chần chừ.'
+      situation: 'Sau một quãng đứng yên, mọi việc bỗng chạy nhanh. Bắt lấy nhịp này, đừng để lỡ.',
+      love: 'Tin nhắn, lời hẹn, một chuyển biến nhanh. Trả lời sớm, đừng để nguội.',
+      work: 'Tiến độ bật lên, có thể có tin tốt hoặc một chuyến đi. Sắp xếp để bắt kịp.',
+      finance: 'Tiền về nhanh hơn dự tính. Đừng vì thế mà tiêu cũng nhanh theo.',
+      advice: 'Cơ hội đang bay ngang, đưa tay ra là bắt được. Nhanh lên một chút.'
     },
     reversed: {
-      summary: 'Chậm trễ, thông tin sai lệch hoặc hành động quá vội.',
+      summary: 'Mọi thứ đang tắc, tin thì chờ mãi không thấy.',
       summaryEn: 'Delays, miscommunication, or acting too hastily.',
       summaryZh: '延误、信息误传，或行动过于仓促。',
-      situation: 'Kế hoạch bị hoãn hoặc bạn đang làm mọi thứ quá gấp.',
-      love: 'Nhắn tin qua lại dễ gây hiểu lầm, nên gặp trực tiếp.',
-      work: 'Thông tin truyền đạt thiếu chính xác gây sai sót dây chuyền.',
-      finance: 'Quyết định tài chính vội vàng dễ dẫn tới sai lầm.',
-      advice: 'Hãy chậm lại nửa nhịp và kiểm tra lại thông tin.'
+      situation: 'Kế hoạch bị chậm và bạn sốt ruột. Xem lại đầu nào đang nghẽn thay vì thúc mạnh hơn.',
+      love: 'Tin nhắn không được trả lời, chuyện lửng lơ. Hỏi thẳng một câu rồi thôi chờ.',
+      work: 'Việc bị hoãn hoặc thông tin đến muộn. Chủ động liên hệ, đừng ngồi đợi.',
+      finance: 'Khoản tiền về chậm. Chuẩn bị phương án cho quãng chờ này.',
+      advice: 'Vội chưa chắc đã nhanh. Dùng quãng chậm này để làm cho chắc phần nền.'
     }
   },
   {
@@ -291,24 +291,24 @@ export const WANDS = [
     symbol: '🔥',
     color: '#f97316',
     upright: {
-      summary: 'Bạn đã mang nhiều vết thương nhưng vẫn đứng, và đích đến rất gần.',
+      summary: 'Bạn mệt rồi, nhưng đích thì đã rất gần.',
       summaryEn: 'You carry scars but you are still standing, and the finish line is close.',
       summaryZh: '你带着伤痕仍屹立不倒，而终点已近在眼前。',
-      situation: 'Chặng cuối gian nan nhất, nhưng bạn có đủ sức đi hết.',
-      love: 'Bạn dè chừng vì từng bị tổn thương, cần thời gian mở lòng lại.',
-      work: 'Chặng nước rút của dự án dài, đừng buông lúc này.',
-      finance: 'Sắp qua giai đoạn khó, hãy giữ kỷ luật thêm một thời gian.',
-      advice: 'Hãy nghỉ ngơi cho lại sức, nhưng đừng bỏ cuộc khi sắp tới nơi.'
+      situation: 'Bạn đã đi qua nhiều và giờ đang cạn sức. Cố thêm một đoạn ngắn nữa thôi.',
+      love: 'Những lần tổn thương cũ làm bạn dè chừng. Không sai, chỉ đừng để nó khoá bạn lại mãi.',
+      work: 'Việc gần xong nhưng đoạn cuối luôn là đoạn nặng nhất. Chia nhỏ ra theo ngày.',
+      finance: 'Bạn đã bền bỉ được một quãng dài. Giữ thêm chút nữa, đừng phá kỷ luật ở phút chót.',
+      advice: 'Nghỉ một nhịp không phải là bỏ cuộc. Nạp lại rồi đi nốt đoạn cuối.'
     },
     reversed: {
-      summary: 'Kiệt sức thật sự, hoặc phòng thủ quá mức nên tự cô lập.',
+      summary: 'Bạn hết pin thật rồi, và cứ gồng thêm sẽ gãy.',
       summaryEn: 'Genuine exhaustion, or defensiveness that isolates you.',
       summaryZh: '真正的力竭，或过度防备而自我孤立。',
-      situation: 'Bạn đã cạn năng lượng và cần dừng lại nghỉ thật sự.',
-      love: 'Sự đề phòng quá mức đang đẩy người tốt ra xa bạn.',
-      work: 'Làm việc trong trạng thái kiệt quệ khiến sai sót tăng lên.',
-      finance: 'Lo lắng quá mức về tiền khiến bạn không dám làm gì.',
-      advice: 'Hãy nhờ giúp đỡ, không ai đi hết đường dài một mình.'
+      situation: 'Bạn kiệt sức và vẫn tự bắt mình phải chịu đựng. Dừng lại, nghỉ, không ai phạt bạn đâu.',
+      love: 'Bạn dựng tường quá cao vì sợ đau lần nữa. Có người đang đứng ngoài chờ được vào.',
+      work: 'Quá tải tới mức làm gì cũng sai. Xin giãn hạn hoặc bàn giao bớt.',
+      finance: 'Áp lực tiền làm bạn không ngủ được. Nói với ai đó, chia sẻ giúp gánh nhẹ đi.',
+      advice: 'Bạn không phải chịu đựng mới là mạnh. Cho mình nghỉ, đó cũng là một quyết định đúng.'
     }
   },
   {
@@ -325,24 +325,24 @@ export const WANDS = [
     symbol: '🔥',
     color: '#f97316',
     upright: {
-      summary: 'Bạn đang vác nhiều hơn phần của mình và lưng đã bắt đầu còng xuống.',
+      summary: 'Bạn đang vác nhiều hơn phần đáng lẽ phải vác.',
       summaryEn: 'You are carrying more than your share, and it is starting to bend your back.',
       summaryZh: '你扛下的远超本分，脊背已开始弯曲。',
-      situation: 'Trách nhiệm chồng chất khiến bạn không còn thấy niềm vui.',
-      love: 'Một người gánh hầu hết việc chung trong mối quan hệ.',
-      work: 'Khối lượng công việc vượt xa khả năng của một người.',
-      finance: 'Áp lực chu cấp cho nhiều người cùng lúc.',
-      advice: 'Hãy đặt bớt xuống và giao lại việc không nhất thiết phải là bạn làm.'
+      situation: 'Trách nhiệm chất lên vai bạn từ nhiều phía. Hãy xem cái nào thật sự là của bạn.',
+      love: 'Bạn gánh gần hết mọi việc trong mối quan hệ. Nói ra, đừng chờ người kia tự nhận thấy.',
+      work: 'Ôm đồm quá nhiều nên chẳng việc nào làm tới nơi. Chia bớt hoặc trả lại một phần.',
+      finance: 'Nhiều khoản phải lo cùng lúc. Liệt kê ra và xử theo thứ tự, đừng lo tất cả cùng lúc.',
+      advice: 'Đặt xuống bớt vài thứ đi. Không phải gánh nào cũng do bạn tự chọn, nhưng bạn được phép đặt xuống.'
     },
     reversed: {
-      summary: 'Bắt đầu buông bớt gánh nặng, hoặc đổ việc sang người khác.',
+      summary: 'Bạn bắt đầu buông bớt, và vai đang nhẹ dần.',
       summaryEn: 'Beginning to set the load down, or offloading it onto others.',
       summaryZh: '开始卸下重担，或将其推给他人。',
-      situation: 'Bạn nhận ra mình không cần ôm hết và đang học cách từ chối.',
-      love: 'Hai người phân chia lại trách nhiệm cho công bằng hơn.',
-      work: 'Giao bớt việc hoặc rời khỏi vai trò quá tải.',
-      finance: 'Cắt giảm được một số nghĩa vụ tài chính không cần thiết.',
-      advice: 'Buông bớt không phải là thất bại, đó là điều kiện để đi tiếp.'
+      situation: 'Bạn nhận ra mình không cần ôm hết. Giao bớt việc là một kỹ năng, không phải sự lười.',
+      love: 'Bạn thôi cố gồng làm người hoàn hảo. Cứ thật thà mà sống, người ở lại sẽ ở lại.',
+      work: 'Đã đến lúc bàn giao. Tin người mình đã chọn.',
+      finance: 'Cắt bớt cam kết tài chính không cần thiết. Nhẹ đi thấy rõ.',
+      advice: 'Bạn không cần chứng minh mình chịu được tất cả. Xin giúp đỡ cũng là một cách trưởng thành.'
     }
   },
   {
@@ -359,24 +359,24 @@ export const WANDS = [
     symbol: '🔥',
     color: '#f97316',
     upright: {
-      summary: 'Một tia cảm hứng mới và tinh thần sẵn sàng thử điều chưa từng làm.',
+      summary: 'Một tin vui và một hứng khởi rất mới đang tới.',
       summaryEn: 'A fresh spark of inspiration and readiness to try something new.',
       summaryZh: '新的灵感火花，以及尝试未知的意愿。',
-      situation: 'Bạn đang mở lòng với một hướng đi hoặc lĩnh vực hoàn toàn mới.',
-      love: 'Một mối quan hệ nhẹ nhàng, vui vẻ và nhiều tò mò mới chớm.',
-      work: 'Tin vui về cơ hội học nghề mới hoặc dự án thú vị.',
-      finance: 'Ý tưởng kiếm tiền mới đang hình thành, còn ở giai đoạn thử.',
-      advice: 'Hãy cứ thử với tinh thần học hỏi, đừng đòi hỏi hoàn hảo ngay.'
+      situation: 'Có cơ hội nhỏ mà thú vị đang mở ra. Cứ thử, chưa cần biết nó dẫn tới đâu.',
+      love: 'Một khởi đầu hồn nhiên, không tính toán. Cứ vui theo nó.',
+      work: 'Bạn được giao một việc mới lạ. Học được nhiều hơn là ngại.',
+      finance: 'Cơ hội nhỏ để thử sức. Đặt một khoản vừa phải và coi như học phí.',
+      advice: 'Đừng để sự chín chắn giết mất sự tò mò. Cứ hỏi, cứ thử.'
     },
     reversed: {
-      summary: 'Nhiệt tình đến nhanh đi nhanh, hoặc thiếu định hướng rõ ràng.',
+      summary: 'Hứng lên rất nhanh rồi cũng tắt rất nhanh.',
       summaryEn: 'Enthusiasm that comes and goes fast, or a lack of clear direction.',
       summaryZh: '热情来得快去得也快，或缺乏明确方向。',
-      situation: 'Bạn bắt đầu nhiều thứ nhưng chưa hoàn thành thứ nào.',
-      love: 'Tình cảm hời hợt hoặc chưa đủ nghiêm túc để đi xa.',
-      work: 'Thiếu kiên nhẫn với giai đoạn học việc nhàm chán.',
-      finance: 'Ý tưởng kiếm tiền chưa được tính toán kỹ về chi phí.',
-      advice: 'Hãy chọn một thứ và theo tới cùng trước khi mở thứ mới.'
+      situation: 'Bạn bắt đầu nhiều thứ nhưng chưa xong cái nào. Chọn một, làm cho hết.',
+      love: 'Thích rồi lại chán, không đủ kiên nhẫn để hiểu ai đó. Cho một người thêm thời gian đi.',
+      work: 'Tin xấu hoặc kế hoạch bị huỷ. Không sao, đây chưa phải cơ hội cuối.',
+      finance: 'Thử nhiều thứ nhỏ mà chẳng cái nào đi tới đâu. Dừng lại, dồn vào một cái.',
+      advice: 'Nhiệt tình cần một cái khung mới ra kết quả. Đặt cho mình một hạn chót.'
     }
   },
   {
@@ -393,24 +393,24 @@ export const WANDS = [
     symbol: '🔥',
     color: '#f97316',
     upright: {
-      summary: 'Lao tới mục tiêu bằng tất cả nhiệt huyết, không sợ va vấp.',
+      summary: 'Bạn đang muốn lao đi, và lần này thì cứ lao.',
       summaryEn: 'Charging at the goal with full passion, unafraid of bumps.',
       summaryZh: '以满腔热情冲向目标，不惧碰撞。',
-      situation: 'Bạn đang tràn đầy năng lượng và muốn hành động ngay lập tức.',
-      love: 'Tình cảm nồng nhiệt, cuốn hút và nhiều bất ngờ.',
-      work: 'Thời điểm bứt tốc, dám nhận việc khó và đi trước người khác.',
-      finance: 'Sẵn sàng mạo hiểm để tìm cơ hội lợi nhuận cao.',
-      advice: 'Hãy giữ ngọn lửa này nhưng nhớ nhìn đường trước khi phóng.'
+      situation: 'Đây là lúc để hành động chứ không phải để cân nhắc thêm. Đi đi, sửa dọc đường.',
+      love: 'Có người đến với bạn rất nồng nhiệt, hoặc chính bạn đang như vậy. Cứ tận hưởng nhưng đừng hứa sớm.',
+      work: 'Bạn dám nhận việc người khác ngại. Đó là lợi thế của bạn lúc này.',
+      finance: 'Dám mạo hiểm trong mức tính được. Đặt sẵn điểm dừng lỗ.',
+      advice: 'Nhiệt huyết là thứ hiếm, đừng phí nó. Nhưng nhớ nhìn đường trước khi rẽ.'
     },
     reversed: {
-      summary: 'Nóng vội, thiếu kiên nhẫn hoặc bỏ dở giữa chừng.',
+      summary: 'Nhanh quá hoá hấp tấp, và có chuyện đang vỡ vì thế.',
       summaryEn: 'Impatience, haste, or abandoning things halfway.',
       summaryZh: '急躁、缺乏耐性，或半途而废。',
-      situation: 'Hành động thiếu suy tính dẫn tới hậu quả phải sửa lại.',
-      love: 'Cảm xúc lên xuống thất thường khiến đối phương mệt mỏi.',
-      work: 'Lao vào làm mà bỏ qua khâu chuẩn bị, dễ vỡ kế hoạch.',
-      finance: 'Quyết định đầu tư bốc đồng gây thiệt hại.',
-      advice: 'Hãy dành thêm một ngày suy nghĩ trước mỗi quyết định lớn.'
+      situation: 'Bạn quyết vội và giờ phải sửa. Chậm lại nửa nhịp là đủ để tránh lần sau.',
+      love: 'Bốc đồng trong tình cảm dễ làm tổn thương người khác. Nghĩ thêm một ngày trước khi nói.',
+      work: 'Làm ẩu để kịp hạn rồi phải làm lại. Chậm mà đúng vẫn nhanh hơn.',
+      finance: 'Quyết định tiền bạc theo cảm hứng. Đặt quy tắc chờ hai ngày cho mọi khoản lớn.',
+      advice: 'Không phải năng lượng nào cũng cần xả ngay. Giữ lại một phần cho đoạn đường dài.'
     }
   },
   {
@@ -427,24 +427,24 @@ export const WANDS = [
     symbol: '🔥',
     color: '#f97316',
     upright: {
-      summary: 'Sự tự tin ấm áp khiến người khác tự nhiên muốn đi theo bạn.',
+      summary: 'Bạn đang toả sáng theo cách rất tự nhiên, và người ta thấy điều đó.',
       summaryEn: 'A warm confidence that makes people naturally want to follow you.',
       summaryZh: '温暖的自信，令人自然而然愿意追随。',
-      situation: 'Bạn làm chủ được tình hình và toả ra năng lượng tích cực.',
-      love: 'Bạn thu hút bằng chính sự tự tin và chân thành của mình.',
-      work: 'Bạn dẫn dắt nhóm bằng nhiệt huyết chứ không bằng mệnh lệnh.',
-      finance: 'Quản lý tiền bạc chủ động và hào phóng đúng mực.',
-      advice: 'Hãy cứ rực rỡ là chính mình, đừng thu nhỏ lại vì ai cả.'
+      situation: 'Sức hút và sự tự tin của bạn đang ở mức cao. Dùng nó để mở cửa, đừng giấu đi.',
+      love: 'Bạn được để ý, và người ấy quý bạn ở sự ấm áp chứ không chỉ ở vẻ ngoài.',
+      work: 'Bạn dẫn dắt được người khác bằng nhiệt tình. Nhận vai trò cầm nhóm nếu được mời.',
+      finance: 'Bạn dám quyết và quyết đúng. Tin vào phán đoán của mình.',
+      advice: 'Đừng thu nhỏ mình lại cho vừa mắt ai. Bạn sáng thì cứ sáng.'
     },
     reversed: {
-      summary: 'Tự nghi ngờ bản thân, hoặc ghen tị và áp đặt lên người khác.',
+      summary: 'Sự tự tin đang lung lay, và bạn hay so mình với người khác.',
       summaryEn: 'Self-doubt, or jealousy and control directed at others.',
       summaryZh: '自我怀疑，或对他人心生嫉妒与控制。',
-      situation: 'Bạn mất tự tin và so sánh mình với người khác quá nhiều.',
-      love: 'Ghen tuông hoặc kiểm soát làm mối quan hệ ngột ngạt.',
-      work: 'Thiếu tin tưởng bản thân nên không dám nhận vai trò lớn.',
-      finance: 'Chi tiêu để chứng tỏ bản thân thay vì vì nhu cầu thật.',
-      advice: 'Hãy quay về với giá trị của mình thay vì đo bằng người khác.'
+      situation: 'Bạn nghi ngờ giá trị của mình dù chẳng có gì thay đổi. Ngừng lướt xem người khác đang làm gì.',
+      love: 'Ghen tuông hoặc bất an đang chen vào. Nói ra nỗi sợ thay vì để nó thành cơn giận.',
+      work: 'Bạn ngại đứng ra vì sợ bị chê. Cứ làm, sai thì sửa.',
+      finance: 'Chi tiêu để giữ hình ảnh. Không cần thiết đâu.',
+      advice: 'Giá trị của bạn không giảm đi khi người khác toả sáng. Về lại với việc của mình.'
     }
   },
   {
@@ -461,24 +461,24 @@ export const WANDS = [
     symbol: '🔥',
     color: '#f97316',
     upright: {
-      summary: 'Người dẫn đầu có tầm nhìn và dám chịu trách nhiệm cho quyết định của mình.',
+      summary: 'Bạn nhìn được đường dài và đủ bản lĩnh để dẫn người khác đi cùng.',
       summaryEn: 'A visionary leader who owns the consequences of their decisions.',
       summaryZh: '有远见的领导者，敢为自己的决定担责。',
-      situation: 'Bạn đủ chín để cầm trịch và đưa cả nhóm đi đúng hướng.',
-      love: 'Mối quan hệ có người dẫn dắt vững vàng và biết bảo vệ.',
-      work: 'Thời điểm tốt để khởi nghiệp hoặc nhận vị trí điều hành.',
-      finance: 'Ra quyết định đầu tư lớn dựa trên tầm nhìn dài hạn.',
-      advice: 'Hãy dẫn bằng tấm gương chứ không bằng áp lực.'
+      situation: 'Đây là lúc bạn cầm trịch. Đưa ra hướng đi và giữ mọi người theo nó.',
+      love: 'Bạn là người vững chãi trong mối quan hệ. Nhớ hỏi ý người kia thay vì tự quyết hết.',
+      work: 'Hợp cho việc khởi nghiệp, mở rộng, hoặc nhận vai trò lớn hơn. Bạn làm được.',
+      finance: 'Tầm nhìn tài chính của bạn đang tốt. Đầu tư cho thứ có thể lớn lên.',
+      advice: 'Dẫn đường bằng cách đi trước, không phải bằng cách hô to. Người ta theo hành động.'
     },
     reversed: {
-      summary: 'Độc đoán, hứa nhiều làm ít hoặc lãnh đạo bằng áp lực.',
+      summary: 'Muốn dẫn người khác nhưng đang mất phương hướng của chính mình.',
       summaryEn: 'Domineering, over-promising, or leading through pressure.',
       summaryZh: '专断、承诺多于兑现，或以高压领导。',
-      situation: 'Bạn hoặc ai đó đang áp đặt ý mình lên tập thể.',
-      love: 'Một bên muốn kiểm soát toàn bộ quyết định chung.',
-      work: 'Người lãnh đạo hứa hẹn nhiều nhưng không theo tới cùng.',
-      finance: 'Quyết định tài chính độc đoán, không tham khảo ai.',
-      advice: 'Hãy lắng nghe trước khi ra quyết định thay cho người khác.'
+      situation: 'Bạn ra quyết định trong lúc chưa rõ đường. Dừng lại xác định hướng trước đã.',
+      love: 'Bạn áp đặt và gọi đó là lo cho nhau. Hỏi xem người ta muốn gì.',
+      work: 'Cấp trên độc đoán, hoặc chính bạn đang như thế. Lắng nghe một vòng trước khi chốt.',
+      finance: 'Quyết định lớn mà thiếu dữ liệu. Kiểm chứng lại rồi hãy làm.',
+      advice: 'Người dẫn đầu giỏi là người biết lúc nào nên hỏi. Đừng ngại thừa nhận mình chưa biết.'
     }
   }
 ];

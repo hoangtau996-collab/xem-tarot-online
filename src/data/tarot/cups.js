@@ -19,24 +19,24 @@ export const CUPS = [
     symbol: '🌊',
     color: '#06b6d4',
     upright: {
-      summary: 'Cốc tình yêu và cảm xúc đong đầy tràn trề, khởi đầu cho sự kết nối tâm hồn tuyệt vời.',
+      summary: 'Lòng bạn đang mở ra trở lại, và có một thứ dịu dàng sắp chảy vào.',
       summaryEn: 'An overflowing cup of emotional fulfillment, deep love, and healing.',
       summaryZh: '情感与爱的圣杯盈满，开启心灵疗愈与美妙连结。',
-      situation: 'Trái tim bạn rộng mở đón nhận yêu thương.',
-      love: 'Khởi đầu một tình yêu ngập tràn hạnh phúc.',
-      work: 'Tìm thấy đam mê thuần khiết trong công việc.',
-      finance: 'Tài chính mang lại sự an tâm tinh thần.',
-      advice: 'Hãy để cảm xúc chân thật chảy tràn.'
+      situation: 'Sau một quãng khô cạn, bạn thấy mình cảm được trở lại. Cứ để nó tới, đừng bắt mình phải hiểu ngay đây là chuyện gì.',
+      love: 'Có một người đang bước vào đời bạn, hoặc một người cũ đang mở lòng lần nữa. Đừng vội hỏi chuyện này đi tới đâu, cứ để mình được vui cái đã.',
+      work: 'Bạn tìm lại được cảm giác thích thú với việc mình làm. Nhận lấy phần việc nào chạm được vào lòng mình, dù nó chưa phải phần trả cao nhất.',
+      finance: 'Tiền lúc này không phải chuyện lớn nhất, cảm giác an tâm mới là thứ bạn cần. Chi một khoản nhỏ cho điều làm bạn thấy được chăm sóc cũng đáng.',
+      advice: 'Đừng chặn dòng cảm xúc lại vì sợ tổn thương. Trái tim chỉ lành lại được khi nó được phép chảy.'
     },
     reversed: {
-      summary: 'Cảm xúc dồn nén, đứt gãy kết nối hoặc vết thương lòng chưa lành.',
+      summary: 'Có nhiều điều muốn nói mà bạn nuốt hết vào trong.',
       summaryEn: 'Blocked emotions, heartbreak, or feeling disconnected.',
       summaryZh: '压抑的情感、心碎感或灵魂连结脱节。',
-      situation: 'Bị tổn thương cảm xúc.',
-      love: 'E ngại mở lòng.',
-      work: 'Thiếu sự gắn kết với môi trường làm việc.',
-      finance: 'Lo lắng cảm tính về tiền bạc.',
-      advice: 'Cho phép trái tim được chữa lành từ từ.'
+      situation: 'Bạn đang nén cảm xúc để mọi việc trôi cho êm. Nén lâu quá thì đến chính bạn cũng không biết mình đang cảm thấy gì.',
+      love: 'Bạn ngại mở lòng vì lần trước đã đau. Không cần mở toang, chỉ cần hé ra một chút với đúng một người.',
+      work: 'Bạn làm cho xong chứ không còn thấy gắn bó gì. Tìm lại một mảnh nhỏ trong công việc mà bạn vẫn còn thích, và bắt đầu từ đó.',
+      finance: 'Bạn tiêu tiền để dỗ mình những lúc trống trải. Nhận ra được điều đó thì cơn thèm mua cũng nhẹ đi.',
+      advice: 'Cho phép mình buồn, thật sự buồn, không phải giả vờ ổn. Chữa lành bắt đầu từ chỗ thừa nhận.'
     }
   },
   {
@@ -53,24 +53,24 @@ export const CUPS = [
     symbol: '🌊',
     color: '#06b6d4',
     upright: {
-      summary: 'Hai tâm hồn tìm thấy nhau và trao đi sự thấu hiểu ngang nhau.',
+      summary: 'Hai người tìm được nhau, và lần này là hiểu nhau thật.',
       summaryEn: 'Two souls find each other and give understanding in equal measure.',
       summaryZh: '两颗心彼此相遇，付出同等的理解。',
-      situation: 'Một mối quan hệ cân bằng và lành mạnh đang hình thành.',
-      love: 'Tình cảm đôi lứa hoà hợp, có thể tiến tới cam kết nghiêm túc.',
-      work: 'Hợp tác ăn ý với một đối tác hoặc đồng nghiệp cùng chí hướng.',
-      finance: 'Kế hoạch tài chính chung được cả hai bên đồng thuận.',
-      advice: 'Hãy trân trọng sự tương xứng này và giữ cho nó cân bằng.'
+      situation: 'Một mối quan hệ đang thành hình trên nền tôn trọng, không phải trên nền cần nhau. Đây là kiểu bền.',
+      love: 'Bạn và người ấy đang ở cùng một nhịp: nói là hiểu, im cũng thấy dễ chịu. Nếu định tiến thêm một bước, đây là lúc thuận.',
+      work: 'Một sự hợp tác đáng giá đang mở ra, thường là với người bạn quý về tính cách chứ không chỉ về năng lực. Đồng ý đi.',
+      finance: 'Chuyện tiền nên bàn chung và chia rõ. Sòng phẳng từ đầu thì tình cảm mới giữ được lâu.',
+      advice: 'Hãy cho người ấy thấy con người thật của bạn. Gặp được nhau đúng nghĩa thì mới có gì để giữ.'
     },
     reversed: {
-      summary: 'Mất cân bằng trong cho và nhận, hoặc hiểu lầm chưa được gỡ.',
+      summary: 'Hai người đang lệch nhịp, và cả hai đều biết điều đó.',
       summaryEn: 'Give and take out of balance, or a misunderstanding left unresolved.',
       summaryZh: '付出与索取失衡，或误会尚未化解。',
-      situation: 'Một bên đang cố gắng nhiều hơn hẳn bên còn lại.',
-      love: 'Tình cảm lệch phía khiến người cho nhiều hơn thấy tủi thân.',
-      work: 'Quan hệ hợp tác thiếu công bằng về quyền lợi.',
-      finance: 'Đóng góp tài chính không tương xứng gây khó chịu ngầm.',
-      advice: 'Hãy nói thẳng cảm giác của mình trước khi nó thành oán trách.'
+      situation: 'Có một khoảng cách vừa mới xuất hiện giữa hai người. Nói ra bây giờ còn kịp, để lâu nó thành thói quen.',
+      love: 'Một bên cố nhiều hơn hẳn bên kia. Hỏi thẳng xem cả hai còn muốn đi chung nữa không.',
+      work: 'Hợp tác trục trặc vì kỳ vọng không giống nhau ngay từ đầu. Ngồi lại viết ra ai làm gì.',
+      finance: 'Chuyện tiền chung đang gợn. Đưa mọi con số ra bàn trước khi nó thành chuyện lớn.',
+      advice: 'Đừng gồng giữ một mối quan hệ chỉ bằng sức của mình bạn. Hai người mới đi được đường dài.'
     }
   },
   {
@@ -87,24 +87,24 @@ export const CUPS = [
     symbol: '🌊',
     color: '#06b6d4',
     upright: {
-      summary: 'Niềm vui được nhân lên khi có bạn bè cùng chia sẻ.',
+      summary: 'Có người để cùng vui, và niềm vui đó là thật.',
       summaryEn: 'Joy multiplies when there are friends to share it with.',
       summaryZh: '有朋友共享时，喜悦倍增。',
-      situation: 'Bạn được nâng đỡ bởi một nhóm người thật lòng quý mến mình.',
-      love: 'Tình cảm nảy nở trong môi trường bạn bè, gặp gỡ vui vẻ.',
-      work: 'Không khí đồng đội tốt, mọi người hỗ trợ nhau nhiệt tình.',
-      finance: 'Có tin vui tài chính đáng để chia sẻ cùng người thân.',
-      advice: 'Hãy dành thời gian cho những người khiến bạn nhẹ lòng.'
+      situation: 'Bạn đang được vây quanh bởi những người thật lòng. Nhận lời mời đi, đừng lại viện cớ bận.',
+      love: 'Không khí nhẹ nhõm, vui vẻ, có thể có tin mừng để chung vui. Tình cảm lớn lên trong những buổi như thế.',
+      work: 'Làm nhóm đang thuận và bạn được quý ở chỗ dễ chịu. Chia sẻ công cho cả nhóm thì mọi thứ càng trôi.',
+      finance: 'Có thể chi cho một dịp đáng nhớ. Chọn cái vừa túi mà vẫn đủ ấm.',
+      advice: 'Đừng để niềm vui thành thứ xa xỉ trong lịch của bạn. Gọi cho bạn bè đi, hôm nay.'
     },
     reversed: {
-      summary: 'Tiệc vui quá đà, hoặc cảm giác lạc lõng giữa đám đông.',
+      summary: 'Ở giữa đám đông mà vẫn thấy một mình.',
       summaryEn: 'Celebration taken too far, or feeling adrift in a crowd.',
       summaryZh: '欢聚过度，或身处人群却觉孤单。',
-      situation: 'Bạn ở giữa nhiều người nhưng vẫn thấy cô đơn.',
-      love: 'Người thứ ba hoặc bạn bè xen vào chuyện của hai người.',
-      work: 'Bè phái trong nhóm khiến người ngoài nhóm bị bỏ lại.',
-      finance: 'Chi tiêu cho tiệc tùng, giao tế vượt mức hợp lý.',
-      advice: 'Hãy chọn vài mối quan hệ sâu thay vì thật nhiều mối hời hợt.'
+      situation: 'Bạn góp mặt cho đủ chứ không thật sự thấy thuộc về. Bớt những cuộc vui hình thức, giữ lại vài người thật.',
+      love: 'Có người thứ ba, hoặc có nhiều lời ra tiếng vào xen vào chuyện của hai người. Chuyện của ai thì để người đó quyết.',
+      work: 'Nhóm đang nói sau lưng nhau. Đừng dự phần vào, cứ làm tốt việc mình và nói thẳng khi cần.',
+      finance: 'Chi tiêu theo bạn bè quá tay. Bạn không cần chứng minh gì với ai cả.',
+      advice: 'Một người bạn thật lòng đáng giá hơn hai mươi cuộc hẹn. Hãy chọn chỗ mà bạn được là mình.'
     }
   },
   {
@@ -121,24 +121,24 @@ export const CUPS = [
     symbol: '🌊',
     color: '#06b6d4',
     upright: {
-      summary: 'Bạn đang chán những gì đang có mà không thấy món quà ngay trước mặt.',
+      summary: 'Bạn đang chán, và cái bạn cần chưa chắc là một thứ mới.',
       summaryEn: 'You are bored with what you have and miss the gift right in front of you.',
       summaryZh: '你厌倦了手中所有，却没看见眼前的馈赠。',
-      situation: 'Cảm giác trống rỗng dù bên ngoài chẳng thiếu thứ gì.',
-      love: 'Mối quan hệ rơi vào nhàm chán, thiếu cảm xúc mới.',
-      work: 'Công việc lặp lại khiến bạn mất hứng thú và động lực.',
-      finance: 'Không mặn mà với cơ hội tài chính đang có trong tay.',
-      advice: 'Hãy nhìn lại xem mình đang bỏ qua điều tốt đẹp nào.'
+      situation: 'Mọi thứ vẫn ổn nhưng bạn không còn thấy hứng thú gì. Đây là lúc nhìn vào trong, không phải lúc đổi hết mọi thứ bên ngoài.',
+      love: 'Có ai đó đang đối tốt với bạn mà bạn không nhận ra vì còn mải nghĩ về chuyện cũ. Nhìn quanh một chút đi.',
+      work: 'Công việc thành lối mòn và bạn đang chỉ làm cho hết ngày. Trước khi tính nghỉ, thử hỏi xem điều gì đã tắt bên trong.',
+      finance: 'Tiền vẫn đủ nhưng bạn thấy trống rỗng. Vấn đề ở đây không nằm ở con số.',
+      advice: 'Nghỉ đúng nghĩa một quãng ngắn. Có khi bạn không chán đời, chỉ là đang cạn pin.'
     },
     reversed: {
-      summary: 'Bạn tỉnh lại và bắt đầu mở lòng đón nhận cơ hội mới.',
+      summary: 'Bạn bắt đầu tỉnh lại và thấy có gì đó đáng để thử.',
       summaryEn: 'You come back to yourself and open up to new opportunities.',
       summaryZh: '你重新振作，开始敞开心接纳新机会。',
-      situation: 'Giai đoạn uể oải qua đi, hứng thú với cuộc sống trở lại.',
-      love: 'Bạn sẵn sàng cho mối quan hệ mới sau thời gian khép lòng.',
-      work: 'Tìm lại được ý nghĩa trong công việc hoặc chuyển hướng phù hợp.',
-      finance: 'Bắt đầu chủ động nắm bắt cơ hội thay vì thờ ơ.',
-      advice: 'Hãy nói có với lời mời tiếp theo đến với bạn.'
+      situation: 'Sau một quãng lơ đãng, bạn muốn quay lại với đời sống. Nhận lấy lời mời đầu tiên đến với bạn.',
+      love: 'Bạn sẵn sàng mở lòng trở lại. Điều đó đáng quý hơn bạn nghĩ, đừng tự chê mình chậm.',
+      work: 'Cảm hứng quay lại. Bắt tay vào ngay khi còn nóng, đừng đợi tới lúc gọn gàng mới làm.',
+      finance: 'Bạn để ý lại chuyện tiền nong sau một thời gian mặc kệ. Bắt đầu từ việc nhỏ nhất là ghi chép.',
+      advice: 'Cơ hội thường đến lúc bạn chưa kịp sẵn sàng. Cứ nói có rồi tính tiếp.'
     }
   },
   {
@@ -155,24 +155,24 @@ export const CUPS = [
     symbol: '🌊',
     color: '#06b6d4',
     upright: {
-      summary: 'Bạn đang nhìn vào phần đã mất mà chưa quay lại nhìn phần còn lại.',
+      summary: 'Bạn đang tiếc thứ đã mất mà chưa thấy thứ vẫn còn.',
       summaryEn: 'You are staring at what was lost and have not yet turned to see what remains.',
       summaryZh: '你凝望失去之物，还未回头看看仍剩下的。',
-      situation: 'Nỗi buồn đang chiếm hết tầm nhìn của bạn lúc này.',
-      love: 'Tổn thương từ một chia ly hoặc thất vọng còn chưa nguôi.',
-      work: 'Một thất bại khiến bạn mất niềm tin vào năng lực bản thân.',
-      finance: 'Một khoản thua lỗ khiến bạn tiếc nuối và tự trách.',
-      advice: 'Hãy cho phép mình buồn, rồi quay lại đếm những gì vẫn còn.'
+      situation: 'Có một mất mát thật và bạn được quyền buồn về nó. Chỉ là đừng buồn tới mức quay lưng luôn với những gì còn lại.',
+      love: 'Một vết thương cũ vẫn còn nhức. Cho mình thời gian, nhưng cũng nhớ rằng có người đang đứng phía sau bạn.',
+      work: 'Một cơ hội trượt mất, hoặc một việc không thành. Rút lấy bài học rồi thôi tự trách.',
+      finance: 'Có khoản thất thoát khiến bạn tiếc. Nhìn lại xem còn giữ được gì, thường là nhiều hơn bạn tưởng.',
+      advice: 'Quay người lại một chút đi. Hai chiếc cốc vẫn đứng nguyên sau lưng bạn.'
     },
     reversed: {
-      summary: 'Bắt đầu chấp nhận, tha thứ và bước ra khỏi nỗi buồn.',
+      summary: 'Bạn bắt đầu đứng dậy được, và đó là bước khó nhất.',
       summaryEn: 'Beginning to accept, forgive, and step out of the grief.',
       summaryZh: '开始接受、原谅，并走出悲伤。',
-      situation: 'Bạn đang lành lại và nhìn sự việc nhẹ nhàng hơn.',
-      love: 'Sẵn sàng tha thứ cho quá khứ và cho chính mình.',
-      work: 'Rút được bài học từ thất bại và làm lại với tâm thế khác.',
-      finance: 'Chấp nhận khoản lỗ đã qua và lập lại kế hoạch mới.',
-      advice: 'Hãy để quá khứ ở lại phía sau, bạn đã mang nó đủ lâu rồi.'
+      situation: 'Nỗi buồn đang nhạt dần và bạn thấy mình sống lại. Đừng vội bắt mình phải ổn hoàn toàn.',
+      love: 'Bạn tha thứ được, cho người kia hoặc cho chính mình. Lòng nhẹ đi từ đó.',
+      work: 'Bạn làm lại sau một lần vấp. Lần này bạn có thứ mà lần trước không có, là kinh nghiệm.',
+      finance: 'Tình hình đang gỡ dần. Đi từng bước nhỏ và đừng nôn nóng bù lại cho nhanh.',
+      advice: 'Bạn không phải người thất bại, bạn là người đã dám thử. Cho mình được đi tiếp.'
     }
   },
   {
@@ -189,24 +189,24 @@ export const CUPS = [
     symbol: '🌊',
     color: '#06b6d4',
     upright: {
-      summary: 'Những ký ức ngọt ngào quay về, mang theo sự trong trẻo của ngày cũ.',
+      summary: 'Một kỷ niệm cũ trở về, ấm và trong trẻo.',
       summaryEn: 'Sweet memories return, carrying the innocence of earlier days.',
       summaryZh: '甜美的回忆归来，带着旧日的纯真。',
-      situation: 'Quá khứ đang có ảnh hưởng dịu dàng lên hiện tại của bạn.',
-      love: 'Người cũ có thể xuất hiện lại, hoặc tình cảm mang màu hoài niệm.',
-      work: 'Cơ hội đến từ một mối quan hệ hoặc nơi làm việc cũ.',
-      finance: 'Nhận được sự giúp đỡ từ gia đình hoặc người quen lâu năm.',
-      advice: 'Hãy giữ sự hồn nhiên tử tế, nhưng đừng sống mãi trong quá khứ.'
+      situation: 'Quá khứ đang gõ cửa theo một cách dễ chịu: người cũ, chốn cũ, một thói quen ngày bé. Cứ đón lấy.',
+      love: 'Có thể là người xưa quay lại, hoặc một tình cảm hồn nhiên như thuở đầu. Đừng phòng thủ quá mức.',
+      work: 'Một mối quan hệ cũ mang cơ hội tới. Liên lạc lại với người bạn từng làm chung.',
+      finance: 'Có khoản thu từ chuyện cũ, hoặc sự giúp đỡ từ gia đình. Nhận và nhớ cảm ơn.',
+      advice: 'Nhớ lại xem hồi bé bạn thích làm gì. Trong đó thường có câu trả lời cho chuyện hôm nay.'
     },
     reversed: {
-      summary: 'Mắc kẹt trong quá khứ hoặc lý tưởng hoá ngày xưa quá mức.',
+      summary: 'Sống bằng ngày cũ thì hôm nay không còn chỗ.',
       summaryEn: 'Stuck in the past, or idealising the old days too much.',
       summaryZh: '困于过去，或把旧日理想化得太过。',
-      situation: 'Bạn so sánh hiện tại với quá khứ và luôn thấy hiện tại kém hơn.',
-      love: 'Không dứt được người cũ nên không mở lòng với người mới.',
-      work: 'Bám vào cách làm cũ dù hoàn cảnh đã khác.',
-      finance: 'Kỳ vọng tài chính dựa trên điều kiện của giai đoạn đã qua.',
-      advice: 'Hãy trân trọng kỷ niệm nhưng sống trọn ở hiện tại.'
+      situation: 'Bạn đang neo mình vào một quãng đã qua và so mọi thứ với nó. Đời bây giờ cũng đáng được nhìn.',
+      love: 'Bạn vẫn so người hiện tại với người cũ. Không công bằng cho ai cả, kể cả bạn.',
+      work: 'Cách làm cũ không còn hợp nữa. Học lại một thứ mới, dù ban đầu thấy ngại.',
+      finance: 'Đừng quyết dựa trên tình hình của mấy năm trước. Mọi thứ đã khác rồi.',
+      advice: 'Giữ kỷ niệm nhưng đừng ở lại trong đó. Hôm nay mới là nơi bạn sống được.'
     }
   },
   {
@@ -223,24 +223,24 @@ export const CUPS = [
     symbol: '🌊',
     color: '#06b6d4',
     upright: {
-      summary: 'Quá nhiều lựa chọn bày ra trước mắt, và không phải cái nào cũng thật.',
+      summary: 'Nhiều lựa chọn quá, và không phải cái nào cũng thật.',
       summaryEn: 'Too many options laid out, and not all of them are real.',
       summaryZh: '眼前选择太多，而并非每一个都真实。',
-      situation: 'Bạn phân vân giữa nhiều hướng đi nên chưa chọn được cái nào.',
-      love: 'Đứng giữa nhiều lựa chọn tình cảm hoặc đang lý tưởng hoá một người.',
-      work: 'Nhiều cơ hội cùng lúc nhưng chưa cái nào rõ ràng.',
-      finance: 'Nhiều đề nghị đầu tư hấp dẫn, cần tỉnh táo sàng lọc.',
-      advice: 'Hãy viết ra từng lựa chọn kèm con số thật, ảo tưởng sẽ tự rơi rụng.'
+      situation: 'Bạn đang có nhiều đường đi và cái nào cũng hấp dẫn khi mới nhìn. Viết hết ra giấy, rồi gạch những cái chỉ đẹp trong tưởng tượng.',
+      love: 'Bạn đang yêu một hình dung về người ta hơn là chính người ta. Nhìn cho kỹ con người thật đã.',
+      work: 'Nhiều lời mời cùng lúc dễ làm bạn hoa mắt. Hỏi rõ điều kiện thật của từng bên trước khi mơ.',
+      finance: 'Cẩn thận với những lời hứa lãi cao. Cái gì nghe quá đẹp thì thường là chỉ đẹp phần nghe.',
+      advice: 'Chọn một thứ và làm thật, còn hơn giữ mười giấc mơ đẹp. Thực tế mới nuôi được bạn.'
     },
     reversed: {
-      summary: 'Sương mù tan, bạn nhìn rõ đâu là lựa chọn thật sự khả thi.',
+      summary: 'Sương tan rồi, bạn nhìn ra cái nào là thật.',
       summaryEn: 'The fog clears and you see which option is genuinely viable.',
       summaryZh: '迷雾散去，你看清哪个选择真正可行。',
-      situation: 'Bạn đã chốt được hướng đi sau thời gian phân vân.',
-      love: 'Nhìn rõ con người thật của đối phương, hết ảo tưởng.',
-      work: 'Loại bỏ được các cơ hội không phù hợp và tập trung vào một.',
-      finance: 'Nhận ra đề nghị nào là thật, đề nghị nào chỉ là bánh vẽ.',
-      advice: 'Đã chọn rồi thì dồn sức vào, đừng ngoái lại các cửa đã đóng.'
+      situation: 'Bạn đã bớt mơ hồ và biết mình muốn gì. Giờ thì chốt lại và bắt tay vào.',
+      love: 'Bạn nhìn người ta đúng như họ là. Dễ chịu hơn nhiều so với lúc còn tự vẽ.',
+      work: 'Một lựa chọn nổi bật hẳn lên. Đi theo nó, đừng ngoái lại mấy phương án còn lại.',
+      finance: 'Bạn tránh được một quyết định hớ. Giữ nguyên tắc chỉ xuống tiền khi hiểu rõ.',
+      advice: 'Ngừng nghĩ, bắt đầu làm. Một bước thật đáng giá hơn mười kế hoạch trong đầu.'
     }
   },
   {
@@ -257,24 +257,24 @@ export const CUPS = [
     symbol: '🌊',
     color: '#06b6d4',
     upright: {
-      summary: 'Bạn quay lưng với điều không còn nuôi dưỡng mình để đi tìm thứ sâu hơn.',
+      summary: 'Bạn quay lưng đi khỏi thứ vẫn ổn, để tìm thứ thật sự có nghĩa.',
       summaryEn: 'You turn away from what no longer nourishes you to seek something deeper.',
       summaryZh: '你转身离开不再滋养你之物，去寻找更深的东西。',
-      situation: 'Đã đến lúc rời đi dù bên ngoài mọi thứ trông vẫn ổn.',
-      love: 'Quyết định kết thúc mối quan hệ đã cạn cảm xúc.',
-      work: 'Rời bỏ công việc ổn định để đi tìm điều có ý nghĩa hơn.',
-      finance: 'Từ bỏ nguồn thu quen thuộc để theo đuổi hướng mới.',
-      advice: 'Hãy tin vào lý do khiến bạn muốn đi, dù chưa giải thích được.'
+      situation: 'Có điều gì đó đủ đầy về hình thức nhưng không còn nuôi bạn nữa. Rời đi không phải là phụ bạc.',
+      love: 'Bạn đang cân nhắc kết thúc một mối quan hệ mà bên ngoài trông chẳng có gì sai. Cảm giác trống rỗng của bạn cũng là một lý do chính đáng.',
+      work: 'Bạn muốn nghỉ dù công việc ổn định. Chuẩn bị cho tử tế rồi hãy đi, nhưng đừng tự thuyết phục mình ở lại mãi.',
+      finance: 'Có thể phải chấp nhận thu nhập kém đi một thời gian để đổi hướng. Tính kỹ phần đệm trước khi bước.',
+      advice: 'Ở lại vì quen không phải là một lý do. Hãy đi tìm thứ khiến bạn thấy mình sống.'
     },
     reversed: {
-      summary: 'Do dự giữa ở lại và ra đi, hoặc quay lại thứ vừa rời bỏ.',
+      summary: 'Đi hay ở, bạn vẫn chưa quyết được.',
       summaryEn: 'Torn between staying and leaving, or returning to what you just left.',
       summaryZh: '在去留之间徘徊，或重回刚离开之处。',
-      situation: 'Bạn nửa muốn đi nửa muốn ở, và sự lưng chừng này gây mệt mỏi.',
-      love: 'Chia tay rồi quay lại nhiều lần mà chưa dứt điểm.',
-      work: 'Muốn nghỉ việc nhưng lại sợ, nên cứ trì hoãn mãi.',
-      finance: 'Chưa dám buông nguồn thu cũ dù nó không còn phù hợp.',
-      advice: 'Hãy chọn một hướng và cho nó thời gian thật sự, đừng nửa vời.'
+      situation: 'Bạn đứng ở cửa mà chân chưa bước. Sự lửng lơ này bào mòn bạn hơn cả việc chọn sai.',
+      love: 'Bạn chia tay rồi lại quay về, nhiều lần. Đặt cho mình một mốc rõ ràng và giữ lấy nó.',
+      work: 'Nộp đơn rồi lại rút, tính nghỉ rồi lại thôi. Viết ra điều kiện tối thiểu để ở lại, nếu không đạt thì đi.',
+      finance: 'Nỗi lo tiền đang giữ chân bạn. Tính ra con số cụ thể cần có để dám bước, rồi tích cho đủ.',
+      advice: 'Không quyết cũng là quyết, chỉ là quyết theo kiểu mệt nhất. Chọn một đường và đi.'
     }
   },
   {
@@ -291,24 +291,24 @@ export const CUPS = [
     symbol: '🌊',
     color: '#06b6d4',
     upright: {
-      summary: 'Điều bạn mong mỏi đang thành hiện thực và bạn thấy đủ đầy.',
+      summary: 'Điều bạn mong bấy lâu đang thành, và bạn được phép mừng.',
       summaryEn: 'What you wished for is coming true, and you feel content.',
       summaryZh: '你所愿正在成真，内心感到满足。',
-      situation: 'Giai đoạn hài lòng và tận hưởng thành quả của chính mình.',
-      love: 'Tình cảm viên mãn, bạn cảm thấy được yêu thương đúng cách.',
-      work: 'Đạt được điều mình theo đuổi bấy lâu trong sự nghiệp.',
-      finance: 'Tài chính dư dả, đủ để tự thưởng cho bản thân.',
-      advice: 'Hãy tận hưởng khoảnh khắc này và nhớ nói lời cảm ơn.'
+      situation: 'Có một mong muốn sắp thành hình. Nhận lấy nó mà không cần thấy áy náy.',
+      love: 'Tình cảm ở giai đoạn dễ chịu và đầy đủ. Nói cho người ấy biết bạn thấy may mắn thế nào.',
+      work: 'Kết quả tới đúng như bạn muốn. Tận hưởng một chút trước khi lao vào mục tiêu kế tiếp.',
+      finance: 'Tài chính thoải mái, có phần dư. Thưởng cho mình một thứ, và cất phần còn lại.',
+      advice: 'Hãy nói ra điều bạn thật sự mong. Nhiều thứ chỉ tới sau khi được gọi tên.'
     },
     reversed: {
-      summary: 'Đạt được rồi mà vẫn thấy trống, hoặc mong ước còn hời hợt.',
+      summary: 'Được thứ mình muốn rồi mà vẫn thấy thiêu thiếu.',
       summaryEn: 'Getting it yet still feeling empty, or wishing for shallow things.',
       summaryZh: '得到了却仍觉空虚，或愿望本就浮浅。',
-      situation: 'Thành công bên ngoài không lấp được khoảng trống bên trong.',
-      love: 'Mối quan hệ đủ đầy vật chất nhưng thiếu chiều sâu cảm xúc.',
-      work: 'Đạt mục tiêu nhưng không thấy vui như đã tưởng tượng.',
-      finance: 'Mua sắm để khoả lấp cảm xúc chứ không vì nhu cầu.',
-      advice: 'Hãy hỏi lại mình thật sự muốn gì, không phải nên muốn gì.'
+      situation: 'Bạn đạt được điều đã đặt ra nhưng không thấy vui như tưởng tượng. Có lẽ đó chưa phải điều bạn thật sự cần.',
+      love: 'Bạn có người bên cạnh nhưng vẫn thấy cô đơn. Nói ra, đừng chờ người ta tự đoán.',
+      work: 'Thành tích có nhưng lòng thì trống. Hỏi lại xem bạn đang làm việc này cho ai.',
+      finance: 'Mua sắm để lấp một khoảng thiếu bên trong. Thứ đó không mua được bằng tiền.',
+      advice: 'Hỏi mình một câu thật: điều gì mới làm bạn thấy đủ? Đuổi đúng thứ mình cần thì mới thôi mệt.'
     }
   },
   {
@@ -325,24 +325,24 @@ export const CUPS = [
     symbol: '🌊',
     color: '#06b6d4',
     upright: {
-      summary: 'Hạnh phúc trọn vẹn trong tình thân và mái ấm mà bạn đã vun đắp.',
+      summary: 'Một mái nhà ấm và những người thương nhau thật lòng.',
       summaryEn: 'Complete happiness in the family and home you have built.',
       summaryZh: '在你亲手营造的家与亲情中获得圆满幸福。',
-      situation: 'Bạn đang có sự bình an sâu sắc và cảm giác thuộc về.',
-      love: 'Mối quan hệ bền vững, hướng tới hôn nhân và gia đình.',
-      work: 'Môi trường làm việc như một gia đình, mọi người gắn bó.',
-      finance: 'Tài chính vững vàng đủ để lo cho cả nhà an tâm.',
-      advice: 'Hãy gìn giữ điều quý giá này bằng sự có mặt thật sự mỗi ngày.'
+      situation: 'Đời sống tình cảm của bạn đang ở chỗ yên. Giữ gìn nó bằng những việc nhỏ mỗi ngày.',
+      love: 'Hạnh phúc bền, có thể tính chuyện lâu dài, chuyện gia đình. Đây là lúc thuận.',
+      work: 'Môi trường làm việc hợp và bạn được quý. Đừng đổi chỉ vì thấy chỗ khác nhiều tiền hơn một chút.',
+      finance: 'Đủ đầy và ổn định. Đầu tư cho nhà cửa và cho những người bạn thương.',
+      advice: 'Nói lời cảm ơn với người nhà hôm nay. Những thứ quý nhất thường ở gần nhất.'
     },
     reversed: {
-      summary: 'Bất hoà trong gia đình hoặc hình ảnh hạnh phúc chỉ ở bề ngoài.',
+      summary: 'Nhà vẫn đó nhưng có gì đó đang gợn.',
       summaryEn: 'Family discord, or a happiness that exists only on the surface.',
       summaryZh: '家庭失和，或幸福只停留在表面。',
-      situation: 'Bên ngoài trông êm ấm nhưng bên trong đang có khoảng cách.',
-      love: 'Hai người không còn cùng nhìn về một hướng như trước.',
-      work: 'Tập thể chỉ hoà thuận hình thức, thiếu gắn kết thật.',
-      finance: 'Áp lực tiền bạc đang ảnh hưởng tới hoà khí gia đình.',
-      advice: 'Hãy nói chuyện thật lòng với người nhà trước khi khoảng cách xa thêm.'
+      situation: 'Bên ngoài nhìn ổn nhưng bên trong đang có khoảng cách. Đừng đợi tới lúc vỡ mới nói.',
+      love: 'Kỳ vọng về một gia đình hoàn hảo đang làm cả hai mệt. Chấp nhận nhau như thật thì mới dễ thở.',
+      work: 'Bạn cảm thấy lạc lõng trong nhóm. Tìm một người để nói chuyện thật, đừng ôm một mình.',
+      finance: 'Có bất đồng tiền bạc trong nhà. Nói rõ ràng, có sổ sách, sẽ bớt hiểu lầm.',
+      advice: 'Không có gia đình nào lành lặn hoàn toàn. Điều quan trọng là còn chịu ngồi lại với nhau.'
     }
   },
   {
@@ -359,24 +359,24 @@ export const CUPS = [
     symbol: '🌊',
     color: '#06b6d4',
     upright: {
-      summary: 'Một rung động mới mẻ và trong trẻo đang chớm nở trong lòng bạn.',
+      summary: 'Một rung động mới, còn ngơ ngác nhưng rất thật.',
       summaryEn: 'A fresh, innocent stirring is beginning in your heart.',
       summaryZh: '一份清新纯真的悸动正在心中萌芽。',
-      situation: 'Bạn đang mở lòng trở lại và cảm nhận mọi thứ nhạy hơn.',
-      love: 'Lời tỏ tình hoặc một tín hiệu tình cảm bất ngờ.',
-      work: 'Ý tưởng sáng tạo mới xuất hiện, còn non nhưng đáng nuôi.',
-      finance: 'Cơ hội nhỏ đến từ sở thích hoặc năng khiếu cá nhân.',
-      advice: 'Hãy lắng nghe trái tim mình, đừng vội gạt đi vì thấy trẻ con.'
+      situation: 'Có gì đó mới chớm trong lòng bạn. Cứ để nó lớn, đừng vội phân tích.',
+      love: 'Một tin nhắn, một lời tỏ ý, một cảm giác lâu rồi mới có lại. Trả lời bằng sự thật thà.',
+      work: 'Ý tưởng mới xuất hiện, còn thô nhưng có triển vọng. Ghi lại ngay trước khi quên.',
+      finance: 'Một cơ hội nhỏ, hợp để thử. Đặt số tiền vừa phải thôi.',
+      advice: 'Đừng ngại tỏ ra ngây thơ. Sự hồn nhiên là thứ khó giữ nhất và cũng đáng quý nhất.'
     },
     reversed: {
-      summary: 'Cảm xúc chưa chín, dễ tổn thương hoặc trốn vào mơ mộng.',
+      summary: 'Cảm xúc nhiều mà chưa biết cất vào đâu.',
       summaryEn: 'Immature feelings, easily hurt, or escaping into daydreams.',
       summaryZh: '情感未熟、易受伤，或逃进白日梦里。',
-      situation: 'Bạn phản ứng theo cảm tính nhiều hơn là suy xét.',
-      love: 'Kỳ vọng tình cảm thiếu thực tế dẫn tới hụt hẫng.',
-      work: 'Ý tưởng hay nhưng chưa có bước thực thi cụ thể nào.',
-      finance: 'Quyết định chi tiêu theo cảm xúc nhất thời.',
-      advice: 'Hãy để cảm xúc lắng một ngày rồi mới quyết định.'
+      situation: 'Bạn đang dễ hờn, dễ tủi hơn ngày thường. Không sao cả, chỉ cần đừng quyết chuyện lớn lúc này.',
+      love: 'Giận dỗi kiểu trẻ con đang làm chuyện nhỏ thành to. Nói thẳng điều mình muốn thay vì để người ta đoán.',
+      work: 'Ý tưởng chưa chín mà đã đem đi trình. Chuẩn bị kỹ hơn một chút.',
+      finance: 'Chi tiêu bốc đồng, mua rồi tiếc. Đặt quy tắc chờ một ngày trước khi bấm mua.',
+      advice: 'Cảm xúc của bạn hợp lệ, chỉ là cách thể hiện cần lớn lên một chút. Tập gọi tên nó trước khi nói.'
     }
   },
   {
@@ -393,24 +393,24 @@ export const CUPS = [
     symbol: '🌊',
     color: '#06b6d4',
     upright: {
-      summary: 'Một lời mời hoặc lời tỏ tình đến với sự lãng mạn và chân thành.',
+      summary: 'Một lời mời đẹp đang tới, và bạn nên nhận.',
       summaryEn: 'An invitation or a declaration arrives with romance and sincerity.',
       summaryZh: '一份邀约或告白，带着浪漫与真诚而来。',
-      situation: 'Bạn đang được theo đuổi, hoặc đang theo đuổi bằng cả trái tim.',
-      love: 'Giai đoạn lãng mạn ngọt ngào, nhiều cử chỉ quan tâm.',
-      work: 'Lời mời hợp tác đến từ một người bạn quý mến.',
-      finance: 'Đề nghị tài chính nghe rất hấp dẫn, cần kiểm chứng thêm.',
-      advice: 'Hãy đón nhận nhưng vẫn giữ đôi chân trên mặt đất.'
+      situation: 'Có ai đó đang chủ động đến với bạn bằng thiện chí. Đừng để sự đề phòng làm bạn bỏ lỡ.',
+      love: 'Lãng mạn, tỏ tình, hẹn hò. Nếu bạn là người muốn ngỏ lời, đây là lúc đẹp.',
+      work: 'Một lời mời hợp tác đến với giọng dễ chịu. Xem kỹ nội dung, nhưng đừng từ chối vì ngại.',
+      finance: 'Có đề nghị nghe rất hay. Kiểm tra phần thực tế đằng sau lời hứa.',
+      advice: 'Hãy đi theo tiếng gọi của trái tim, nhưng nhớ mang theo cái đầu. Cả hai đều cần.'
     },
     reversed: {
-      summary: 'Lời hứa hoa mỹ thiếu hành động, hoặc cảm xúc thất thường.',
+      summary: 'Lời hay mà chưa chắc có thật ở đằng sau.',
       summaryEn: 'Flowery promises without action, or moody inconsistency.',
       summaryZh: '花言巧语而无行动，或情绪反复无常。',
-      situation: 'Có sự chênh lệch giữa lời nói và việc làm.',
-      love: 'Đối phương nói hay nhưng không giữ lời, cần quan sát thêm.',
-      work: 'Đề nghị hợp tác nghe hấp dẫn nhưng thiếu cam kết rõ ràng.',
-      finance: 'Cẩn trọng với lời mời đầu tư nhiều hứa hẹn.',
-      advice: 'Hãy nhìn vào việc người ta làm, không phải điều người ta nói.'
+      situation: 'Có người hứa nhiều nhưng chưa làm gì. Nhìn vào hành động, đừng nhìn vào lời.',
+      love: 'Coi chừng kiểu tán tỉnh cho vui. Hỏi thẳng xem người ta muốn gì.',
+      work: 'Cam kết đưa ra rồi lại lùi. Yêu cầu mọi thứ bằng văn bản.',
+      finance: 'Đừng tin lời hứa suông về lợi nhuận. Chỉ tin con số kiểm chứng được.',
+      advice: 'Mơ mộng thì đẹp nhưng phải có chân đứng. Hỏi xem việc này sẽ thành hình bằng cách nào.'
     }
   },
   {
@@ -427,24 +427,24 @@ export const CUPS = [
     symbol: '🌊',
     color: '#06b6d4',
     upright: {
-      summary: 'Sự dịu dàng sâu sắc và khả năng thấu hiểu người khác mà không phán xét.',
+      summary: 'Bạn hiểu người khác bằng trực giác, và điều đó đang giúp được nhiều người.',
       summaryEn: 'Deep gentleness and the ability to understand others without judgement.',
       summaryZh: '深切的温柔，以及不带评判地理解他人的能力。',
-      situation: 'Bạn đang là chỗ dựa tinh thần vững chãi cho người xung quanh.',
-      love: 'Tình cảm sâu sắc, biết lắng nghe và nâng đỡ nhau.',
-      work: 'Bạn dẫn dắt bằng sự thấu cảm và giữ hoà khí rất khéo.',
-      finance: 'Quản lý tiền bạc bằng trực giác khá chuẩn, nên tin vào nó.',
-      advice: 'Hãy chăm sóc chính mình như cách bạn chăm sóc người khác.'
+      situation: 'Bạn đang ở vai trò chỗ dựa cho ai đó. Cứ làm, nhưng nhớ giữ phần cho mình.',
+      love: 'Sự dịu dàng và thấu hiểu đang là chất keo. Người ấy thấy an toàn khi ở cạnh bạn.',
+      work: 'Bạn giỏi ở chỗ đọc được cảm xúc của người khác. Dùng nó để hoà giải và gắn kết nhóm.',
+      finance: 'Cẩn thận với việc cho mượn vì thương. Giúp trong khả năng và nói rõ giới hạn.',
+      advice: 'Bạn chăm cho mọi người rồi, hôm nay chăm cho mình một chút. Cũng bằng đúng sự dịu dàng đó.'
     },
     reversed: {
-      summary: 'Quá tải cảm xúc của người khác, hoặc dựa dẫm về mặt tinh thần.',
+      summary: 'Bạn ôm cảm xúc của cả thiên hạ và quên mất mình.',
       summaryEn: 'Overwhelmed by other people emotions, or emotionally dependent.',
       summaryZh: '被他人情绪淹没，或情感上过度依赖。',
-      situation: 'Bạn gánh cảm xúc của quá nhiều người và tự kiệt sức.',
-      love: 'Một bên phụ thuộc cảm xúc, khiến bên kia thấy ngột ngạt.',
-      work: 'Bị cuốn vào chuyện cá nhân của đồng nghiệp quá sâu.',
-      finance: 'Cho vay vì cả nể rồi khó đòi lại.',
-      advice: 'Hãy đặt ranh giới, thấu cảm không có nghĩa là gánh thay.'
+      situation: 'Bạn thấm hết chuyện buồn của người khác cho tới lúc kiệt. Dựng lại một đường ranh cho tử tế.',
+      love: 'Bạn hy sinh nhiều tới mức đánh mất chính mình. Yêu người khác không nên có giá đó.',
+      work: 'Bạn gánh phần cảm xúc của cả nhóm. Trả lại phần không phải của bạn.',
+      finance: 'Cho mượn vì cả nể rồi khó đòi. Học cách nói không mà không thấy có lỗi.',
+      advice: 'Bạn không có trách nhiệm phải cứu ai cả. Giữ mình đứng vững đã, rồi mới đỡ được người khác.'
     }
   },
   {
@@ -461,24 +461,24 @@ export const CUPS = [
     symbol: '🌊',
     color: '#06b6d4',
     upright: {
-      summary: 'Làm chủ được cảm xúc của mình giữa sóng gió, và giữ được sự bao dung.',
+      summary: 'Bạn giữ được bình tĩnh giữa những chuyện làm người khác chao đảo.',
       summaryEn: 'Mastering your emotions through rough seas while staying compassionate.',
       summaryZh: '于风浪中掌控情绪，同时保有宽厚。',
-      situation: 'Bạn xử lý tình huống khó bằng sự điềm tĩnh đáng nể.',
-      love: 'Mối quan hệ có một người chín chắn, biết giữ hoà khí.',
-      work: 'Bạn được tin cậy vì luôn bình tĩnh khi có sự cố.',
-      finance: 'Quyết định tài chính chín chắn, không bị cảm xúc chi phối.',
-      advice: 'Hãy giữ sự điềm tĩnh này, nó là tài sản lớn nhất của bạn.'
+      situation: 'Bạn đang là người vững nhất trong cuộc. Cứ giữ như vậy, mọi người đang nhìn vào bạn.',
+      love: 'Sự chín chắn và bao dung của bạn giữ mối quan hệ này êm. Nói ít mà đúng lúc là đủ.',
+      work: 'Bạn xử lý được người khó và tình huống căng. Đây là lúc thích hợp để nhận vai trò cầm trịch.',
+      finance: 'Quyết định tiền bạc của bạn đang tỉnh táo. Giữ nguyên tắc, đừng để cảm xúc kéo đi.',
+      advice: 'Bình tĩnh không phải là vô cảm. Bạn cảm hết, chỉ là bạn chọn cách phản ứng.'
     },
     reversed: {
-      summary: 'Kìm nén cảm xúc quá lâu, hoặc thao túng người khác bằng tình cảm.',
+      summary: 'Vẻ ngoài vẫn điềm tĩnh nhưng bên trong đã lung lay.',
       summaryEn: 'Emotions bottled up too long, or manipulating others through feelings.',
       summaryZh: '情绪压抑过久，或以情感操控他人。',
-      situation: 'Bạn giấu cảm xúc kỹ tới mức không ai biết bạn đang không ổn.',
-      love: 'Có dấu hiệu thao túng cảm xúc hoặc lạnh nhạt kéo dài.',
-      work: 'Che giấu bất mãn thay vì trao đổi thẳng thắn.',
-      finance: 'Dùng tiền bạc như công cụ gây áp lực lên người khác.',
-      advice: 'Hãy cho phép mình nói ra cảm xúc trước khi nó thành cơn sóng.'
+      situation: 'Bạn giữ mặt bình thản trong khi bên trong đang căng. Nói với ai đó đi, đừng ôm một mình.',
+      love: 'Sự lạnh nhạt đang bị hiểu nhầm là hết thương. Nói ra cảm giác thật của bạn.',
+      work: 'Bạn kìm nén tới lúc bật ra không đúng chỗ. Xả sớm và xả đúng nơi.',
+      finance: 'Quyết định đang bị chi phối bởi lo lắng ngầm. Chờ tới khi đầu nhẹ hơn rồi hãy ký.',
+      advice: 'Không phải lúc nào cũng cần làm người vững chãi. Bạn cũng được phép mệt.'
     }
   }
 ];
