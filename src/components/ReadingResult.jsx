@@ -15,6 +15,7 @@ import { exportNodeAsPng, exportNodeAsPdf } from '../utils/posterExport';
 export const ReadingResult = ({
   drawnCards,
   spread,
+  deckTheme,
   question,
   onReset,
   lang = 'vi'
@@ -25,9 +26,12 @@ export const ReadingResult = ({
   // nên nếu gọi thẳng trong thân render thì mỗi lần re-render (bấm tab khía
   // cạnh, gõ ghi chú...) sẽ ra một thông điệp khác. Chỉ đổi khi sang lượt
   // trải bài mới, vì lúc đó drawnCards là một mảng mới.
+  /* deckTheme?.id quyết định lăng kính đọc bài. Phải có trong danh sách phụ
+     thuộc, nếu không thì đổi bộ bài mà bản giải vẫn giữ nguyên lời cũ. */
+  const deckId = deckTheme?.id || null;
   const analysis = useMemo(
-    () => analyzeReadingSession(drawnCards, spread.id, question, lang),
-    [drawnCards, spread.id, question, lang]
+    () => analyzeReadingSession(drawnCards, spread.id, question, lang, deckId),
+    [drawnCards, spread.id, question, lang, deckId]
   );
   const [activeAspectTab, setActiveAspectTab] = useState('situation');
   const [selectedCardModal, setSelectedCardModal] = useState(null);
@@ -409,6 +413,11 @@ export const ReadingResult = ({
               {t.actionPlanTitle}
             </h3>
             <p className="text-xs text-gray-400 mt-1">{t.actionPlanHint}</p>
+            {/* Câu dẫn riêng của bộ bài khách đã chọn. Không có bộ bài thì
+                không hiện dòng nào, bố cục giữ nguyên. */}
+            {analysis.actionPlan.deckLead && (
+              <p className="text-xs text-amber-200/80 mt-2 italic">{analysis.actionPlan.deckLead}</p>
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -755,6 +764,11 @@ export const ReadingResult = ({
             <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#fbbf24', marginBottom: '10px' }}>
               {t.actionPlanTitle}
             </div>
+            {analysis.actionPlan.deckLead && (
+              <div style={{ fontSize: '11px', color: '#fcd34d', fontStyle: 'italic', marginBottom: '8px' }}>
+                {analysis.actionPlan.deckLead}
+              </div>
+            )}
             {[
               { title: analysis.actionPlan.doTitle, list: analysis.actionPlan.doList, color: '#10b981' },
               { title: analysis.actionPlan.watchTitle, list: analysis.actionPlan.watchList, color: '#f43f5e' }

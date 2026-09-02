@@ -221,6 +221,7 @@ export function App() {
               <ReadingResult
                 drawnCards={drawnCards}
                 spread={selectedSpread}
+                deckTheme={selectedDeckTheme}
                 question={question}
                 onReset={handleResetReading}
                 lang={lang}

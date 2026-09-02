@@ -12,6 +12,7 @@
 // nó là một trải nghiệm riêng ở quả cầu đầu trang (components/CosmicOrb).
 
 import { cardText } from '../data/tarot/cardText.js';
+import { deckLens } from '../data/deckLens.js';
 
 // --- Vị trí các lá trong từng kiểu trải bài ---------------------------------
 
@@ -180,7 +181,7 @@ const getSpreadShape = (spreadType, total) => {
   return SPREAD_SHAPES[spreadType] || 'sequence';
 };
 
-const buildSections = ({ lang, spreadType, drawnCards, positions, question, majorCount, reversedCount, dominantElement }) => {
+const buildSections = ({ lang, spreadType, drawnCards, positions, question, majorCount, reversedCount, dominantElement, deckId }) => {
   const total = drawnCards.length;
   const shape = getSpreadShape(spreadType, total);
   const first = drawnCards[0];
@@ -286,11 +287,17 @@ const buildSections = ({ lang, spreadType, drawnCards, positions, question, majo
 
   const sections = [];
 
+  /* Câu cuối của đoạn mở đầu nói rõ bộ bài đang đọc theo hướng nào. Đặt ở đây
+     chứ không thành một mục riêng: người xem cần biết lăng kính TRƯỚC khi đọc
+     phần còn lại, chứ không phải sau. */
+  const lens = deckLens(deckId, lang);
+  const introBody = question
+    ? (total === 1 ? C.introQuestionSingle : C.introQuestionMany)
+    : (total === 1 ? C.introBlankSingle : C.introBlankMany);
+
   sections.push({
     title: C.introTitle,
-    body: question
-      ? (total === 1 ? C.introQuestionSingle : C.introQuestionMany)
-      : (total === 1 ? C.introBlankSingle : C.introBlankMany)
+    body: lens ? `${introBody} ${lens.frame}` : introBody
   });
 
   if (shape === 'single') {
@@ -398,7 +405,9 @@ const ASPECT_PLAIN_LABELS = {
 
 // --- Hàm chính --------------------------------------------------------------
 
-export const analyzeReadingSession = (drawnCards = [], spreadType = 'five_aspects', question = '', langInput = 'vi') => {
+/* deckId quyet dinh lang kinh doc bai - xem data/deckLens.js. De trong thi ban
+   giai chay y nhu truoc khi co tinh nang nay. */
+export const analyzeReadingSession = (drawnCards = [], spreadType = 'five_aspects', question = '', langInput = 'vi', deckId = null) => {
   if (!drawnCards || drawnCards.length === 0) return null;
 
   const lang = pickLang(langInput);
@@ -483,6 +492,9 @@ export const analyzeReadingSession = (drawnCards = [], spreadType = 'five_aspect
   // 5. Việc nên làm / nên để ý, rút thẳng từ lời khuyên của từng lá
   const actionPlan = {
     ...ACTION_COPY[lang],
+    // Câu dẫn riêng của bộ bài, uốn phần hành động theo đúng lăng kính đã nêu
+    // ở đoạn mở đầu. Không có bộ bài thì không có câu này.
+    deckLead: deckLens(deckId, lang)?.adviceLead || null,
     doList: drawnCards
       .filter(c => !c.isReversed)
       .map(c => ({ cardName: cardNameByLang(c, lang), icon: c.icon, text: cardText(c, 'upright', 'advice', lang) })),
@@ -493,7 +505,7 @@ export const analyzeReadingSession = (drawnCards = [], spreadType = 'five_aspect
 
   // 6. Bản luận giải tổng thể
   const holisticSections = buildSections({
-    lang, spreadType, drawnCards, positions, question, majorCount, reversedCount, dominantElement
+    lang, spreadType, drawnCards, positions, question, majorCount, reversedCount, dominantElement, deckId
   });
 
   // Bản chữ thuần, dùng cho file PDF / ảnh xuất ra và cho nút chia sẻ.

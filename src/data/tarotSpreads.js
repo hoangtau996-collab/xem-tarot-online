@@ -10,11 +10,11 @@ export const getTarotDecksThemes = (lang = 'vi') => [
     id: 'cosmic_advice',
     name: lang === 'en' ? 'Cosmic Advice & Oracle Tarot' : lang === 'zh' ? '宇宙启示神谕塔罗' : 'Tarot Lời Khuyên Vũ Trụ',
     englishName: 'Cosmic Advice & Oracle Tarot',
-    description: lang === 'en'
-      ? 'A sacred oracle deck focused on soul awakening, spiritual advice, and divine cosmic guidance.'
+        description: lang === 'en'
+      ? 'Reads for action: each card is asked what step it wants from you. Good when you already know the problem and need something concrete to do.'
       : lang === 'zh'
-      ? '专注于灵魂觉醒、灵性指引与宇宙深层神谕启示的神圣塔罗。'
-      : 'Bộ bài chuyên sâu về thông điệp thức tỉnh, lời khuyên khai sáng tâm hồn và năng lượng dẫn lối từ các đấng sáng tạo vũ trụ.',
+      ? '偏向行动的读法：每张牌都在问你该迈哪一步。适合问题已经清楚、只差一件具体的事去做。'
+      : 'Đọc theo hướng hành động: mỗi lá được hỏi bạn nên bước tiếp thế nào. Hợp khi bạn đã rõ vấn đề và cần một việc cụ thể để làm.',
     icon: '🌌',
     color: '#e879f9',
     bgGradient: 'from-fuchsia-600 via-purple-600 to-cyan-400',
@@ -28,11 +28,11 @@ export const getTarotDecksThemes = (lang = 'vi') => [
     id: 'cosmic_gold',
     name: lang === 'en' ? 'Cosmic Gold Tarot' : lang === 'zh' ? '黄金宇宙塔罗' : 'Tarot Vũ Trụ Hoàng Kim',
     englishName: 'Cosmic Gold Tarot',
-    description: lang === 'en'
-      ? 'Classic radiant cosmic deck with gold foil patterns, esoteric sacred geometry, and twinkling starlight.'
+        description: lang === 'en'
+      ? 'The classic reading: every side weighed evenly, no push to decide. Good when you want the whole picture first.'
       : lang === 'zh'
-      ? '经典的金光熠熠宇宙塔罗，融合神圣几何与璀璨星光。'
-      : 'Bộ bài vũ trụ kinh điển rực rỡ với họa tiết vàng kim, biểu tượng huyền học và ánh sao lung linh.',
+      ? '经典读法：各面向平均照顾，不催你下决定。适合想先看清全局的时候。'
+      : 'Đọc theo lối kinh điển, cân đều các mặt và không thúc bạn chọn vội. Hợp khi bạn muốn nhìn toàn cảnh trước đã.',
     icon: '🔮',
     color: '#fbbf24',
     bgGradient: 'from-amber-500 via-purple-600 to-amber-300',
@@ -46,11 +46,11 @@ export const getTarotDecksThemes = (lang = 'vi') => [
     id: 'lunar_nebula',
     name: lang === 'en' ? 'Lunar & Nebula Tarot' : lang === 'zh' ? '月相星云塔罗' : 'Tarot Trăng & Tinh Vân',
     englishName: 'Lunar & Nebula Tarot',
-    description: lang === 'en'
-      ? 'Infused with mystical moon phase energies, galaxy nebulae, and deep intuitive wisdom.'
+        description: lang === 'en'
+      ? 'Reads for rhythm and timing, rising or falling. Good when your question is whether to move now or wait.'
       : lang === 'zh'
-      ? '蕴含月相神秘能量与银河星云，唤醒深层直觉智慧。'
-      : 'Bộ bài ẩn chứa dòng năng lượng huyền bí của các chu kỳ mặt trăng, tinh vân dải ngân hà và trực giác sâu thẳm.',
+      ? '看事情的涨落节奏，重在时机。适合你想问的是现在就走，还是再等一等。'
+      : 'Đọc theo nhịp lên xuống của sự việc, nặng về thời điểm. Hợp khi câu hỏi của bạn là nên đi bây giờ hay nên đợi.',
     icon: '🌙',
     color: '#c084fc',
     bgGradient: 'from-indigo-600 via-purple-600 to-pink-500',
@@ -64,11 +64,11 @@ export const getTarotDecksThemes = (lang = 'vi') => [
     id: 'mystic_botanical',
     name: lang === 'en' ? 'Mystic Botanical Witches Tarot' : lang === 'zh' ? '植物女巫塔罗' : 'Tarot Phù Thủy & Thảo Mộc',
     englishName: 'Mystic Botanical Witches Tarot',
-    description: lang === 'en'
-      ? 'Nature spellcraft deck with herbal magic, emerald crystals, and ancient healing runes.'
+        description: lang === 'en'
+      ? 'Reads like tending a garden: what to feed, what to cut back. Good when you are healing something or clearing space.'
       : lang === 'zh'
-      ? '充满草药魔法与翡翠能量的自然女巫塔罗，寓意疗愈与生机。'
-      : 'Bộ bài mang hơi thở ma thuật thiên nhiên, thần chú thảo mộc, đá ngọc bích và ký tự cổ rune chữa lành.',
+      ? '像照料一座园子来读：什么该养，什么该剪。适合正在疗愈，或想清一清的时候。'
+      : 'Đọc như chăm một khu vườn: cái gì cần nuôi, cái gì cần tỉa. Hợp khi bạn đang muốn chữa lành hoặc dọn bớt.',
     icon: '🌿',
     color: '#34d399',
     bgGradient: 'from-emerald-600 via-teal-600 to-amber-400',
@@ -82,11 +82,11 @@ export const getTarotDecksThemes = (lang = 'vi') => [
     id: 'ancient_egyptian',
     name: lang === 'en' ? 'Ancient Egyptian Mythic Tarot' : lang === 'zh' ? '古埃及神话塔罗' : 'Tarot Thần Thoại Ai Cập Cổ Đại',
     englishName: 'Ancient Egyptian Mythic Tarot',
-    description: lang === 'en'
-      ? 'Papyrus mythic style featuring lucky scarab, Eye of Horus, and divine pharaoh wisdom.'
+        description: lang === 'en'
+      ? 'Reads by weighing long consequences, further out than this week. Good when facing a decision that will stay with you.'
       : lang === 'zh'
-      ? '古埃及莎草纸风格，融汇荷鲁斯之眼与圣甲虫神秘祝福。'
-      : 'Bộ bài phong cách giấy bối Ai Cập cổ đại với bọ hung may mắn, mắt thần Horus và ngai vàng các vị thần.',
+      ? '用秤来读，看的是长远的后果，比这一周更远。适合面对一个会跟你很久的决定。'
+      : 'Đọc theo lối cân đo hệ quả dài, nhìn xa hơn tuần này. Hợp khi bạn đứng trước một quyết định còn theo bạn lâu.',
     icon: '🏺',
     color: '#38bdf8',
     bgGradient: 'from-blue-600 via-cyan-500 to-amber-400',
@@ -100,11 +100,11 @@ export const getTarotDecksThemes = (lang = 'vi') => [
     id: 'solar_radiance',
     name: lang === 'en' ? 'Solar Radiance Tarot' : lang === 'zh' ? '耀日光芒塔罗' : 'Tarot Mặt Trời & Hào Quang',
     englishName: 'Solar Radiance Tarot',
-    description: lang === 'en'
-      ? 'Radiant solar energy deck fostering powerful awakening, courage, and luminous victory.'
+        description: lang === 'en'
+      ? 'Reads for nerve: where you are hiding and what stepping out would give you. Good when you know what to do but have not dared.'
       : lang === 'zh'
-      ? '如烈日般炽热的能量塔罗，赋予勇气、觉醒与胜利光芒。'
-      : 'Bộ bài rực cháy năng lượng mặt trời, mang lại sự thức tỉnh mạnh mẽ, lòng quả cảm và chiến thắng quang minh.',
+      ? '读的是胆量：你躲在哪里，走出来能换到什么。适合心里有数、只是还不敢动的时候。'
+      : 'Đọc theo hướng can đảm: chỗ nào bạn đang nấp, bước ra thì được gì. Hợp khi bạn biết phải làm gì mà chưa dám.',
     icon: '☀️',
     color: '#f97316',
     bgGradient: 'from-orange-500 via-amber-500 to-rose-500',

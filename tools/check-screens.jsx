@@ -24,6 +24,7 @@ import { CardDeck } from '../src/components/CardDeck.jsx';
 import { Encyclopedia } from '../src/components/Encyclopedia.jsx';
 import { TAROT_DECK } from '../src/data/tarotData.js';
 import { SPREAD_TYPES, TAROT_DECKS_THEMES } from '../src/data/tarotSpreads.js';
+import { deckLens } from '../src/data/deckLens.js';
 import { translationCoverage } from '../src/data/tarot/cardText.js';
 import { labelCoverage } from '../src/data/tarot/i18n/labels.js';
 
@@ -93,6 +94,15 @@ const SCREENS = [
     <ReadingResult drawnCards={cards} spread={{ id: 'five_aspects', title: 'Five Cards', cardCount: 5 }}
       question="Test question" onReset={noop} lang="en" />
   )],
+  /* Bản giải với một bộ bài khác bộ mặc định: lăng kính của bộ bài đi qua một
+     đường riêng (App -> ReadingResult -> analyzeReadingSession), nên phải có
+     ít nhất một màn đi qua đường đó. */
+  ['Giải bài Tarot (bộ Ai Cập)', () => (
+    <ReadingResult drawnCards={cards} spread={{ id: 'five_aspects', title: 'Trải 5 Lá', cardCount: 5 }}
+      deckTheme={TAROT_DECKS_THEMES.find(d => d.id === 'ancient_egyptian')}
+      question="Câu hỏi thử" onReset={noop} lang="vi" />
+  )],
+
   ['Giải bài Tarot (中文)', () => (
     <ReadingResult drawnCards={cards} spread={{ id: 'five_aspects', title: '五张牌', cardCount: 5 }}
       question="测试问题" onReset={noop} lang="zh" />
@@ -118,6 +128,22 @@ for (const [name, render] of SCREENS) {
    Cố tình KHÔNG làm vỡ build: dịch 78 lá là việc nội dung, làm dần từng bộ ẩn;
    chặn build lại thì trong lúc đó không sửa được gì khác. Nhưng phải in ra mỗi
    lần, để phần còn thiếu không lặng lẽ trôi ra bản phát hành. */
+/* Moi bo bai phai co lang kinh o ca ba ngon ngu. Them bo bai thu bay ma quen
+   lang kinh thi ban giai cua no lang le tut ve ban chung - khong ai thay. */
+const checkDeckLens = () => {
+  const missing = [];
+  for (const deck of TAROT_DECKS_THEMES)
+    for (const lang of ['vi', 'en', 'zh'])
+      if (!deckLens(deck.id, lang)) missing.push(`${deck.id}/${lang}`);
+  if (!missing.length) {
+    console.log(`  lang kinh bo bai: ${TAROT_DECKS_THEMES.length}/${TAROT_DECKS_THEMES.length} bo du ca 3 ngon ngu`);
+    return true;
+  }
+  console.error(`
+✗ Thieu lang kinh cho: ${missing.join(', ')}`);
+  return false;
+};
+
 const reportCoverage = () => {
   for (const lang of ['en', 'zh']) {
     const { total, done, missingCards } = translationCoverage(TAROT_DECK, lang);
@@ -135,8 +161,9 @@ const reportCoverage = () => {
 if (failures.length === 0) {
   console.log(`\n✓ ${SCREENS.length} màn hình đều vẽ được.`);
   reportCoverage();
+  const lensOk = checkDeckLens();
   console.log('');
-  process.exit(0);
+  process.exit(lensOk ? 0 : 1);
 }
 
 console.error('\n✗ CÓ MÀN HÌNH KHÔNG VẼ ĐƯỢC - đã dừng, không build.\n');
