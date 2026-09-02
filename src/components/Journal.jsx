@@ -3,11 +3,16 @@ import { Bookmark, Sparkles, Trash2, Calendar, HelpCircle, MessageSquare, Hash, 
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
 import { readJournal, removeJournalEntry, clearJournal } from '../utils/journal.js';
+import { deckLens } from '../data/deckLens.js';
 
 
 /* Nhật ký chứa ba loại bản ghi: phiên trải bài Tarot, hồ sơ Thần Số Học và hồ
    sơ Huyền Học. Bản ghi Tarot cũ được lưu trước khi có trường `type` nên mặc
    định coi như 'tarot' - không được để chúng biến mất khỏi nhật ký của khách. */
+/* Cau mo ta cach doc cua bo bai da dung, lay tu chinh bang lang kinh ma ban
+   giai dung - nen no khong the lech voi thu khach da doc luc xem. */
+const lensFrame = (deckId, lang) => (deckId ? deckLens(deckId, lang)?.frame || '' : '');
+
 const ENTRY_STYLES = {
   tarot: { Icon: Compass, accent: 'text-amber-300', border: 'hover:border-amber-400/50' },
   numerology: { Icon: Hash, accent: 'text-emerald-300', border: 'hover:border-emerald-400/50' },
@@ -105,6 +110,9 @@ export const Journal = ({ lang = 'vi' }) => {
                       <Icon className="w-3.5 h-3.5" />
                       {typeLabel(type)}
                       {type === 'tarot' && item.spreadTitle ? ` • ${item.spreadTitle}` : ''}
+                      {type === 'tarot' && item.deckName
+                        ? ` • ${item.deckIcon ? `${item.deckIcon} ` : ''}${item.deckName}`
+                        : ''}
                     </span>
 
                     {type === 'tarot' ? (
@@ -140,6 +148,16 @@ export const Journal = ({ lang = 'vi' }) => {
                 {/* Thân bản ghi theo từng loại */}
                 {type === 'tarot' && (
                   <>
+                    {/* Lang kinh cua bo bai da dung. Doc lai que cu ma chi thay
+                        ten bo thi van phai doan; cau nay noi thang bo do doc
+                        theo huong nao. Muc luu truoc khi co bo bai khong co
+                        deckId nen khong hien gi - dung nhu truoc. */}
+                    {lensFrame(item.deckId, lang) && (
+                      <p className="text-xs text-gray-400 italic border-l-2 border-amber-400/40 pl-3">
+                        {lensFrame(item.deckId, lang)}
+                      </p>
+                    )}
+
                     <div className="flex flex-wrap gap-2">
                       {item.cards?.map((card, idx) => (
                         <div key={idx} className="px-3 py-1.5 rounded-xl bg-space/70 border border-purple-400/20 flex items-center gap-2 text-xs">

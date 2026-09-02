@@ -67,6 +67,14 @@ export const ReadingResult = ({
         icon: c.icon
       })),
       dominantElement: analysis.stats.dominantElement,
+      /* Bo bai quyet dinh lang kinh doc, nen no la mot phan cua ban giai chu
+         khong phai mot lua chon trang tri. Khong ghi lai thi doc lai que cu se
+         khong biet no da duoc doc theo huong nao. Luu ca id lan ten: id de tra
+         ra lang kinh, ten da dich san de muc cu van hien dung du sau nay bang
+         bo bai co doi. */
+      deckId,
+      deckName: deckTheme?.name || '',
+      deckIcon: deckTheme?.icon || '',
       userNote: userNote.trim()
     };
     /* Báo đúng chuyện đã xảy ra. Trước đây nếu localStorage bị chặn thì khối

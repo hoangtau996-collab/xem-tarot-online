@@ -31,7 +31,15 @@ import { labelCoverage } from '../src/data/tarot/i18n/labels.js';
 /* Phía máy chủ không có trình duyệt. Chỉ dựng đúng những thứ được đụng tới
    trong lúc vẽ - không giả lập cả DOM, vì càng giả lập nhiều thì phép thử
    càng xa với thực tế. */
-globalThis.localStorage = { getItem: () => null, setItem: () => {} };
+/* Kho gia lap co that de ghi vao duoc: man Nhat Ky chi ve ra thu gi khi trong
+   kho co ban ghi, nen mot stub luon tra null se ve ra man rong va khong kiem
+   duoc gi. */
+const STORE = {};
+globalThis.localStorage = {
+  getItem: (key) => (key in STORE ? STORE[key] : null),
+  setItem: (key, value) => { STORE[key] = String(value); },
+  removeItem: (key) => { delete STORE[key]; }
+};
 globalThis.window = Object.assign(globalThis.window || {}, {
   location: { hash: '#/xem-tarot', pathname: '/', search: '' }
 });
@@ -56,6 +64,33 @@ const cards = Array.from({ length: 5 }, (_, i) => ({
 
 const noop = () => {};
 
+/* Mot muc nhat ky Tarot co ghi bo bai, va mot muc cu luu tu truoc khi co bo
+   bai. Muc cu phai van hien binh thuong - do la nhat ky that cua khach, khong
+   duoc de no vo hay bien mat khi them truong moi. */
+const JOURNAL_SEED = JSON.stringify([
+  {
+    id: 'journal-test-1',
+    type: 'tarot',
+    date: '01/01/2026',
+    question: 'Cau hoi thu',
+    spreadTitle: 'Trai 5 La',
+    deckId: 'ancient_egyptian',
+    deckName: 'Tarot Than Thoai Ai Cap Co Dai',
+    deckIcon: '🏺',
+    cards: cards.map(c => ({ nameVi: c.nameVi, isReversed: c.isReversed, icon: c.icon })),
+    userNote: 'Ghi chu thu'
+  },
+  {
+    id: 'journal-test-cu',
+    type: 'tarot',
+    date: '01/12/2025',
+    question: 'Muc luu truoc khi co bo bai',
+    spreadTitle: 'Trai 3 La',
+    cards: cards.slice(0, 3).map(c => ({ nameVi: c.nameVi, isReversed: c.isReversed, icon: c.icon })),
+    userNote: ''
+  }
+]);
+
 const SCREENS = [
   /* Từ khi mỗi mục được tải riêng (React.lazy trong App), màn này chỉ còn vẽ
      phần khung: thanh điều hướng, quả cầu, chân trang, cộng màn chờ. Nội dung
@@ -77,7 +112,19 @@ const SCREENS = [
   ['Huyền Học', () => <Destiny lang="vi" section="mysticism" profile={PROFILE} onSaveProfile={noop} />],
   ['Chiêm Tinh - đủ giờ sinh', () => <Destiny lang="vi" section="astrology" profile={PROFILE} onSaveProfile={noop} />],
   ['Chiêm Tinh - thiếu giờ sinh', () => <Destiny lang="vi" section="astrology" profile={NO_TIME} onSaveProfile={noop} />],
-  ['Nhật Ký', () => <Journal lang="vi" />],
+  ['Nhật Ký (rỗng)', () => { delete STORE.celestial_tarot_journal; return <Journal lang="vi" />; }],
+
+  /* Nhat ky co ban ghi. Man rong ve ra duoc khong chung minh duoc gi ve phan
+     hien ban ghi. Doi chieu ba thu: ten bo bai da luu, cau lang kinh lay tu
+     chinh bang lang kinh, va muc cu khong co bo bai van con nguyen. */
+  ['Nhật Ký (có bản ghi)', () => {
+    STORE.celestial_tarot_journal = JOURNAL_SEED;
+    return <Journal lang="vi" />;
+  }, [
+    'Tarot Than Thoai Ai Cap Co Dai',
+    deckLens('ancient_egyptian', 'vi').frame,
+    'Muc luu truoc khi co bo bai'
+  ]],
   ['Giải bài Tarot', () => (
     <ReadingResult drawnCards={cards} spread={{ id: 'five_aspects', title: 'Trải 5 Lá', cardCount: 5 }}
       question="Câu hỏi thử" onReset={noop} lang="vi" />
@@ -109,13 +156,30 @@ const SCREENS = [
   )]
 ];
 
+/* React thoat dau nhay va dau & khi ve ra HTML, nen chuoi doi chieu phai thoat
+   y het thi moi tim thay. */
+const escapeForHtml = (text = '') => text
+  .replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;')
+  .replace(/'/g, '&#x27;');
+
 const failures = [];
 
-for (const [name, render] of SCREENS) {
+for (const [name, render, mustContain = []] of SCREENS) {
   try {
     const html = renderToStaticMarkup(render());
     if (!html || html.length < 500) {
       failures.push({ name, reason: `vẽ ra quá ít nội dung (${html.length} ký tự)` });
+      continue;
+    }
+    /* Ve duoc chua chac la ve dung. Voi nhung man co doan chu bat buoc phai
+       xuat hien, doi chieu thang - neu khong thi mot man vo noi dung van du
+       500 ky tu khung va van xanh. */
+    const absent = mustContain.filter(text => !html.includes(escapeForHtml(text)));
+    if (absent.length) {
+      failures.push({ name, reason: `thiếu đoạn chữ bắt buộc: ${absent.map(x => `"${x.slice(0, 40)}"`).join(', ')}` });
       continue;
     }
     console.log(`  OK   ${name}`);
