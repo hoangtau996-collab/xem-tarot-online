@@ -18,9 +18,18 @@ export const TAROT_DECK = [
   ...PENTACLES
 ];
 
-// Helper to draw random unique cards
-export const getRandomDeckDraw = (count = 5) => {
-  const deckCopy = [...TAROT_DECK];
+/* Rút ngẫu nhiên `count` lá khác nhau.
+ *
+ * `exclude` là những lá người xem đã lật trước đó trong cùng phiên. Trước đây
+ * hàm này luôn rút từ nguyên bộ 78 lá, nên ai rút tay vài lá rồi mới bấm "Rút
+ * tự động" sẽ nhận thêm đủ số lá nữa lấy từ cả bộ - vừa dôi ra so với kiểu
+ * trải bài, vừa có khả năng trùng đúng lá vừa lật.
+ *
+ * Trả về ít hơn `count` nếu bộ bài không còn đủ lá, chứ không lặp lại lá nào.
+ */
+export const getRandomDeckDraw = (count = 5, exclude = []) => {
+  const taken = new Set(exclude.map(c => c.id));
+  const deckCopy = TAROT_DECK.filter(c => !taken.has(c.id));
   const drawn = [];
   for (let i = 0; i < count; i++) {
     if (deckCopy.length === 0) break;

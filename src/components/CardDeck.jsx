@@ -38,6 +38,14 @@ export const CardDeck = ({ spread, deckTheme, question, onCompleteDraw, lang = '
   const [isShuffling, setIsShuffling] = useState(false);
   const [burstIdx, setBurstIdx] = useState(null);
 
+  /* Bản đồng bộ của drawnCards, dùng làm nguồn sự thật khi rút bài.
+   *
+   * Không đọc thẳng state được: state chỉ đổi sau khi React render lại, nên hai
+   * cú bấm liền nhau (bấm nhanh, hoặc chạm hai lần trên điện thoại) đều nhìn
+   * thấy cùng một danh sách cũ và có thể rút trúng đúng một lá. Ref đổi ngay
+   * trong lượt chạy của handler nên cú bấm sau luôn thấy lá vừa rút. */
+  const drawnRef = useRef([]);
+
   // Mọi setTimeout đều được ghi lại để dọn khi unmount hoặc đổi trải bài
   const timers = useRef([]);
   const after = (fn, ms) => timers.current.push(setTimeout(fn, ms));
@@ -64,6 +72,7 @@ export const CardDeck = ({ spread, deckTheme, question, onCompleteDraw, lang = '
 
   useEffect(() => {
     clearTimers();
+    drawnRef.current = [];
     setDrawnCards([]);
     setFlippedMap({});
     setBurstIdx(null);
@@ -81,23 +90,34 @@ export const CardDeck = ({ spread, deckTheme, question, onCompleteDraw, lang = '
   };
 
   const handleDrawCard = () => {
-    if (drawnCards.length >= neededCount) return;
+    if (drawnRef.current.length >= neededCount) return;
 
-    const available = TAROT_DECK.filter(c => !drawnCards.some(d => d.id === c.id));
+    const available = TAROT_DECK.filter(c => !drawnRef.current.some(d => d.id === c.id));
     if (available.length === 0) return;
 
     const randomCard = available[Math.floor(Math.random() * available.length)];
-    setDrawnCards(prev => [...prev, { ...randomCard, isReversed: Math.random() < 0.2 }]);
+    drawnRef.current = [...drawnRef.current, { ...randomCard, isReversed: Math.random() < 0.2 }];
+    setDrawnCards(drawnRef.current);
     cosmicAudio.playFlipSound();
   };
 
   /* Rút tự động: chia bài ra từng lá một cho thấy được động tác,
      xong mới lật đồng loạt. */
   const handleAutoDraw = () => {
+    /* Chỉ rút cho ĐỦ số lá còn thiếu, và loại sẵn những lá đã lật. Người xem
+       hoàn toàn có thể rút tay vài lá rồi mới bấm nút này. */
+    const remaining = neededCount - drawnRef.current.length;
+    if (remaining <= 0) return;
+
+    const cards = getRandomDeckDraw(remaining, drawnRef.current);
+    if (cards.length === 0) return;
+
+    /* Chốt vào ref ngay, đừng đợi hoạt cảnh chia bài chạy xong: trong lúc các
+       lá lần lượt hiện ra, nút "Rút từng lá" vẫn còn đó và vẫn bấm được. */
+    drawnRef.current = [...drawnRef.current, ...cards];
+
     cosmicAudio.playShuffleSound();
     setIsShuffling(true);
-
-    const cards = getRandomDeckDraw(neededCount);
 
     after(() => {
       setIsShuffling(false);
@@ -109,8 +129,11 @@ export const CardDeck = ({ spread, deckTheme, question, onCompleteDraw, lang = '
       });
 
       after(() => {
+        /* Lật theo TỔNG số lá đang có, không phải theo số lá vừa rút thêm:
+           nếu người xem đã rút tay vài lá trước đó thì mấy lá cuối sẽ bị bỏ
+           sót, nằm úp mãi và không có cách nào lật lên hàng loạt. */
         const newFlipped = {};
-        cards.forEach((_, idx) => (newFlipped[idx] = true));
+        drawnRef.current.forEach((_, idx) => (newFlipped[idx] = true));
         setFlippedMap(newFlipped);
         setBurstIdx('all');
         cosmicAudio.playSparkleSound();
