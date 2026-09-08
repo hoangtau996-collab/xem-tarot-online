@@ -18,6 +18,19 @@ export const TAROT_DECK = [
   ...PENTACLES
 ];
 
+/* Xác suất một lá rơi vào thế ngược.
+ *
+ * Xáo bài thật thì tỉ lệ này quanh 50%. Ở đây để 40%: vẫn đủ để bài ngược là
+ * chuyện thường gặp chứ không phải điềm dữ hiếm hoi, nhưng phần lớn phiên vẫn
+ * nghiêng về bài xuôi.
+ *
+ * Có ĐÚNG MỘT chỗ định nghĩa con số này, và cả hai đường rút bài (rút từng lá
+ * trong CardDeck lẫn rút tự động ở đây) đều phải đọc từ đây. Trước kia mỗi bên
+ * tự viết 0.2 nên sửa một chỗ là hai nút cho ra hai tỉ lệ khác nhau. */
+export const REVERSED_CHANCE = 0.4;
+
+export const rollReversed = () => Math.random() < REVERSED_CHANCE;
+
 /* Rút ngẫu nhiên `count` lá khác nhau.
  *
  * `exclude` là những lá người xem đã lật trước đó trong cùng phiên. Trước đây
@@ -37,7 +50,7 @@ export const getRandomDeckDraw = (count = 5, exclude = []) => {
     const card = deckCopy.splice(randomIndex, 1)[0];
     drawn.push({
       ...card,
-      isReversed: Math.random() < 0.2
+      isReversed: rollReversed()
     });
   }
   return drawn;

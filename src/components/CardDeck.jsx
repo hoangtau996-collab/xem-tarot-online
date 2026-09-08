@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { TAROT_DECK, getRandomDeckDraw } from '../data/tarotData';
+import { TAROT_DECK, getRandomDeckDraw, rollReversed } from '../data/tarotData';
 import { TAROT_DECKS_THEMES } from '../data/tarotSpreads';
 import { TarotCard } from './TarotCard';
 import { Sparkles, Shuffle, Eye, ChevronRight, Layers } from 'lucide-react';
@@ -96,7 +96,7 @@ export const CardDeck = ({ spread, deckTheme, question, onCompleteDraw, lang = '
     if (available.length === 0) return;
 
     const randomCard = available[Math.floor(Math.random() * available.length)];
-    drawnRef.current = [...drawnRef.current, { ...randomCard, isReversed: Math.random() < 0.2 }];
+    drawnRef.current = [...drawnRef.current, { ...randomCard, isReversed: rollReversed() }];
     setDrawnCards(drawnRef.current);
     cosmicAudio.playFlipSound();
   };
