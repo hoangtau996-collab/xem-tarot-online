@@ -31,6 +31,8 @@ export const TRANSLATIONS = {
     navVolume: 'Âm Lượng Nhạc',
     modeStream: 'Chuông Tây Tạng 🥣',
     modeCosmic: 'Vũ Trụ 🌌',
+    modeRain: 'Mưa Đêm 🌧️',
+    modeChimes: 'Chuông Gió 🎐',
 
     // Quả cầu thông điệp vũ trụ (đầu trang)
     orbHint: 'Hãy chạm vào quả cầu để nghe thông điệp từ Vũ Trụ',
@@ -391,6 +393,8 @@ export const TRANSLATIONS = {
     navVolume: 'Music Volume',
     modeStream: 'Tibetan Bowls 🥣',
     modeCosmic: 'Cosmic Pad 🌌',
+    modeRain: 'Night Rain 🌧️',
+    modeChimes: 'Wind Chimes 🎐',
 
     // Cosmic message orb (top of page)
     orbHint: 'Touch the orb to hear your message from the Universe',
@@ -750,6 +754,8 @@ export const TRANSLATIONS = {
     navVolume: '音乐音量',
     modeStream: '西藏颂钵 🥣',
     modeCosmic: '宇宙冥想 🌌',
+    modeRain: '夜雨 🌧️',
+    modeChimes: '风铃 🎐',
 
     // 宇宙讯息水晶球 (页面顶部)
     orbHint: '轻触水晶球，聆听来自宇宙的讯息',

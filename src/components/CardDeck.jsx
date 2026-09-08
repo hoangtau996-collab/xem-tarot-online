@@ -76,6 +76,9 @@ export const CardDeck = ({ spread, deckTheme, question, onCompleteDraw, lang = '
     setDrawnCards([]);
     setFlippedMap({});
     setBurstIdx(null);
+    /* Tiếng lật bài đi lên dần theo thứ tự lá. Đưa về nốt đầu thang để phiên
+       nào cũng mở bằng nốt trầm nhất, thay vì nối tiếp cao độ của phiên trước. */
+    cosmicAudio.resetFlipSequence();
   }, [spread, deckTheme]);
 
   useEffect(() => clearTimers, []);

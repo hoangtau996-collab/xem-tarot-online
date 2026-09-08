@@ -1,5 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { BookOpen, BookmarkCheck, Volume2, VolumeX, Compass, Disc, Globe, Settings2, Hash, Orbit } from 'lucide-react';
+import { BookOpen, BookmarkCheck, Volume2, VolumeX, Compass, Globe, Settings2, Hash, Orbit } from 'lucide-react';
+
+/* Các chế độ nhạc nền. Mã ở đây phải khớp với nhánh dựng tiếng trong
+   utils/audio.js (startAmbient), thêm chế độ thì phải khai cả hai nơi.
+   `active` là lớp CSS khi chế độ đang được chọn - mỗi chế độ một màu để nhìn
+   là biết đang bật cái nào mà không cần đọc chữ. */
+const MUSIC_MODES = [
+  { id: 'tibetan', icon: '🥣', labelKey: 'modeStream', active: 'bg-amber-950/80 border-amber-400 text-amber-300 font-bold' },
+  { id: 'cosmic', icon: '🌌', labelKey: 'modeCosmic', active: 'bg-purple-950/80 border-purple-400 text-purple-300 font-bold' },
+  { id: 'rain', icon: '🌧️', labelKey: 'modeRain', active: 'bg-sky-950/80 border-sky-400 text-sky-300 font-bold' },
+  { id: 'chimes', icon: '🎐', labelKey: 'modeChimes', active: 'bg-emerald-950/80 border-emerald-400 text-emerald-300 font-bold' }
+];
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
 import { buildPath, navigate, SITE_URL, isCanonicalSite } from '../utils/router';
@@ -213,29 +224,20 @@ export const Navbar = ({ activeTab, lang, setLang, onGoHome }) => {
                   </div>
 
                   <div className="grid grid-cols-2 gap-2">
-                    <button
-                      onClick={() => handleModeChange('tibetan')}
-                      className={`p-3 rounded-xl text-xs font-medium flex flex-col items-center gap-1 border transition-all ${
-                        musicMode === 'tibetan'
-                          ? 'bg-amber-950/80 border-amber-400 text-amber-300 font-bold'
-                          : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
-                      }`}
-                    >
-                      <span className="text-lg">🥣</span>
-                      <span>{t.modeStream}</span>
-                    </button>
-
-                    <button
-                      onClick={() => handleModeChange('cosmic')}
-                      className={`p-3 rounded-xl text-xs font-medium flex flex-col items-center gap-1 border transition-all ${
-                        musicMode === 'cosmic'
-                          ? 'bg-purple-950/80 border-purple-400 text-purple-300 font-bold'
-                          : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
-                      }`}
-                    >
-                      <Disc className="w-5 h-5 text-purple-400" />
-                      <span>{t.modeCosmic}</span>
-                    </button>
+                    {MUSIC_MODES.map(({ id, icon, labelKey, active }) => (
+                      <button
+                        key={id}
+                        onClick={() => handleModeChange(id)}
+                        className={`p-3 rounded-xl text-xs font-medium flex flex-col items-center gap-1 border transition-all min-h-[64px] ${
+                          musicMode === id
+                            ? active
+                            : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
+                        }`}
+                      >
+                        <span className="text-lg leading-none">{icon}</span>
+                        <span className="text-center leading-tight">{t[labelKey]}</span>
+                      </button>
+                    ))}
                   </div>
 
                   <div className="space-y-1.5 pt-1">
