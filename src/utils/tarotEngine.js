@@ -134,9 +134,16 @@ const explainReversed = (reversedCount, total, lang) => {
     if (reversedCount === total) return `${total} 张牌全是逆位。这不是坏运气，而是提醒你此刻的功课在内部：先把心里的事理顺，再谈行动。`;
     return `${total} 张牌中有 ${reversedCount} 张逆位。逆位不等于倒霉，它多半表示那股力量被拖慢了、转向内在，或你还没把它用出来。`;
   }
-  if (reversedCount === 0) return 'Không có lá ngược nào. Chuyện đang diễn ra khá rõ ràng, không có gì bị giấu hay bị kẹt lại.';
-  if (reversedCount === total) return `Cả ${total} lá đều ngược. Đây không phải điềm xấu. Nó nói rằng việc cần làm lúc này nằm ở bên trong bạn: hãy chậm lại, gỡ cho xong chuyện trong lòng rồi hãy tính chuyện bên ngoài.`;
-  return `Có ${reversedCount}/${total} lá ngược. Bài ngược không có nghĩa là xui. Thường nó chỉ nói rằng phần đó đang bị chậm lại, đang hướng vào bên trong, hoặc bạn chưa dùng hết mặt tốt của nó.`;
+  /* Trải một lá thì mọi câu đếm số đều đọc rất ngô nghê ("cả 1 lá đều ngược"),
+     nên nhánh này nói thẳng về đúng lá đó thay vì nói theo tỉ lệ. */
+  if (total === 1) {
+    return reversedCount === 1
+      ? 'Lá duy nhất của phiên này ra ngược. Đó không phải điềm xấu — nó chỉ đang nói rằng việc cần làm lúc này nằm ở bên trong bạn, nên hãy chậm lại một nhịp và gỡ cho xong chuyện trong lòng đã.'
+      : 'Lá này ra xuôi, nên chuyện của bạn đang khá rõ ràng — không có gì bị giấu đi hay kẹt lại ở đâu.';
+  }
+  if (reversedCount === 0) return 'Trước hết, không có lá ngược nào cả. Chuyện của bạn đang diễn ra khá rõ ràng, không có gì bị giấu đi hay kẹt lại ở đâu.';
+  if (reversedCount === total) return `Cả ${total} lá đều ngược — nhìn qua thì hơi choáng, nhưng bạn đừng vội lo. Nó không phải điềm xấu, nó chỉ đang nói rằng việc cần làm lúc này nằm ở bên trong bạn. Chậm lại một nhịp, gỡ cho xong chuyện trong lòng, rồi hãy tính tới chuyện bên ngoài.`;
+  return `Trước hết là ${reversedCount}/${total} lá ngược. Bài ngược không có nghĩa là xui đâu — phần lớn thời gian nó chỉ đang nói rằng chỗ đó bị chậm lại, đang quay vào bên trong, hoặc bạn chưa dùng hết mặt tốt của nó.`;
 };
 
 const explainMajor = (majorCount, total, lang) => {
@@ -151,16 +158,22 @@ const explainMajor = (majorCount, total, lang) => {
     if (heavy) return `出现了 ${majorCount} 张大阿尔克那牌。它们代表人生的转折点，而非日常琐事——你所问的事，分量比表面看起来更重。`;
     return `${total} 张牌中有 ${majorCount} 张大阿尔克那。日常之中，确实藏着一条重要的主线。`;
   }
-  if (majorCount === 0) return 'Toàn bộ là lá Ẩn Phụ. Chuyện đang ở mức đời thường, gỡ được bằng những việc nhỏ và cụ thể, không cần đảo lộn gì lớn.';
-  if (heavy) return `Có tới ${majorCount} lá Ẩn Chính. Đây là những lá nói về bước ngoặt, không phải chuyện vặt trong ngày. Điều bạn đang hỏi nặng ký hơn vẻ ngoài của nó.`;
-  return `Có ${majorCount} lá Ẩn Chính trong ${total} lá. Giữa những chuyện thường ngày vẫn có một mạch thật sự quan trọng.`;
+  if (total === 1) {
+    return majorCount === 1
+      ? 'Thêm nữa, đây là một lá Ẩn Chính — nhóm lá nói về bước ngoặt, chứ không phải chuyện vặt trong ngày. Điều bạn đang hỏi nặng hơn vẻ ngoài của nó.'
+      : 'Đây là một lá Ẩn Phụ, nghĩa là chuyện đang ở mức đời thường thôi. Nó gỡ được bằng những việc nhỏ và cụ thể, chưa cần bạn đảo lộn gì lớn cả.';
+  }
+  if (majorCount === 0) return 'Tiếp nữa, toàn bộ đều là lá Ẩn Phụ — nghĩa là chuyện đang ở mức đời thường thôi. Nó gỡ được bằng những việc nhỏ và cụ thể, chưa cần bạn đảo lộn gì lớn cả.';
+  if (heavy) return `Rồi tới chuyện này: có tới ${majorCount} lá Ẩn Chính. Đây là những lá nói về bước ngoặt chứ không phải chuyện vặt trong ngày, nên điều bạn đang hỏi nặng hơn vẻ ngoài của nó nhiều.`;
+  return `Tiếp nữa, có ${majorCount} lá Ẩn Chính trong ${total} lá. Giữa những chuyện thường ngày vẫn đang có một mạch thật sự quan trọng chạy qua.`;
 };
 
-const explainElement = (element, lang) => {
+const explainElement = (element, lang, total) => {
   const plain = ELEMENT_PLAIN[lang][element];
   if (lang === 'en') return `Most cards belong to ${ELEMENT_NAMES.en[element]}. In plain terms, this is ${plain}.`;
   if (lang === 'zh') return `多数牌属于${ELEMENT_NAMES.zh[element]}。说白了，这件事${plain}。`;
-  return `Phần lớn các lá thuộc nhóm ${ELEMENT_NAMES.vi[element]}. Nói cho dễ hiểu: đây là ${plain}.`;
+  if (total === 1) return `Lá này thuộc nhóm ${ELEMENT_NAMES.vi[element]}. Nói cho dễ hiểu thì rốt cuộc, đây là ${plain}.`;
+  return `Và cuối cùng, phần lớn các lá thuộc nhóm ${ELEMENT_NAMES.vi[element]}. Nói cho dễ hiểu thì rốt cuộc, đây là ${plain}.`;
 };
 
 // --- Bản luận giải tổng thể -------------------------------------------------
@@ -197,9 +210,16 @@ const buildSections = ({ lang, spreadType, drawnCards, positions, question, majo
   const sum = (c) => summaryByLang(faceData(c), lang);
   const pos = (i) => positions[i];
 
+  /* Bản tiếng Việt mở phần tổng thể bằng một câu dẫn, và ba câu phía sau đã có
+     sẵn từ nối ("Trước hết", "Tiếp nữa", "Và cuối cùng") - để đoạn này đọc như
+     một người ngồi kể lại, chứ không phải ba dòng thống kê dán cạnh nhau. */
+  const wholeLead = lang === 'vi'
+    ? (total === 1 ? 'Nhìn lại lá này một lượt nữa trước khi bạn khép trang. ' : 'Giờ thì mình lùi lại một bước, nhìn cả phiên bài một lượt. ')
+    : '';
+
   const wholeNote = lang === 'zh'
-    ? `${explainReversed(reversedCount, total, lang)}${explainMajor(majorCount, total, lang)}${explainElement(dominantElement, lang)}`
-    : `${explainReversed(reversedCount, total, lang)} ${explainMajor(majorCount, total, lang)} ${explainElement(dominantElement, lang)}`;
+    ? `${explainReversed(reversedCount, total, lang)}${explainMajor(majorCount, total, lang)}${explainElement(dominantElement, lang, total)}`
+    : `${wholeLead}${explainReversed(reversedCount, total, lang)} ${explainMajor(majorCount, total, lang)} ${explainElement(dominantElement, lang, total)}`;
 
   const C = {
     en: {
@@ -257,31 +277,31 @@ const buildSections = ({ lang, spreadType, drawnCards, positions, question, majo
       wholeTitle: '整个牌阵合起来看'
     },
     vi: {
-      introQuestionSingle: `Bạn hỏi: "${question}". Bộ bài trả lời bằng đúng một lá, nên câu trả lời sẽ gọn và thẳng.`,
-      introQuestionMany: `Bạn hỏi: "${question}". Bộ bài trả lời bằng ${total} lá. Hãy đọc chúng như một câu chuyện liền mạch, đừng đọc thành ${total} lời phán riêng lẻ — mỗi lá chỉ soi một góc của cùng một chuyện.`,
-      introBlankSingle: 'Bạn rút một lá mà không đặt câu hỏi cụ thể. Hãy xem đây như một lời nhắc cho hôm nay: điều gì thấy đúng thì giữ lấy, điều gì chưa đúng thì cứ để đó.',
-      introBlankMany: `Bạn rút ${total} lá mà không đặt câu hỏi cụ thể, nên hãy xem đây là bức ảnh chụp nhanh tình trạng hiện tại của mình. Điều gì thấy đúng thì giữ lấy, điều gì chưa đúng thì cứ để đó.`,
-      introTitle: 'Bạn hỏi gì, và bài trả lời ra sao',
+      introQuestionSingle: `Điều bạn mang tới đây là: "${question}". Bộ bài đáp lại bằng đúng một lá — chỉ một thôi, nên câu trả lời sẽ gọn và thẳng, không có chỗ để vòng vo.`,
+      introQuestionMany: `Điều bạn mang tới đây là: "${question}". Bộ bài đáp lại bằng ${total} lá, và mình sẽ đi qua từng lá một cùng bạn. Chỉ xin bạn nhớ giúp một điều: đây là một câu chuyện liền mạch, không phải ${total} lời phán rời nhau — mỗi lá chỉ soi một góc của cùng một chuyện.`,
+      introBlankSingle: 'Bạn rút một lá mà chưa đặt câu hỏi nào cụ thể. Vậy thì mình cứ xem đây như một lời nhắc cho riêng hôm nay: điều gì đọc thấy đúng thì bạn giữ lấy, điều gì chưa đúng thì cứ để đó, không sao cả.',
+      introBlankMany: `Bạn rút ${total} lá mà chưa đặt câu hỏi nào cụ thể. Vậy mình sẽ đọc chúng như một bức ảnh chụp nhanh chỗ bạn đang đứng lúc này. Điều gì thấy đúng thì bạn giữ lấy, điều gì chưa đúng thì cứ để đó, không sao cả.`,
+      introTitle: 'Chuyện bạn mang tới đây',
       singleTitle: `Lá bài của bạn — ${name(first)}`,
-      singleBody: `${name(first)} ra ${face(first)}. Nói gọn một câu: ${sum(first)} ${first.isReversed
-        ? 'Bài ngược không có nghĩa là tin xấu. Nó chỉ vào một chuyện đang bị chậm lại, hoặc chuyện bạn chưa muốn nhìn thẳng vào.'
-        : 'Bài xuôi nghĩa là chuyện này đang thuận theo bạn, không phải cản bạn.'}`,
-      singleAdviceTitle: 'Vậy nên làm gì',
-      startTitle: `Chuyện bắt đầu từ đâu — ${name(first)}${pos(0) ? ` (${pos(0)})` : ''}`,
-      startBody: `${name(first)} ra ${face(first)}. Nói gọn một câu: ${sum(first)} ${first.isReversed
-        ? 'Vì là bài ngược, điểm xuất phát thật sự thường nằm ở chuyện bạn vẫn né, chưa muốn nhìn thẳng vào.'
+      singleBody: `${name(first)} ra ${face(first)}. Nói gọn trong một câu: ${sum(first)} ${first.isReversed
+        ? 'Thấy chữ "ngược" thì bạn đừng vội lo — nó không phải tin xấu. Nó chỉ đang chỉ tay vào một chuyện đang bị chậm lại, hoặc một chuyện bạn chưa muốn nhìn thẳng vào.'
+        : 'Ra xuôi nghĩa là chuyện này đang đi cùng phía với bạn, chứ không cản bạn.'}`,
+      singleAdviceTitle: 'Vậy thì mình nên làm gì',
+      startTitle: `Câu chuyện bắt đầu từ đây — ${name(first)}${pos(0) ? ` (${pos(0)})` : ''}`,
+      startBody: `Mình bắt đầu từ ${name(first)}, ra ${face(first)}. Nói gọn trong một câu: ${sum(first)} ${first.isReversed
+        ? 'Vì là bài ngược, điểm xuất phát thật sự thường không nằm ở chỗ dễ nhìn — nó nằm ở chuyện bạn vẫn né bấy lâu nay.'
         : 'Đây là chỗ đứng vững của bạn. Nó đang thuận, nên cứ dựa vào đó mà đi tiếp.'}`,
-      midTitle: 'Những gì đang chuyển động ở giữa',
-      midBody: `${mids.map((c, i) => `${name(c)}${pos(i + 1) ? ` (${pos(i + 1)})` : ''}, ${face(c)}: ${sum(c)}`).join(' ')} Mấy lá ở giữa là phần bạn còn tác động được. Chúng kể chuyện đang xảy ra, không phải bản án đã tuyên.`,
-      endTitle: `Mọi chuyện đang hướng về đâu — ${name(last)}${pos(total - 1) ? ` (${pos(total - 1)})` : ''}`,
-      endBody: `${name(last)}, ${face(last)}: ${sum(last)} ${last.isReversed
-        ? 'Lá chốt ra ngược là một lời nhắc, không phải lời kết tội: nếu mọi thứ cứ giữ nguyên thì kết quả sẽ đi về phía này. Bạn vẫn còn quyền bẻ lái.'
-        : 'Lá chốt ra xuôi là dấu hiệu tốt: cứ giữ hướng đang đi, chuyện sẽ dừng lại ở chỗ dễ chịu này.'}`,
-      domainTitle: 'Mỗi lá trả lời một mặt của cuộc sống',
-      domainBody: 'Trải 5 lá không đọc theo thứ tự thời gian. Mỗi lá được rút riêng cho một mặt, nên bạn có thể đọc từng dòng dưới đây một cách độc lập.',
-      oneThingTitle: 'Nếu chỉ chọn một việc để làm',
-      oneThingBody: `Lá nằm ở vị trí "${pos(total - 1)}" là ${name(last)}, ra ${face(last)}. Lời khuyên của nó: ${adviceOf(last)}`,
-      wholeTitle: 'Nhìn cả phiên bài thì thấy gì'
+      midTitle: 'Rồi mọi thứ chuyển động',
+      midBody: `Từ chỗ đó, câu chuyện đi tiếp như thế này. ${mids.map((c, i) => `${name(c)}${pos(i + 1) ? ` (${pos(i + 1)})` : ''}, ${face(c)}: ${sum(c)}`).join(' ')} Mấy lá ở giữa mới là phần bạn còn tác động được. Chúng đang kể một chuyện đang xảy ra, chứ không đọc một bản án đã tuyên.`,
+      endTitle: `Và đây là nơi nó đang đi tới — ${name(last)}${pos(total - 1) ? ` (${pos(total - 1)})` : ''}`,
+      endBody: `Khép lại là ${name(last)}, ${face(last)}: ${sum(last)} ${last.isReversed
+        ? 'Lá chốt ra ngược là một lời nhắc, không phải một lời kết tội. Ý nó là: nếu mọi thứ cứ giữ nguyên như bây giờ thì kết quả sẽ đi về phía này — mà bạn thì vẫn còn nguyên quyền bẻ lái.'
+        : 'Lá chốt ra xuôi là một dấu hiệu lành: cứ giữ hướng bạn đang đi, rồi chuyện sẽ dừng lại ở chỗ dễ chịu này.'}`,
+      domainTitle: 'Mỗi lá nói về một góc đời bạn',
+      domainBody: 'Trải 5 lá không đọc theo thứ tự thời gian, nên bạn đừng tìm xem cái nào trước cái nào sau. Mỗi lá được rút riêng cho một mặt của đời sống, nên cứ đọc dòng nào chạm tới mình nhất trước cũng được.',
+      oneThingTitle: 'Nếu hôm nay bạn chỉ làm được một việc',
+      oneThingBody: `Đọc tới đây mà thấy nhiều quá thì bạn chỉ cần nhớ lấy lá này thôi. Nằm ở vị trí "${pos(total - 1)}" là ${name(last)}, ra ${face(last)}. Điều nó muốn nhắn với bạn: ${adviceOf(last)}`,
+      wholeTitle: 'Ngồi lại nhìn cả phiên bài'
     }
   }[lang];
 
@@ -359,25 +379,25 @@ const buildQuickTake = ({ lang, aspectLabel, lead, others, isPrimary }) => {
   }
 
   const base = isPrimary
-    ? `${leadName} là lá được rút riêng cho phần ${aspectLabel}, nên hãy đọc lá này trước: ${leadSummary}`
+    ? `${leadName} chính là lá được rút riêng cho phần ${aspectLabel}, nên bạn hãy đọc lá này trước đã: ${leadSummary}`
     : where
-      ? `Hãy đọc lần lượt theo thứ tự. Mở đầu là ${leadName} ở vị trí "${where}": ${leadSummary}`
-      : `Bắt đầu từ ${leadName}: ${leadSummary}`;
+      ? `Phần này mình đọc lần lượt nhé. Mở đầu là ${leadName} ở vị trí "${where}": ${leadSummary}`
+      : `Mình bắt đầu từ ${leadName}: ${leadSummary}`;
   if (others === 0) return base;
   return isPrimary
-    ? `${base} ${others} lá còn lại chỉ bổ sung sắc thái, không lật ngược ý chính này.`
-    : `${base} Rồi để ${others} lá còn lại kể tiếp cùng một mạch chuyện.`;
+    ? `${base} ${others} lá còn lại chỉ tô thêm sắc thái thôi, chúng không lật ngược ý chính này đâu.`
+    : `${base} Rồi ${others} lá còn lại sẽ kể tiếp cùng một mạch chuyện đó.`;
 };
 
 // --- Việc nên làm / điều nên để ý ------------------------------------------
 
 const ACTION_COPY = {
   vi: {
-    doTitle: 'Việc nên làm',
-    watchTitle: 'Điều nên để ý',
-    doHint: 'Rút từ lời khuyên của các lá ra xuôi — đây là phần đang thuận, bắt tay làm được ngay.',
-    watchHint: 'Rút từ các lá ra ngược — không phải điềm xấu, mà là chỗ dễ vấp nếu bỏ qua.',
-    empty: 'Phiên này không có lá nào rơi vào nhóm đó.'
+    doTitle: 'Việc bạn làm được ngay',
+    watchTitle: 'Điều mình nên để ý',
+    doHint: 'Những dòng này rút ra từ các lá ra xuôi — đây là phần đang thuận, bạn bắt tay vào được ngay hôm nay.',
+    watchHint: 'Những dòng này rút ra từ các lá ra ngược. Không phải điềm xấu đâu, chỉ là chỗ dễ vấp nếu mình bỏ qua.',
+    empty: 'Phiên này không có lá nào rơi vào nhóm đó, nên phần này để trống.'
   },
   en: {
     doTitle: 'What to do',
