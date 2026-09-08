@@ -162,6 +162,13 @@ export const isCanonicalSite = () => {
   }
 };
 
+/* Link luôn trỏ về tên miền chính thức.
+ *
+ * Khác absoluteUrl ở chỗ không đọc origin hiện tại: chữ khách sao chép rồi gửi
+ * cho người khác thì không được mang theo localhost hay tên miền bản xem thử,
+ * vì người nhận bấm vào sẽ không mở ra được gì. */
+export const canonicalUrl = (path = '') => `${SITE_URL.replace(/\/$/, '')}${path}`;
+
 /* Link tuyệt đối để khách sao chép và gửi cho người khác. */
 export const absoluteUrl = (path) => {
   if (typeof window === 'undefined') return `${SITE_URL.replace(/\/$/, '')}${path}`;

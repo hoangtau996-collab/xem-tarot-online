@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef, useMemo, useEffect, useCallback } from 'react';
 import { analyzeReadingSession } from '../utils/tarotEngine';
 import {
   Sparkles, User, Heart, Briefcase, DollarSign, Compass,
@@ -11,6 +11,7 @@ import { cardText } from '../data/tarot/cardText.js';
 import { keywordLabel } from '../data/tarot/i18n/labels.js';
 import { saveJournalEntry } from '../utils/journal.js';
 import { exportNodeAsPng, exportNodeAsPdf } from '../utils/posterExport';
+import { canonicalUrl, buildPath } from '../utils/router';
 
 export const ReadingResult = ({
   drawnCards,
@@ -45,19 +46,19 @@ export const ReadingResult = ({
   
   const posterRef = useRef(null);
 
-  if (!analysis) return null;
+  /* Mã của mục nhật ký cho phiên này. Sinh một lần rồi giữ nguyên, vì cùng một
+     phiên được ghi hai lần - tự lưu lúc mới vào, và ghi lại khi khách thêm ghi
+     chú - mà cả hai lần đều phải trỏ về đúng một mục. */
+  const entryIdRef = useRef(null);
+  if (entryIdRef.current === null) entryIdRef.current = 'journal-' + Date.now();
 
-  const aspectTabs = [
-    { id: 'situation', label: t.aspectSituation, icon: User, color: 'text-amber-300' },
-    { id: 'love', label: t.aspectLove, icon: Heart, color: 'text-pink-400' },
-    { id: 'work', label: t.aspectWork, icon: Briefcase, color: 'text-cyan-400' },
-    { id: 'finance', label: t.aspectFinance, icon: DollarSign, color: 'text-emerald-400' },
-    { id: 'advice', label: t.aspectAdvice, icon: Compass, color: 'text-purple-400' }
-  ];
-
-  const handleSaveJournal = () => {
-    const newEntry = {
-      id: 'journal-' + Date.now(),
+  /* Dựng mục nhật ký cho phiên này. Ghi chú truyền vào làm tham số chứ không
+     đọc thẳng state: nếu đọc state thì mỗi phím khách gõ lại dựng lại hàm, kéo
+     theo effect tự lưu chạy lại. */
+  const buildJournalEntry = useCallback((note) => {
+    if (!analysis) return null;
+    return {
+      id: entryIdRef.current,
       date: analysis.date,
       question: question || t.defaultQuestion,
       spreadTitle: spread.title,
@@ -75,18 +76,52 @@ export const ReadingResult = ({
       deckId,
       deckName: deckTheme?.name || '',
       deckIcon: deckTheme?.icon || '',
-      userNote: userNote.trim()
+      userNote: note
     };
+  }, [analysis, question, spread.title, drawnCards, deckId, deckTheme, lang, t.defaultQuestion]);
+
+  /* Tự lưu ngay khi bản giải hiện ra.
+   *
+   * Trước đây phải bấm nút mới lưu, nên khách đọc xong một phiên đúng tâm
+   * trạng mình rồi đóng tab là mất sạch - mà phiên bài thì không dựng lại
+   * được: lá đã xáo ngẫu nhiên, không có đường nào quay về đúng phiên đó.
+   *
+   * Lưu lặng lẽ, không kêu chuông cũng không hiện báo: khách chưa yêu cầu gì
+   * thì đừng báo cho họ một việc họ không làm. Nút Lưu phía dưới vẫn nguyên
+   * tác dụng - nó ghi thêm phần ghi chú vào đúng mục này.
+   *
+   * Chạy đúng một lần cho mỗi phiên: ref chốt lại sau lượt đầu, nên StrictMode
+   * ở bản chạy thử gọi effect hai lượt cũng chỉ ghi một mục. */
+  const autoSavedRef = useRef(false);
+  useEffect(() => {
+    if (autoSavedRef.current) return;
+    const entry = buildJournalEntry('');
+    if (!entry) return;
+    autoSavedRef.current = true;
+    saveJournalEntry(entry);
+  }, [buildJournalEntry]);
+
+  if (!analysis) return null;
+
+  const aspectTabs = [
+    { id: 'situation', label: t.aspectSituation, icon: User, color: 'text-amber-300' },
+    { id: 'love', label: t.aspectLove, icon: Heart, color: 'text-pink-400' },
+    { id: 'work', label: t.aspectWork, icon: Briefcase, color: 'text-cyan-400' },
+    { id: 'finance', label: t.aspectFinance, icon: DollarSign, color: 'text-emerald-400' },
+    { id: 'advice', label: t.aspectAdvice, icon: Compass, color: 'text-purple-400' }
+  ];
+
+  const handleSaveJournal = () => {
     /* Báo đúng chuyện đã xảy ra. Trước đây nếu localStorage bị chặn thì khối
      catch nuốt lỗi và nút không đổi gì cả - khách bấm Lưu, không thấy gì,
      không biết là đã lưu hay chưa. */
-    if (saveJournalEntry(newEntry)) {
-    setSavedSuccess(true);
-    cosmicAudio.playSparkleSound();
-    setTimeout(() => setSavedSuccess(false), 3000);
+    if (saveJournalEntry(buildJournalEntry(userNote.trim()))) {
+      setSavedSuccess(true);
+      cosmicAudio.playSparkleSound();
+      setTimeout(() => setSavedSuccess(false), 3000);
     } else {
-    setSaveFailed(true);
-    setTimeout(() => setSaveFailed(false), 3000);
+      setSaveFailed(true);
+      setTimeout(() => setSaveFailed(false), 3000);
     }
   };
 
@@ -112,7 +147,13 @@ export const ReadingResult = ({
       '',
       analysis.holisticNarrative,
       '',
-      t.shareFooter
+      t.shareFooter,
+      /* Link phải nằm trong chính chữ được sao chép. Trước đây đoạn này kết ở
+         tên thương hiệu, nên người nhận đọc xong thấy hay, muốn tự xem một
+         quẻ, lại phải đi tìm trang - kênh lan truyền tự nhiên nhất của tarot
+         mà cụt đường về. Dùng canonicalUrl để link không dính localhost hay
+         tên miền bản xem thử lúc chạy thử. */
+      canonicalUrl(buildPath('reading'))
     ].join('\n');
 
     // Clipboard bi chan khi trang khong chay tren HTTPS hoac khach tu choi

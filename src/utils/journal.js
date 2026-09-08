@@ -24,11 +24,19 @@ export const readJournal = () => {
   }
 };
 
-/* Thêm một mục lên đầu. Trả về true/false chứ không nuốt lỗi: nút Lưu phải
-   biết mà báo cho khách, thay vì bấm xong không thấy gì xảy ra. */
+/* Ghi một mục lên đầu. Mục nào đã có sẵn cùng id thì THAY, không thêm bản mới.
+ *
+ * Cần vậy vì một phiên trải bài được ghi hai lần: tự lưu ngay lúc bản giải
+ * hiện ra (để khách đóng tab vẫn còn), rồi ghi lại lần nữa nếu khách gõ thêm
+ * ghi chú. Cứ nối vào đầu như trước thì cùng một phiên nằm hai chỗ trong nhật
+ * ký, bản có ghi chú và bản không.
+ *
+ * Trả về true/false chứ không nuốt lỗi: nút Lưu phải biết mà báo cho khách,
+ * thay vì bấm xong không thấy gì xảy ra. */
 export const saveJournalEntry = (entry) => {
   try {
-    const next = [entry, ...readJournal()].slice(0, MAX_ENTRIES);
+    const rest = readJournal().filter(e => e.id !== entry.id);
+    const next = [entry, ...rest].slice(0, MAX_ENTRIES);
     localStorage.setItem(JOURNAL_KEY, JSON.stringify(next));
     return true;
   } catch (err) {
