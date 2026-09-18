@@ -34,7 +34,8 @@ export const ReadingResult = ({
     () => analyzeReadingSession(drawnCards, spread.id, question, lang, deckId),
     [drawnCards, spread.id, question, lang, deckId]
   );
-  const [activeAspectTab, setActiveAspectTab] = useState('situation');
+  // Hỏi chuyện tình cảm thì mở sẵn tab Tình cảm, khỏi phải tự đi tìm.
+  const [activeAspectTab, setActiveAspectTab] = useState(analysis?.focusAspect || 'situation');
   const [selectedCardModal, setSelectedCardModal] = useState(null);
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);

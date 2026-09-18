@@ -13,6 +13,7 @@
 
 import { cardText } from '../data/tarot/cardText.js';
 import { deckLens } from '../data/deckLens.js';
+import { detectQuestionIntent, isBlankQuestion, TOPIC_ASPECT } from './questionIntent.js';
 
 // --- Vị trí các lá trong từng kiểu trải bài ---------------------------------
 
@@ -194,7 +195,337 @@ const getSpreadShape = (spreadType, total) => {
   return SPREAD_SHAPES[spreadType] || 'sequence';
 };
 
-const buildSections = ({ lang, spreadType, drawnCards, positions, question, majorCount, reversedCount, dominantElement, deckId }) => {
+// --- Trả lời theo câu hỏi người xem ----------------------------------------
+//
+// Câu hỏi được dò ra chủ đề (tình cảm, công việc, tiền, sức khoẻ, gia đình...)
+// và dạng câu (có-không, khi nào, chọn gì, vì sao, làm sao, người ấy nghĩ gì,
+// kết quả ra sao, hay hỏi mở) - xem utils/questionIntent.js. Từ đó: lá nào là
+// "lá trả lời" tuỳ kiểu trải bài, đọc đúng đoạn khía cạnh của lá đó, và nói
+// một câu kết luận theo đúng dạng câu hỏi.
+
+const ASPECT_POSITION = {
+  five_aspects: { situation: 0, love: 1, work: 2, finance: 3, advice: 4 }
+};
+
+/* Lá nào đang trả lời câu hỏi. Trải 3 lá thời gian: hiện tại và tương lai.
+   Trải 3 lá lời khuyên: hoàn cảnh và lời khuyên. Trải 5 lá: đúng lá được rút
+   cho khía cạnh người xem hỏi. */
+const answerCardIndexes = (spreadType, total, aspect) => {
+  if (total === 1) return [0];
+  if (ASPECT_POSITION[spreadType]) return [ASPECT_POSITION[spreadType][aspect] ?? 0];
+  if (spreadType === 'three_time') return [1, 2];
+  if (spreadType === 'three_advice') return aspect === 'advice' ? [2] : [0, 2];
+  return [total - 1];
+};
+
+const adviceCardIndex = (spreadType, total) =>
+  spreadType === 'five_aspects' ? 4 : spreadType === 'three_advice' ? 2 : total - 1;
+
+/* Hỏi "vì sao" thì tìm gốc: trải thời gian là lá Quá khứ, trải lời khuyên là
+   lá Thử thách; còn lại lấy lá trả lời nào đang ngược (chỗ kẹt), không có thì
+   lấy chính lá trả lời. */
+const rootCardIndex = (spreadType, drawnCards, keyIdx) => {
+  if (drawnCards.length > 1 && spreadType === 'three_time') return 0;
+  if (drawnCards.length > 1 && spreadType === 'three_advice') return 1;
+  const stuck = keyIdx.find(i => drawnCards[i]?.isReversed);
+  return stuck ?? keyIdx[0];
+};
+
+/* Cùng một câu hỏi và cùng bộ lá thì luôn ra cùng một cách nói - phiên bài
+   được lưu và mở lại, chữ không được tự đổi. Khác câu hỏi hoặc khác lá thì
+   đổi cách nói, để người hay quay lại không đọc mãi một khuôn câu. */
+const seedOf = (question, drawnCards) => {
+  const s = `${question}|${drawnCards.map(c => `${c.id}${c.isReversed ? 'r' : ''}`).join(',')}`;
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return h;
+};
+
+const TOPIC_LABELS = {
+  vi: {
+    love: 'tình cảm', work: 'công việc / học tập', finance: 'tiền bạc', health: 'sức khoẻ và tinh thần',
+    family: 'gia đình', friends: 'bạn bè và các mối quan hệ xung quanh', self: 'chính bản thân bạn', move: 'chuyển đi, đổi chỗ ở'
+  },
+  en: {
+    love: 'love', work: 'work and study', finance: 'money', health: 'health and wellbeing',
+    family: 'family', friends: 'friends and the people around you', self: 'yourself', move: 'moving or travelling'
+  },
+  zh: {
+    love: '感情', work: '事业学业', finance: '财务', health: '身心健康',
+    family: '家庭', friends: '朋友与人际', self: '你自己', move: '搬迁与出行'
+  }
+};
+
+const PACE = {
+  vi: {
+    Fire: 'khá nhanh — tính bằng ngày, cùng lắm vài tuần',
+    Air: 'tương đối nhanh — trong vòng vài tuần',
+    Water: 'từ từ — vài tuần tới vài tháng, và thường đi theo cảm xúc hơn là theo lịch',
+    Earth: 'chậm mà chắc — tính bằng tháng, có khi lâu hơn'
+  },
+  en: {
+    Fire: 'fast — days, a few weeks at most',
+    Air: 'fairly quick — within a few weeks',
+    Water: 'gradual — weeks to a few months, following feelings more than a calendar',
+    Earth: 'slow and steady — months rather than weeks'
+  },
+  zh: {
+    Fire: '很快——以天计，最多几周',
+    Air: '较快——几周之内',
+    Water: '慢慢来——几周到几个月，更多跟着情绪走而不是跟着日历走',
+    Earth: '慢而稳——以月计，甚至更久'
+  }
+};
+
+const buildQuestionAnswer = ({ lang, spreadType, drawnCards, positions, question, intent, dominantElement }) => {
+  if (!intent || intent.blank) return null;
+
+  const total = drawnCards.length;
+  const name = (c) => cardNameByLang(c, lang);
+  const face = (c) => (c.isReversed ? T[lang].reversed : T[lang].upright);
+  const sum = (c) => summaryByLang(c.isReversed ? c.reversed : c.upright, lang);
+  const adviceOf = (c) => cardText(c, c.isReversed ? 'reversed' : 'upright', 'advice', lang);
+
+  // Nhiều chủ đề có thể mượn chung một khía cạnh (sức khoẻ và gia đình cùng
+  // đọc "hoàn cảnh"), nên gom theo khía cạnh để không in một lá hai lần.
+  const byAspect = new Map();
+  (intent.topics.length ? intent.topics : [null]).forEach(topic => {
+    const aspect = topic ? TOPIC_ASPECT[topic] : 'situation';
+    if (!byAspect.has(aspect)) byAspect.set(aspect, []);
+    if (topic) byAspect.get(aspect).push(topic);
+  });
+
+  const keyIdx = [...new Set([...byAspect.keys()].flatMap(a => answerCardIndexes(spreadType, total, a)))];
+
+  // Nghiêng về thuận hay kẹt: lá trả lời nặng gấp đôi các lá còn lại.
+  let score = 0;
+  let weight = 0;
+  drawnCards.forEach((c, i) => {
+    const w = keyIdx.includes(i) ? 2 : 1;
+    score += c.isReversed ? -w : w;
+    weight += w;
+  });
+  const ratio = weight ? score / weight : 0;
+  const tone = ratio >= 0.34 ? 'pos' : ratio <= -0.34 ? 'neg' : 'mid';
+  const keyRev = keyIdx.map(i => drawnCards[i]).find(c => c?.isReversed);
+  const mostlyReversed = drawnCards.filter(c => c.isReversed).length > total / 2;
+
+  const seed = seedOf(question, drawnCards);
+  const pick = (v, salt = 0) => (Array.isArray(v) ? v[(seed + salt) % v.length] : v);
+
+  const joiner = lang === 'en' ? ' and ' : lang === 'zh' ? '与' : ' và ';
+  const topicText = intent.topics.map(t => TOPIC_LABELS[lang][t]).join(joiner);
+  const pace = PACE[lang][dominantElement];
+  const elementName = ELEMENT_NAMES[lang][dominantElement];
+
+  const rootI = rootCardIndex(spreadType, drawnCards, keyIdx);
+  const root = drawnCards[rootI];
+  const rootWhere = positions[rootI];
+  const adv = drawnCards[adviceCardIndex(spreadType, total)];
+  const outI = spreadType === 'five_aspects' ? keyIdx[0] : total - 1;
+  const out = drawnCards[outI];
+
+  const copy = {
+    vi: {
+      title: 'Trả lời thẳng vào câu hỏi của bạn',
+      frame: intent.topics.length
+        ? [
+          `Câu hỏi của bạn xoay quanh chuyện ${topicText}, nên ở phần này mình không đọc lan man mọi mặt nữa mà chỉ nghe các lá nói gì về đúng chuyện đó.`,
+          `Điều bạn đang bận lòng là chuyện ${topicText}. Vậy mình gác các mặt khác sang một bên, chỉ đọc các lá qua đúng góc này.`,
+          `Mình hiểu bạn đang hỏi về ${topicText}. Phần này sẽ bám sát chuyện đó thôi, không đi vòng.`
+        ]
+        : [
+          'Câu hỏi của bạn không gói trong riêng một mảng nào, nên mình đọc các lá theo hoàn cảnh chung của bạn lúc này.',
+          'Câu hỏi của bạn khá rộng, nên mình đọc các lá như một bức tranh chung về chỗ bạn đang đứng.'
+        ],
+      yesno: {
+        pos: [
+          'Nếu cần một chữ thôi thì bài đang nghiêng về phía CÓ. Các lá quan trọng phần lớn ra xuôi, tức là chuyện này đang thuận chiều với bạn — việc của bạn là đừng tự làm mình chùn bước.',
+          'Câu trả lời nghiêng rõ về CÓ. Bài đang đứng về phía bạn; điều duy nhất có thể cản lại là chính sự ngần ngại của bạn.'
+        ],
+        neg: [
+          `Nếu cần một chữ thôi thì bài đang nghiêng về phía CHƯA. Không phải "không bao giờ", mà là chưa phải lúc này, hoặc chưa theo đúng cách bạn đang hình dung.${keyRev ? ` Chỗ kẹt nằm ở lá ${name(keyRev)} — gỡ được chỗ đó thì câu trả lời hoàn toàn có thể đổi.` : ''}`,
+          `Lúc này bài trả lời là CHƯA. Đừng đọc chữ đó thành cánh cửa đóng hẳn — nó giống một đèn vàng hơn: dừng lại, nhìn kỹ, rồi mới đi.${keyRev ? ` Thứ cần nhìn kỹ là điều lá ${name(keyRev)} đang chỉ ra.` : ''}`
+        ],
+        mid: [
+          `Câu trả lời là CÓ THỂ, nhưng kèm điều kiện. Bài vừa có phần thuận vừa có phần kẹt, nên kết quả phụ thuộc khá nhiều vào cách bạn xử lý ${keyRev ? `chỗ mà lá ${name(keyRev)} đang chỉ ra` : 'những điều các lá dưới đây nhắc tới'}.`,
+          `Bài không trả lời gọn một chữ CÓ hay KHÔNG, mà là "CÓ, nếu...". Cái "nếu" ấy nằm ở ${keyRev ? `lá ${name(keyRev)}` : 'các lá bên dưới'} — xử lý được nó thì cán cân nghiêng về phía bạn.`
+        ]
+      },
+      timing: `${pick(['Về chuyện "khi nào": tarot không đọc ra ngày tháng cụ thể, nhưng đọc được nhịp.', 'Tarot không phải cuốn lịch, nó không chỉ ra ngày cụ thể — nhưng nó cho biết chuyện đi nhanh hay chậm.'], 1)} Phần lớn các lá thuộc nhóm ${elementName}, nên nhịp của chuyện này ${pace}.${mostlyReversed
+        ? ' Có khá nhiều lá ngược, nên nhiều khả năng mọi thứ sẽ tới chậm hơn bạn mong — chậm không có nghĩa là không tới.'
+        : tone === 'pos' ? ' Các lá chính đều ra xuôi, nên không có gì đang chặn đường cả.' : ''}`,
+      choice: {
+        lead: 'Tarot không chọn hộ bạn giữa các phương án — quyết định vẫn là của bạn. Nhưng nó cho biết bạn đang ở trạng thái nào để chọn.',
+        pos: 'Bài đang thuận, nên phương án nào đòi bạn chủ động bước tới thì đang được ủng hộ hơn phương án đứng yên chờ.',
+        neg: 'Bài ngược khá nhiều, nên lúc này chưa hợp để quyết vội. Phương án nào cho bạn thêm thời gian và giữ được đường lui thì an toàn hơn.',
+        mid: 'Hai phía đều có lý của nó. Đọc lời khuyên ở các lá bên dưới, rồi chọn phương án mà khi nghĩ tới, bạn thấy nhẹ lòng hơn.'
+      },
+      why: `${pick(['Bạn hỏi "vì sao", nên mình lần về tận gốc. ', 'Muốn hiểu vì sao thì phải lần về gốc. '], 2)}Theo bài, gốc của chuyện này nằm ở lá ${name(root)}${rootWhere ? ` (vị trí "${rootWhere}")` : ''}: ${sum(root)} ${root.isReversed
+        ? 'Lá này ra ngược — nghĩa là nguyên nhân nằm ở chỗ đang bị dồn nén hoặc bị né tránh, chứ không phải ở chỗ bạn đang nhìn.'
+        : 'Lá này ra xuôi, nên lý do không phải điều gì xấu xa — nó là một hoàn cảnh cần được hiểu cho đúng hơn.'}`,
+      howto: `${{
+        pos: 'Bài đang thuận, nên việc cần làm không phải là xoay chuyển gì lớn, mà là giữ nhịp và bước tiếp cho đều.',
+        neg: 'Bài đang có nhiều chỗ kẹt, nên bước đầu tiên không phải là cố đẩy mạnh hơn, mà là gỡ chỗ kẹt trước đã.',
+        mid: 'Có phần đang thuận, có phần đang kẹt — nên việc cần làm là dựa vào phần thuận để gỡ dần phần kẹt.'
+      }[tone]} Việc cụ thể nhất bài gợi ý nằm ở lá ${name(adv)}: ${adviceOf(adv)}`,
+      feelings: {
+        pos: [
+          'Về phía người kia: cảm xúc dành cho bạn là thật, và đang ấm. Các lá chính ra xuôi — họ để tâm tới bạn nhiều hơn những gì họ thể hiện ra.',
+          'Đọc lòng người kia qua các lá này thì đó là sự quý mến thật. Có thể họ chưa nói ra, nhưng họ không hề dửng dưng với bạn.'
+        ],
+        neg: [
+          `Cảm xúc phía bên kia lúc này đang rối, hoặc đang tự thu mình lại. Không hẳn là hết tình cảm — nhiều khi là họ đang bận đối phó với chính họ.${keyRev ? ` Lá ${name(keyRev)} cho thấy chỗ họ đang vướng.` : ''}`,
+          `Lòng người kia lúc này đang khép lại nhiều hơn là mở ra. Đừng vội hiểu đó là họ không cần bạn — có thể họ đang có chuyện riêng chưa gỡ xong.${keyRev ? ` Lá ${name(keyRev)} gợi ý chuyện đó là gì.` : ''}`
+        ],
+        mid: [
+          'Người kia có quan tâm tới bạn, nhưng đang giữ một khoảng cách nhất định — nửa muốn lại gần, nửa còn dè dặt. Một cuộc nói chuyện thẳng thắn sẽ rõ hơn mọi phỏng đoán.',
+          'Tình cảm phía bên kia có đó, nhưng còn lưng chừng: họ nghĩ về bạn, chỉ là chưa chắc mình nên làm gì với cảm xúc ấy.'
+        ]
+      },
+      outcome: `Nếu mọi thứ cứ đi tiếp như bây giờ, kết quả nằm ở lá ${name(out)}, ra ${face(out)}. ${out.isReversed
+        ? 'Kết cục chưa đẹp như bạn mong, nhưng đó là cảnh báo sớm chứ không phải bản án — đổi cách làm thì kết quả đổi theo.'
+        : tone === 'neg'
+          ? 'Lá kết ra xuôi dù đường đi còn nhiều trắc trở: tới được, chỉ là không dễ.'
+          : 'Đây là một kết cục sáng sủa — cứ đi đúng hướng này là chuyện sẽ thành.'}`,
+      open: {
+        pos: [
+          'Nhìn chung, bài đang thuận cho chuyện này. Các lá bên dưới nói cụ thể nó đang đi theo hướng nào.',
+          'Tín hiệu chung là tốt: phần lớn các lá quan trọng ra xuôi. Dưới đây là chi tiết từng lá.'
+        ],
+        neg: [
+          'Nhìn chung, chuyện này đang có vài chỗ kẹt cần gỡ trước rồi mọi thứ mới trôi. Các lá bên dưới chỉ rõ kẹt ở đâu.',
+          'Chuyện này hiện chưa suôn sẻ — không phải vì bạn làm sai, mà vì có vài nút thắt chưa được gỡ. Các lá dưới đây chỉ ra từng nút.'
+        ],
+        mid: [
+          'Nhìn chung, chuyện này đang có cả phần thuận lẫn phần kẹt. Các lá bên dưới tách bạch từng phần cho bạn.',
+          'Bức tranh đang pha trộn: có chỗ sáng, có chỗ còn tối. Đọc từng lá dưới đây để biết chỗ nào nên dựa vào, chỗ nào cần để ý.'
+        ]
+      },
+      health: 'Một lời nhắc thật lòng: tarot chỉ soi được phần tinh thần và thói quen, không thay được bác sĩ. Có dấu hiệu gì bất thường thì bạn đi khám nhé.'
+    },
+    en: {
+      title: 'A straight answer to your question',
+      frame: intent.topics.length
+        ? `Your question is about ${topicText}, so here the cards are read for that one thing only.`
+        : 'Your question is not tied to one area, so the cards are read for your situation as a whole.',
+      yesno: {
+        pos: 'If you want it in one word: the cards lean towards YES. Most of the key cards are upright — this is moving with you, so do not talk yourself out of it.',
+        neg: `If you want it in one word: the cards lean towards NOT YET. Not "never" — just not now, or not in the way you are picturing it.${keyRev ? ` The sticking point is ${name(keyRev)}; clear that and the answer can change.` : ''}`,
+        mid: `The answer is MAYBE, with conditions. The spread is mixed, so the outcome depends on how you handle ${keyRev ? `what ${name(keyRev)} points at` : 'what the cards below bring up'}.`
+      },
+      timing: `On the "when": tarot does not give dates, but it does show pace. Most cards belong to ${elementName}, so this moves ${pace}.${mostlyReversed
+        ? ' Many cards are reversed, so expect it slower than you hope — slow is not the same as never.'
+        : tone === 'pos' ? ' The key cards are upright, so nothing is blocking the way.' : ''}`,
+      choice: {
+        lead: 'Tarot will not pick an option for you — the choice stays yours. What it shows is the state you are choosing from.',
+        pos: 'The spread is favourable, so the option that asks you to step forward is better supported than the one where you wait.',
+        neg: 'Many cards are reversed, so this is not the moment for a rushed call. The option that buys time and keeps a way back is safer.',
+        mid: 'Both sides have a case. Read the advice in the cards below, then pick the option that feels lighter when you imagine it.'
+      },
+      why: `The root of this sits with ${name(root)}${rootWhere ? ` (in the "${rootWhere}" slot)` : ''}: ${sum(root)} ${root.isReversed
+        ? 'It is reversed, so the cause lies in something held down or avoided, not where you have been looking.'
+        : 'It is upright, so the reason is not something bad — it is a situation that needs to be understood more clearly.'}`,
+      howto: `${{
+        pos: 'The cards are favourable, so this is less about turning things around and more about keeping a steady pace.',
+        neg: 'There are knots here, so the first step is not to push harder but to untie what is stuck.',
+        mid: 'Part of this is working and part is stuck — lean on what works to loosen what does not.'
+      }[tone]} The most concrete advice comes from ${name(adv)}: ${adviceOf(adv)}`,
+      feelings: {
+        pos: 'On their side: the feeling towards you is real, and warm. The key cards are upright — they care more than they show.',
+        neg: `Their feelings are tangled or pulled inward right now. That is not the same as not caring — often they are busy dealing with themselves.${keyRev ? ` ${name(keyRev)} shows where they are stuck.` : ''}`,
+        mid: 'They do care, but they are keeping some distance — half drawn to you, half hesitant. An honest conversation will tell you more than guessing.'
+      },
+      outcome: `If things keep going as they are, the outcome is ${name(out)}, ${face(out)}. ${out.isReversed
+        ? 'It is not the ending you want yet, but it is an early warning rather than a verdict — change the approach and the outcome changes.'
+        : tone === 'neg'
+          ? 'The final card is upright even though the road is rough: you get there, just not easily.'
+          : 'That is a bright outcome — stay on this course and it comes together.'}`,
+      open: {
+        pos: 'Overall, the cards are favourable here. The lines below show which way it is heading.',
+        neg: 'Overall, there are a few knots to untie before this flows. The lines below show where they are.',
+        mid: 'Overall, this is a mix of what is working and what is stuck. The lines below separate the two.'
+      },
+      health: 'An honest reminder: tarot can speak to your mood and habits, not replace a doctor. If something feels physically wrong, get it checked.'
+    },
+    zh: {
+      title: '直接回答你的问题',
+      frame: intent.topics.length
+        ? `你问的是${topicText}方面的事，所以这里只看牌对这件事说了什么。`
+        : '你的问题不局限于某一个面向，所以这里按你眼下的整体状况来读牌。',
+      yesno: {
+        pos: '如果只要一个字：牌面倾向于「会」。关键牌多为正位，事情顺着你的方向走，别自己先打退堂鼓。',
+        neg: `如果只要一个字：牌面倾向于「还没到时候」。不是「永远不会」，而是不在此刻，或不是以你想象的方式。${keyRev ? `卡住的地方在 ${name(keyRev)}，把它解开，答案就可能改变。` : ''}`,
+        mid: `答案是「有可能，但有条件」。牌面顺逆参半，结果很大程度取决于你怎么处理${keyRev ? ` ${name(keyRev)} 指出的问题` : '下面几张牌提到的事'}。`
+      },
+      timing: `关于「什么时候」：塔罗读不出具体日期，但能读出节奏。多数牌属于${elementName}，所以这件事的节奏是${pace}。${mostlyReversed
+        ? '逆位牌较多，可能比你期待的慢——慢不代表不会来。'
+        : tone === 'pos' ? '关键牌都是正位，路上没有阻碍。' : ''}`,
+      choice: {
+        lead: '塔罗不会替你在选项之间做决定，选择权仍在你手上；它能告诉你的是你此刻处在什么状态。',
+        pos: '牌面顺利，需要你主动迈步的那个选项，比原地等待更受支持。',
+        neg: '逆位较多，现在不适合仓促决定。能给你多一点时间、保留退路的选项更稳妥。',
+        mid: '两边都有道理。读完下面各牌的建议，再选那个想起来让你更轻松的选项。'
+      },
+      why: `这件事的根源在 ${name(root)}${rootWhere ? `（「${rootWhere}」位置）` : ''}：${sum(root)}${root.isReversed
+        ? '它是逆位，说明原因藏在被压抑或被回避的地方，而不是你一直盯着看的地方。'
+        : '它是正位，所以原因并不是什么坏事，而是一个需要被看清楚的处境。'}`,
+      howto: `${{
+        pos: '牌面顺利，要做的不是大转弯，而是稳住节奏继续走。',
+        neg: '牌面有几处卡住，第一步不是更用力地推，而是先把卡住的地方解开。',
+        mid: '有顺的部分也有卡的部分——借顺的部分慢慢松开卡住的部分。'
+      }[tone]}最具体的建议来自 ${name(adv)}：${adviceOf(adv)}`,
+      feelings: {
+        pos: '对方那边：对你的感情是真的，而且是温热的。关键牌都是正位——他们在意你，比表现出来的更多。',
+        neg: `对方此刻情绪纠结，或正往内收。这不等于没有感情——很多时候他们只是在忙着应付自己。${keyRev ? `${name(keyRev)} 显示了他们卡住的地方。` : ''}`,
+        mid: '对方是在意你的，但保持着一段距离——一半想靠近，一半还在犹豫。坦诚地聊一次，胜过所有猜测。'
+      },
+      outcome: `如果照现在这样走下去，结果落在 ${name(out)}，${face(out)}。${out.isReversed
+        ? '结局还不如你所愿，但这是提早的提醒，而非定论——换个做法，结果就会跟着变。'
+        : tone === 'neg'
+          ? '尽管过程坎坷，结果牌仍是正位：到得了，只是不容易。'
+          : '这是明朗的结局——沿着这个方向走，事情就会成。'}`,
+      open: {
+        pos: '整体来看，牌面对这件事是顺的。下面几行说明它正往哪个方向走。',
+        neg: '整体来看，这件事有几个结要先解开才会顺。下面几行指出卡在哪里。',
+        mid: '整体来看，这件事顺与卡并存。下面几行帮你把两者分开。'
+      },
+      health: '真心提醒：塔罗能照见情绪与习惯，但代替不了医生。身体若有异样，请去检查。'
+    }
+  }[lang];
+
+  const kind = intent.kind;
+  const verdict = kind === 'choice'
+    ? `${copy.choice.lead} ${copy.choice[tone]}`
+    : ['yesno', 'feelings', 'open'].includes(kind)
+      ? pick(copy[kind][tone], 3)
+      : copy[kind];
+
+  const extra = intent.topics.includes('health') ? copy.health : '';
+  const sep = lang === 'zh' ? '' : ' ';
+  const body = [pick(copy.frame), verdict, extra].filter(Boolean).join(sep);
+
+  /* Nhãn mỗi dòng: vị trí lá, kèm tên chủ đề khi đọc nhiều chủ đề một lúc
+     hoặc khi chủ đề phải mượn khía cạnh khác ("Hoàn cảnh · sức khoẻ") - để
+     người xem không thắc mắc sao hỏi sức khoẻ lại ra dòng "Hoàn cảnh". */
+  const multi = byAspect.size > 1;
+  const items = [...byAspect.entries()].flatMap(([aspect, topics]) =>
+    answerCardIndexes(spreadType, total, aspect).map(i => {
+      const c = drawnCards[i];
+      const where = positions[i] || name(c);
+      const borrowed = topics.some(t => t !== aspect);
+      const tag = topics.map(t => TOPIC_LABELS[lang][t]).join(joiner);
+      return {
+        label: tag && (multi || borrowed) ? `${where} · ${tag}` : where,
+        text: `${name(c)} (${face(c)}) — ${cardText(c, c.isReversed ? 'reversed' : 'upright', aspect, lang)}`
+      };
+    })
+  );
+
+  return { title: copy.title, body, items };
+};
+
+const buildSections = ({ lang, spreadType, drawnCards, positions, question, intent, majorCount, reversedCount, dominantElement, deckId }) => {
   const total = drawnCards.length;
   const shape = getSpreadShape(spreadType, total);
   const first = drawnCards[0];
@@ -311,7 +642,10 @@ const buildSections = ({ lang, spreadType, drawnCards, positions, question, majo
      chứ không thành một mục riêng: người xem cần biết lăng kính TRƯỚC khi đọc
      phần còn lại, chứ không phải sau. */
   const lens = deckLens(deckId, lang);
-  const introBody = question
+  /* Ô câu hỏi bỏ trống thì form tự điền câu mặc định, nên không được coi mọi
+     chuỗi khác rỗng là "có câu hỏi" - nếu không, người không hỏi gì vẫn đọc
+     thấy "Điều bạn mang tới đây là: Thông điệp tổng quan...". */
+  const introBody = !isBlankQuestion(question)
     ? (total === 1 ? C.introQuestionSingle : C.introQuestionMany)
     : (total === 1 ? C.introBlankSingle : C.introBlankMany);
 
@@ -319,6 +653,11 @@ const buildSections = ({ lang, spreadType, drawnCards, positions, question, majo
     title: C.introTitle,
     body: lens ? `${introBody} ${lens.frame}` : introBody
   });
+
+  // Trả lời thẳng câu hỏi, ngay sau đoạn mở đầu: đây là thứ người xem đọc
+  // bản giải để tìm, không thể bắt họ tự gộp từ năm tab khía cạnh.
+  const answer = buildQuestionAnswer({ lang, spreadType, drawnCards, positions, question, intent, dominantElement });
+  if (answer) sections.push(answer);
 
   if (shape === 'single') {
     sections.push({ title: C.singleTitle, body: C.singleBody });
@@ -523,9 +862,10 @@ export const analyzeReadingSession = (drawnCards = [], spreadType = 'five_aspect
       .map(c => ({ cardName: cardNameByLang(c, lang), icon: c.icon, text: cardText(c, 'reversed', 'advice', lang) }))
   };
 
-  // 6. Bản luận giải tổng thể
+  // 6. Bản luận giải tổng thể, có phần trả lời riêng theo câu hỏi
+  const intent = detectQuestionIntent(question, lang);
   const holisticSections = buildSections({
-    lang, spreadType, drawnCards, positions, question, majorCount, reversedCount, dominantElement, deckId
+    lang, spreadType, drawnCards, positions, question, intent, majorCount, reversedCount, dominantElement, deckId
   });
 
   // Bản chữ thuần, dùng cho file PDF / ảnh xuất ra và cho nút chia sẻ.
@@ -562,6 +902,9 @@ export const analyzeReadingSession = (drawnCards = [], spreadType = 'five_aspect
     },
     aspects,
     aspectQuickTakes,
+    // Tab khía cạnh mở sẵn khi vào trang kết quả: đúng mảng người xem hỏi.
+    focusAspect: TOPIC_ASPECT[intent.topics[0]] || 'situation',
+    questionIntent: intent,
     actionPlan,
     holisticSections,
     holisticNarrative

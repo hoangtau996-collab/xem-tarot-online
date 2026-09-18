@@ -13,23 +13,44 @@ export const SpreadSelector = ({ onSelectSpread, lang = 'vi' }) => {
   const [selectedDeckTheme, setSelectedDeckTheme] = useState(deckThemes[0]);
   const [question, setQuestion] = useState('');
 
+  /* Gợi ý cố tình trải đủ các dạng câu hỏi bản giải trả lời được (có/không,
+     khi nào, người ấy nghĩ gì, làm sao để...) - người xem hay bắt chước câu
+     mẫu, nên câu mẫu đa dạng thì câu hỏi tự gõ cũng cụ thể hơn. */
   const quickTopicsByLang = {
     vi: [
       { label: '💖 Tình cảm & Mối quan hệ', text: 'Chuyện tình cảm và kết nối của tôi trong thời gian tới như thế nào?' },
+      { label: '💭 Người ấy nghĩ gì về tôi', text: 'Người ấy đang nghĩ gì về tôi?' },
+      { label: '⏳ Khi nào gặp đúng người', text: 'Khi nào tôi sẽ gặp được người phù hợp với mình?' },
       { label: '💼 Sự nghiệp & Học tập', text: 'Định hướng công việc và học tập sắp tới của tôi ra sao?' },
+      { label: '🔀 Có nên đổi việc', text: 'Tôi có nên đổi sang công việc mới lúc này không?' },
       { label: '💰 Tài chính & Tiền bạc', text: 'Dòng chảy tài chính và cơ hội tiền bạc của tôi thế nào?' },
+      { label: '🌿 Sức khoẻ & Tinh thần', text: 'Sức khoẻ và tinh thần của tôi đang cần được chăm sóc ở điểm nào?' },
+      { label: '🏡 Gia đình', text: 'Làm sao để gia đình tôi hoà thuận và gần nhau hơn?' },
+      { label: '🌱 Bản thân', text: 'Tôi cần buông bỏ điều gì để phát triển bản thân?' },
       { label: '🌟 Vận mệnh tổng quan', text: 'Vũ trụ có thông điệp gì quan trọng dành cho cuộc sống của tôi lúc này?' }
     ],
     en: [
       { label: '💖 Love & Relationship', text: 'What is the future guidance for my love life and relationships?' },
+      { label: '💭 What they think of me', text: 'What does this person think about me?' },
+      { label: '⏳ When will I meet the one', text: 'When will I meet the right person for me?' },
       { label: '💼 Career & Education', text: 'What is the career and study orientation for me in the coming months?' },
+      { label: '🔀 Should I change jobs', text: 'Should I move to a new job right now?' },
       { label: '💰 Finance & Wealth', text: 'How will my financial flow and money opportunities evolve?' },
+      { label: '🌿 Health & Wellbeing', text: 'Where do my health and mental wellbeing need more care?' },
+      { label: '🏡 Family', text: 'How can my family grow closer and more at peace?' },
+      { label: '🌱 Personal growth', text: 'What do I need to let go of to grow as myself?' },
       { label: '🌟 General Destiny', text: 'What important cosmic message does the Universe have for me right now?' }
     ],
     zh: [
       { label: '💖 感情与羁绊', text: '未来一段时间我的感情生活与人际关系将如何发展？' },
+      { label: '💭 对方怎么看我', text: '对方心里怎么想我？' },
+      { label: '⏳ 何时遇到正缘', text: '我什么时候会遇到适合我的人？' },
       { label: '💼 事业与学业', text: '接下来的事业、工作与学业方向有哪些重要启示？' },
+      { label: '🔀 该不该换工作', text: '我现在该不该换一份新工作？' },
       { label: '💰 财务与财富', text: '我的财务状况与财富机会将呈现怎样的趋势？' },
+      { label: '🌿 身心健康', text: '我的身体与心理健康需要在哪方面多加照顾？' },
+      { label: '🏡 家庭', text: '如何让我的家庭更和睦、更亲近？' },
+      { label: '🌱 自我成长', text: '我需要放下什么，才能让自己成长？' },
       { label: '🌟 整体命运指引', text: '此时此刻宇宙对我的人生有哪些最重要的启示？' }
     ]
   };
