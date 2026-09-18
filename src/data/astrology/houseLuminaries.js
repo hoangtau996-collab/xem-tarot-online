@@ -1,0 +1,42 @@
+// Mặt Trời và Mặt Trăng trong mười hai nhà - bản tiếng Việt viết tay.
+//
+// Vì sao có file này: bản ghép máy trong astrologyTexts.js chỉ nối được "động
+// từ của hành tinh" với "lĩnh vực của nhà", ra đúng một dòng kiểu "Bạn tìm
+// thấy chính mình ở Nhà 10: nghề nghiệp, danh tiếng, vị trí xã hội". Đọc thì
+// hiểu, nhưng không dùng được vào việc gì. Bản này viết tay từng ô để nói ba
+// chuyện: thường ngày nó trông như thế nào, vì sao lại vậy, và làm gì được với
+// nó. Chỉ tiếng Việt; en/zh vẫn dùng bản ghép cũ.
+//
+// Giọng: nhẹ và thực dụng. Không hứa vận mệnh, không phán xấu tốt.
+
+export const HOUSE_TEXT_LUMINARIES = {
+  sun: {
+    1: 'Bạn bước vào phòng là người ta biết có bạn ở đó, dù bạn không nói gì. Danh tính của bạn dính vào chính con người bạn chứ không vào chức danh hay hoàn cảnh, nên bạn chỉ thật sự sống được khi có quyền tự quyết việc mình làm. Với nhà 1, chăm ngoại hình và sức khoẻ không phải chuyện phù phiếm - đó là cái cửa người khác đi qua để tới được bạn.',
+    2: 'Bạn thấy mình có giá trị khi tự làm ra được của cải, và mất thăng bằng khá nhanh nếu phải sống bằng tiền người khác. Tài sản với bạn không phải để khoe, nó là bằng chứng rằng mình đứng được trên chân mình. Điều nên canh: đừng để một con số trong tài khoản trở thành thước đo duy nhất, vì con số ấy lên xuống còn bạn thì vẫn là bạn.',
+    3: 'Bạn thành hình qua chữ và lời: viết ra, kể lại, giải thích cho người khác. Rất nhiều thứ trong đầu bạn chỉ rõ nghĩa sau khi được nói thành tiếng, nên trò chuyện với bạn không phải giải trí, nó là cách bạn suy nghĩ. Hãy tìm lấy một việc có chỗ cho bạn nói hoặc viết thường xuyên, còn công việc bắt bạn im lặng cả ngày sẽ làm bạn cạn.',
+    4: 'Trọng tâm đời bạn đặt ở phía sau cánh cửa nhà, không ở ngoài đường. Bạn cần một chỗ thuộc về mình để nạp lại, và bạn thường là người giữ nhịp cho cả gia đình dù chẳng ai bầu bạn vào vai đó. Chuyện đáng nhìn thẳng: bạn dễ lớn lên trong bóng của cha hoặc mẹ, và phần việc của đời bạn là bước ra khỏi bóng ấy mà không phải chối bỏ nó.',
+    5: 'Bạn sống rõ nhất khi đang làm một thứ gì đó của riêng mình - sáng tác, dạy, chơi, hoặc chăm một đứa trẻ. Niềm vui với bạn không phải phần thưởng sau khi xong việc, nó là nhiên liệu, thiếu nó bạn làm gì cũng nhạt. Nên giữ lấy một việc bạn làm chỉ vì thích, không ai trả tiền, không ai đánh giá.',
+    6: 'Bạn hiện lên qua việc hằng ngày hơn là qua những cột mốc lớn: cách bạn dọn bàn, giữ lịch, làm xong phần của mình. Người ta tin bạn vì bạn đều, và đó là một loại tài năng ít được gọi tên. Đổi lại, bạn dễ tự thu mình thành công cụ - nhớ hỏi định kỳ rằng việc này có còn nuôi mình hay chỉ còn nuôi cái guồng.',
+    7: 'Bạn nhìn thấy mình rõ nhất qua mắt một người khác, nên các mối quan hệ một-một là nơi đời bạn thật sự diễn ra. Bạn có bản năng làm việc cùng người, và thường mạnh hơn hẳn khi có một đối tác đứng cạnh. Điều cần cẩn thận: đừng giao cả cái tôi cho người bên cạnh giữ, vì khi họ đi thì bạn không còn biết mình là ai.',
+    8: 'Bạn không sống nổi ở tầng bề mặt - phải có gì đó thật, nặng, riêng tư thì bạn mới thấy mình đang sống. Bạn đi qua khủng hoảng giỏi hơn phần lớn mọi người và thường bước ra khác đi hẳn sau mỗi lần. Vì nhà 8 còn là nhà của tiền chung, hãy làm mọi chuyện tài chính với người khác thật rõ ràng trên giấy tờ, ngay từ lúc còn vui.',
+    9: 'Bạn cần một tầm nhìn xa hơn chỗ mình đang đứng, bằng không bạn bồn chồn mà không biết vì sao. Đi xa, học thêm, hoặc theo đuổi một hệ giá trị là cách bạn lớn lên, không phải thú vui. Rất nên chọn nghề có chỗ cho việc học tiếp và di chuyển, vì nghề nào đóng khung bạn trong một căn phòng sẽ làm bạn héo dần.',
+    10: 'Bạn được đo bằng thứ mình dựng nên trước mắt mọi người, và bạn biết điều đó từ sớm. Sự nghiệp không phải một phần đời bạn, nó gần như là cách bạn tồn tại, nên chọn sai nghề thì bạn khổ hơn người khác nhiều. Cái giá đi kèm là bạn dễ quên rằng ở nhà cũng cần có mặt - hãy đặt lịch cho người thân đúng như đặt lịch họp.',
+    11: 'Bạn thành người qua tập thể: bạn bè, hội nhóm, những người cùng tin một chuyện. Bạn làm tốt nhất khi việc mình làm có ích cho một số đông, và bạn thường là người giữ mối cho cả nhóm. Điều nên nhớ: nhóm nào cũng có lúc tan, nên đừng để cả danh tính của bạn nằm trong một nhóm duy nhất.',
+    12: 'Bạn cần nhiều khoảng lặng hơn người ta tưởng, và thường làm được việc lớn nhất khi không ai nhìn. Bạn có một đời sống bên trong dày, nhưng lại hay thấy khó nói về mình - không phải bạn bí ẩn, chỉ là phần thật của bạn không nằm ở chỗ dễ trỏ tay vào. Hãy giữ một việc đều đặn để đổ phần bên trong ấy ra: viết, thiền, vẽ, hay bất cứ gì chỉ mình bạn biết.'
+  },
+
+  moon: {
+    1: 'Cảm xúc của bạn hiện hết ra mặt, nên người khác đọc được tâm trạng bạn trước cả khi bạn kịp nhận ra. Điều đó làm bạn dễ gần một cách tự nhiên, nhưng cũng nghĩa là bạn không có lớp che nào. Cách xử lý thực tế: học cách nói ngắn về tâm trạng của mình, vì bạn giấu không được thì nói ra sẽ đỡ hơn là để người ta tự đoán.',
+    2: 'Bạn thấy an toàn khi biết tài khoản còn tiền và tủ còn đồ ăn - đó là an toàn cảm xúc, không phải tham lam. Vật chất với bạn là cái chăn, thiếu nó là bạn lo dù chẳng có gì xảy ra cả. Việc đáng làm nhất cho bạn là dựng một quỹ dự phòng bằng chi phí vài tháng, rồi bạn sẽ thấy tính mình dịu đi hẳn.',
+    3: 'Bạn xử lý cảm xúc bằng cách nói ra - chưa kể xong là chưa nguôi. Bạn thường là người nhắn tin trước khi ngủ, người kể hết mọi chuyện trong ngày, và đó là cách hệ thần kinh bạn tự dọn dẹp. Nên nuôi vài kênh xả đều đặn: một người bạn chịu nghe, một quyển sổ, hoặc ghi âm cho chính mình.',
+    4: 'Nhà là nơi cảm xúc bạn được nạp lại, nên một chỗ ở tử tế không phải xa xỉ với bạn, nó gần như là thuốc. Bạn gắn với mẹ hoặc người nuôi mình rất sâu, và ký ức tuổi thơ còn dội lại trong bạn lâu hơn người khác. Cứ đầu tư vào không gian sống - dọn một góc, thêm một cái đèn - vì bạn thay đổi tâm trạng theo nơi mình ở nhanh đến mức đáng ngạc nhiên.',
+    5: 'Bạn cần được vui mới thấy ổn, và không có gì sai với chuyện đó. Chơi, sáng tác, yêu, chăm trẻ - những việc ấy không phải phần thưởng của bạn, chúng là cách bạn tự chữa. Điều nên để ý: bạn dễ đi tìm cảm giác được ngưỡng mộ để lấp chỗ trống, hãy phân biệt niềm vui thật với việc cần người khác vỗ tay.',
+    6: 'Tâm trạng của bạn đi theo thói quen và cơ thể: ngủ thiếu một hôm là mọi thứ xám hẳn đi. Bạn cũng cảm thấy được cần đến khi có việc để làm cho ai đó, đó là cách bạn thấy mình có chỗ. Vậy thì việc đầu tiên nên chỉnh không phải suy nghĩ mà là giờ ngủ, bữa ăn và một chút vận động - với nhà 6 thì đó là can thiệp tâm lý chứ không phải lời khuyên sức khoẻ.',
+    7: 'Bạn cần một người bên cạnh mới thấy cân, và khi ở một mình lâu thì bạn dễ trôi. Bạn đọc cảm xúc của người đối diện rất nhanh, gần như tự động, nên bạn hoà vào họ dễ hơn hoà vào chính mình. Bài tập thực tế: mỗi tuần dành một buổi làm gì đó một mình, để biết mình muốn gì khi không có ai để chiều.',
+    8: 'Bạn cảm sâu và cảm nặng, ít khi cảm nhẹ. Bạn cần sự thân mật thật - biết hết, nói hết - còn quan hệ giữ khoảng cách làm bạn bất an hơn là dễ thở. Chỗ dễ vỡ là ghen và kiểm soát: khi thấy mình đang muốn nắm chặt, hãy đổi câu hỏi từ họ đang làm gì thành mình đang sợ mất gì.',
+    9: 'Bạn thấy an toàn khi có một niềm tin để dựa vào và một khoảng trời để ngó ra. Đi xa làm bạn dễ thở, học một thứ mới làm bạn nhẹ người, còn ở mãi một chỗ thì bạn tù. Nên giữ trong lịch một chuyến đi để trông tới, dù chỉ là chuyến đi nhỏ - với bạn, cái đích trong tương lai là thứ giữ tâm trạng đứng vững.',
+    10: 'Cảm xúc của bạn lên xuống theo chuyện làm ăn và cách người ta nhìn mình, nhiều hơn bạn muốn thừa nhận. Bạn cần cảm giác được công nhận mới thấy yên, nên một giai đoạn sự nghiệp chững lại có thể làm bạn buồn thật sự. Cách chống đỡ: dựng vài nguồn giá trị ngoài công việc, để khi một cái nghiêng thì bạn vẫn còn cái khác để đứng.',
+    11: 'Bạn thấy ấm khi ở giữa những người cùng tin một chuyện - bạn bè với bạn quan trọng ngang với gia đình, có khi hơn. Bạn cũng dễ thấy trống khi nhóm tan hay khi bị để ra ngoài. Nên chủ động nuôi hai ba mối bạn bền thay vì một cái nhóm rộng, vì nhóm rộng thì vui mà không đỡ được bạn lúc sập.',
+    12: 'Bạn cần ở một mình để lấy lại người, và điều đó không phải lạnh nhạt - hệ thần kinh bạn thu rất nhiều tiếng ồn cảm xúc từ xung quanh. Bạn thấm tâm trạng người khác rồi tưởng là của mình, nên ở chỗ đông lâu là bạn kiệt. Việc thiết thực nhất: chừa ra một khoảng im lặng mỗi ngày, và tập hỏi cảm giác này của mình hay của người vừa gặp.'
+  }
+};

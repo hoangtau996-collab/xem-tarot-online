@@ -12,6 +12,13 @@ import { SIGN_TEXT_LUMINARIES } from './astrology/signLuminaries.js';
 import { SIGN_TEXT_PERSONAL } from './astrology/signPersonal.js';
 import { SIGN_TEXT_SOCIAL } from './astrology/signSocial.js';
 import { SIGN_TEXT_OUTER } from './astrology/signOuter.js';
+import { HOUSE_TEXT_LUMINARIES } from './astrology/houseLuminaries.js';
+import { HOUSE_TEXT_PERSONAL } from './astrology/housePersonal.js';
+import { HOUSE_TEXT_SOCIAL } from './astrology/houseSocial.js';
+import { HOUSE_TEXT_OUTER } from './astrology/houseOuter.js';
+import { HOUSE_DEEP_VI } from './astrology/houseDomains.js';
+import { PAIR_THEME_VI, NATURE_VI, TIGHT_NOTE_VI, pairKey } from './astrology/aspectPairs.js';
+import { DIGNITY_DEEP_VI, RETROGRADE_DEEP_VI, ASTRO_GUIDE_VI } from './astrology/viGlossary.js';
 import { PLANETS, HOUSES, SIGNS, ASPECTS, ELEMENT_INFO } from './astrologyData.js';
 
 export const PLANET_IN_SIGN = {
@@ -19,6 +26,16 @@ export const PLANET_IN_SIGN = {
   ...SIGN_TEXT_PERSONAL,
   ...SIGN_TEXT_SOCIAL,
   ...SIGN_TEXT_OUTER
+};
+
+/* Bản tiếng Việt viết tay cho 144 ô hành tinh trong nhà. Chỉ có tiếng Việt -
+   en và zh vẫn dùng bản ghép ở dưới, nên bảng này để phẳng chứ không lồng
+   thêm một tầng ngôn ngữ cho có. */
+export const PLANET_IN_HOUSE_VI = {
+  ...HOUSE_TEXT_LUMINARIES,
+  ...HOUSE_TEXT_PERSONAL,
+  ...HOUSE_TEXT_SOCIAL,
+  ...HOUSE_TEXT_OUTER
 };
 
 const pick = (obj, lang) => (obj ? obj[lang] || obj.vi : '');
@@ -48,6 +65,14 @@ const HOUSE_VERB = {
 };
 
 export const getPlanetInHouse = (planetKey, houseNum, lang = 'vi') => {
+  // Tiếng Việt có bản viết tay cho cả 144 ô, dùng nó trước. Hai ngôn ngữ còn
+  // lại rơi xuống bản ghép bên dưới - và nếu một ô tiếng Việt nào lỡ khuyết
+  // thì cũng rơi xuống đó chứ không trả về rỗng.
+  if (lang === 'vi') {
+    const deep = PLANET_IN_HOUSE_VI[planetKey]?.[houseNum];
+    if (deep) return deep;
+  }
+
   const verb = HOUSE_VERB[planetKey];
   const house = HOUSES[houseNum - 1];
   if (!verb || !house) return '';
@@ -87,6 +112,16 @@ export const POINT_KEYWORD = {
 
 export const getAspectText = (aspect, lang = 'vi') => {
   const meta = ASPECTS.find(a => a.key === aspect.aspectKey);
+
+  // Tiếng Việt ghép ở tầng sâu hơn: chủ đề riêng của từng cặp điểm, cộng với
+  // cách loại góc đó chạy và một việc cụ thể nên làm. Vẫn là văn ghép, nhưng
+  // cả hai tầng đều viết tay nên ra được 2-3 câu có nội dung.
+  if (lang === 'vi') {
+    const theme = PAIR_THEME_VI[pairKey(aspect.a, aspect.b)];
+    const nature = NATURE_VI[aspect.aspectKey];
+    if (theme && nature) return `${theme} ${nature}`;
+  }
+
   const kwA = pick(POINT_KEYWORD[aspect.a], lang);
   const kwB = pick(POINT_KEYWORD[aspect.b], lang);
   if (!meta || !kwA || !kwB) return '';
@@ -100,6 +135,33 @@ export const getAspectText = (aspect, lang = 'vi') => {
 /* Góc khít dưới một độ đáng được nói riêng: nó chi phối lá số mạnh hơn hẳn
    những góc nằm sát mép orb. */
 export const isTightAspect = (aspect) => aspect.orb < 1;
+
+/* Bản tiếng Việt nói rõ luôn "khít thì sao", thay vì chỉ gắn một cái nhãn mà
+   khách phải tự đoán nghĩa. Ngôn ngữ khác trả về rỗng và giữ nguyên cái nhãn. */
+export const getTightNote = (lang = 'vi') => (lang === 'vi' ? TIGHT_NOTE_VI : '');
+
+/* ------------------------------------------------------------------ */
+/* LỚP GIẢI THÍCH TIẾNG VIỆT                                           */
+/* Bốn hàm dưới đây đều trả về rỗng khi không phải tiếng Việt, để phía  */
+/* giao diện chỉ cần kiểm tra một chỗ: có chữ thì hiện, không thì thôi. */
+/* ------------------------------------------------------------------ */
+
+/* Nhà nói về vùng đời sống nào, và nhà trống thì nghĩa là gì. */
+export const getHouseDeep = (houseNum, lang = 'vi') =>
+  (lang === 'vi' ? HOUSE_DEEP_VI[houseNum] || null : null);
+
+/* Phần thực dụng của miếu - vượng - hãm - rơi: vậy thì làm gì với nó. */
+export const getDignityDeep = (dignityKey, lang = 'vi') =>
+  (lang === 'vi' ? DIGNITY_DEEP_VI[dignityKey] || '' : '');
+
+/* Nghịch hành trong thực tế biểu hiện ra sao, kèm mức phổ biến để khách khỏi
+   tưởng mình là ca đặc biệt. */
+export const getRetrogradeDeep = (lang = 'vi') =>
+  (lang === 'vi' ? RETROGRADE_DEEP_VI : '');
+
+/* Khối "hiểu thêm" đặt cạnh từng mục trên trang. */
+export const getAstroGuide = (sectionKey, lang = 'vi') =>
+  (lang === 'vi' ? ASTRO_GUIDE_VI[sectionKey] || null : null);
 
 /* ------------------------------------------------------------------ */
 /* HÌNH MẪU LỚN                                                        */

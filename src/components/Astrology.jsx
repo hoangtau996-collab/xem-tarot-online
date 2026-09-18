@@ -16,12 +16,14 @@ import {
 import {
   getPlanetInSign, getPlanetInHouse, getAspectText, isTightAspect,
   PATTERN_TEXTS, grandTrineElementText, chartRulerText, partOfFortuneText,
-  RETROGRADE_TEXT, CHART_NOTES, bigThreeSummary
+  RETROGRADE_TEXT, CHART_NOTES, bigThreeSummary,
+  getTightNote, getHouseDeep, getDignityDeep, getRetrogradeDeep
 } from '../data/astrologyTexts';
 import { exportNodeAsPng, exportNodeAsPdf } from '../utils/posterExport';
 import { NatalChart, AspectLegend } from './NatalChart';
 import { AstroBirthForm } from './AstroBirthForm';
 import { AstroIntro } from './AstroIntro';
+import { AstroGuideNote } from './AstroGuideNote';
 
 
 /* Mặc định mở sẵn phần luận giải của các hành tinh cá nhân - đó là chỗ khách
@@ -274,6 +276,8 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
                 );
               })}
             </div>
+
+            <AstroGuideNote sectionKey="bigThree" lang={lang} />
           </div>
 
           {/* Vòng bản đồ sao */}
@@ -285,6 +289,7 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
             <NatalChart chart={chart} lang={lang} size={720} />
             <AspectLegend lang={lang} />
             <p className="text-2xs text-gray-400 font-light text-center">{t.astroWheelHint}</p>
+            <AstroGuideNote sectionKey="wheel" lang={lang} />
           </div>
 
           {/* Bảng vị trí hành tinh + luận giải */}
@@ -350,6 +355,12 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
                               {L(dignity.name)}:{' '}
                             </span>
                             {L(dignity.hint)}
+                            {/* Bản tiếng Việt nói thêm phần làm gì với nó -
+                                quan trọng nhất ở hãm và rơi, vì hai chữ đó
+                                khách hay đọc thành điềm gở. */}
+                            {getDignityDeep(planet.dignity, lang) && (
+                              <span className="text-gray-400"> {getDignityDeep(planet.dignity, lang)}</span>
+                            )}
                           </p>
                         )}
                       </div>
@@ -363,8 +374,12 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
               <p className="text-2xs text-gray-400 leading-relaxed font-light border-t border-white/10 pt-3">
                 <span className="text-rose-300 font-semibold">℞ {t.astroRetroTitle}: </span>
                 {L(RETROGRADE_TEXT)}
+                {getRetrogradeDeep(lang) && <span> {getRetrogradeDeep(lang)}</span>}
               </p>
             )}
+
+            <AstroGuideNote sectionKey="planets" lang={lang} />
+            <AstroGuideNote sectionKey="dignity" lang={lang} />
           </div>
 
           {/* Mười hai nhà */}
@@ -375,21 +390,37 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
                 {t.astroHousesTitle}
               </h3>
               <div className="grid sm:grid-cols-2 gap-2.5">
-                {chart.houses.map(house => (
-                  <div key={house.num} className="rounded-xl bg-space/70 border border-indigo-400/20 px-4 py-3 space-y-1">
-                    <div className="flex items-baseline justify-between gap-2">
-                      <p className="text-xs font-semibold text-gray-100">{L(HOUSES[house.num - 1].name)}</p>
-                      <p className="text-2xs text-cyan-300 shrink-0">{posText(house.position)}</p>
+                {chart.houses.map(house => {
+                  /* Tiếng Việt có đoạn giải nghĩa dài cho từng nhà; ngôn ngữ
+                     khác giữ nguyên cụm từ khoá ngắn trong HOUSES. */
+                  const deep = getHouseDeep(house.num, lang);
+                  const empty = house.occupants.length === 0;
+
+                  return (
+                    <div key={house.num} className="rounded-xl bg-space/70 border border-indigo-400/20 px-4 py-3 space-y-1">
+                      <div className="flex items-baseline justify-between gap-2">
+                        <p className="text-xs font-semibold text-gray-100">{L(HOUSES[house.num - 1].name)}</p>
+                        <p className="text-2xs text-cyan-300 shrink-0">{posText(house.position)}</p>
+                      </div>
+                      <p className="text-2xs text-gray-400 font-light leading-relaxed">
+                        {deep ? deep.scope : L(HOUSES[house.num - 1].domain)}
+                      </p>
+                      <p className="text-2xs text-gray-300">
+                        {empty
+                          ? <span className="text-gray-500">{t.astroHouseEmpty}</span>
+                          : house.occupants.map(k => `${PLANETS[k].glyph} ${L(PLANETS[k].name)}`).join(' · ')}
+                      </p>
+                      {/* Nhà trống là câu bị hỏi nhiều nhất, và cũng là chỗ
+                          khách dễ tự suy diễn thành thiếu hụt nhất. */}
+                      {empty && deep && (
+                        <p className="text-2xs text-gray-500 font-light leading-relaxed">{deep.empty}</p>
+                      )}
                     </div>
-                    <p className="text-2xs text-gray-400 font-light">{L(HOUSES[house.num - 1].domain)}</p>
-                    <p className="text-2xs text-gray-300">
-                      {house.occupants.length > 0
-                        ? house.occupants.map(k => `${PLANETS[k].glyph} ${L(PLANETS[k].name)}`).join(' · ')
-                        : <span className="text-gray-500">{t.astroHouseEmpty}</span>}
-                    </p>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
+
+              <AstroGuideNote sectionKey="houses" lang={lang} />
             </div>
           )}
 
@@ -431,11 +462,20 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
                       <p className="text-2xs text-gray-300 leading-relaxed font-light">
                         {getAspectText(aspect, lang)}
                       </p>
+                      {/* Nói rõ "khít thì sao" thay vì để cái nhãn ở trên tự
+                          giải thích - khách mới không đoán ra được. */}
+                      {isTightAspect(aspect) && getTightNote(lang) && (
+                        <p className="text-2xs text-amber-200/80 leading-relaxed font-light">
+                          {getTightNote(lang)}
+                        </p>
+                      )}
                     </div>
                   );
                 })}
               </div>
             )}
+
+            <AstroGuideNote sectionKey="aspects" lang={lang} />
           </div>
 
           {/* Hình mẫu lớn */}
@@ -472,6 +512,8 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
                 })}
               </div>
             )}
+
+            <AstroGuideNote sectionKey="patterns" lang={lang} />
           </div>
 
           {/* Cân bằng */}
@@ -523,8 +565,11 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
                       {L(HEMISPHERE_INFO[key].hint)}
                     </p>
                   ))}
+                <AstroGuideNote sectionKey="hemispheres" lang={lang} />
               </div>
             )}
+
+            <AstroGuideNote sectionKey="balance" lang={lang} />
           </div>
 
           {/* Chủ tinh & Điểm Phúc */}
@@ -549,6 +594,8 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
                   )}
                 </p>
               )}
+
+              <AstroGuideNote sectionKey="ruler" lang={lang} />
             </div>
           )}
 

@@ -1,0 +1,38 @@
+// Sao Mộc và Sao Thổ trong mười hai nhà - bản tiếng Việt viết tay.
+//
+// Hai hành tinh này quyết định nhịp đời: Mộc chỉ chỗ mọi thứ mở ra dễ dàng,
+// Thổ chỉ chỗ phải tự tay xây và trả giá bằng thời gian. Đây là cặp có ích
+// nhất khi khách hỏi nên đặt cược vào đâu và nên kiên nhẫn ở đâu, nên phần
+// văn này viết thẳng vào chuyện chọn việc, chọn cách sống.
+
+export const HOUSE_TEXT_SOCIAL = {
+  jupiter: {
+    1: 'Người ta có thiện cảm với bạn khá nhanh và cửa hay mở khi bạn tự đứng ra. Bạn có vẻ ngoài rộng rãi, tự tin, đôi khi tự tin hơn mức thực tế cho phép. Cứ tận dụng: chủ động giới thiệu mình, xin gặp, xin cơ hội - với nhà 1 thì may mắn tới qua việc bạn xuất hiện, không qua việc bạn chờ.',
+    2: 'Tiền vào tay bạn tương đối dễ so với người khác, và bạn cũng tiêu rộng tương đương. Bạn tin rằng rồi sẽ có, và niềm tin đó thường đúng - chỉ hơi nguy khi nó thành cái cớ để không phải tính. Việc nên làm rất đơn giản: tự động chuyển một phần thu nhập sang một tài khoản khác ngay khi tiền về, rồi sống bằng phần còn lại.',
+    3: 'Bạn học dễ, nói dễ, và có duyên với chữ nghĩa - nhiều cơ hội đời bạn tới qua một cuộc nói chuyện tình cờ. Anh chị em hoặc người quanh mình thường là chỗ đỡ cho bạn. Hãy nói ra việc mình đang làm với càng nhiều người càng tốt, vì nhà 3 mở cửa qua những mối quan hệ gần, không phải mối lớn.',
+    4: 'Gốc gia đình là phần vốn của bạn: một mái nhà đủ vững, hoặc người lớn trong nhà đỡ cho bạn một đoạn. Bạn cũng dễ có nhà cửa rộng rãi hơn mức thu nhập cho phép. Điều đáng nhớ: bạn được thừa hưởng một chỗ tựa, và việc tử tế nhất là dựng lại chỗ tựa đó cho người sau.',
+    5: 'Bạn may ở chỗ chơi: sáng tạo, tình cảm, con cái, những việc làm vì thích. Thứ bạn làm cho vui lại hay là thứ mở đường cho bạn, nhiều hơn thứ bạn làm vì nghĩa vụ. Vậy thì đừng coi thú vui là phần dư - hãy để nó một chỗ trong lịch, vì với nhà 5 thì đó đúng là chỗ cơ hội đi vào.',
+    6: 'Bạn gặp may qua việc hằng ngày và qua sự tử tế ở chỗ làm: người ta nhớ tới bạn khi cần một người làm được việc. Sức khoẻ của bạn cũng hồi tương đối tốt. Cách dùng: đừng đợi dự án lớn, hãy làm phần nhỏ trước mắt cho thật tốt, vì nhà 6 trả công theo độ đều, không theo độ hoành tráng.',
+    7: 'Người bên cạnh mang cơ hội tới cho bạn - hôn nhân, đối tác, người đồng hành thường là bước ngoặt tốt trong đời bạn. Bạn cũng được lòng người trong các cuộc thương lượng. Rất nên đi cùng người: bạn một mình thì bình thường, bạn có đối tác thì bật lên hẳn.',
+    8: 'Bạn được lợi qua tiền chung: vốn góp, thừa kế, tiền của đối tác, hoặc những việc phải đi qua khủng hoảng mới ra kết quả. Bạn cũng hồi phục sau biến cố nhanh hơn người khác. Điều thực tế: hãy học cho kỹ về đầu tư và về hợp đồng, vì đó là vùng mở cho bạn, nhưng mở kèm rủi ro chứ không mở không.',
+    9: 'Đây là nhà riêng của Sao Mộc: học cao, đi xa, xuất bản, giảng dạy, làm việc với người nước khác - vùng này mở rộng cho bạn suốt đời. Bạn thấy sống nhất khi đang mở rộng thế giới của mình. Cứ đầu tư vào việc học và việc đi, kể cả khi chưa thấy nó sinh lời ngay - với nhà 9 thì nó sinh lời muộn nhưng lớn.',
+    10: 'Sự nghiệp là nơi may mắn của bạn đậu lại: bạn được đề bạt, được người có vị thế để ý, được giao việc lớn hơn tuổi. Uy tín của bạn dựng lên tương đối nhanh. Cái cần canh là nhận quá nhiều việc rồi làm không tới - hãy nhận ít hơn mức mình tưởng là làm được, phần dôi ra chính là chỗ giữ uy tín.',
+    11: 'Bạn bè và cộng đồng là mỏ vàng của bạn: phần lớn cơ hội đời bạn tới qua một người quen giới thiệu. Bạn cũng dễ được tin cậy trong các nhóm. Việc nên làm đều đặn: giữ liên lạc, giúp người khác trước khi cần tới họ - nhà 11 không trả ngay, nhưng trả rất lâu.',
+    12: 'Bạn được đỡ ở chỗ không ai thấy: những lần suôn sẻ khó giải thích, những người giúp mà không đòi gì, những khoảng lặng cho bạn hồi lại. Bạn cũng có phúc trong việc cho đi âm thầm. Cách nuôi phần này: giữ một việc thuộc về bên trong - thiền, cầu nguyện, làm thiện nguyện lặng lẽ - đó là nơi bạn nạp lại thật sự.'
+  },
+
+  saturn: {
+    1: 'Bạn phải tự dựng con người mình từ đầu, và thường lớn lên với cảm giác mình chưa đủ. Bạn nghiêm, hơi khắc với chính mình, và người khác thấy bạn chín hơn tuổi. Tin tốt là Sao Thổ trả công đúng hạn: khoảng sau ba mươi bạn sẽ thấy mình vững hơn hẳn thời trẻ - việc cần làm chỉ là đừng bỏ giữa đường.',
+    2: 'Tiền với bạn phải kiếm từng đồng, không có đoạn nào tự tới. Bạn có thể lo thiếu tiền kể cả khi đã đủ, vì cảm giác thiếu ấy có từ sớm hơn số dư tài khoản. Việc chữa thực tế nhất là biến nó thành hệ thống: ngân sách cố định, quỹ dự phòng, kế hoạch dài - nhà 2 không sợ ít, nó chỉ sợ mù mờ.',
+    3: 'Bạn nói ra khó hơn người khác: sợ nói sai, sợ bị đánh giá, nên hay im rồi tiếc. Bạn học chậm mà chắc, còn thi cử hay áp lực thời gian thì khiến bạn mệt. Đường đi là luyện có phương pháp - viết trước khi nói, tập trình bày nhiều lần - rồi giọng nói của bạn cuối cùng lại thành thứ người ta tin, đúng vì nó đã qua tôi luyện.',
+    4: 'Bạn lớn lên trong một mái nhà có gì đó nặng: thiếu một người, thiếu tiền, hoặc thiếu sự dịu dàng. Bạn thành người phải chống đỡ cho nhà mình sớm hơn tuổi. Phần việc đời này của bạn là dựng một mái nhà cho ra nhà - làm được thì đó là thành tựu lớn nhất của bạn, kể cả khi không ai bên ngoài nhìn thấy.',
+    5: 'Bạn thấy khó cho phép mình chơi: đùa cũng thấy tội, nghỉ cũng thấy lỗi. Chuyện tình cảm và con cái với bạn có phần trách nhiệm nặng hơn phần vui. Cách nới ra: coi niềm vui là một việc phải làm trong lịch, đúng như một cuộc họp - nghe hơi khô, nhưng với nhà 5 thì đó là cách duy nhất chạy được.',
+    6: 'Bạn làm việc bền và có kỷ luật, người ta tin bạn vì bạn không bỏ dở. Đổi lại bạn dễ làm quá sức, và cơ thể là nơi gửi hoá đơn về: lưng, khớp, dạ dày, giấc ngủ. Việc quan trọng hơn cả chuyện nghề: dựng một nếp chăm thân thể đều đặn và coi việc nghỉ là phần của công việc, không phải phần thưởng.',
+    7: 'Quan hệ là trường học khó nhất của bạn: bạn vào muộn, chọn kỹ, hoặc học bài qua một lần đổ vỡ. Bạn cần cam kết thật chứ không chịu được kiểu lửng lơ. Điều đáng biết trước: những quan hệ tốt nhất của bạn thường tới sau tuổi ba mươi và bền hơn hẳn - không phải bạn kém duyên, chỉ là đồng hồ của bạn chạy chậm hơn ở vùng này.',
+    8: 'Bạn phải học cách xử lý những chuyện người ta muốn né: tiền chung, nợ, mất mát, sự thân mật thật. Bạn kiểm soát chặt vì bạn sợ bị phụ thuộc. Việc thực dụng nên làm sớm: giấy tờ rõ ràng, bảo hiểm, di chúc, ranh giới tài chính - làm xong rồi bạn sẽ thấy nhẹ hơn nhiều so với việc nghĩ về nó.',
+    9: 'Bạn không tin dễ: một hệ giá trị phải qua thử thách thì bạn mới nhận. Việc học cao hoặc đi xa của bạn hay bị chặn một đoạn - trễ, tốn, hoặc phải đi đường vòng. Nhưng đúng vì thế mà thứ bạn học được cuối cùng lại vững; cứ đi, chỉ tính trước là nó cần nhiều thời gian hơn người khác.',
+    10: 'Đây là nhà mạnh nhất của Sao Thổ: bạn đi đường dài trong sự nghiệp và lên bằng từng bậc thật, không có bậc nào nhảy. Có thể bạn khởi đầu chậm hoặc bị chặn sớm, rồi vững lên đúng lúc người khác đã hụt hơi. Việc cần làm là chọn một hướng và ở lại đủ lâu, vì mười năm trong một nghề là đồng tiền quý nhất bạn có.',
+    11: 'Bạn thấy khó hoà vào nhóm và thường là người ngoài rìa, dù chẳng ai đẩy bạn ra. Bạn có ít bạn, nhưng người ở lại thì ở rất lâu. Cách làm nhẹ đi: chọn một nhóm có việc thật để làm cùng, vì bạn kết nối qua trách nhiệm chung dễ hơn qua chuyện xã giao.',
+    12: 'Bạn mang một nỗi lo không có địa chỉ rõ ràng, và nó thường tới lúc đêm khuya hoặc lúc rảnh. Bạn cũng có xu hướng tự cô lập khi khó, đúng lúc lẽ ra cần người nhất. Việc thực tế và đáng làm nhất: cho phần bên trong ấy một chỗ đều đặn - viết ra, hoặc nói với một người làm nghề nghe - vì phần này không giải bằng cách gắng chịu thêm.'
+  }
+};
