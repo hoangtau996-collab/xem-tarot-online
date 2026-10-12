@@ -10,9 +10,19 @@
 // khi ngôn ngữ là tiếng Việt. Văn viết như trả lời một người bạn hỏi thật,
 // không phải như từ điển.
 
+import { TERM_TABLE_VI } from './viDepth.js';
+
 /* Khối giải thích theo từng mục trên trang. Khoá trùng với tên mục trong
    Astrology.jsx để đặt đúng chỗ. */
 export const ASTRO_GUIDE_VI = {
+  terms: {
+    title: 'Đối chiếu thuật ngữ Việt - Anh',
+    body: [
+      'Chiêm tinh học này là hệ phương Tây, nên gần như mọi tài liệu gốc đều bằng tiếng Anh. Chúng tôi dùng chữ tiếng Việt dễ hiểu ở nhãn chính và để thuật ngữ gốc trong ngoặc, để bạn tra tiếp được mà không phải đoán.',
+      'Một lưu ý nhỏ về chữ nghĩa: trước đây nhiều bản dịch tiếng Việt mượn từ của tử vi Đông phương - miếu, vượng, hãm, rơi, giao hội, tam phân. Những chữ đó không sai, nhưng chúng gợi liên tưởng tốt xấu khá nặng và không có trong hệ phương Tây. Bản này nói thẳng nghĩa kỹ thuật thay vì mượn chữ.'
+    ],
+    table: TERM_TABLE_VI
+  },
   bigThree: {
     title: 'Ba trụ là gì, và vì sao ba cái chứ không phải một',
     body: [

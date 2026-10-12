@@ -17,7 +17,8 @@ import {
   getPlanetInSign, getPlanetInHouse, getAspectText, isTightAspect,
   PATTERN_TEXTS, grandTrineElementText, chartRulerText, partOfFortuneText,
   RETROGRADE_TEXT, CHART_NOTES, bigThreeSummary,
-  getTightNote, getHouseDeep, getDignityDeep, getRetrogradeDeep
+  getTightNote, getHouseDeep, getDignityDeep, getRetrogradeDeep,
+  bigThreeDeep, getPatternApex
 } from '../data/astrologyTexts';
 import { exportNodeAsPng, exportNodeAsPdf } from '../utils/posterExport';
 import { NatalChart, AspectLegend } from './NatalChart';
@@ -31,12 +32,31 @@ import { AstroGuideNote } from './AstroGuideNote';
    ai quan tâm thì tự mở. */
 const DEFAULT_OPEN = new Set(['sun', 'moon', 'mercury', 'venus', 'mars']);
 
+/* Bảng góc chiếu giờ có luận giải riêng cho từng cặp, dài khoảng năm câu mỗi
+   hàng - một lá số trung bình có gần ba mươi góc, đổ phẳng ra là gần hai nghìn
+   từ liền một mạch, không ai đọc nổi. Nên mỗi hàng gấp lại được, và chỉ những
+   hàng đáng đọc trước mới mở sẵn.
+   Mốc dưới đây chọn sau khi đo trên bốn lá số thật: mở sẵn mọi góc khít dưới
+   một độ, cộng các góc chính dính Mặt Trời / Mặt Trăng / Cung Mọc / Thiên Đỉnh
+   mà sai số không quá hai độ. Ra khoảng năm tới mười hàng, tức bốn tới bảy
+   trăm từ hiện ngay - vừa một lượt đọc. Bỏ mốc hai độ thì con số nhảy lên hơn
+   hai mươi hàng và gần một nghìn bảy trăm từ, nên mốc này không phải cho đẹp.
+   Hàng gấp lại vẫn thấy đủ tên hành tinh, loại góc và sai số, bấm một lần là ra. */
+const KEY_POINTS = new Set(['sun', 'moon', 'asc', 'mc']);
+
+const isAspectOpenByDefault = (aspect) =>
+  aspect.orb < 1 ||
+  (ASPECTS.find(a => a.key === aspect.aspectKey)?.major === true &&
+    aspect.orb <= 2 &&
+    (KEY_POINTS.has(aspect.a) || KEY_POINTS.has(aspect.b)));
+
 export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.vi;
   const L = (obj) => (obj ? obj[lang] || obj.vi : '');
 
   const [isEditing, setIsEditing] = useState(!profile?.birthDate);
   const [openPlanets, setOpenPlanets] = useState(DEFAULT_OPEN);
+  const [toggledAspects, setToggledAspects] = useState(() => new Set());
   const [userNote, setUserNote] = useState('');
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
@@ -66,6 +86,20 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
     setOpenPlanets(prev => {
       const next = new Set(prev);
       if (next.has(key)) next.delete(key); else next.add(key);
+      return next;
+    });
+  };
+
+  /* Chỉ ghi lại những hàng góc chiếu khách đã tự bấm, còn trạng thái ban đầu
+     thì tính từ quy tắc ở trên. Làm vậy để không phải dựng sẵn một Set theo
+     từng lá số, và để lá số đổi thì trạng thái mở cũng đúng theo lá số mới. */
+  const isAspectOpen = (rowId, aspect) =>
+    toggledAspects.has(rowId) ? !isAspectOpenByDefault(aspect) : isAspectOpenByDefault(aspect);
+
+  const toggleAspect = (rowId) => {
+    setToggledAspects(prev => {
+      const next = new Set(prev);
+      if (next.has(rowId)) next.delete(rowId); else next.add(rowId);
       return next;
     });
   };
@@ -156,6 +190,17 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
     ...(chart.hasTime ? [{ key: 'asc', signIndex: chart.angles.ascSign }] : [])
   ] : [];
 
+  /* Luận giải ba trụ theo nguyên tố - chỉ có bản tiếng Việt, hai ngôn ngữ kia
+     trả về rỗng nên khối này tự biến mất. */
+  const bigThreeElementText = chart
+    ? bigThreeDeep(
+        SIGNS[sunPlanet.signIndex].key,
+        SIGNS[moonPlanet.signIndex].key,
+        chart.hasTime ? SIGNS[chart.angles.ascSign].key : null,
+        lang
+      )
+    : '';
+
   const balanceBars = chart ? [
     {
       title: t.astroElements,
@@ -239,6 +284,11 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
             </div>
           )}
 
+          {/* Bảng đối chiếu thuật ngữ - đặt ngay trên đầu vì thuật ngữ xuất
+              hiện dày ở mọi mục phía dưới, và khách muốn tra thêm trên tài
+              liệu nước ngoài thì cần đúng từ gốc. */}
+          <AstroGuideNote sectionKey="terms" lang={lang} />
+
           {/* Ba trụ */}
           <div className="glass-panel p-5 md:p-7 space-y-5 border-cyan-400/40">
             <h3 className="font-serif font-bold text-lg gold-gradient-text flex items-center gap-2">
@@ -253,6 +303,15 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
                 lang
               )}
             </p>
+
+            {/* Bản tiếng Việt nói thêm quan hệ nguyên tố giữa Mặt Trời và Mặt
+                Trăng - đó là chỗ đọc ra được việc sống với chính mình dễ hay
+                khó, và là phần khiến ba trụ của mỗi người khác nhau thật. */}
+            {bigThreeElementText && (
+              <p className="text-sm text-gray-300 leading-relaxed font-light border-t border-white/10 pt-4">
+                {bigThreeElementText}
+              </p>
+            )}
 
             <div className="grid sm:grid-cols-3 gap-3">
               {bigThree.map(item => {
@@ -440,34 +499,49 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
                 {chart.aspects.map((aspect, i) => {
                   const meta = ASPECTS.find(a => a.key === aspect.aspectKey);
                   const nameOf = (k) => (PLANETS[k] ? `${PLANETS[k].glyph} ${L(PLANETS[k].name)}` : k.toUpperCase());
+                  const rowId = `${aspect.a}-${aspect.b}-${aspect.aspectKey}`;
+                  const open = isAspectOpen(rowId, aspect);
+
                   return (
                     <div
                       key={`${aspect.a}-${aspect.b}-${i}`}
-                      className="rounded-xl bg-space/70 border px-4 py-3 space-y-1"
+                      className="rounded-xl bg-space/70 border overflow-hidden"
                       style={{ borderColor: `${meta.color}40` }}
                     >
-                      <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs">
-                        <span className="text-gray-100 font-semibold">{nameOf(aspect.a)}</span>
-                        <span style={{ color: meta.color }}>{meta.glyph} {L(meta.name)}</span>
-                        <span className="text-gray-100 font-semibold">{nameOf(aspect.b)}</span>
-                        <span className="text-2xs text-gray-500">
-                          {t.astroOrb} {aspect.orb.toFixed(1)}°
-                        </span>
-                        {isTightAspect(aspect) && (
-                          <span className="text-2xs px-2 py-0.5 rounded-full bg-amber-950/50 border border-amber-400/35 text-amber-200">
-                            {t.astroTightAspect}
+                      <button
+                        onClick={() => toggleAspect(rowId)}
+                        aria-expanded={open}
+                        className="w-full px-4 py-3 flex items-start gap-2 text-left hover:bg-indigo-950/40 transition-colors"
+                      >
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs flex-1 min-w-0">
+                          <span className="text-gray-100 font-semibold">{nameOf(aspect.a)}</span>
+                          <span style={{ color: meta.color }}>{meta.glyph} {L(meta.name)}</span>
+                          <span className="text-gray-100 font-semibold">{nameOf(aspect.b)}</span>
+                          <span className="text-2xs text-gray-500">
+                            {t.astroOrb} {aspect.orb.toFixed(1)}°
                           </span>
-                        )}
-                      </div>
-                      <p className="text-2xs text-gray-300 leading-relaxed font-light">
-                        {getAspectText(aspect, lang)}
-                      </p>
-                      {/* Nói rõ "khít thì sao" thay vì để cái nhãn ở trên tự
-                          giải thích - khách mới không đoán ra được. */}
-                      {isTightAspect(aspect) && getTightNote(lang) && (
-                        <p className="text-2xs text-amber-200/80 leading-relaxed font-light">
-                          {getTightNote(lang)}
-                        </p>
+                          {isTightAspect(aspect) && (
+                            <span className="text-2xs px-2 py-0.5 rounded-full bg-amber-950/50 border border-amber-400/35 text-amber-200">
+                              {t.astroTightAspect}
+                            </span>
+                          )}
+                        </div>
+                        <ChevronDown className={`w-4 h-4 text-gray-400 shrink-0 mt-0.5 transition-transform ${open ? 'rotate-180' : ''}`} />
+                      </button>
+
+                      {open && (
+                        <div className="px-4 pb-3.5 pt-1 space-y-1.5 border-t border-white/5">
+                          <p className="text-2xs text-gray-300 leading-relaxed font-light">
+                            {getAspectText(aspect, lang)}
+                          </p>
+                          {/* Nói rõ "khít thì sao" thay vì để cái nhãn ở trên tự
+                              giải thích - khách mới không đoán ra được. */}
+                          {isTightAspect(aspect) && getTightNote(lang) && (
+                            <p className="text-2xs text-amber-200/80 leading-relaxed font-light">
+                              {getTightNote(lang)}
+                            </p>
+                          )}
+                        </div>
                       )}
                     </div>
                   );
@@ -502,6 +576,14 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
                       </p>
                       <p className="text-2xs text-cyan-300">{members}</p>
                       <p className="text-xs text-gray-300 leading-relaxed font-light">{L(info.text)}</p>
+                      {/* Hình Chữ T và Yod có điểm đỉnh rõ ràng; nói đúng hành
+                          tinh đang chịu áp lực thay vì để hình mẫu của ai cũng
+                          đọc giống nhau. */}
+                      {getPatternApex(pattern.apex, lang) && (
+                        <p className="text-xs text-amber-200/90 leading-relaxed font-light">
+                          {getPatternApex(pattern.apex, lang)}
+                        </p>
+                      )}
                       {pattern.element && (
                         <p className="text-xs text-gray-300 leading-relaxed font-light">
                           {grandTrineElementText(pattern.element, lang)}

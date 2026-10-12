@@ -18,6 +18,12 @@ import { HOUSE_TEXT_SOCIAL } from './astrology/houseSocial.js';
 import { HOUSE_TEXT_OUTER } from './astrology/houseOuter.js';
 import { HOUSE_DEEP_VI } from './astrology/houseDomains.js';
 import { PAIR_THEME_VI, NATURE_VI, TIGHT_NOTE_VI, pairKey } from './astrology/aspectPairs.js';
+import { ASPECT_DETAIL_LUMINARIES } from './astrology/aspectDetailLuminaries.js';
+import { ASPECT_DETAIL_PERSONAL } from './astrology/aspectDetailPersonal.js';
+import { ASPECT_DETAIL_OUTER } from './astrology/aspectDetailOuter.js';
+import {
+  ASPECT_EDGE_VI, PATTERN_APEX_VI, SUN_MOON_ELEMENT_VI, ASC_ELEMENT_VI, TERM_TABLE_VI
+} from './astrology/viDepth.js';
 import { DIGNITY_DEEP_VI, RETROGRADE_DEEP_VI, ASTRO_GUIDE_VI } from './astrology/viGlossary.js';
 import { PLANETS, HOUSES, SIGNS, ASPECTS, ELEMENT_INFO } from './astrologyData.js';
 
@@ -36,6 +42,14 @@ export const PLANET_IN_HOUSE_VI = {
   ...HOUSE_TEXT_PERSONAL,
   ...HOUSE_TEXT_SOCIAL,
   ...HOUSE_TEXT_OUTER
+};
+
+/* 90 cặp điểm, mỗi cặp bốn bản theo nhóm bản chất góc. Khoá cặp dựng bằng
+   pairKey nên tra được theo cả hai chiều a-b. */
+export const ASPECT_DETAIL_VI = {
+  ...ASPECT_DETAIL_LUMINARIES,
+  ...ASPECT_DETAIL_PERSONAL,
+  ...ASPECT_DETAIL_OUTER
 };
 
 const pick = (obj, lang) => (obj ? obj[lang] || obj.vi : '');
@@ -113,11 +127,20 @@ export const POINT_KEYWORD = {
 export const getAspectText = (aspect, lang = 'vi') => {
   const meta = ASPECTS.find(a => a.key === aspect.aspectKey);
 
-  // Tiếng Việt ghép ở tầng sâu hơn: chủ đề riêng của từng cặp điểm, cộng với
-  // cách loại góc đó chạy và một việc cụ thể nên làm. Vẫn là văn ghép, nhưng
-  // cả hai tầng đều viết tay nên ra được 2-3 câu có nội dung.
-  if (lang === 'vi') {
-    const theme = PAIR_THEME_VI[pairKey(aspect.a, aspect.b)];
+  // Tiếng Việt ghép ba tầng, tầng nào cũng viết tay:
+  //   1. chủ đề riêng của cặp điểm này;
+  //   2. cặp đó chạy ra sao dưới đúng nhóm góc đang xét, kèm việc nên làm;
+  //   3. một câu phân biệt hai góc nằm cùng nhóm (Đối đỉnh khác Vuông góc).
+  // Nhờ tầng 2 mà hai hàng trong bảng không còn đọc giống nhau nữa.
+  if (lang === 'vi' && meta) {
+    const key = pairKey(aspect.a, aspect.b);
+    const theme = PAIR_THEME_VI[key];
+    const detail = ASPECT_DETAIL_VI[key]?.[meta.nature];
+    if (theme && detail) {
+      const edge = ASPECT_EDGE_VI[aspect.aspectKey];
+      return [theme, detail, edge].filter(Boolean).join(' ');
+    }
+    // Cặp nào lỡ khuyết tầng 2 thì vẫn còn đoạn chung cũ, không trả về rỗng.
     const nature = NATURE_VI[aspect.aspectKey];
     if (theme && nature) return `${theme} ${nature}`;
   }
@@ -162,6 +185,33 @@ export const getRetrogradeDeep = (lang = 'vi') =>
 /* Khối "hiểu thêm" đặt cạnh từng mục trên trang. */
 export const getAstroGuide = (sectionKey, lang = 'vi') =>
   (lang === 'vi' ? ASTRO_GUIDE_VI[sectionKey] || null : null);
+
+/* Hình mẫu lớn: nói đúng hành tinh đang chịu áp lực ở đỉnh, thay vì để Hình
+   Chữ T của mọi người đọc giống nhau. */
+export const getPatternApex = (apexKey, lang = 'vi') =>
+  (lang === 'vi' && apexKey ? PATTERN_APEX_VI[apexKey] || '' : '');
+
+/* Bảng đối chiếu thuật ngữ Việt - Anh, để khách tra tiếp được tài liệu gốc. */
+export const getTermTable = (lang = 'vi') => (lang === 'vi' ? TERM_TABLE_VI : null);
+
+/* Luận giải ba trụ theo nguyên tố: quan hệ giữa nguyên tố của Mặt Trời và của
+   Mặt Trăng là chỗ quyết định bạn sống với chính mình dễ hay khó, nên phần
+   này nói riêng cho từng tổ hợp thay vì đưa một câu định nghĩa chung. */
+export const bigThreeDeep = (sunSignKey, moonSignKey, ascSignKey, lang = 'vi') => {
+  if (lang !== 'vi') return '';
+
+  const elementOf = (key) => SIGNS.find(s => s.key === key)?.element;
+  const sunEl = elementOf(sunSignKey);
+  const moonEl = elementOf(moonSignKey);
+  if (!sunEl || !moonEl) return '';
+
+  const core = SUN_MOON_ELEMENT_VI[`${sunEl}|${moonEl}`];
+  if (!core) return '';
+
+  const ascEl = ascSignKey ? elementOf(ascSignKey) : null;
+  const ascLine = ascEl ? ASC_ELEMENT_VI[ascEl] : '';
+  return [core, ascLine].filter(Boolean).join(' ');
+};
 
 /* ------------------------------------------------------------------ */
 /* HÌNH MẪU LỚN                                                        */

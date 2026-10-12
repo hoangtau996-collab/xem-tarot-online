@@ -168,13 +168,13 @@ export const PLANETS = {
   },
   northNode: {
     key: 'northNode', glyph: '☊', color: '#34d399', group: 'point', orbBonus: 0, alwaysRetrograde: true,
-    name: { vi: 'Nút Bắc (La Hầu)', en: 'North Node', zh: '北交点' },
+    name: { vi: 'Nút Bắc (North Node)', en: 'North Node', zh: '北交点' },
     role: { vi: 'Hướng trưởng thành đời này - vùng còn lạ nhưng phải bước vào', en: 'This life growth direction - unfamiliar ground you must walk into', zh: '此生的成长方向——陌生却必须踏入的地带' },
     cycle: { vi: '18,6 năm một vòng, luôn đi lùi', en: 'An 18.6-year cycle, always moving backwards', zh: '18.6年一周，恒常逆行' }
   },
   southNode: {
     key: 'southNode', glyph: '☋', color: '#fda4af', group: 'point', orbBonus: 0, alwaysRetrograde: true,
-    name: { vi: 'Nút Nam (Kế Đô)', en: 'South Node', zh: '南交点' },
+    name: { vi: 'Nút Nam (South Node)', en: 'South Node', zh: '南交点' },
     role: { vi: 'Vốn liếng sẵn có - làm quá dễ nên dễ mắc kẹt trong đó', en: 'Ready-made capital - so easy it becomes a place to get stuck', zh: '现成的本钱——太容易，以致容易困在其中' },
     cycle: { vi: 'Luôn đối đỉnh Nút Bắc', en: 'Always opposite the North Node', zh: '恒与北交点相对' }
   }
@@ -199,7 +199,7 @@ export const ANGLES = {
   },
   ic: {
     key: 'ic', glyph: 'IC', color: '#a78bfa',
-    name: { vi: 'Thiên Để (Imum Coeli)', en: 'Imum Coeli', zh: '天底' },
+    name: { vi: 'Đáy Trời (Imum Coeli)', en: 'Imum Coeli', zh: '天底' },
     role: { vi: 'Gốc rễ, gia đình và nơi bạn lui về khi mệt', en: 'Roots, family, and where you retreat when tired', zh: '根源、家庭，以及疲惫时的退处' }
   }
 };
@@ -209,40 +209,40 @@ export const ANGLES = {
 /* ------------------------------------------------------------------ */
 export const HOUSES = [
   { num: 1, naturalSign: 'aries', angular: 'angular',
-    name: { vi: 'Nhà 1 - Bản Thân', en: '1st House - Self', zh: '第一宫 · 命宫' },
+    name: { vi: 'Nhà 1 - Bản Thân (1st House)', en: '1st House - Self', zh: '第一宫 · 命宫' },
     domain: { vi: 'thân thể, diện mạo, cách bạn bước vào một căn phòng', en: 'body, appearance, how you enter a room', zh: '身体、外貌，以及你走进一个房间的方式' } },
   { num: 2, naturalSign: 'taurus', angular: 'succedent',
-    name: { vi: 'Nhà 2 - Tài Sản', en: '2nd House - Resources', zh: '第二宫 · 财帛宫' },
+    name: { vi: 'Nhà 2 - Tài Sản (2nd House)', en: '2nd House - Resources', zh: '第二宫 · 财帛宫' },
     domain: { vi: 'tiền bạc tự kiếm, giá trị bản thân, cảm giác đủ đầy', en: 'self-earned money, self-worth, the feeling of enough', zh: '自赚之财、自我价值与「够了」的感觉' } },
   { num: 3, naturalSign: 'gemini', angular: 'cadent',
-    name: { vi: 'Nhà 3 - Giao Tiếp', en: '3rd House - Communication', zh: '第三宫 · 兄弟宫' },
+    name: { vi: 'Nhà 3 - Giao Tiếp (3rd House)', en: '3rd House - Communication', zh: '第三宫 · 兄弟宫' },
     domain: { vi: 'anh chị em, hàng xóm, việc học ngắn hạn, cách bạn nói', en: 'siblings, neighbours, short study, the way you speak', zh: '手足、邻里、短期学习与说话方式' } },
   { num: 4, naturalSign: 'cancer', angular: 'angular',
-    name: { vi: 'Nhà 4 - Gia Đình', en: '4th House - Home', zh: '第四宫 · 田宅宫' },
+    name: { vi: 'Nhà 4 - Gia Đình (4th House)', en: '4th House - Home', zh: '第四宫 · 田宅宫' },
     domain: { vi: 'cha mẹ, mái nhà, gốc rễ, ký ức tuổi thơ', en: 'parents, home, roots, childhood memory', zh: '父母、居所、根源与童年记忆' } },
   { num: 5, naturalSign: 'leo', angular: 'succedent',
-    name: { vi: 'Nhà 5 - Sáng Tạo', en: '5th House - Creativity', zh: '第五宫 · 子女宫' },
+    name: { vi: 'Nhà 5 - Sáng Tạo (5th House)', en: '5th House - Creativity', zh: '第五宫 · 子女宫' },
     domain: { vi: 'tình yêu lãng mạn, con cái, chơi đùa, thứ bạn làm vì thích', en: 'romance, children, play, what you do purely for joy', zh: '恋爱、子女、玩乐，以及纯粹因喜欢而做的事' } },
   { num: 6, naturalSign: 'virgo', angular: 'cadent',
-    name: { vi: 'Nhà 6 - Công Việc & Sức Khoẻ', en: '6th House - Work & Health', zh: '第六宫 · 奴仆宫' },
+    name: { vi: 'Nhà 6 - Công Việc & Sức Khoẻ (6th House)', en: '6th House - Work & Health', zh: '第六宫 · 奴仆宫' },
     domain: { vi: 'việc hằng ngày, thói quen, cơ thể, sự phục vụ', en: 'daily work, routine, the body, service', zh: '日常工作、习惯、身体与服务' } },
   { num: 7, naturalSign: 'libra', angular: 'angular',
-    name: { vi: 'Nhà 7 - Quan Hệ', en: '7th House - Partnership', zh: '第七宫 · 夫妻宫' },
+    name: { vi: 'Nhà 7 - Quan Hệ (7th House)', en: '7th House - Partnership', zh: '第七宫 · 夫妻宫' },
     domain: { vi: 'hôn nhân, hợp tác, cả đối thủ công khai', en: 'marriage, partnership, and open rivals too', zh: '婚姻、合作，也包括公开的对手' } },
   { num: 8, naturalSign: 'scorpio', angular: 'succedent',
-    name: { vi: 'Nhà 8 - Chuyển Hoá', en: '8th House - Transformation', zh: '第八宫 · 疾厄宫' },
+    name: { vi: 'Nhà 8 - Chuyển Hoá (8th House)', en: '8th House - Transformation', zh: '第八宫 · 疾厄宫' },
     domain: { vi: 'tiền chung, thân mật sâu, khủng hoảng và tái sinh', en: 'shared money, deep intimacy, crisis and rebirth', zh: '共有之财、深层亲密、危机与重生' } },
   { num: 9, naturalSign: 'sagittarius', angular: 'cadent',
-    name: { vi: 'Nhà 9 - Tri Thức', en: '9th House - Belief', zh: '第九宫 · 迁移宫' },
+    name: { vi: 'Nhà 9 - Tri Thức (9th House)', en: '9th House - Belief', zh: '第九宫 · 迁移宫' },
     domain: { vi: 'đi xa, học cao, tín ngưỡng, hệ giá trị sống', en: 'travel, higher study, faith, a life philosophy', zh: '远行、高等学习、信仰与人生观' } },
   { num: 10, naturalSign: 'capricorn', angular: 'angular',
-    name: { vi: 'Nhà 10 - Sự Nghiệp', en: '10th House - Career', zh: '第十宫 · 官禄宫' },
+    name: { vi: 'Nhà 10 - Sự Nghiệp (10th House)', en: '10th House - Career', zh: '第十宫 · 官禄宫' },
     domain: { vi: 'nghề nghiệp, danh tiếng, vị trí xã hội', en: 'vocation, reputation, social standing', zh: '志业、名声与社会位置' } },
   { num: 11, naturalSign: 'aquarius', angular: 'succedent',
-    name: { vi: 'Nhà 11 - Cộng Đồng', en: '11th House - Community', zh: '第十一宫 · 福德宫' },
+    name: { vi: 'Nhà 11 - Cộng Đồng (11th House)', en: '11th House - Community', zh: '第十一宫 · 福德宫' },
     domain: { vi: 'bạn bè, hội nhóm, lý tưởng và ước mơ dài hạn', en: 'friends, groups, ideals and long-range hopes', zh: '朋友、群体、理想与长远愿望' } },
   { num: 12, naturalSign: 'pisces', angular: 'cadent',
-    name: { vi: 'Nhà 12 - Tiềm Thức', en: '12th House - The Unseen', zh: '第十二宫 · 玄秘宫' },
+    name: { vi: 'Nhà 12 - Tiềm Thức (12th House)', en: '12th House - The Unseen', zh: '第十二宫 · 玄秘宫' },
     domain: { vi: 'giấc mơ, nỗi sợ ẩn, sự tĩnh lặng, điều bạn giấu cả chính mình', en: 'dreams, hidden fear, solitude, what you hide from yourself', zh: '梦、隐藏的恐惧、独处，以及你对自己也隐瞒之事' } }
 ];
 
@@ -253,25 +253,25 @@ export const HOUSES = [
 /* ------------------------------------------------------------------ */
 export const ASPECTS = [
   { key: 'conjunction', angle: 0, orb: 7, nature: 'blend', glyph: '☌', major: true, color: '#fbbf24',
-    name: { vi: 'Giao Hội', en: 'Conjunction', zh: '合相' },
+    name: { vi: 'Dính nhau (Conjunction)', en: 'Conjunction', zh: '合相' },
     effect: { vi: 'hai năng lượng dính làm một, khuếch đại nhau và khó tách rời', en: 'two energies fuse into one, amplifying each other and hard to separate', zh: '两股能量融为一体，彼此放大且难以分开' } },
   { key: 'opposition', angle: 180, orb: 7, nature: 'tense', glyph: '☍', major: true, color: '#f43f5e',
-    name: { vi: 'Xung Đối', en: 'Opposition', zh: '对分相' },
+    name: { vi: 'Đối đỉnh (Opposition)', en: 'Opposition', zh: '对分相' },
     effect: { vi: 'hai đầu giằng nhau, bạn hay bị đẩy về một phía rồi phải học cách bắc cầu', en: 'two ends pull against each other; you swing to one side, then must learn to bridge', zh: '两端相互拉扯，你常偏向一边，终须学会架桥' } },
   { key: 'trine', angle: 120, orb: 6, nature: 'flow', glyph: '△', major: true, color: '#34d399',
-    name: { vi: 'Tam Phân', en: 'Trine', zh: '三分相' },
+    name: { vi: 'Thuận (Trine)', en: 'Trine', zh: '三分相' },
     effect: { vi: 'chảy trơn tới mức dễ bị coi thường - tài năng có sẵn nhưng ít được mài', en: 'so smooth it gets taken for granted - a gift that rarely gets sharpened', zh: '顺畅到易被忽视——现成的天赋，却少被打磨' } },
   { key: 'square', angle: 90, orb: 6, nature: 'tense', glyph: '□', major: true, color: '#fb7185',
-    name: { vi: 'Vuông Góc', en: 'Square', zh: '四分相' },
+    name: { vi: 'Vuông góc (Square)', en: 'Square', zh: '四分相' },
     effect: { vi: 'ma sát liên tục, khó chịu nhưng chính nó đẩy bạn hành động', en: 'constant friction - uncomfortable, but it is what pushes you to act', zh: '持续摩擦，虽不舒服，却正是推动你行动的力量' } },
   { key: 'sextile', angle: 60, orb: 4, nature: 'flow', glyph: '⚹', major: true, color: '#22d3ee',
-    name: { vi: 'Lục Phân', en: 'Sextile', zh: '六分相' },
+    name: { vi: 'Thuận nhẹ (Sextile)', en: 'Sextile', zh: '六分相' },
     effect: { vi: 'cơ hội mở sẵn nhưng phải chủ động bước tới mới thành', en: 'an open opportunity that only pays off if you step towards it', zh: '机会已敞开，但须主动迈步才成' } },
   { key: 'quincunx', angle: 150, orb: 3, nature: 'awkward', glyph: '⚻', major: false, color: '#c084fc',
-    name: { vi: 'Bất Hợp', en: 'Quincunx', zh: '梅花相' },
+    name: { vi: 'Lệch pha (Quincunx)', en: 'Quincunx', zh: '梅花相' },
     effect: { vi: 'hai bên không hiểu tiếng nhau, phải chỉnh đi chỉnh lại mới vừa', en: 'two sides that do not speak the same language and need constant readjustment', zh: '两方语言不通，须一再调整方能相合' } },
   { key: 'semisextile', angle: 30, orb: 2, nature: 'awkward', glyph: '⚺', major: false, color: '#94a3b8',
-    name: { vi: 'Bán Lục Phân', en: 'Semisextile', zh: '十二分相' },
+    name: { vi: 'Kề cạnh (Semisextile)', en: 'Semisextile', zh: '十二分相' },
     effect: { vi: 'liên hệ nhẹ, như hai phòng cạnh nhau nghe loáng thoáng tiếng nhau', en: 'a light link, like two rooms that faintly overhear each other', zh: '轻微牵连，如两间相邻的房间隐约听见彼此' } }
 ];
 
@@ -295,19 +295,19 @@ export const DIGNITIES = {
 
 export const DIGNITY_INFO = {
   rulership: { key: 'rulership', score: 2, tone: 'good',
-    name: { vi: 'Miếu (nhà riêng)', en: 'Domicile', zh: '入庙' },
+    name: { vi: 'Nhà riêng (Domicile)', en: 'Domicile', zh: '入庙' },
     hint: { vi: 'Hành tinh đứng trong cung nó cai quản - làm việc thoải mái nhất, không phải gồng.', en: 'The planet sits in the sign it rules - working at full ease, with nothing to force.', zh: '行星落在自己主管的星座——最自在，无须硬撑。' } },
   exaltation: { key: 'exaltation', score: 1, tone: 'good',
-    name: { vi: 'Vượng (được nâng)', en: 'Exaltation', zh: '曜升' },
+    name: { vi: 'Được nâng (Exaltation)', en: 'Exaltation', zh: '曜升' },
     hint: { vi: 'Không phải nhà mình nhưng được cả cung nâng đỡ - dễ được người khác ghi nhận.', en: 'Not its own house, yet the whole sign lifts it - easily recognised by others.', zh: '虽非本宫，却被整宫托举——容易得到他人认可。' } },
   detriment: { key: 'detriment', score: -1, tone: 'bad',
-    name: { vi: 'Hãm (đối nhà)', en: 'Detriment', zh: '落陷' },
+    name: { vi: 'Đối nhà (Detriment)', en: 'Detriment', zh: '落陷' },
     hint: { vi: 'Đứng đối diện nhà mình - phải học cách làm việc bằng công cụ không quen tay.', en: 'Opposite its own house - it must work with tools it is not used to.', zh: '与本宫相对——须用不趁手的工具做事。' } },
   fall: { key: 'fall', score: -2, tone: 'bad',
-    name: { vi: 'Rơi (bị hạ)', en: 'Fall', zh: '入弱' },
+    name: { vi: 'Bị hạ (Fall)', en: 'Fall', zh: '入弱' },
     hint: { vi: 'Cung này làm hành tinh mất tiếng nói - không phải điềm xấu, chỉ là vùng phải tập nhiều hơn người khác.', en: 'This sign mutes the planet - not an omen, just an area needing more practice than others.', zh: '此星座使行星失声——并非凶兆，只是需比别人多练之处。' } },
   peregrine: { key: 'peregrine', score: 0, tone: 'neutral',
-    name: { vi: 'Trung tính', en: 'Peregrine', zh: '平宫' },
+    name: { vi: 'Trung tính (Peregrine)', en: 'Peregrine', zh: '平宫' },
     hint: { vi: 'Không được nâng cũng không bị ép - hành tinh làm việc theo đúng phong cách của cung.', en: 'Neither lifted nor pressed - the planet simply works in the style of its sign.', zh: '不扬不抑——行星依星座的风格行事。' } }
 };
 

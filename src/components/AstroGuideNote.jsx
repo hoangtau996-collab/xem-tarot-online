@@ -38,6 +38,23 @@ export const AstroGuideNote = ({ sectionKey, lang = 'vi' }) => {
           {guide.body.map((para, i) => (
             <p key={i} className="text-2xs text-gray-300 leading-relaxed font-light">{para}</p>
           ))}
+
+          {/* Bảng đối chiếu thuật ngữ, chỉ mục nào có mới hiện. Cho cuộn ngang
+              riêng để không đẩy cả trang lệch trên điện thoại. */}
+          {guide.table && (
+            <div className="overflow-x-auto pt-1">
+              <table className="w-full text-2xs border-collapse">
+                <tbody>
+                  {guide.table.map(([vi, en]) => (
+                    <tr key={en} className="border-b border-white/5 last:border-0">
+                      <td className="py-1.5 pr-3 text-gray-200 font-light align-top">{vi}</td>
+                      <td className="py-1.5 text-cyan-300/90 font-light align-top whitespace-nowrap">{en}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       )}
     </div>
