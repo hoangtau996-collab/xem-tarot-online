@@ -54,6 +54,13 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.vi;
   const L = (obj) => (obj ? obj[lang] || obj.vi : '');
 
+  /* Nhãn đã bỏ phần thuật ngữ gốc trong ngoặc, dùng cho những chỗ chính nhãn
+     lại bị đặt vào trong ngoặc - không có nó thì poster in ra thành ngoặc lồng
+     ngoặc: "(Đối đỉnh (Opposition), Sai số 1.2°)". Tờ in là bản giữ làm kỷ
+     niệm chứ không phải chỗ tra cứu nên bỏ được. Nhãn en và zh không có ngoặc
+     nên hàm này không đổi gì ở hai ngôn ngữ đó. */
+  const plainLabel = (obj) => L(obj).replace(/\s*\([^)]*\)\s*$/, '');
+
   const [isEditing, setIsEditing] = useState(!profile?.birthDate);
   const [openPlanets, setOpenPlanets] = useState(DEFAULT_OPEN);
   const [toggledAspects, setToggledAspects] = useState(() => new Set());
@@ -849,7 +856,7 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
                     <div key={i} style={{ fontSize: '12px', color: '#e5e7eb', lineHeight: '1.7', padding: '2px 0' }}>
                       <span style={{ color: meta.color }}>{meta.glyph} </span>
                       {nameOf(aspect.a)} — {nameOf(aspect.b)}
-                      <span style={{ color: '#9ca3af' }}> ({L(meta.name)}, {t.astroOrb} {aspect.orb.toFixed(1)}°)</span>
+                      <span style={{ color: '#9ca3af' }}> ({plainLabel(meta.name)}, {t.astroOrb} {aspect.orb.toFixed(1)}°)</span>
                     </div>
                   );
                 })}
