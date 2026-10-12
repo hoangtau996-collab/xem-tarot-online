@@ -68,7 +68,11 @@ const spreadLabels = (items, minGap = 7.5) => {
   return display;
 };
 
-export const NatalChart = ({ chart, lang = 'vi', size = 720, showAspects = true }) => {
+/* `fixed`: dùng cho poster xuất file. html2canvas chụp SVG bằng cách tuần tự
+   hoá thành ảnh, và nó tính margin: auto hai lần - vòng tròn bị đẩy lệch phải
+   rồi xén mất mép. Bản cố định ghi thẳng kích thước, bỏ margin; nơi dùng tự
+   căn giữa bằng khung bao ngoài. */
+export const NatalChart = ({ chart, lang = 'vi', size = 720, showAspects = true, fixed = false }) => {
   const cx = size / 2;
   const cy = size / 2;
   const R = size / 2 - 4;
@@ -105,8 +109,9 @@ export const NatalChart = ({ chart, lang = 'vi', size = 720, showAspects = true 
   return (
     <svg
       viewBox={`0 0 ${size} ${size}`}
-      width="100%"
-      style={{ maxWidth: size, display: 'block', margin: '0 auto' }}
+      width={fixed ? size : '100%'}
+      height={fixed ? size : undefined}
+      style={fixed ? { display: 'block' } : { maxWidth: size, display: 'block', margin: '0 auto' }}
       role="img"
       aria-label={lang === 'en' ? 'Natal chart wheel' : lang === 'zh' ? '本命星盘' : 'Vòng bản đồ sao'}
     >

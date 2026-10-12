@@ -17,6 +17,14 @@ export const capturePoster = async (node) => {
   // bản giải đều phải tải, kể cả người chỉ đọc rồi đóng.
   const { default: html2canvas } = await import('html2canvas');
 
+  /* Đẩy poster ra ngoài màn hình trong lúc chụp. Ba trong bốn poster nằm ngay
+     trong luồng trang, nên trước đây bật display là poster rộng 900px hiện
+     chình ình cuối trang suốt mấy giây chụp: trang giật chiều cao, còn trên
+     điện thoại thì lòi thanh cuộn ngang. */
+  const prevCss = node.style.cssText;
+  node.style.position = 'absolute';
+  node.style.left = '-10000px';
+  node.style.top = '0';
   node.style.display = 'block';
   try {
     const rawW = node.offsetWidth || 900;
@@ -43,7 +51,7 @@ export const capturePoster = async (node) => {
     if (!canvas.width || !canvas.height) throw new Error('Canvas rỗng');
     return canvas;
   } finally {
-    node.style.display = 'none';
+    node.style.cssText = prevCss;
   }
 };
 
@@ -92,32 +100,89 @@ export const exportNodeAsPdf = async (node, filename) => {
   const margin = 8;
   const usableH = pageH - margin * 2;
 
-  const imgData = canvas.toDataURL('image/jpeg', 0.92);
   const imgW = pageW - margin * 2;
-  const imgH = (canvas.height / canvas.width) * imgW;
+  const pxPerMm = canvas.width / imgW;
+  const pagePx = Math.floor(usableH * pxPerMm);
+  const pxPerCss = canvas.width / (node.offsetWidth || 900);
 
-  // Nền vũ trụ cho từng trang, khớp màu poster (#0b0818) để không lòi ra
-  // dải trắng ở trang cuối.
-  const paintBackground = () => {
+  /* Mỗi trang là một lát cắt riêng của poster. Cách cũ đặt nguyên ảnh dài lên
+     mọi trang rồi đẩy dần lên: chỗ ngắt rơi bừa vào giữa dòng chữ, và vì lề
+     dưới không bị xén nên một dải ~16mm cuối trang trước lặp lại ở đầu trang
+     sau. Giờ chỗ ngắt được dời lên khoảng trống gần nhất giữa hai khối (hoặc
+     ít nhất giữa hai dòng), các lát nối tiếp nhau không chồng lấn. */
+  const slices = [];
+  let start = 0;
+  while (start < canvas.height) {
+    const ideal = start + pagePx;
+    if (ideal >= canvas.height) {
+      if (!isBlankBand(canvas, start, canvas.height)) slices.push([start, canvas.height]);
+      break;
+    }
+    const end =
+      findQuietRow(canvas, ideal, ideal - Math.floor(pagePx * 0.25), Math.round(14 * pxPerCss)) ??
+      findQuietRow(canvas, ideal, ideal - Math.floor(pagePx * 0.12), Math.round(3 * pxPerCss)) ??
+      ideal;
+    slices.push([start, end]);
+    start = end;
+  }
+
+  const sliceCanvas = document.createElement('canvas');
+  sliceCanvas.width = canvas.width;
+  const sliceCtx = sliceCanvas.getContext('2d');
+
+  slices.forEach(([y0, y1], i) => {
+    if (i > 0) doc.addPage();
+    // Nền vũ trụ cho từng trang, khớp màu poster (#0b0818) để không lòi ra
+    // dải trắng quanh lát cắt.
     doc.setFillColor(11, 8, 24);
     doc.rect(0, 0, pageW, pageH, 'F');
-  };
 
-  // Poster dài hơn một trang A4: cắt bằng cách đẩy dần ảnh lên qua từng trang.
-  let heightLeft = imgH;
-  let offset = margin;
-
-  paintBackground();
-  doc.addImage(imgData, 'JPEG', margin, offset, imgW, imgH, undefined, 'FAST');
-  heightLeft -= usableH;
-
-  while (heightLeft > 0) {
-    offset = margin - (imgH - heightLeft);
-    doc.addPage();
-    paintBackground();
-    doc.addImage(imgData, 'JPEG', margin, offset, imgW, imgH, undefined, 'FAST');
-    heightLeft -= usableH;
-  }
+    sliceCanvas.height = y1 - y0;
+    sliceCtx.drawImage(canvas, 0, y0, canvas.width, y1 - y0, 0, 0, canvas.width, y1 - y0);
+    const imgData = sliceCanvas.toDataURL('image/jpeg', 0.92);
+    doc.addImage(imgData, 'JPEG', margin, margin, imgW, (y1 - y0) / pxPerMm, undefined, 'FAST');
+  });
 
   downloadBlob(doc.output('blob'), filename);
 };
+
+/* Một hàng điểm ảnh "lặng" là hàng giống hệt hàng ngay trên nó - tức không đi
+   qua chữ, viền ngang hay hình vẽ nào. Viền dọc hai bên khung vẫn lặp lại y
+   nguyên từ hàng này sang hàng kia nên không làm hỏng phép so. */
+const quietFlags = (canvas, y0, y1) => {
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width;
+  const top = Math.max(0, y0 - 1);
+  const data = ctx.getImageData(0, top, w, y1 - top).data;
+  const flags = [];
+  for (let y = y0; y < y1; y++) {
+    if (y === 0) { flags.push(true); continue; }
+    const row = (y - top) * w * 4;
+    const prev = row - w * 4;
+    let noisy = 0;
+    for (let x = 0; x < w * 4; x += 8) {
+      const d = Math.abs(data[row + x] - data[prev + x]) +
+        Math.abs(data[row + x + 1] - data[prev + x + 1]) +
+        Math.abs(data[row + x + 2] - data[prev + x + 2]);
+      if (d > 24 && ++noisy > 2) break;
+    }
+    flags.push(noisy <= 2);
+  }
+  return flags;
+};
+
+/* Dò ngược từ `ideal` lên tới `minY` tìm một dải lặng cao ít nhất `run` hàng,
+   trả về điểm giữa dải để cắt. Không có thì trả về null. */
+const findQuietRow = (canvas, ideal, minY, run) => {
+  const from = Math.max(1, minY);
+  const flags = quietFlags(canvas, from, ideal);
+  let streak = 0;
+  for (let y = ideal - 1; y >= from; y--) {
+    streak = flags[y - from] ? streak + 1 : 0;
+    if (streak >= run) return y + Math.floor(run / 2);
+  }
+  return null;
+};
+
+// Phần đuôi chỉ còn lề nền trống thì không đáng một trang PDF riêng.
+const isBlankBand = (canvas, y0, y1) => quietFlags(canvas, y0, y1).every(Boolean);

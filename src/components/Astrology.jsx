@@ -677,8 +677,8 @@ export const Astrology = ({ lang = 'vi', profile, onSaveProfile }) => {
                 </div>
               </div>
 
-              <div style={{ marginBottom: '20px' }}>
-                <NatalChart chart={chart} lang={lang} size={620} />
+              <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center' }}>
+                <NatalChart chart={chart} lang={lang} size={620} fixed />
               </div>
 
               <div style={{ backgroundColor: '#120e2c', border: '1px solid rgba(34,211,238,0.35)', borderRadius: '14px', padding: '16px', marginBottom: '18px' }}>
