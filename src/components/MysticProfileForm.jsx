@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { CalendarDays, User, Sparkles, VenusAndMars } from 'lucide-react';
 import { cosmicAudio } from '../utils/audio';
 import { TRANSLATIONS } from '../data/translations';
+import { DateTextInput } from './BirthInputs';
+import { isoToDmy, dmyToIso } from '../utils/birthInput';
 
 /* Form nhập hồ sơ dùng chung cho tab Thần Số Học và tab Huyền Học.
    Hai tab cùng đọc một profile ở App state nên khách chỉ nhập một lần; form
@@ -20,7 +22,7 @@ export const MysticProfileForm = ({
   const t = TRANSLATIONS[lang] || TRANSLATIONS.vi;
 
   const [fullName, setFullName] = useState(profile?.fullName || '');
-  const [birthDate, setBirthDate] = useState(profile?.birthDate || '');
+  const [dobText, setDobText] = useState(isoToDmy(profile?.birthDate));
   const [gender, setGender] = useState(profile?.gender || 'female');
   const [error, setError] = useState('');
 
@@ -33,8 +35,13 @@ export const MysticProfileForm = ({
       setError(t.profileNameRequired);
       return;
     }
-    if (!birthDate) {
+    if (!dobText) {
       setError(t.profileDobRequired);
+      return;
+    }
+    const birthDate = dmyToIso(dobText);
+    if (!birthDate) {
+      setError(t.profileDobInvalid);
       return;
     }
     if (birthDate > todayIso) {
@@ -76,13 +83,12 @@ export const MysticProfileForm = ({
             <CalendarDays className="w-4 h-4" />
             {t.profileDobLabel}
           </label>
-          <input
+          <DateTextInput
             id="mystic-dob"
-            type="date"
-            value={birthDate}
-            max={todayIso}
-            onChange={(e) => setBirthDate(e.target.value)}
-            className={`w-full px-4 py-3 rounded-xl bg-space/80 border border-purple-400/30 text-white focus:outline-none ${accentRing} text-sm [color-scheme:dark]`}
+            value={dobText}
+            onChange={setDobText}
+            placeholder={t.profileDobPlaceholder}
+            className={`w-full px-4 py-3 rounded-xl bg-space/80 border border-purple-400/30 text-white placeholder-gray-500 focus:outline-none ${accentRing} text-sm`}
           />
         </div>
 

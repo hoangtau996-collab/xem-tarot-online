@@ -5,6 +5,8 @@ import { TRANSLATIONS } from '../data/translations';
 import { CITIES, DEFAULT_CITY_KEY, findCity, searchCities } from '../data/cities';
 import { HOUSE_SYSTEMS } from '../data/astrologyData';
 import { tzOffsetMinutesAt, formatOffset } from '../utils/ephemeris';
+import { DateTextInput, TimeTextInput } from './BirthInputs';
+import { isoToDmy, dmyToIso, parseTime } from '../utils/birthInput';
 
 /* Form riêng cho bản đồ sao.
  *
@@ -28,8 +30,9 @@ export const AstroBirthForm = ({ lang = 'vi', profile, onSubmit }) => {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.vi;
   const L = (obj) => (obj ? obj[lang] || obj.vi : '');
 
-  const [birthDate, setBirthDate] = useState(profile?.birthDate || '');
-  const [birthTime, setBirthTime] = useState(profile?.birthTime || '');
+  // Giữ đúng chuỗi khách đang gõ (dd/mm/yyyy, hh:mm); chỉ đổi sang ISO khi gửi.
+  const [dobText, setDobText] = useState(isoToDmy(profile?.birthDate));
+  const [timeText, setTimeText] = useState(profile?.birthTime || '');
   const [unknownTime, setUnknownTime] = useState(Boolean(profile?.birthDate) && !profile?.birthTime);
   const [cityKey, setCityKey] = useState(profile?.cityKey || DEFAULT_CITY_KEY);
   const [houseSystem, setHouseSystem] = useState(profile?.houseSystem || 'placidus');
@@ -63,19 +66,23 @@ export const AstroBirthForm = ({ lang = 'vi', profile, onSubmit }) => {
      con số để tự đối chiếu chứ không giấu trong phép tính. */
   const previewOffset = useMemo(() => {
     if (manualPlace) return Number(manualOffset);
-    if (!birthDate) return null;
-    const [y, m, d] = birthDate.split('-').map(Number);
-    if (!y || !m || !d) return null;
+    const iso = dmyToIso(dobText);
+    if (!iso) return null;
+    const [y, m, d] = iso.split('-').map(Number);
     const probe = new Date(Date.UTC(y, m - 1, d, 12, 0, 0));
     return tzOffsetMinutesAt(probe, selectedCity.tz);
-  }, [birthDate, selectedCity, manualPlace, manualOffset]);
+  }, [dobText, selectedCity, manualPlace, manualOffset]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!birthDate) { setError(t.profileDobRequired); return; }
+    if (!dobText) { setError(t.profileDobRequired); return; }
+    const birthDate = dmyToIso(dobText);
+    if (!birthDate) { setError(t.profileDobInvalid); return; }
     if (birthDate > todayIso) { setError(t.profileDobFuture); return; }
-    if (!unknownTime && !birthTime) { setError(t.astroTimeRequired); return; }
+    if (!unknownTime && !timeText) { setError(t.astroTimeRequired); return; }
+    const birthTime = unknownTime ? null : parseTime(timeText);
+    if (!unknownTime && !birthTime) { setError(t.astroTimeInvalid); return; }
 
     if (manualPlace) {
       const lat = Number(manualLat);
@@ -89,7 +96,7 @@ export const AstroBirthForm = ({ lang = 'vi', profile, onSubmit }) => {
     onSubmit({
       ...profile,
       birthDate,
-      birthTime: unknownTime ? null : birthTime,
+      birthTime,
       cityKey,
       houseSystem,
       manualPlace,
@@ -111,13 +118,12 @@ export const AstroBirthForm = ({ lang = 'vi', profile, onSubmit }) => {
             <CalendarDays className="w-4 h-4" />
             {t.profileDobLabel}
           </label>
-          <input
+          <DateTextInput
             id="astro-dob"
-            type="date"
-            value={birthDate}
-            max={todayIso}
-            onChange={(e) => setBirthDate(e.target.value)}
-            className={`${fieldClass} [color-scheme:dark]`}
+            value={dobText}
+            onChange={setDobText}
+            placeholder={t.profileDobPlaceholder}
+            className={fieldClass}
           />
         </div>
 
@@ -126,13 +132,13 @@ export const AstroBirthForm = ({ lang = 'vi', profile, onSubmit }) => {
             <Clock className="w-4 h-4" />
             {t.astroTimeLabel}
           </label>
-          <input
+          <TimeTextInput
             id="astro-time"
-            type="time"
-            value={birthTime}
+            value={timeText}
             disabled={unknownTime}
-            onChange={(e) => setBirthTime(e.target.value)}
-            className={`${fieldClass} [color-scheme:dark] ${unknownTime ? 'opacity-40' : ''}`}
+            onChange={setTimeText}
+            placeholder={t.astroTimePlaceholder}
+            className={`${fieldClass} ${unknownTime ? 'opacity-40' : ''}`}
           />
           <label className="flex items-center gap-2 text-2xs text-gray-300 font-light cursor-pointer pt-0.5">
             <input
