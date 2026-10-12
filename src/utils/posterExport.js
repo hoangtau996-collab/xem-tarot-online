@@ -3,6 +3,8 @@
 // Tách ra khỏi ReadingResult để bản giải Tarot, hồ sơ Thần Số Học và hồ sơ
 // Huyền Học dùng chung một đường xuất file - sửa một chỗ là cả ba cùng đúng.
 
+import { deliverFile } from './fileSheet';
+
 const MAX_CANVAS_AREA = 12e6; // chừa biên an toàn dưới ngưỡng ~16,7 triệu điểm ảnh của iOS Safari
 const MAX_CANVAS_SIDE = 8000; // một số máy còn giới hạn riêng từng chiều
 
@@ -83,7 +85,7 @@ export const canvasToBlob = (canvas, type, quality) =>
 export const exportNodeAsPng = async (node, filename) => {
   const canvas = await capturePoster(node);
   const blob = await canvasToBlob(canvas, 'image/png');
-  downloadBlob(blob, filename);
+  await deliverFile(blob, filename);
 };
 
 /* 📄 Dựng PDF ngay tại máy khách rồi tải về.
@@ -143,7 +145,7 @@ export const exportNodeAsPdf = async (node, filename) => {
     doc.addImage(imgData, 'JPEG', margin, margin, imgW, (y1 - y0) / pxPerMm, undefined, 'FAST');
   });
 
-  downloadBlob(doc.output('blob'), filename);
+  await deliverFile(doc.output('blob'), filename);
 };
 
 /* Một hàng điểm ảnh "lặng" là hàng giống hệt hàng ngay trên nó - tức không đi
